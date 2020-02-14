@@ -1,24 +1,25 @@
 import React from 'react';
 import {View,Text,Button,StyleSheet} from 'react-native'
 import { createDrawerNavigator } from 'react-navigation-drawer'
-class Accueil extends React.Component {
+import Search from '../Components/Search'
+import Header from '../Components/Header'
+class AccueilScreen extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-       <Text> Home </Text>
+          <Header/>
+          <Search/>
         
-      
-    </View>
+      </View>
     );
   }
 
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
- 
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+    },
+  
 });
-export default Accueil 
+export default AccueilScreen

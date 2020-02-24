@@ -1,14 +1,19 @@
 import React from 'react'
-import {View,TextInput,Button,StyleSheet,Text} from 'react-native'
+import {View,TextInput,TouchableOpacity,StyleSheet,Text,KeyboardAvoidingView} from 'react-native'
 class Search extends React.Component{
     render(){
         return(
-            <View style ={styles.main_container}>
+            
+            <KeyboardAvoidingView style ={styles.main_container} behavior='padding'>
                 <Text style={styles.text}>Trouvez votre Medecin!</Text>
                 <TextInput style={styles.text_input}  placeholder='Médecin,Centre...' />
-                <Button  title='Rechercher' onPress={() => {}} />
-
-            </View>
+                <View style={styles.btn_ctr}>
+                    <TouchableOpacity style={styles.btn}>
+                    <Text style={styles.btn_txt}>Rechercher</Text>
+                    </TouchableOpacity>
+                </View>
+             </KeyboardAvoidingView>
+            
 
         )
     }
@@ -16,12 +21,11 @@ class Search extends React.Component{
 const styles= StyleSheet.create({
     main_container:{
         flex:1,
-        backgroundColor: '#fff',
+        backgroundColor: '#0fbcf9',
         alignItems: 'center',
         justifyContent: 'center'
     },
     text_input:{
-        //flex:4,
         marginLeft: 5,
         marginRight:5,
         height: 30,
@@ -29,19 +33,29 @@ const styles= StyleSheet.create({
         borderColor: '#000000',
         borderWidth: 1,
         paddingLeft: 10,
-        /*alignItems: 'center',
-        justifyContent: 'center',*/
+        marginBottom:10,
+        backgroundColor:"white",
         
     },
     text :{
         fontSize: 28,
-        textAlign:'left'
+        textAlign:'left',
+        marginBottom:10,
+        color:'white'
     },
-    /*button :{
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 28,
-        flex:1
-    }*/
+    btn_ctr :{
+        
+    },
+    btn :{
+        backgroundColor:"orange",
+        width:150,
+        padding: 10,
+    },
+    btn_txt :{
+        fontSize:16,
+        textAlign:'center',
+        color:'white'
+    }
+
 })
 export default Search

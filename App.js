@@ -1,8 +1,9 @@
 import React from 'react';
-import Search from './Components/Search'
+//import Header from './Components/Header'
 import { createDrawerNavigator } from 'react-navigation-drawer'
-import { createStackNavigator,createAppContainer } from 'react-navigation'
-import  Connection from './Screens/ConnectionScreen';
+import {createAppContainer } from 'react-navigation'
+import {createStackNavigator } from 'react-navigation-stack'
+import  ConnectionScreen from './Screens/ConnectionScreen';
 import  AccueilScreen from './Screens/AccueilScreen';
 import  AboutScreen from './Screens/AboutScreen';
 export default class App extends React.Component {
@@ -13,17 +14,44 @@ export default class App extends React.Component {
   }
 
 }
-
 const AppDrawerNavigator = createDrawerNavigator({
-  Accueil:{ 
-    screen : AccueilScreen
+  Accueil:{
+    screen: AccueilScreen
   },
   SeConnecter: {
-    screen:Connection} ,
+    screen:ConnectionScreen} ,
   Apropos : {
     screen: AboutScreen
-  },  
+  }, 
 });
-const AppNavigator= createAppContainer(AppDrawerNavigator);
+const screens = {
+  Accueil:{ 
+    screen : AppDrawerNavigator
+  },
+  SeConnecter: {
+    screen:AppDrawerNavigator
+  } ,
+  Apropos : {
+    screen: AppDrawerNavigator
+  },  
+}
+const AppStackNavigator = createStackNavigator(screens,{
+  defaultNavigationOptions:{
+    title: 'Mediclic',
+    headerTintColor :'#fff',
+    headerStyle :{
+      backgroundColor:'#3498db',
+      height: 100,
+    },
+    headerTitleStyle :{
+      flex:1,
+      justifyContent:'center',
+      fontSize: 30,
+      
+    }
+    
+  }
+});
+const AppNavigator= createAppContainer(AppStackNavigator);
 
 

@@ -23,7 +23,7 @@ class ConnectionScreen extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <View>
+        <View style={styles.med_ctr}>
             <Text style={styles.text}> Espace Professionnels </Text>
             <TextInput style={styles.text_input}  placeholder='Nom de compte' 
               onChangeText={(username) => this.setState({username})}
@@ -38,7 +38,7 @@ class ConnectionScreen extends React.Component {
             <Button color='' title='Inscrivez-vous' onPress={()=>{}} />
         </View>
         
-        <View>
+        <View  style={styles.pat_ctr}>
           <Text style={styles.text}> Espace Patients </Text>
           <Button color='#2ecc71' title='Accédez à votre espace' onPress={this.login} />
           <Text>Mot de passe oublié? </Text>
@@ -134,11 +134,28 @@ error:function(data){
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    flexDirection:'column',
     backgroundColor: '#bdc3c7',
-    //alignContent: 'space-between',
-    justifyContent: 'space-around'
+    alignItems: 'center',
+    //justifyContent: 'space-around'
     
+  },
+  med_ctr:{
+    backgroundColor:'white',
+    height:'40%',
+    width:'90%',
+    alignItems:'center',
+    marginTop:20,
+    marginBottom:20
+
+  },
+  pat_ctr:{
+    backgroundColor:'white',
+    height:'30%',
+    width:'90%',
+    alignItems:'center',
+    marginTop:20,
+    marginBottom:20
+
   },
   text_input:{
     marginLeft: 5,

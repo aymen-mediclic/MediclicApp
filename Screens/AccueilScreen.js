@@ -1,6 +1,5 @@
 import React from 'react';
 import {View,Text,Button,StyleSheet} from 'react-native'
-import { createDrawerNavigator } from 'react-navigation-drawer'
 import Search from '../Components/Search'
 //import Header from '../Components/Header'
 class AccueilScreen extends React.Component {
@@ -8,7 +7,7 @@ class AccueilScreen extends React.Component {
     return (
       <View style={styles.container}>
           
-          <Search/>
+          <Search navigation={this.props.navigation}/>
         
       </View>
     );

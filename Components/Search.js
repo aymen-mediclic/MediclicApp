@@ -1,14 +1,20 @@
 import React from 'react'
 import {View,TextInput,TouchableOpacity,StyleSheet,Text,KeyboardAvoidingView} from 'react-native'
+
 class Search extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    
     render(){
+        
         return(
             
             <KeyboardAvoidingView style ={styles.main_container} behavior='padding'>
                 <Text style={styles.text}>Trouvez votre Medecin!</Text>
                 <TextInput style={styles.text_input}  placeholder='Médecin,Centre...' />
                 <View style={styles.btn_ctr}>
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity style={styles.btn} onPress={()=>this.props.navigation.navigate('list')}  >
                     <Text style={styles.btn_txt}>Rechercher</Text>
                     </TouchableOpacity>
                 </View>
@@ -21,7 +27,7 @@ class Search extends React.Component{
 const styles= StyleSheet.create({
     main_container:{
         flex:1,
-        backgroundColor: '#0fbcf9',
+        backgroundColor:'grey' /*'#1E79C5'*/,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -35,6 +41,7 @@ const styles= StyleSheet.create({
         paddingLeft: 10,
         marginBottom:10,
         backgroundColor:"white",
+        borderRadius:30,
         
     },
     text :{
@@ -47,7 +54,7 @@ const styles= StyleSheet.create({
         
     },
     btn :{
-        backgroundColor:"orange",
+        backgroundColor:"#FFC617",
         width:150,
         padding: 10,
     },

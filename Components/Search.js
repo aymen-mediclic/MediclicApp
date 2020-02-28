@@ -1,5 +1,6 @@
 import React from 'react'
 import {View,TextInput,TouchableOpacity,StyleSheet,Text,KeyboardAvoidingView} from 'react-native'
+import * as NavigationService from '../Navigation/NavigationService';
 
 class Search extends React.Component{
     constructor(props){
@@ -14,7 +15,7 @@ class Search extends React.Component{
                 <Text style={styles.text}>Trouvez votre Medecin!</Text>
                 <TextInput style={styles.text_input}  placeholder='Médecin,Centre...' />
                 <View style={styles.btn_ctr}>
-                    <TouchableOpacity style={styles.btn} onPress={()=>this.props.navigation.navigate('list')}  >
+                    <TouchableOpacity style={styles.btn} onPress={()=>NavigationService.navigate('Se connecter')}  >
                     <Text style={styles.btn_txt}>Rechercher</Text>
                     </TouchableOpacity>
                 </View>
@@ -48,7 +49,8 @@ const styles= StyleSheet.create({
         fontSize: 28,
         textAlign:'left',
         marginBottom:10,
-        color:'white'
+        color:'white',
+        //fontFamily: "orbitron medium"
     },
     btn_ctr :{
         

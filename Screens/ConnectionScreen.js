@@ -3,12 +3,15 @@ import {View,Text,Button,StyleSheet,TextInput,AsyncStorage} from 'react-native'
 import Odoo from 'react-native-odoo'
 //import { createDrawerNavigator } from 'react-navigation-drawer'
 //import Header from '../Components/Header'
+import * as NavigationService from '../Navigation/NavigationService';
+var  apiToken="";
 class ConnectionScreen extends React.Component {
   constructor(props){
     super(props)
     this.state= {
-      username: '',
+      login: '',
       password: '',
+
     }
   }
   componentDidMount(){
@@ -26,21 +29,21 @@ class ConnectionScreen extends React.Component {
         <View style={styles.med_ctr}>
             <Text style={styles.text}> Espace Professionnels </Text>
             <TextInput style={styles.text_input}  placeholder='Nom de compte' 
-              onChangeText={(username) => this.setState({username})}
+              onChangeText={(login) => this.setState({login})}
               value= {this.state.username}
             />
             <TextInput style={styles.text_input}  placeholder='Mot de passe'
               onChangeText={(password)=> this.setState({password})}
               value={this.state.password}
             />
-            <Button style={styles} color='#2ecc71' title='Se connecter' onPress={this.login} />
+            <Button style={styles} color='#2ecc71' title='Se connecter' onPress={this.Autho} />
             <Text>Mot de passe oublié? </Text>
             <Button color='' title='Inscrivez-vous' onPress={()=>{}} />
         </View>
         
         <View  style={styles.pat_ctr}>
           <Text style={styles.text}> Espace Patients </Text>
-          <Button color='#2ecc71' title='Accédez à votre espace' onPress={this.login} />
+          <Button color='#2ecc71' title='Accédez à votre espace' onPress={this.getmed} />
           <Text>Mot de passe oublié? </Text>
           <Button color='' title='Inscrivez-vous' onPress={()=>{}} />
         
@@ -50,87 +53,58 @@ class ConnectionScreen extends React.Component {
     );
   }
   
-  login = () => {
-        fetch('http://51.254.39.98:8069/api/auth/token', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstParam: this.state.username,
-          secondParam: this.state.password,
-          //thirdParam:'Mediclic',
-        })
-  })
-  .then((response) => response.json())
-  .then((res) => {
-    if (res.succes === true) {
-      AsyncStorage.setItem('user',res.user);
-      this.props.navigation.navigate('Apropos'); 
+  Autho = () => {
+       // data={'login': this.state.login, 'password':this.state.password,'db':'Mediclic'}
+       console.log(this.state) 
+       fetch('http://51.254.39.98:8069/web/login?db=Mediclic')
+        fetch('http://51.254.39.98:8069/api/auth/token?login='+this.state.login+'&password='+this.state.password+'&db=Mediclic') 
+      
+      .then((response) => response.json())
+      .then((res) => {
+      console.log("repooooonse")
+      console.log(res)
+      console.log("*********success***********")
+      console.log(res.succes)
+      console.log("***************************")
+    if ("user_context" in res) {
+      apiToken=res['access_token'];
+      //AsyncStorage.setItem('user',res.user);
+      //NavigationService.navigate('A propos');
+      ('ok') 
     }
     else {
-      alert(res.message);
+      alert("Erreur d'authentification");
+      console.log(res);
     }
   })
   .done();
-}
- /* login2 = () => {
-    var request = new XMLHttpRequest();
-    var request2= new XMLHttpRequest();
-    request2.onreadystatechange= (e) =>{
-      if (request2.readyState !== 4) {
-        return;
-      }
-      if (request2.status === 200) {
-        //console.log('success', request.responseText);
-        alert('ok 2')
-        
-      } else {
-        console.warn('errosdfer3333333333');
-      }
-
+  }
+  getmed =()=>{
+        fetch('http://51.254.39.98:8069/web/login?db=Mediclic')
+        fetch('http://51.254.39.98:8069/test')
+      
+      .then((response) => response.json())
+      .then((res) => {
+      console.log("repooooonse")
+      console.log(res)
+      console.log("*********success***********")
+      console.log(res.succes)
+      console.log("***************************")
+    if ("data" in res) {
+      NavigationService.navigate('A propos'); 
     }
-request.onreadystatechange = (e) => {
-  if (request.readyState !== 4) {
-    return;
+    else {
+      alert("Erreur communication avec api");
+      console.log(res);
+    }
+  })
+  .done();
   }
-  
-  if (request.status === 200) {
-    //console.log('success', request.responseText);
-    alert('ok')
-    request.open('GET','http://51.254.39.98:8069/api/auth/token',true)
-    request.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-    var para='login='+this.state.username+'&password='+this.state.password+'&db=Mediclic';
-    request.send(para)
-  } else {
-    console.warn('errosdfer');
-  }
-};
-request.open('GET', 'http://51.254.39.98:8069/web/login?db=Mediclic',true);
-request.send();
-
-}*/
-
-  /* 
-}*/
-}
-/*login3 = ()=> {
-  alert("envoirequete");
-  $.ajax({
-url: 'http://51.254.39.98:8069/web/login?db=Mediclic',
-type: "GET",
-success:function(data){
-  alert("okkkkkkkkkkk");
-  alert(data);
-},
-error:function(data){
-  alert("erreuur");
-  alert(data)
 }
 
 
-  });*/
+
+
 const styles = StyleSheet.create({
   container: {
     flex:1,
@@ -175,3 +149,15 @@ const styles = StyleSheet.create({
   },
 });
 export default ConnectionScreen
+/* {
+   method: 'GET',
+   headers: {
+     Accept: 'application/json',
+     'Content-Type': 'application/json',
+   },
+   body: JSON.stringify({
+     login:  this.state.login,//this.state.login,
+     password: this.state.password,
+     db:'Mediclic',
+   })
+})*/

@@ -17,13 +17,13 @@ export default function Header(){
 
 const styles = StyleSheet.create({
   header: {
-      //flex:1,
-      /*width:'100%',
-      height:'100%',*/
+      flex:1,
+      //width:300,
+      /*height:'100%',*/
       flexDirection:'row',  
       alignItems:'center',
       justifyContent:'center',
-      backgroundColor:'red',
+      backgroundColor:'#1E79C5',
       /*paddingLeft:60*/
         
     },
@@ -31,8 +31,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color:'#ecf0f1',
     fontSize: 28,
+    //fontFamily: "bold",
   },
   icn:{
-    
+    paddingRight:40,
+    paddingLeft:0
   }
 });

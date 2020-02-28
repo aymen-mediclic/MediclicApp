@@ -35,12 +35,12 @@ class RechercheScreen extends React.Component {
   class ListMed extends React.Component {
   render(){
     return (
-      <NavigationContainer>
+      
       <tab.Navigator>
           <tab.Screen name="Recherche" component={RechercheScreen} />
           <tab.Screen name="Plan" component={PlanScreen}/> 
       </tab.Navigator>
-      </NavigationContainer>
+      
     );
   }
   

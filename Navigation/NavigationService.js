@@ -1,11 +1,27 @@
 
 import * as React from 'react';
+import { DrawerActions } from 'react-navigation';
 
 export const navigationRef = React.createRef();
 
 export function navigate(name, params) {
   navigationRef.current?.navigate(name, params);
     }
+  
+/*
+    let _navigator;
+function setTopLevelNavigator(navigatorRef) {
+        _navigator = navigatorRef;
+    }
+    
+function openDrawer() {
+      _navigator.dispatch(DrawerActions.openDrawer())
+  }
+    export default {
+      setTopLevelNavigator,
+      openDrawer,
+  }*/
+
 /*import React from 'react';
 import { createDrawerNavigator } from 'react-navigation-drawer'
 import {createAppContainer } from 'react-navigation'

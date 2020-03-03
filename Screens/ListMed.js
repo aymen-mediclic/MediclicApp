@@ -2,24 +2,14 @@ import React from 'react'
 import {View,Text,Button,StyleSheet} from 'react-native'
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 import { NavigationContainer } from '@react-navigation/native';
-
+import RechercheScreen from './RechercheScreen'
 
 const tab = createMaterialTopTabNavigator();
 
 
-class RechercheScreen extends React.Component {
-    render(){
-      return (
-        <View style={styles.container}>
-            
-            <Text>Rien</Text>
-          
-        </View>
-      );
-    }
-  
-  }
-  class PlanScreen extends React.Component {
+
+
+class PlanScreen extends React.Component {
     render(){
       return (
         <View style={styles.container}>

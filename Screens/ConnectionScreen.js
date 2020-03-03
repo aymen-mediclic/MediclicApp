@@ -4,7 +4,6 @@ import Odoo from 'react-native-odoo'
 //import { createDrawerNavigator } from 'react-navigation-drawer'
 //import Header from '../Components/Header'
 import * as NavigationService from '../Navigation/NavigationService';
-var  apiToken="";
 class ConnectionScreen extends React.Component {
   constructor(props){
     super(props)
@@ -36,7 +35,7 @@ class ConnectionScreen extends React.Component {
               onChangeText={(password)=> this.setState({password})}
               value={this.state.password}
             />
-            <Button style={styles} color='#2ecc71' title='Se connecter' onPress={this.Autho} />
+            <Button style={styles} color='#FFC617' title='Se connecter' onPress={this.Autho} />
             <Text>Mot de passe oublié? </Text>
             <Button color='' title='Inscrivez-vous' onPress={()=>{}} />
         </View>
@@ -67,10 +66,9 @@ class ConnectionScreen extends React.Component {
       console.log(res.succes)
       console.log("***************************")
     if ("user_context" in res) {
-      apiToken=res['access_token'];
-      //AsyncStorage.setItem('user',res.user);
-      //NavigationService.navigate('A propos');
-      ('ok') 
+      AsyncStorage.setItem('user',res.user);
+      NavigationService.navigate('A propos');
+     
     }
     else {
       alert("Erreur d'authentification");
@@ -79,27 +77,7 @@ class ConnectionScreen extends React.Component {
   })
   .done();
   }
-  getmed =()=>{
-        fetch('http://51.254.39.98:8069/web/login?db=Mediclic')
-        fetch('http://51.254.39.98:8069/test')
-      
-      .then((response) => response.json())
-      .then((res) => {
-      console.log("repooooonse")
-      console.log(res)
-      console.log("*********success***********")
-      console.log(res.succes)
-      console.log("***************************")
-    if ("data" in res) {
-      NavigationService.navigate('A propos'); 
-    }
-    else {
-      alert("Erreur communication avec api");
-      console.log(res);
-    }
-  })
-  .done();
-  }
+  
 }
 
 

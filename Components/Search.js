@@ -15,7 +15,7 @@ class Search extends React.Component{
                 <Text style={styles.text}>Trouvez votre Medecin!</Text>
                 <TextInput style={styles.text_input}  placeholder='Médecin,Centre...' />
                 <View style={styles.btn_ctr}>
-                    <TouchableOpacity style={styles.btn} onPress={()=>NavigationService.navigate('Se connecter')}  >
+                    <TouchableOpacity style={styles.btn} onPress={()=>NavigationService.navigate('Recherche')}  >
                     <Text style={styles.btn_txt}>Rechercher</Text>
                     </TouchableOpacity>
                 </View>

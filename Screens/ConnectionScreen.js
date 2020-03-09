@@ -19,7 +19,7 @@ class ConnectionScreen extends React.Component {
   _loadInitialState = async() => {
     var value= await AsyncStorage.getItem('user');
     if (value !== null) {
-      this.props.navigation.navigate('Apropos'); 
+      this.props.navigation.navigate('Mediclic'); 
     }
   }
   render(){
@@ -53,7 +53,6 @@ class ConnectionScreen extends React.Component {
   }
   
   Autho = () => {
-       // data={'login': this.state.login, 'password':this.state.password,'db':'Mediclic'}
        console.log(this.state) 
        fetch('http://51.254.39.98:8069/web/login?db=Mediclic')
         fetch('http://51.254.39.98:8069/api/auth/token?login='+this.state.login+'&password='+this.state.password+'&db=Mediclic') 
@@ -67,7 +66,7 @@ class ConnectionScreen extends React.Component {
       console.log("***************************")
     if ("user_context" in res) {
       AsyncStorage.setItem('user',res.user);
-      NavigationService.navigate('A propos');
+      NavigationService.navigate('Mediclic');
      
     }
     else {

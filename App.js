@@ -4,6 +4,7 @@ import AccueilScreen from './Screens/AccueilScreen';
 import ListMed from './Screens/ListMed';
 import AboutScreen from './Screens/AboutScreen';
 import ConnectionScreen from './Screens/ConnectionScreen';
+import MedProfilScreen from './Screens/MedProfilScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from './Navigation/NavigationService';
@@ -39,8 +40,7 @@ export default class App extends React.Component  {
                   {/*<FontAwesomeIcon icon='user' />*/}
                 </TouchableOpacity>,
                 headerLeft:()=>
-                <TouchableOpacity  style={{marginLeft:5}} onPress={(navigation)=>
-                  navigation.dispatch(DrawerActions.closeDrawer()) } >
+                <TouchableOpacity  style={{marginLeft:5}} onPress={ ()=> alert('ok')} >
                     <MaterialIcons name='menu' size= {28} color={'white'}  />
                 </TouchableOpacity>,
               }
@@ -53,6 +53,13 @@ export default class App extends React.Component  {
                 },
               }} />
               <Stack.Screen name="Se connecter" component={ConnectionScreen} options={{
+                headerTintColor :'#fff',
+                headerStyle :{
+                backgroundColor:'#1E79C5',
+                height: 80,
+                },
+              }} />
+              <Stack.Screen name="MedProfil" component={MedProfilScreen} options={{
                 headerTintColor :'#fff',
                 headerStyle :{
                 backgroundColor:'#1E79C5',

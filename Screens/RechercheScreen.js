@@ -2,6 +2,7 @@
 import React from 'react'
 import {View,Text,Button,StyleSheet,FlatList,Image} from 'react-native'
 import MedItem from '../Components/MedItem'
+import { TextInput } from 'react-native-gesture-handler';
 
 class RechercheScreen extends React.Component {
     
@@ -9,7 +10,8 @@ class RechercheScreen extends React.Component {
         super(props);
         this.state={
             isLoading:true,
-            dataSource:[]
+            dataSource:[],
+            searchedText:""
         }
     }
     componentDidMount(){
@@ -26,16 +28,21 @@ class RechercheScreen extends React.Component {
       console.log(res[0]['name'])
       this.setState({
         isLoading:false,
-        dataSource:res
+        dataSource:res,
       })
-      
+
   })
   .done();
   }
+  searchTextInputChanged(text){
+        this.setState({searchedText: text})
+    }
     render(){
       return (
         <View style={styles.main_container}>
-           {/* <Button title='ok' onPress={()=>{this.getmed}} />*/}
+            <TextInput style={styles.text_input} 
+            onChangeText={(text)=> this.searchTextInputChanged(text)} placeholder='Médecin,Centre...' />
+            <Button title='ok' onPress={()=>{this.getmed}} />
             <FlatList 
                 data={this.state.dataSource}
                 keyExtractor={item=> item.id.toString()}

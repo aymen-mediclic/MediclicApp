@@ -5,15 +5,20 @@ import * as NavigationService from '../Navigation/NavigationService';
 class Search extends React.Component{
     constructor(props){
         super(props)
+        this.state={
+            searchedText:""
+        }
     }
-    
+    searchTextInputChanged(text){
+        this.setState({searchedText: text})
+    }
     render(){
         
         return(
             
             <KeyboardAvoidingView style ={styles.main_container} behavior='padding'>
                 <Text style={styles.text}>Trouvez votre Medecin!</Text>
-                <TextInput style={styles.text_input}  placeholder='Médecin,Centre...' />
+                <TextInput style={styles.text_input} onChangeText={(text)=> this.searchTextInputChanged(text)} placeholder='Médecin,Centre...' />
                 <View style={styles.btn_ctr}>
                     <TouchableOpacity style={styles.btn} onPress={()=>NavigationService.navigate('Recherche')}  >
                     <Text style={styles.btn_txt}>Rechercher</Text>

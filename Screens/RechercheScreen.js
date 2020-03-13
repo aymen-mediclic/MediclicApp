@@ -34,15 +34,10 @@ class RechercheScreen extends React.Component {
   })
   .done();
   }
-  searchTextInputChanged(text){
-        this.setState({searchedText: text})
-    }
     render(){
       return (
         <View style={styles.main_container}>
-            <TextInput style={styles.text_input} 
-            onChangeText={(text)=> this.searchTextInputChanged(text)} placeholder='Médecin,Centre...' />
-            <Button title='ok' onPress={()=>{this.getmed}} />
+            
             <FlatList 
                 data={this.state.dataSource}
                 keyExtractor={item=> item.id.toString()}
@@ -56,12 +51,12 @@ class RechercheScreen extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         flex:1,
-        //alignItems:'center',
+        alignItems:'center',
         //alignContent:'center',
         justifyContent:'center',
         //backgroundColor:"black",
         //paddingLeft:"5%",
-        marginLeft:"2%"
+        //marginLeft:"2%"
         //paddingRight:'5%',
     },
     });

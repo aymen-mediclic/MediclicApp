@@ -9,10 +9,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from './Navigation/NavigationService';
 import {MaterialIcons } from '@expo/vector-icons';
-//import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import {TouchableOpacity,Text} from 'react-native';
 import { DrawerActions } from '@react-navigation/native';
-
+import Calendar from './Components/Calendar';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -60,6 +59,13 @@ export default class App extends React.Component  {
                 },
               }} />
               <Stack.Screen name="MedProfil" component={MedProfilScreen} options={{
+                headerTintColor :'#fff',
+                headerStyle :{
+                backgroundColor:'#1E79C5',
+                height: 80,
+                },
+              }} />
+              <Stack.Screen name="Calendar" component={Calendar} options={{
                 headerTintColor :'#fff',
                 headerStyle :{
                 backgroundColor:'#1E79C5',

@@ -1,130 +1,77 @@
-/*import React from 'react'
-import {View,Text,Button,StyleSheet,FlatList,Image} from 'react-native'
-export default class MedProfil extends React.Component{
-    render(){
-        return(
-            <View style={styles.ctr}>
-                <Text> Profil Medecin </Text>      
-            </View>
-            
-        )
-    }
-   
-}
-const styles=StyleSheet.create({
-    ctr:{
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center'
-    }
-})*/
-import React, { Component } from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Alert,
-} from 'react-native';
-import TimeTableView, { genTimeBlock } from 'react-native-timetable';
-const events_data = [
-  {
-    title: "Math",
-    startTime: genTimeBlock("MON", 9),
-    endTime: genTimeBlock("MON", 10, 50),
-    location: "Classroom 403",
-    extra_descriptions: ["Kim", "Lee"],
-  },
-  {
-    title: "Math",
-    startTime: genTimeBlock("WED", 9),
-    endTime: genTimeBlock("WED", 10, 50),
-    location: "Classroom 403",
-    extra_descriptions: ["Kim", "Lee"],
-  },
-  {
-    title: "Physics",
-    startTime: genTimeBlock("MON", 11),
-    endTime: genTimeBlock("MON", 11, 50),
-    location: "Lab 404",
-    extra_descriptions: ["Einstein"],
-  },
-  {
-    title: "Physics",
-    startTime: genTimeBlock("WED", 11),
-    endTime: genTimeBlock("WED", 11, 50),
-    location: "Lab 404",
-    extra_descriptions: ["Einstein"],
-  },
-  {
-    title: "Mandarin",
-    startTime: genTimeBlock("TUE", 9),
-    endTime: genTimeBlock("TUE", 10, 50),
-    location: "Language Center",
-    extra_descriptions: ["Chen"],
-  },
-  {
-    title: "Japanese",
-    startTime: genTimeBlock("FRI", 9),
-    endTime: genTimeBlock("FRI", 10, 50),
-    location: "Language Center",
-    extra_descriptions: ["Nakamura"],
-  },
-  {
-    title: "Club Activity",
-    startTime: genTimeBlock("THU", 9),
-    endTime: genTimeBlock("THU", 10, 50),
-    location: "Activity Center",
-  },
-  {
-    title: "Club Activity",
-    startTime: genTimeBlock("FRI", 13, 30),
-    endTime: genTimeBlock("FRI", 14, 50),
-    location: "Activity Center",
-  },
+import React from 'react'
+import {ScrollView,View,Text,Button,StyleSheet,FlatList,Image} from 'react-native'
+import { Container, Header, Content, Accordion } from "native-base";
+
+const dataArray = [
+  { title: "Formation", content: 'ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd' },
+  { title: "Motif", content: "Motif.............." },
+  { title: "Parcours", content: "Parcours............." }
 ];
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.numOfDays = 5;
-    this.pivotDate = genTimeBlock('mon');
-  }
-
-  scrollViewRef = (ref) => {
-    this.timetableRef = ref;
-  };
-
-  onEventPress = (evt) => {
-    Alert.alert("onEventPress", JSON.stringify(evt));
-  };
-
-  render() {
-    return (
-      <View style={{flex: 1}}>
-        <View style={styles.container}>
-          <TimeTableView
-            scrollViewRef={this.scrollViewRef}
-            events={events_data}
-            pivotTime={9}
-            pivotDate={this.pivotDate}
-            numberOfDays={this.numOfDays}
-            onEventPress={this.onEventPress}
-            headerStyle={styles.headerStyle}
-            formatDateHeader="dddd"
-            locale="en"
-          />
+export default function MedProfilScreen({route}){
+    const {name,specialite,work}=route.params;
+    return(
+      <ScrollView contentContainerStyle={{flex:1,alignItems:'center'}} >
+        <View style={styles.ctr1}>
+          <Text style={styles.txt}>{name}</Text>
+          <Text style={styles.txt}>{specialite}</Text>
+          <Text style={styles.txt}>{work}</Text>
+          <Button title='Prendre rendez-vous' onPress={()=>{}} />
         </View>
-      </View>
+        <View style={styles.ctr2}>
+        <Content padder>
+          <Accordion dataArray={dataArray} expanded={0}/>
+        </Content>
+      
+        </View>
+        <View>
+          <Text>fgfg</Text>
+          <Text>fgfg</Text>
+          <Text>fgfg</Text>
+          <Text>fgfg</Text>
+          <Text>fgfg</Text>
+        </View>
+      </ScrollView>
     );
-  }
-};
-
+  
+}
 const styles = StyleSheet.create({
-  headerStyle: {
-    backgroundColor: '#81E1B8'
+  ctr1: {
+    width:'97%',
+    height:'40%',
+    backgroundColor:'white',
+    marginBottom:10
   },
-  container: {
-    flex: 1,
-    backgroundColor: '#F8F8F8',
+  ctr2: {
+    width:'95%',
+    height:'80%',
+    backgroundColor:'white'
   },
-});
+  txt: {
+    marginTop:10,
+    marginBottom:10
+  },
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

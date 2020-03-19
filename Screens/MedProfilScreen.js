@@ -1,42 +1,64 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {ScrollView,View,Text,Button,StyleSheet,FlatList,Image} from 'react-native'
-import { Container, Header, Content, Accordion } from "native-base";
+import { Container, Header, Content, Accordion, Item } from "native-base";
 
 const dataArray = [
-  { title: "Formation", content: 'ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd' },
-  { title: "Motif", content: "Motif.............." },
-  { title: "Parcours", content: "Parcours............." }
+  { title: "Formation", content: "Diplome asmaa Ecole asmaa ville vullez date debut 2020-02-07 date fin 2020-02-06" },
+  { title: "Tarif", content: "300.0 Dhs" },
+  { title: "Motif", content: 'généraliste' },
+  { title: "Langue", content: "Français" }
 ];
 
 export default function MedProfilScreen({route}){
-    const {name,specialite,work}=route.params;
+    const {id,name,specialite,work}=route.params;
+    //const [data,setdata]=useState([])
+    useEffect(()=>{
+      fetch('http://51.254.39.98:8069/web/login?db=Mediclic')
+      fetch('http://51.254.39.98:8069/api/profil?medecin_id='+id)
+    
+    .then((response) => response.json())
+    .then((res) => {
+      //setdata(res)
+    console.log("repooooonse")
+    console.log(res)
+    console.log("*********success***********")
+    console.log(res.lenght)
+    console.log("***************************")
+    })
+    .done();
+    });
+
     return(
-      <ScrollView contentContainerStyle={{flex:1,alignItems:'center'}} >
+      <ScrollView contentContainerStyle={{alignItems:'center'} } >
         <View style={styles.ctr1}>
-          <Text style={styles.txt}>{name}</Text>
-          <Text style={styles.txt}>{specialite}</Text>
-          <Text style={styles.txt}>{work}</Text>
+        <Image style={styles.img} source={require('../assets/Title.jpg')} />
+          <Text style={styles.txt_name}>{name}</Text>
+          <Text style={styles.txt_spe}>{specialite}</Text>
+          
           <Button title='Prendre rendez-vous' onPress={()=>{}} />
+
         </View>
-        <View style={styles.ctr2}>
-        <Content padder>
+         {/*<View style={styles.ctr2}>
+       <Content padder>
           <Accordion dataArray={dataArray} expanded={0}/>
         </Content>
       
+        </View>*/}
+        
+        <View style={styles.ctr2}>
+       
+        <Accordion dataArray={dataArray} expanded={0}/>
+        
+      
         </View>
-        <View>
-          <Text>fgfg</Text>
-          <Text>fgfg</Text>
-          <Text>fgfg</Text>
-          <Text>fgfg</Text>
-          <Text>fgfg</Text>
-        </View>
+        
       </ScrollView>
     );
   
 }
 const styles = StyleSheet.create({
   ctr1: {
+    flex:1,
     width:'97%',
     height:'40%',
     backgroundColor:'white',
@@ -45,33 +67,25 @@ const styles = StyleSheet.create({
   ctr2: {
     width:'95%',
     height:'80%',
-    backgroundColor:'white'
+    backgroundColor:'white',
+    marginTop:10
   },
-  txt: {
+  txt_name: {
     marginTop:10,
-    marginBottom:10
+    marginBottom:5,
+    textAlign:'center',
+    fontSize:18
   },
+  txt_spe: {
+    marginTop:10,
+    marginBottom:10,
+    textAlign:'center'
+  },
+  img: {
+    alignSelf:'center',
+    width:80,
+    height:50,
+    margin:10,
+    borderRadius:20
+},
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

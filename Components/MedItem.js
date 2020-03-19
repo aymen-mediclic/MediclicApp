@@ -23,7 +23,8 @@ class MedItem extends React.Component {
             <View style={styles.ctr2}>
                     <Text style={{textAlign:'center',marginBottom:5}}>Disponibilité</Text>
                    
-                                            
+                   
+                                         
             </View>
         </View>
       );
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width:"100%",
         height:'100%',
+        flexWrap:'wrap'
     },
     img: {
         width:80,
@@ -64,8 +66,7 @@ const styles = StyleSheet.create({
         flex:2,
         backgroundColor:'pink',
         margin:2,
-        alignItems:'center',
-        
+        //flexWrap:'wrap'
     },
     txt2: {
         width:30,

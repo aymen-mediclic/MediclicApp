@@ -76,9 +76,25 @@ class ConnectionScreen extends React.Component {
   })
   .done();
   }
+  getmed=()=>{
+    fetch('http://51.254.39.98:8069/web/login?db=Mediclic')
+    fetch('http://51.254.39.98:8069/api/profil?medecin_id=7')
+  
+  .then((response) => response.json())
+  .then((res) => {
+  console.log("repooooonse")
+  console.log(res)
+  console.log("*********success***********")
+  console.log(res.lenght)
+  console.log("***************************")
+  
+  
+  
+  })
+  .done();
+  }
   
 }
-
 
 
 

@@ -43,6 +43,8 @@
     "react-native-linear-gradient": "^2.5.6",
     "react-native-minicalendar": "^1.0.5",
     "react-native-odoo": "^0.5.0",
+    "react-native-paper": "^3.6.0",
+    "react-native-progress-steps": "^1.2.9",
     "react-native-reanimated": "~1.4.0",
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",

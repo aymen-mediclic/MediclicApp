@@ -17,6 +17,7 @@ const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 import * as NavigationService from './Navigation/NavigationService';
 import SearchScreen from './Screens/SearchBarScreen';
+import RDV from './Screens/RdvScreen';
 
 
 export default class App extends React.Component  {
@@ -74,6 +75,13 @@ export default class App extends React.Component  {
                 },
               }} />
               <Stack.Screen name="Rechercher" component={SearchScreen} options={{
+                headerTintColor :'#fff',
+                headerStyle :{
+                backgroundColor:'#1E79C5',
+                height: 80,
+                },
+              }} />
+              <Stack.Screen name="RDV" component={RDV} options={{
                 headerTintColor :'#fff',
                 headerStyle :{
                 backgroundColor:'#1E79C5',

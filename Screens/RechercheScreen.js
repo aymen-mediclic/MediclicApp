@@ -4,6 +4,7 @@ import {View,Text,Button,StyleSheet,FlatList,Modal,TouchableOpacity} from 'react
 import MedItem from '../Components/MedItem'
 import { getFilmsFromApiWithSearchedText} from '../Navigation/WelcomeStack'
 import{MaterialIcons} from '@expo/vector-icons'
+import Filter from '../Components/Filter'
 
 
 class RechercheScreen extends React.Component {
@@ -18,11 +19,7 @@ class RechercheScreen extends React.Component {
     }
     
     
-    componentDidMount(){
-        /*fetch('http://51.254.39.98:8069/web/login?db=Mediclic')
-        fetch('http://51.254.39.98:8069/test')
-      
-      .then((response) => response.json())*/
+    componentDidMount(){        
       getFilmsFromApiWithSearchedText ('xavier').then((res) => {
       console.log("repooooonse")
       console.log(res)
@@ -42,17 +39,22 @@ class RechercheScreen extends React.Component {
       return (
         <View style={styles.main_container}>
             <Modal visible={this.state.modalOpen} animationType='slide'>
-              <MaterialIcons
-                name='close'size={24} 
+              <View style={{}}>
+                <MaterialIcons
+                name='close'size={30} 
                 onPress={()=> this.setState({modalOpen:false})}
-              />
-              <Text>yo </Text>
+                />
+                <Text style={{alignSelf:'center',fontSize:28}}> Filter</Text>
+              
+              </View>
+              
+              <Filter />
             </Modal>
-            <TouchableOpacity size={24} style={styles.filter}  onPress={()=> this.setState({modalOpen:true})}> 
-              <Text style={{textAlign:'center'}}>
-                Filter
-              </Text>
+           
+            <TouchableOpacity size={24} style={styles.filter_btn}  onPress={()=> this.setState({modalOpen:true})}> 
+              <Text style={{textAlign:'center'}}>Filter </Text>
             </TouchableOpacity>
+            
             <FlatList 
                 data={this.state.dataSource}
                 keyExtractor={item=> item.id.toString()}
@@ -67,14 +69,9 @@ const styles = StyleSheet.create({
     main_container: {
         flex:1,
         alignItems:'center',
-        //alignContent:'center',
         justifyContent:'center',
-        //backgroundColor:"black",
-        //paddingLeft:"5%",
-        //marginLeft:"2%"
-        //paddingRight:'5%',
     },
-    filter:{
+    filter_btn:{
       backgroundColor:'orange',
       width:100,
       height:20,

@@ -1,29 +1,30 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {ScrollView,View,Text,Button,StyleSheet,FlatList,Image} from 'react-native'
 import { Container, Header, Content, Accordion, Item } from "native-base";
 
-const dataArray = [
+
+/*const dataArray = [
   { title: "Formation", content: "Diplome asmaa Ecole asmaa ville vullez date debut 2020-02-07 date fin 2020-02-06" },
   { title: "Tarif", content: "300.0 Dhs" },
   { title: "Motif", content: 'généraliste' },
   { title: "Langue", content: "Français" }
-];
+];*/
 
 export default function MedProfilScreen({route}){
     const {id,name,specialite,work}=route.params;
-    //const [data,setdata]=useState([])
+    const [data,setData]=useState([])
     useEffect(()=>{
       fetch('http://51.254.39.98:8069/web/login?db=Mediclic')
       fetch('http://51.254.39.98:8069/api/profil?medecin_id='+id)
     
     .then((response) => response.json())
     .then((res) => {
-      //setdata(res)
     console.log("repooooonse")
     console.log(res)
     console.log("*********success***********")
     console.log(res.lenght)
     console.log("***************************")
+    setData(data);
     })
     .done();
     });
@@ -47,7 +48,13 @@ export default function MedProfilScreen({route}){
         
         <View style={styles.ctr2}>
        
-        <Accordion dataArray={dataArray} expanded={0}/>
+        {/*<Accordion dataArray={dataArray} expanded={0}/>*/}
+        <FlatList
+        data={data}
+        keyExtractor={item=> item.id.toString()}
+      renderItem= {({item})=> <Text>yo</Text>} 
+        />
+
         
       
         </View>

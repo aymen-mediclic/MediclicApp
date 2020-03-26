@@ -1,13 +1,31 @@
 import React from 'react';
 import {View,Text,Button,StyleSheet} from 'react-native'
-import { createDrawerNavigator } from 'react-navigation-drawer'
-//import Header from '../Components/Header'
+import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
+
 class About extends React.Component {
   render(){
     return (
       <View style={styles.container}>
        
-       <Text style={styles.text}> à Propos </Text>
+       <View style={{flex: 1}}>
+    <ProgressSteps  >
+        <ProgressStep label="RDV" >
+            <View style={{ alignItems: 'center' }}>
+                <Text>Sélectionnez un RDV!</Text>
+            </View>
+        </ProgressStep>
+        <ProgressStep label="Authentification">
+            <View style={{ alignItems: 'center' }}>
+                <Text>Se connecter!</Text>
+            </View>
+        </ProgressStep>
+        <ProgressStep label="Confirmation">
+            <View style={{ alignItems: 'center' }}>
+                <Text>Confirmation!</Text>
+            </View>
+        </ProgressStep>
+    </ProgressSteps>
+  </View>
       </View>
       
     );
@@ -17,7 +35,7 @@ class About extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex : 1,
-    backgroundColor: '#3498db',
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center', 
   },

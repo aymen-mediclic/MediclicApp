@@ -24,7 +24,7 @@ class Identification extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.med_ctr}>
-            <Text style={styles.text}> Espace Professionnels </Text>
+            <Text style={styles.text}> Veuillez renseigner vos informations: </Text>
             <TextInput style={styles.text_input}  placeholder='Nom de compte' 
               onChangeText={(login) => this.setState({login})}
               value= {this.state.username}
@@ -33,7 +33,7 @@ class Identification extends React.Component {
               onChangeText={(password)=> this.setState({password})}
               value={this.state.password}
             />
-            <Button style={styles} color='#FFC617' title='Se connecter' onPress={this.Autho} />
+            <Button  color='#FFC617' title='Se connecter' onPress={this.Autho} />
             <Text>Mot de passe oublié? </Text>
             <Button color='' title='Inscrivez-vous' onPress={()=>{}} />
         </View>
@@ -110,7 +110,8 @@ const styles = StyleSheet.create({
     marginBottom:10,
 },
   text : {
-    fontSize: 22,
+    fontSize: 18,
+    fontWeight:'bold',
     color :'black',
     marginBottom:10,
   },

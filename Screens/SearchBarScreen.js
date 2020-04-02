@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import MedItem from '../Components/MedItem'
 import * as NavigationService from '../Navigation/NavigationService';
+import { SearchBar } from 'react-native-elements';
 //import react in our code.
 
 import {
@@ -58,7 +59,7 @@ export default class App extends Component {
       text: text,
     });
   }
-  ListViewItemSeparator = () => {
+  /*ListViewItemSeparator = () => {
     //Item sparator view
     return (
       <View
@@ -69,7 +70,7 @@ export default class App extends Component {
         }}
       />
     );
-  };
+  };*/
   render() {
     if (this.state.isLoading) {
       //Loading View while data is loading
@@ -87,12 +88,12 @@ export default class App extends Component {
           onChangeText={text => this.SearchFilterFunction(text)}
           value={this.state.text}
           underlineColorAndroid="transparent"
-          placeholder="Search Here"
+          placeholder="Médecin,établissement,spécialité...."
         />
         <FlatList
           data={this.state.dataSource}
-          ItemSeparatorComponent={this.ListViewItemSeparator}
-          renderItem={({ item }) => ( <TouchableOpacity onPress={()=>NavigationService.navigate('Médecin')} >
+          //ItemSeparatorComponent={this.ListViewItemSeparator}
+          renderItem={({ item }) => ( <TouchableOpacity onPress={()=>NavigationService.navigate('Médecin') } >
               <Text>{item.specialite}</Text>
           </TouchableOpacity>
              
@@ -119,7 +120,8 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 1,
     paddingLeft: 10,
-    borderColor: '#009688',
+    borderColor: '#1E79C5',
     backgroundColor: '#FFFFFF',
+    margin:2
   },
 });

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Blank Template",
+    "name": "Mediclic",
     "slug": "MEDICLIC",
     "privacy": "public",
     "sdkVersion": "36.0.0",
@@ -11,11 +11,15 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/M.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
+    },
+    "android": {
+      "package": "com.mediclic.Mediclic",
+      "versionCode": 1
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -24,7 +28,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mediclic.Mediclic",
+      "buildNumber": "1.0.0"
+    },
+    "description": ""
   }
 }

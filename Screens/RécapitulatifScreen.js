@@ -9,10 +9,10 @@ class Recap extends React.Component {
        
              <View style={styles.ctr1} >
                 <Text style={styles.title} > Informations sur le rendez-vous:</Text>
-                <Text style={styles.txt}> Medecin:</Text>
+                <Text style={styles.txt}> Medecin: Dr xavier vilan</Text>
                 <Text style={styles.txt}> Motif de consultation:</Text>
-                <Text style={styles.txt}> Heure:</Text>
-                <Text style={styles.txt}> Date:</Text>
+                <Text style={styles.txt}> Heure:08:18</Text>
+                <Text style={styles.txt}> Date:2020-03-30</Text>
              </View>
              <View style={styles.ctr2} >
                 <Text style={styles.title}> Informations sur le patient:</Text>
@@ -40,23 +40,23 @@ const styles = StyleSheet.create({
   ctr1 : {
     marginTop:5,
     marginBottom:5,
-    backgroundColor:'grey',
+    //backgroundColor:'grey',
     width:'80%'
   },
   ctr2 : {
     marginBottom:5,
-    backgroundColor:'grey',
+    //backgroundColor:'grey',
     width:'80%'
   },
   title : {
     fontSize:20,
-    color:'white',
+    color:'black',
     marginBottom:5,
     textAlign:'center'
   },
   txt : {
     fontSize:15,
-    color:'white',
+    color:'grey',
     marginBottom:5
   },
  

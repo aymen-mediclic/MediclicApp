@@ -38,13 +38,13 @@ class RechercheScreen extends React.Component {
     render(){
       return (
         <View style={styles.main_container}>
-            <Modal visible={this.state.modalOpen} animationType='slide'>
-              <View style={{}}>
+            <Modal visible={this.state.modalOpen} animationType='slide'  >
+              <View style={{flex:1,flexDirection:'row',alignItems:'center',marginTop:30}}>
                 <MaterialIcons
                 name='close'size={30} 
                 onPress={()=> this.setState({modalOpen:false})}
                 />
-                <Text style={{alignSelf:'center',fontSize:28}}> Filter</Text>
+                <Text style={{alignSelf:'center',fontSize:28,paddingLeft:5}}> Filtrer</Text>
               
               </View>
               
@@ -52,7 +52,8 @@ class RechercheScreen extends React.Component {
             </Modal>
            
             <TouchableOpacity size={24} style={styles.filter_btn}  onPress={()=> this.setState({modalOpen:true})}> 
-              <Text style={{textAlign:'center'}}>Filter </Text>
+              <MaterialIcons name='filter' size={15} />
+              <Text style={{textAlign:'center',marginLeft:20}}>Filtrer</Text>
             </TouchableOpacity>
             
             <FlatList 
@@ -72,10 +73,13 @@ const styles = StyleSheet.create({
         justifyContent:'center',
     },
     filter_btn:{
-      backgroundColor:'orange',
+      backgroundColor:'#bdc3c7',
       width:100,
       height:20,
       marginTop:10,
+      flexDirection:'row',
+      alignItems:'center',
+      justifyContent:"center"
     }
     });
 

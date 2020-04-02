@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import {ScrollView,View,Text,Button,StyleSheet,FlatList,Image} from 'react-native'
 import { Container, Header, Content, Accordion, Item } from "native-base";
-
-
-/*const dataArray = [
-  { title: "Formation", content: "Diplome asmaa Ecole asmaa ville vullez date debut 2020-02-07 date fin 2020-02-06" },
+import * as NavigationService from '../Navigation/NavigationService';
+console.disableYellowBox = true; 
+const dataArray = [
+  { title: "Formation", content: "Diplome: doctorat,Ecole: Faculté des sciences,Date debut: 2020-02-07 ,Date fin: 2020-02-06" },
   { title: "Tarif", content: "300.0 Dhs" },
   { title: "Motif", content: 'généraliste' },
   { title: "Langue", content: "Français" }
-];*/
+];
 
 export default function MedProfilScreen({route}){
     const {id,name,specialite,work}=route.params;
@@ -24,11 +24,17 @@ export default function MedProfilScreen({route}){
     console.log("*********success***********")
     console.log(res.lenght)
     console.log("***************************")
-    setData(data);
+    setData(res);
     })
     .done();
-    });
-
+    },[]);
+    /*const renderText = () => {
+      if (data.length > 0){
+        return (
+           <Text> name: {data[0].name} diploma: {data[2].education[0].poste}</Text>
+        )
+      }
+    }*/
     return(
       <ScrollView contentContainerStyle={{alignItems:'center'} } >
         <View style={styles.ctr1}>
@@ -36,26 +42,25 @@ export default function MedProfilScreen({route}){
           <Text style={styles.txt_name}>{name}</Text>
           <Text style={styles.txt_spe}>{specialite}</Text>
           
-          <Button title='Prendre rendez-vous' onPress={()=>{}} />
+          <Button title='Prendre rendez-vous' onPress={()=> NavigationService.navigate('Prendre un rendez-vous')} />
 
         </View>
-         {/*<View style={styles.ctr2}>
+         <View style={styles.ctr2}>
        <Content padder>
           <Accordion dataArray={dataArray} expanded={0}/>
         </Content>
       
-        </View>*/}
+        </View>
         
         <View style={styles.ctr2}>
        
-        {/*<Accordion dataArray={dataArray} expanded={0}/>*/}
+        {/*<Accordion dataArray={dataArray} expanded={0}/>
         <FlatList
         data={data}
-        keyExtractor={item=> item.id.toString()}
-      renderItem= {({item})=> <Text>yo</Text>} 
-        />
+        //keyExtractor={item=> item.id.toString()}
+        renderItem= {({item})=> <Text>{item.res[0].education.ecole}</Text>} />
 
-        
+        <Text>{renderText()}</Text>*/}
       
         </View>
         

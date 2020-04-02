@@ -1,7 +1,7 @@
 import React from 'react'
 import {View,TextInput,TouchableOpacity,StyleSheet,Text,KeyboardAvoidingView} from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
-
+import{MaterialIcons} from '@expo/vector-icons'
 class Search extends React.Component{
     constructor(props){
         super(props)
@@ -22,6 +22,7 @@ class Search extends React.Component{
                 <View style={styles.btn_ctr}>
                     <TouchableOpacity style={styles.btn} onPress={()=>NavigationService.navigate('Rechercher')}  >
                     <Text style={styles.btn_txt}>Rechercher</Text>
+                    <MaterialIcons name='search'size={20} />
                     </TouchableOpacity>
                 </View>
              </KeyboardAvoidingView>
@@ -33,9 +34,9 @@ class Search extends React.Component{
 const styles= StyleSheet.create({
     main_container:{
         flex:1,
-        backgroundColor:'grey' /*'#1E79C5'*/,
+        //backgroundColor:'grey' /*'#1E79C5'*/,
         alignItems: 'center',
-        justifyContent: 'center'
+        //justifyContent: 'center'
     },
     text_input:{
         marginLeft: 5,
@@ -54,7 +55,9 @@ const styles= StyleSheet.create({
         fontSize: 28,
         textAlign:'left',
         marginBottom:10,
-        color:'white',
+        color:'black',
+        marginBottom:120,
+        paddingTop:60
         //fontFamily: "orbitron medium"
     },
     btn_ctr :{
@@ -64,11 +67,13 @@ const styles= StyleSheet.create({
         backgroundColor:"#FFC617",
         width:150,
         padding: 10,
+        flexDirection:'row'
     },
     btn_txt :{
         fontSize:16,
         textAlign:'center',
-        color:'white'
+        color:'black',
+        paddingRight:5
     }
 
 })

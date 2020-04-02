@@ -35,6 +35,10 @@ export default class App extends React.Component  {
                 backgroundColor:'#1E79C5',
                 height: 80,
                 },
+                headerTitleStyle:{
+                  fontWeight:'bold',
+                  fontStyle:'italic'
+                },
                 headerRight:()=>
                 <TouchableOpacity style={{marginRight:5}} onPress={()=> NavigationService.navigate('Se connecter')} >
                   <MaterialIcons name='accessibility' size= {28} color={'white'}/>
@@ -52,6 +56,9 @@ export default class App extends React.Component  {
                 backgroundColor:'#1E79C5',
                 height: 80,
                 },
+                headerTitleStyle:{
+                  fontWeight:'bold'
+                }
               }} />
               <Stack.Screen name="Se connecter" component={ConnectionScreen} options={{
                 headerTintColor :'#fff',
@@ -59,6 +66,9 @@ export default class App extends React.Component  {
                 backgroundColor:'#1E79C5',
                 height: 80,
                 },
+                headerTitleStyle:{
+                  fontWeight:'bold'
+                }
               }} />
               <Stack.Screen name="MedProfil" component={MedProfilScreen} options={{
                 headerTintColor :'#fff',
@@ -66,6 +76,9 @@ export default class App extends React.Component  {
                 backgroundColor:'#1E79C5',
                 height: 80,
                 },
+                headerTitleStyle:{
+                  fontWeight:'bold'
+                }
               }} />
               <Stack.Screen name="Calendar" component={Calendar} options={{
                 headerTintColor :'#fff',
@@ -73,6 +86,9 @@ export default class App extends React.Component  {
                 backgroundColor:'#1E79C5',
                 height: 80,
                 },
+                headerTitleStyle:{
+                  fontWeight:'bold'
+                }
               }} />
               <Stack.Screen name="Rechercher" component={SearchScreen} options={{
                 headerTintColor :'#fff',
@@ -80,13 +96,19 @@ export default class App extends React.Component  {
                 backgroundColor:'#1E79C5',
                 height: 80,
                 },
+                headerTitleStyle:{
+                  fontWeight:'bold'
+                }
               }} />
-              <Stack.Screen name="RDV" component={RDV} options={{
+              <Stack.Screen name="Prendre un rendez-vous" component={RDV} options={{
                 headerTintColor :'#fff',
                 headerStyle :{
                 backgroundColor:'#1E79C5',
                 height: 80,
                 },
+                headerTitleStyle:{
+                  fontWeight:'bold'
+                }
               }} />
             </Stack.Navigator>
           </NavigationContainer>

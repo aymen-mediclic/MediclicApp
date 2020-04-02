@@ -7,25 +7,9 @@ class About extends React.Component {
     return (
       <View style={styles.container}>
        
-       <View style={{flex: 1}}>
-    <ProgressSteps  >
-        <ProgressStep label="RDV" >
-            <View style={{ alignItems: 'center' }}>
-                <Text>Sélectionnez un RDV!</Text>
-            </View>
-        </ProgressStep>
-        <ProgressStep label="Authentification">
-            <View style={{ alignItems: 'center' }}>
-                <Text>Se connecter!</Text>
-            </View>
-        </ProgressStep>
-        <ProgressStep label="Confirmation">
-            <View style={{ alignItems: 'center' }}>
-                <Text>Confirmation!</Text>
-            </View>
-        </ProgressStep>
-    </ProgressSteps>
-  </View>
+       
+        <Text style={styles.text}> Mediclic App</Text>
+      
       </View>
       
     );
@@ -43,6 +27,7 @@ const styles = StyleSheet.create({
     /*alignItems: 'center',
     justifyContent: 'center',*/
     backgroundColor: '#ecf0f1',
+    fontSize:40
   }
  
 });

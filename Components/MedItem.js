@@ -1,17 +1,29 @@
 import React, { Component } from 'react'
-import {View,Text,Button,StyleSheet,FlatList,Image} from 'react-native'
+import {View,Text,Button,StyleSheet,Image,Modal} from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import Calendar from './Calendar';
-
+import{MaterialIcons} from '@expo/vector-icons'
 class MedItem extends React.Component {
+    constructor(props){
+        super(props);
+        this.handler = this.handler.bind(this);
+        this.state={
+            modalOpen:false,
+        }
+    }
+    handler() {
+        this.setState({
+            modalOpen:false,
+        });
+    }
     render(){
         const Med = this.props.Med
       return (
         <View style={styles.main_container}  >
             
             <View style={styles.ctr1}>
-                <TouchableOpacity onPress={()=>NavigationService.navigate('Calendar')}>
+                <TouchableOpacity >
                     <Image style={styles.img} source={require('../assets/Title.jpg')} />
                 </TouchableOpacity>    
                 <TouchableOpacity onPress={()=>NavigationService.navigate('MedProfil',Med)}>
@@ -21,10 +33,19 @@ class MedItem extends React.Component {
                 </TouchableOpacity>
             </View>
             <View style={styles.ctr2}>
-                    <Text style={{textAlign:'center',marginBottom:5}}>Disponibilité</Text>
-                   
-                   
-                                         
+                    <Text style={{textAlign:'center',marginBottom:5,fontSize:18}}>Disponibilités</Text>  
+                    <Modal visible={this.state.modalOpen} animationType='slide'  >
+                        <View >
+                            <MaterialIcons name='close'size={30} onPress={()=> this.setState({modalOpen:false})}/>
+                            <Text style={{alignSelf:'center',fontSize:28}}> Horaires</Text>
+              
+                        </View>
+                    <Calendar action={this.handler} />
+                    </Modal>
+               <TouchableOpacity style={{backgroundColor:'#FFC617',height:30,width:130,borderRadius:10}} onPress={()=> this.setState({modalOpen:true})}>
+                   <Text style={{textAlign:'center',fontStyle:'italic',color:'white'}}> Consulter Horaires</Text>
+                </TouchableOpacity>   
+                                                         
             </View>
         </View>
       );
@@ -35,11 +56,10 @@ const styles = StyleSheet.create({
         height: 300,
         flexDirection: 'column',
         flexWrap:'wrap',
-        backgroundColor:"orange",
+        backgroundColor:"grey",
         width:'100%',
         marginBottom:20,
         marginTop:5,
-        
     },
     ctr1: {
         flex:1,
@@ -48,7 +68,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width:"100%",
         height:'100%',
-        flexWrap:'wrap'
+        flexWrap:'wrap',
+        margin:2
     },
     img: {
         width:80,
@@ -63,8 +84,10 @@ const styles = StyleSheet.create({
         fontWeight:"bold"
     },
     ctr2:{
-        flex:2,
-        backgroundColor:'pink',
+        flex:1,
+        alignItems:'center',
+        //justifyContent:'center',
+        backgroundColor:'white',
         margin:2,
         //flexWrap:'wrap'
     },

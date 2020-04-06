@@ -1,8 +1,194 @@
+/*import React, { Component } from 'react';
+import { View, Text, FlatList, ActivityIndicator } from 'react-native';
+import { ListItem, SearchBar } from 'react-native-elements';
+import {getFilmsFromApiWithSearchedText} from '../Navigation/WelcomeStack'
+class FlatListDemo extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: false,
+      data: [],
+      text: '',
+    };
+
+    this.arrayholder = [];
+  }
+
+  componentDidMount() {
+    this.makeRemoteRequest();
+  }
+
+  makeRemoteRequest = () => {
+   
+    this.setState({ loading: true });
+
+    getFilmsFromApiWithSearchedText(this.state.text)
+      .then(res => {
+        console.log(res)
+        this.setState({
+          data: res,
+          loading: false,
+        });
+        this.arrayholder = res;
+      })
+  };
+
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: '86%',
+          backgroundColor: '#CED0CE',
+          marginLeft: '14%',
+        }}
+      />
+    );
+  };
+
+  searchFilterFunction = text => {
+    this.setState({
+      value: text,
+    });
+
+    const newData = this.arrayholder.filter(item => {
+      const itemData = `${item.name.toUpperCase()} ${item.name.toUpperCase()} ${item.name.toUpperCase()}`;
+      const textData = text.toUpperCase();
+
+      return itemData.indexOf(textData) > -1;
+    });
+    this.setState({
+      data: newData,
+      text: text,
+    });
+  };
+
+  renderHeader = () => {
+    return (
+      <SearchBar
+        placeholder="Type Here..."
+        lightTheme
+        round
+        onChangeText={text => this.searchFilterFunction(text)}
+        autoCorrect={false}
+        value={this.state.value}
+      />
+    );
+  };
+
+  render() {
+    if (this.state.loading) {
+      return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+    return (
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={this.state.data}
+          renderItem={({ item }) => (
+            <Text>{item.name} </Text>
+          )}
+          keyExtractor={item => item.id
+          +}
+          ItemSeparatorComponent={this.renderSeparator}
+          ListHeaderComponent={this.renderHeader}
+        />
+      </View>
+    );
+  }
+}
+
+export default FlatListDemo;*/
+
+// Components/Search.js
+
+import React from 'react'
+import { StyleSheet, View, TextInput, Button, Text, FlatList } from 'react-native'
+import {getFilmsFromApiWithSearchedText} from '../Navigation/WelcomeStack'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import * as NavigationService from '../Navigation/NavigationService';
+class Search extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.searchedText = "" // Initialisation de notre donnée searchedText en dehors du state
+    this.state = {
+      data: []
+    }
+  }
+//fetch('http://54.37.228.205:8069/web/login?db=prise_rdv_AB')
+//return fetch('http://54.37.228.205:8069/searchmob?input='+this.state.searchedText)
+  loadFilms() {
+    if (this.searchedText.length > 0) { // Seulement si le texte recherché n'est pas vide
+    getFilmsFromApiWithSearchedText(this.searchedText)
+    
+    .then(response => {
+      console.log('*************************')
+      console.log(response)
+      this.setState(
+        {
+          
+          data: response
+        },
+      );
+    });
+    }
+  }
+
+  _searchTextInputChanged(text) {
+    this.searchedText = text 
+  }
+
+  render() {
+    return (
+      <View style={styles.main_container}>
+        <TextInput
+          style={styles.textinput}
+          placeholder='Titre du film'
+          onChangeText={(text) => this._searchTextInputChanged(text)}
+        />
+        <Button title='Rechercher' onPress={() => this.loadFilms()}/>
+        <FlatList
+          data={this.state.data}
+          keyExtractor={item => item.id}
+    renderItem={({item}) => <TouchableOpacity onPress={()=>alert(item.lien) }>
+      <Text> {item.name}</Text>
+      </TouchableOpacity>}
+        />
+      </View>
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  main_container: {
+    flex: 1,
+    marginTop: 20
+  },
+  textinput: {
+    marginLeft: 5,
+    marginRight: 5,
+    height: 50,
+    borderColor: '#000000',
+    borderWidth: 1,
+    paddingLeft: 5
+  }
+})
+
+export default Search
+
+
+/*
 //This is an example code to Add Search Bar Filter on Listview//
 import React, { Component } from 'react';
 import MedItem from '../Components/MedItem'
 import * as NavigationService from '../Navigation/NavigationService';
 import { SearchBar } from 'react-native-elements';
+import {getFilmsFromApiWithSearchedText} from '../Navigation/WelcomeStack'
 //import react in our code.
 
 import {
@@ -26,17 +212,15 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://51.254.39.98:8069/web/login?db=Mediclic')
-    return fetch('http://51.254.39.98:8069/test')
-      .then(response => response.json())
-      .then(responseJson => {
+    getFilmsFromApiWithSearchedText(this.state.text)
+      .then(response => {
         this.setState(
           {
             isLoading: false,
-            dataSource: responseJson
+            dataSource: response
           },
           function() {
-            this.arrayholder = responseJson;
+            this.arrayholder = response;
           }
         );
       })
@@ -48,7 +232,7 @@ export default class App extends Component {
     //passing the inserted text in textinput
     const newData = this.arrayholder.filter(function(item) {
       //applying filter for the inserted text in search bar
-      const itemData = item.specialite ? item.specialite.toUpperCase() : ''.toUpperCase();
+      const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
       const textData = text.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -59,7 +243,7 @@ export default class App extends Component {
       text: text,
     });
   }
-  /*ListViewItemSeparator = () => {
+  ListViewItemSeparator = () => {
     //Item sparator view
     return (
       <View
@@ -70,7 +254,7 @@ export default class App extends Component {
         }}
       />
     );
-  };*/
+  };
   render() {
     if (this.state.isLoading) {
       //Loading View while data is loading
@@ -94,13 +278,13 @@ export default class App extends Component {
           data={this.state.dataSource}
           //ItemSeparatorComponent={this.ListViewItemSeparator}
           renderItem={({ item }) => ( <TouchableOpacity onPress={()=>NavigationService.navigate('Médecin') } >
-              <Text>{item.specialite}</Text>
+              <Text>{item.name}</Text>
           </TouchableOpacity>
              
           )}
           enableEmptySections={true}
           style={{ marginTop: 10 }}
-          keyExtractor={item=> item.id.toString()}
+          keyExtractor={item=> item.id}
         />
       </View>
     );
@@ -124,4 +308,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     margin:2
   },
-});
+});*/

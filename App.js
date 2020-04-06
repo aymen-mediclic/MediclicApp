@@ -12,7 +12,7 @@ import {MaterialIcons } from '@expo/vector-icons';
 import {TouchableOpacity,Text} from 'react-native';
 import { DrawerActions } from '@react-navigation/native';
 import Calendar from './Components/Calendar';
-
+import lien from './Screens/lienScreen';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 import * as NavigationService from './Navigation/NavigationService';
@@ -101,6 +101,16 @@ export default class App extends React.Component  {
                 }
               }} />
               <Stack.Screen name="Prendre un rendez-vous" component={RDV} options={{
+                headerTintColor :'#fff',
+                headerStyle :{
+                backgroundColor:'#1E79C5',
+                height: 80,
+                },
+                headerTitleStyle:{
+                  fontWeight:'bold'
+                }
+              }} />
+              <Stack.Screen name="lien" component={lien} options={{
                 headerTintColor :'#fff',
                 headerStyle :{
                 backgroundColor:'#1E79C5',

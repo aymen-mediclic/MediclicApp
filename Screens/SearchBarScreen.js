@@ -107,7 +107,7 @@ export default FlatListDemo;*/
 // Components/Search.js
 
 import React from 'react'
-import { StyleSheet, View, TextInput, Button, Text, FlatList } from 'react-native'
+import { StyleSheet, View, TextInput, Button, Text, FlatList,Image } from 'react-native'
 import {getFilmsFromApiWithSearchedText} from '../Navigation/WelcomeStack'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import * as NavigationService from '../Navigation/NavigationService';
@@ -120,8 +120,7 @@ class Search extends React.Component {
       data: []
     }
   }
-//fetch('http://54.37.228.205:8069/web/login?db=prise_rdv_AB')
-//return fetch('http://54.37.228.205:8069/searchmob?input='+this.state.searchedText)
+
   loadFilms() {
     if (this.searchedText.length > 0) { // Seulement si le texte recherché n'est pas vide
     getFilmsFromApiWithSearchedText(this.searchedText)
@@ -141,8 +140,30 @@ class Search extends React.Component {
 
   _searchTextInputChanged(text) {
     this.searchedText = text 
+    this.loadFilms();
   }
-
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: '86%',
+          backgroundColor: '#CED0CE',
+          marginLeft: '14%',
+        }}
+      />
+    );
+  };
+  fetchLien(text){
+    fetch('http://54.37.228.205:8069/web/login?db=prise_rdv_AB')
+    fetch('http://54.37.228.205:8069'+text)
+    .then((response)=>response.json())
+    .then(response=>{
+      console.log(response);
+    }
+      )
+      .catch((error) => console.error(error))
+  }
   render() {
     return (
       <View style={styles.main_container}>
@@ -151,13 +172,20 @@ class Search extends React.Component {
           placeholder='Titre du film'
           onChangeText={(text) => this._searchTextInputChanged(text)}
         />
-        <Button title='Rechercher' onPress={() => this.loadFilms()}/>
+        
         <FlatList
           data={this.state.data}
           keyExtractor={item => item.id}
-    renderItem={({item}) => <TouchableOpacity onPress={()=>alert(item.lien) }>
-      <Text> {item.name}</Text>
+    renderItem={({item}) => <TouchableOpacity onPress={()=>NavigationService.navigate('lien',item) }>
+      {item.type=='spécialité'&&(
+      <Text> {item.name}</Text>)}
+      {item.type!='spécialité'&&(
+      <View style={{backgroundColor:'grey',flexDirection:'row'}}>
+        <Image style={{height:50,width:80}} source={require('../assets/Title.jpg')} />
+        <Text> {item.name} </Text>
+      </View>)}
       </TouchableOpacity>}
+      ItemSeparatorComponent={this.renderSeparator}
         />
       </View>
     )

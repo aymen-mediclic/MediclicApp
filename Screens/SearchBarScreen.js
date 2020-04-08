@@ -107,16 +107,18 @@ export default FlatListDemo;*/
 // Components/Search.js
 
 import React from 'react'
-import { StyleSheet, View, TextInput, Button, Text, FlatList,Image } from 'react-native'
+import { StyleSheet, View, TextInput, Button, Text, FlatList,Image,ActivityIndicator } from 'react-native'
 import {getFilmsFromApiWithSearchedText} from '../Navigation/WelcomeStack'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import * as NavigationService from '../Navigation/NavigationService';
+import Sugg from '../Components/Sugg';
 class Search extends React.Component {
 
   constructor(props) {
     super(props)
     this.searchedText = "" // Initialisation de notre donnée searchedText en dehors du state
     this.state = {
+      loading: true,
       data: []
     }
   }
@@ -130,7 +132,7 @@ class Search extends React.Component {
       console.log(response)
       this.setState(
         {
-          
+          loading: false,
           data: response
         },
       );
@@ -154,7 +156,7 @@ class Search extends React.Component {
       />
     );
   };
-  fetchLien(text){
+/*  fetchLien(text){
     fetch('http://54.37.228.205:8069/web/login?db=prise_rdv_AB')
     fetch('http://54.37.228.205:8069'+text)
     .then((response)=>response.json())
@@ -163,28 +165,28 @@ class Search extends React.Component {
     }
       )
       .catch((error) => console.error(error))
-  }
+  }*/
   render() {
+    if (this.state.Loading) {
+      //Loading View while data is loading
+      return (
+        <View style={{ flex: 1, paddingTop: 20 }}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
     return (
       <View style={styles.main_container}>
         <TextInput
           style={styles.textinput}
-          placeholder='Titre du film'
+          placeholder='Médecin,établissement,spécialité....'
           onChangeText={(text) => this._searchTextInputChanged(text)}
         />
         
         <FlatList
           data={this.state.data}
           keyExtractor={item => item.id}
-    renderItem={({item}) => <TouchableOpacity onPress={()=>NavigationService.navigate('lien',item) }>
-      {item.type=='spécialité'&&(
-      <Text> {item.name}</Text>)}
-      {item.type!='spécialité'&&(
-      <View style={{backgroundColor:'grey',flexDirection:'row'}}>
-        <Image style={{height:50,width:80}} source={require('../assets/Title.jpg')} />
-        <Text> {item.name} </Text>
-      </View>)}
-      </TouchableOpacity>}
+    renderItem={({item}) => <Sugg su={item} />}
       ItemSeparatorComponent={this.renderSeparator}
         />
       </View>

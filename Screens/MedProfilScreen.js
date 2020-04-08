@@ -11,8 +11,9 @@ const dataArray = [
 ];
 
 export default function MedProfilScreen({ route }) {
-  const { id, name, specialite, work } = route.params;
+  const { id, name, specialite, work,image } = route.params;
   const [data, setData] = useState([])
+  const encodedData = image;
   useEffect(() => {
     fetch('http://51.254.39.98:8069/web/login?db=Mediclic')
     fetch('http://51.254.39.98:8069/api/profil?medecin_id=' + id)
@@ -38,7 +39,7 @@ export default function MedProfilScreen({ route }) {
   return (
     <ScrollView contentContainerStyle={{ alignItems: 'center' }} >
       <View style={styles.ctr1}>
-        <Image style={styles.img} source={require('../assets/Title.jpg')} />
+        <Image style={styles.img} source={{uri: `data:image/gif;base64,${encodedData}`}} />
         <Text style={styles.txt_name}>{name}</Text>
         <Text style={styles.txt_spe}>{specialite}</Text>
 

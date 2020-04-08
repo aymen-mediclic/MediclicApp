@@ -11,7 +11,7 @@ export default class Sugg extends React.Component {
         //NavigationService.navigate('Médecin',su)
         return (
             
-                <TouchableOpacity onPress={this.fetchLien(su.lien)}>
+                <TouchableOpacity onPress={()=>NavigationService.navigate('lien',su)}>
                     {su.type == 'spécialité' && (
                         <Text> {su.name}</Text>)}
                     {su.type != 'spécialité' && (

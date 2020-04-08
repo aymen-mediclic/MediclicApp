@@ -19,12 +19,13 @@ class MedItem extends React.Component {
     }
     render(){
         const Med = this.props.Med
+        const encodedData = Med.image;
       return (
         <View style={styles.main_container}  >
             
             <View style={styles.ctr1}>
                 <TouchableOpacity >
-                    <Image style={styles.img} source={require('../assets/Title.jpg')} />
+                    <Image style={styles.img} source={{uri: `data:image/gif;base64,${encodedData}`}}  />
                 </TouchableOpacity>    
                 <TouchableOpacity onPress={()=>NavigationService.navigate('MedProfil',Med)}>
                     <Text style={styles.txt}> {Med.name} </Text>
@@ -72,8 +73,8 @@ const styles = StyleSheet.create({
         margin:2
     },
     img: {
-        width:80,
-        height:50,
+        width:90,
+        height:70,
         margin:10,
         borderRadius:20
     },

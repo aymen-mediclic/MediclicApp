@@ -10,13 +10,13 @@ const dataArray = [
   { title: "Langue", content: "Français" }
 ];
 
-export default function MedProfilScreen({ route }) {
+export default function CentreProfilScreen({ route }) {
   const { id, name, specialite, work,image } = route.params;
   const [data, setData] = useState([])
   const encodedData = image;
   useEffect(() => {
     fetch('http://54.37.228.205:8069/web/login?db=prise_rdv_AB')
-    return fetch('http://54.37.228.205:8069/api/profil?medecin_id=' + id)
+    return fetch('http://54.37.228.205:8069/api/profil?centre_id=' + id)
 
       .then((response) => response.json())
       .then((res) => {
@@ -100,18 +100,4 @@ const styles = StyleSheet.create({
   },
 })
 
- /*useEffect(() => {
-    fetch('http://51.254.39.98:8069/web/login?db=Mediclic')
-    fetch('http://51.254.39.98:8069/api/profil?medecin_id=' + id)
-
-      .then((response) => response.json())
-      .then((res) => {
-        console.log("repooooonse")
-        console.log(res)
-        console.log("*********success***********")
-        console.log(res.lenght)
-        console.log("***************************")
-        setData(res);
-      })
-      .done();
-  }, []);*/
+ 

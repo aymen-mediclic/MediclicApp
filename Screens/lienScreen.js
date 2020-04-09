@@ -21,7 +21,8 @@ class RechercheScreen extends React.Component {
    componentDidMount(){
       fetchLien(this.props.route.params.lien
         ).then((res) => {
-        this.setState({
+        console.log(res);
+          this.setState({
           isLoading:false,
           dataSource:res,
         })

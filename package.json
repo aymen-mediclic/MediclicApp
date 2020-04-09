@@ -34,6 +34,7 @@
     "react-dom": "~16.9.0",
     "react-moment": "^0.9.7",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native-accordion": "^1.0.1",
     "react-native-calendar-header": "^1.22.1",
     "react-native-calendar-slider-carousel": "^1.0.1",
     "react-native-calendar-strip": "^1.4.1",
@@ -43,6 +44,7 @@
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "~1.5.0",
     "react-native-linear-gradient": "^2.5.6",
+    "react-native-maps": "0.26.1",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-minicalendar": "^1.0.5",
     "react-native-odoo": "^0.5.0",
@@ -60,8 +62,7 @@
     "react-navigation": "^4.1.1",
     "react-navigation-drawer": "^2.3.4",
     "react-navigation-stack": "^2.1.1",
-    "searchable-flatlist": "0.0.4",
-    "react-native-maps": "0.26.1"
+    "searchable-flatlist": "0.0.4"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",

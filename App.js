@@ -18,6 +18,7 @@ const Stack = createStackNavigator();
 import * as NavigationService from './Navigation/NavigationService';
 import SearchScreen from './Screens/SearchBarScreen';
 import RDV from './Screens/RdvScreen';
+import CentreProfilScreen from './Screens/CentreProfilScreen';
 
 
 export default class App extends React.Component  {
@@ -71,6 +72,16 @@ export default class App extends React.Component  {
                 }
               }} />
               <Stack.Screen name="MedProfil" component={MedProfilScreen} options={{
+                headerTintColor :'#fff',
+                headerStyle :{
+                backgroundColor:'#1E79C5',
+                height: 80,
+                },
+                headerTitleStyle:{
+                  fontWeight:'bold'
+                }
+              }} />
+              <Stack.Screen name="CentreProfil" component={CentreProfilScreen} options={{
                 headerTintColor :'#fff',
                 headerStyle :{
                 backgroundColor:'#1E79C5',

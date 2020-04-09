@@ -185,7 +185,7 @@ class Search extends React.Component {
         
         <FlatList
           data={this.state.data}
-          keyExtractor={item => item.id}
+          keyExtractor={item => { return item.id}}
     renderItem={({item}) => <Sugg su={item} />}
       ItemSeparatorComponent={this.renderSeparator}
         />

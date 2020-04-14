@@ -1,50 +1,39 @@
 ////////////lM39oul/////////////////////////
 import React from 'react'
-import {View,Text,Button,StyleSheet,FlatList,Modal,TouchableOpacity,ActivityIndicator} from 'react-native'
+import {View,Text,StyleSheet,FlatList,RefreshControl,Modal,TouchableOpacity,ActivityIndicator} from 'react-native'
 import MedItem from '../Components/MedItem'
 import { getFilmsFromApiWithSearchedText1, fetchLien} from '../Navigation/WelcomeStack'
 import{MaterialIcons} from '@expo/vector-icons'
 import Filter from '../Components/Filter'
-import * as NavigationService from '../Navigation/NavigationService';
+
 
 class RechercheScreen extends React.Component {
     
     constructor(props){
         super(props);
         this.state={
-            isLoading:false,
+            isLoading:true,
             dataSource:[],
             modalOpen:false,
+            refreshing:false,
         }
     }
     
    componentDidMount(){
-    this.setState({ isLoading: true })
+     this._Request();
+   } 
+    _Request=()=>{
+    //this.setState({ isLoading: true })
       fetchLien(this.props.route.params.lien
         ).then((res) => {
         console.log(res);
           this.setState({
           isLoading:false,
           dataSource:res,
+          refreshing:false
         })
       })
     }
-    /*componentDidMount(){        
-      getFilmsFromApiWithSearchedText1 ('xavier').then((res) => {
-      console.log("repooooonse")
-      console.log(res)
-      console.log("*********success***********")
-      console.log(res.lenght)
-      console.log("***************************")
-      console.log(res[0]['name'])
-      this.setState({
-        isLoading:false,
-        dataSource:res,
-      })
-
-  })
-  //.done();
-  }*/
   displayLoading(){
   if (this.state.isLoading) {
     //Loading View while data is loading
@@ -54,10 +43,14 @@ class RechercheScreen extends React.Component {
       </View>
     );
   }}
+  handleRefresh=()=>{
+    this.setState={
+      refreshing:true
+    },()=>{
+      this._Request();
+    }
+  }
     render(){
-      //const link = this.props.navigation.getParam('lien', '2');
-      //console.log('***') 
-      //console.log(this.props.navigation.state.params);
       return (
         <View style={styles.main_container}>
           {this.displayLoading()}
@@ -74,15 +67,18 @@ class RechercheScreen extends React.Component {
               <Filter />
             </Modal>
            
-            <TouchableOpacity size={24} style={styles.filter_btn}  onPress={()=> this.setState({modalOpen:true})}> 
+            {/*<TouchableOpacity size={24} style={styles.filter_btn}  onPress={()=> this.setState({modalOpen:true})}> 
               <MaterialIcons name='filter' size={15} />
               <Text style={{textAlign:'center',marginLeft:20}}>Filtrer</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>*/}
             
             <FlatList 
                 data={this.state.dataSource}
-                keyExtractor={item=> item.id.toString()}
-                renderItem= {({item})=> <MedItem Med={item}  />} />
+                keyExtractor={item=> { return item.id.toString()}}
+                renderItem= {({item})=> <MedItem Med={item}/>} 
+                refreshing={this.state.refreshing}
+                onRefresh={this.handleRefresh}
+                />
         </View>
       );
     }
@@ -92,8 +88,7 @@ class RechercheScreen extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         flex:1,
-        alignItems:'center',
-        justifyContent:'center',
+        backgroundColor:'#ecf0f1',
     },
     filter_btn:{
       backgroundColor:'#bdc3c7',

@@ -43,14 +43,9 @@ export default function CentreProfilScreen({ route }) {
         <Button title='Prendre rendez-vous' onPress={() => NavigationService.navigate('Prendre un rendez-vous')} />
 
       </View>
-      <View style={styles.ctr2}>
-        <Content padder>
-          <Accordion dataArray={dataArray} expanded={0} />
-        </Content>
+      
 
-      </View>
-
-      <View style={styles.ctr2}>
+      <View>
 
         {/*<Accordion dataArray={dataArray} expanded={0}/>
         <FlatList
@@ -59,9 +54,62 @@ export default function CentreProfilScreen({ route }) {
         renderItem= {({item})=> <Text>{item.res[0].education.ecole}</Text>} />
 
         <Text>{renderText()}</Text>*/}
-
+        <View style={styles.v_tempo} >
+    {data.length>0 &&(
+  <Text> -Nom: {data[0].name}</Text>
+    )}
+    {data.length>0 &&(
+  <Text> -Présentation:    {data[0].presentation}</Text>
+    )}
+  
+  </View>
       </View>
-
+      <View style={styles.v_tempo} >
+    <Text style={styles.t_tempo}>Tarif</Text>
+    {data.length>0 &&(
+  <Text> -Prix: {data[3].tarif[0].prix}</Text>
+    )}
+    {data.length>0 &&(
+  <Text> -Service: {data[3].tarif[0].service}</Text>
+    )}
+    {data.length>0 &&(
+      <Text> -Prix: {data[3].tarif[1].prix}</Text>
+    )}
+    {data.length>0 &&(
+ <Text> -Service: {data[3].tarif[1].service}</Text>
+    )}
+  </View>
+  <View style={styles.v_tempo} >
+        <Text style={styles.t_tempo}>Medecins</Text>
+        {data.length > 0 && (
+          <Text> -adresse: {data[4].medecin[0].name}</Text>
+        )}
+        {data.length > 0 && (
+          <Text> -tel1: {data[4].medecin[0].profession}</Text>
+        )}
+        {data.length > 0 && (
+          <Text> -tel2: {data[4].medecin[0].speciality}</Text>
+        )}
+         {data.length > 0 && (
+          <Text> -nom: {data[4].medecin[1].name}</Text>
+        )}
+        {data.length > 0 && (
+          <Text> -Profession: {data[4].medecin[1].profession}</Text>
+        )}
+        {data.length > 0 && (
+          <Text> -specialité: {data[4].medecin[1].speciality}</Text>
+        )}
+         {data.length > 0 && (
+          <Text> -nom: {data[4].medecin[2].name}</Text>
+        )}
+        {data.length > 0 && (
+          <Text> -Profession: {data[4].medecin[2].profession}</Text>
+        )}
+        {data.length > 0 && (
+          <Text> -Specialité: {data[4].medecin[2].speciality}</Text>
+        )}
+      </View>
+      
     </ScrollView>
   );
 
@@ -94,10 +142,20 @@ const styles = StyleSheet.create({
   img: {
     alignSelf: 'center',
     width: 80,
-    height: 50,
+    height: 90,
     margin: 10,
     borderRadius: 20
   },
+  v_tempo:{
+    backgroundColor:"#bdc3c7",
+    marginBottom:8,
+    width:'100%'
+  },
+  t_tempo: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold'
+  }
 })
 
  

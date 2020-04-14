@@ -1,3 +1,100 @@
+// Components/Search.js
+import React from 'react'
+import { StyleSheet, View, TextInput, Button, Text, FlatList,Image,ActivityIndicator } from 'react-native'
+import {getFilmsFromApiWithSearchedText} from '../Navigation/WelcomeStack'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import * as NavigationService from '../Navigation/NavigationService';
+import Sugg from '../Components/Sugg';
+export default class Search extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.searchedText = "" // Initialisation de notre donnée searchedText en dehors du state
+    this.state = {
+      loading: false,
+      data: []
+    }
+  }
+
+  loadFilms() {
+    if (this.searchedText.length > 0) { // Seulement si le texte recherché n'est pas vide
+    this.setState({ loading: true })
+    getFilmsFromApiWithSearchedText(this.searchedText)
+    
+    .then(response => {
+      console.log('*************************')
+      console.log(response)
+      this.setState(
+        {
+          loading: false,
+          data: response
+        },
+      );
+    });
+    }
+  }
+
+  _searchTextInputChanged(text) {
+    this.searchedText = text 
+    this.loadFilms();
+  }
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: '86%',
+          backgroundColor: '#CED0CE',
+          marginLeft: '14%',
+        }}
+      />
+    );
+  };
+  displayLoading(){
+    if (this.state.loading) {
+      //Loading View while data is loading
+      return (
+        <View style={{ flex: 1, paddingTop: 20,marginBottom:15 }}>
+          <ActivityIndicator />
+        </View>
+      );
+    }}
+  render() {
+    return (
+      <View style={styles.main_container}>
+        <TextInput
+          style={styles.textinput}
+          placeholder='Médecin,établissement,spécialité....'
+          onChangeText={(text) => this._searchTextInputChanged(text)}
+        />
+        {this.displayLoading()}
+        {this.searchedText.length > 0 &&(
+        <FlatList
+          data={this.state.data.sort((a,b) =>  a.type === 'spécialité' ? -1 : 1)}
+          keyExtractor={item => { return item.id}}
+    renderItem={({item}) => <Sugg su={item} />}
+      ItemSeparatorComponent={this.renderSeparator}
+        />)}
+      </View>
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  main_container: {
+    flex: 1,
+    marginTop: 20
+  },
+  textinput: {
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom:3,
+    height: 50,
+    borderColor: '#000000',
+    borderWidth: 1,
+    paddingLeft: 5
+  }
+})
 /*import React, { Component } from 'react';
 import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 import { ListItem, SearchBar } from 'react-native-elements';
@@ -104,112 +201,9 @@ class FlatListDemo extends Component {
 
 export default FlatListDemo;*/
 
-// Components/Search.js
 
-import React from 'react'
-import { StyleSheet, View, TextInput, Button, Text, FlatList,Image,ActivityIndicator } from 'react-native'
-import {getFilmsFromApiWithSearchedText} from '../Navigation/WelcomeStack'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import * as NavigationService from '../Navigation/NavigationService';
-import Sugg from '../Components/Sugg';
-class Search extends React.Component {
 
-  constructor(props) {
-    super(props)
-    this.searchedText = "" // Initialisation de notre donnée searchedText en dehors du state
-    this.state = {
-      loading: true,
-      data: []
-    }
-  }
 
-  loadFilms() {
-    if (this.searchedText.length > 0) { // Seulement si le texte recherché n'est pas vide
-    getFilmsFromApiWithSearchedText(this.searchedText)
-    
-    .then(response => {
-      console.log('*************************')
-      console.log(response)
-      this.setState(
-        {
-          loading: false,
-          data: response
-        },
-      );
-    });
-    }
-  }
-
-  _searchTextInputChanged(text) {
-    this.searchedText = text 
-    this.loadFilms();
-  }
-  renderSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: '86%',
-          backgroundColor: '#CED0CE',
-          marginLeft: '14%',
-        }}
-      />
-    );
-  };
-/*  fetchLien(text){
-    fetch('http://54.37.228.205:8069/web/login?db=prise_rdv_AB')
-    fetch('http://54.37.228.205:8069'+text)
-    .then((response)=>response.json())
-    .then(response=>{
-      console.log(response);
-    }
-      )
-      .catch((error) => console.error(error))
-  }*/
-  render() {
-    if (this.state.Loading) {
-      //Loading View while data is loading
-      return (
-        <View style={{ flex: 1, paddingTop: 20 }}>
-          <ActivityIndicator />
-        </View>
-      );
-    }
-    return (
-      <View style={styles.main_container}>
-        <TextInput
-          style={styles.textinput}
-          placeholder='Médecin,établissement,spécialité....'
-          onChangeText={(text) => this._searchTextInputChanged(text)}
-        />
-        
-        <FlatList
-          data={this.state.data}
-          keyExtractor={item => { return item.id}}
-    renderItem={({item}) => <Sugg su={item} />}
-      ItemSeparatorComponent={this.renderSeparator}
-        />
-      </View>
-    )
-  }
-}
-
-const styles = StyleSheet.create({
-  main_container: {
-    flex: 1,
-    marginTop: 20
-  },
-  textinput: {
-    marginLeft: 5,
-    marginRight: 5,
-    height: 50,
-    borderColor: '#000000',
-    borderWidth: 1,
-    paddingLeft: 5
-  }
-})
-
-export default Search
 
 
 /*

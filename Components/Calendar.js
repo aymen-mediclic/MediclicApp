@@ -1,3 +1,25 @@
+import React from 'react'
+import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image } from 'react-native'
+import { Container, Header, Content, Accordion, Item } from "native-base";
+import * as NavigationService from '../Navigation/NavigationService';
+console.disableYellowBox = true;
+const data = [
+  { title: "Lundi 13 avril", content:<Text style={{backgroundColor:'#3498db'}}>Horaires</Text>  },
+  { title: "Mardi 14 avril", content:<Text style={{backgroundColor:'#3498db'}}>Horaires</Text> },
+  { title: "Mercredi 15 avril", content: <Text style={{backgroundColor:'#3498db'}}>Horaires</Text> },
+];
+export default class Calendar extends React.Component {
+  render(){
+    return(
+      <View>
+      
+        <Accordion dataArray={data} expanded={0} />
+      
+
+    </View>
+    )  }
+}
+/*valide
 import React, { Component } from "react";
 import {
   FlatList,

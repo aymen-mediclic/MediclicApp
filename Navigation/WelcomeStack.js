@@ -1,6 +1,6 @@
 
 export function getFilmsFromApiWithSearchedText(text) {
-  fetch('http://54.37.228.205:8069/web/login?db=prise_rdv_AB')
+  fetch('http://54.37.228.205:8069/web/login?db=prise_rdv_185')
   return fetch('http://54.37.228.205:8069/searchmob?input=' + text)
     .then((response) => response.json())
     .catch((error) => console.error(error))
@@ -13,7 +13,7 @@ export function getFilmsFromApiWithSearchedText1 () {
     .catch((error) => console.error(error))
 }
 export function fetchLien(text) {
-  fetch('http://54.37.228.205:8069/web/login?db=prise_rdv_AB')
+  fetch('http://54.37.228.205:8069/web/login?db=prise_rdv_185')
   return fetch('http://54.37.228.205:8069' + text)
     .then((response) => response.json())
     .catch((error) => console.error(error))

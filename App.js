@@ -64,12 +64,13 @@ export default class App extends React.Component  {
               <Stack.Screen name="Se connecter" component={ConnectionScreen} options={{
                 headerTintColor :'#fff',
                 headerStyle :{
-                backgroundColor:'#1E79C5',
+                backgroundColor:'#0f73c9',
                 height: 80,
                 },
                 headerTitleStyle:{
                   fontWeight:'bold'
-                }
+                },
+                headerShown:false
               }} />
               <Stack.Screen name="MedProfil" component={MedProfilScreen} options={{
                 headerTintColor :'#fff',

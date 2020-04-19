@@ -13,7 +13,7 @@ export default class Calendar extends React.Component {
     return(
       <View>
       
-        <Accordion dataArray={data} expanded={0} />
+        <Accordion dataArray={data} icon="add" expandedIcon="remove" expanded={0} />
       
 
     </View>

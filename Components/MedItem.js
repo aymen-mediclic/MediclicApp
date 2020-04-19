@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text, Button, StyleSheet, Image, Modal } from 'react-native'
+import { View, Text, Button, StyleSheet, Image, Modal,TouchableOpacity } from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
-import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import Calendar from './Calendar';
 import { MaterialIcons } from '@expo/vector-icons'
 class MedItem extends React.Component {
@@ -24,7 +23,7 @@ class MedItem extends React.Component {
             <View style={styles.main_container}  >
 
                 <View style={styles.ctr1}>
-                <TouchableOpacity style={{flexDirection:'row'}}  onPress={() => {
+                    <TouchableOpacity style={{ flexDirection: 'row',flex:1}} onPress={() => {
                         if (Med.identifier == 'medecin') {
                             NavigationService.navigate('MedProfil', Med)
                         }
@@ -33,46 +32,49 @@ class MedItem extends React.Component {
                         }
                     }}>
                         <Image style={styles.img} source={{ uri: `data:image/gif;base64,${encodedData}` }} />
-                    
-                    <View>
-                        <Text style={styles.txt}> {Med.name} </Text>
-                        <Text style={{ flexWrap: 'wrap' }} > {Med.specialite} </Text>
-                        <Text style={{ flexShrink:1 }} > {Med.work} </Text>
-                    </View>    
+
+                        <View style={{ flexDirection: 'column',flex:1}}>
+                            <Text style={styles.txt}> {Med.name} </Text>
+                            <Text> {Med.specialite} </Text>
+                            <Text> {Med.work} </Text>
+                        </View>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.ctr2}>
-                    <Text style={{ textAlign: 'center', marginBottom: 5, fontSize: 18 }}>Prochaines disponibilités:</Text>
-                    <View style={{flexDirection:'row'}}>
+                    <Text style={{ textAlign: 'center', marginBottom: 5, fontSize: 16 }}>Prochaines disponibilités:</Text>
+                    <View style={{ flexDirection: 'row' }}>
                         <View style={styles.v_slt}>
-                            <Text>Ven:10/04</Text>
-                            <Text>Sam:11/04</Text>
+                            <Text style={{ color: 'grey' }}>Ven:10/04</Text>
+                            <Text style={{ color: 'grey' }}>Sam:11/04</Text>
                         </View>
                         <View style={styles.v_slt1}>
-                            <View style={{flex:1,flexDirection:'row',justifyContent:'space-between'}}>
-                            <Text style={styles.txt_slt}>08:00</Text>
-                            <Text style={styles.txt_slt}>09:00</Text>
-                            <Text style={styles.txt_slt}>10:00</Text>
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={styles.txt_slt}>08:00</Text>
+
+                                <Text style={styles.txt_slt}>09:00</Text>
+                                <Text style={styles.txt_slt}>10:00</Text>
+
                             </View>
-                            <View style={{flex:1,flexDirection:'row',justifyContent:'space-between'}}>
-                            <Text style={styles.txt_slt}>08:00</Text>
-                            <Text style={styles.txt_slt}>09:00</Text>
-                            <Text style={styles.txt_slt}>10:00</Text>
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={styles.txt_slt}>08:00</Text>
+                                <Text style={styles.txt_slt}>09:00</Text>
+                                <Text style={styles.txt_slt}>10:00</Text>
                             </View>
                         </View>
                     </View>
                     <Modal visible={this.state.modalOpen} animationType='slide' transparent={true}  >
                         <View style={styles.modal}>
-                            <MaterialIcons name='close' size={30} onPress={() => this.setState({ modalOpen: false })} />
-                            <Text style={{ alignSelf: 'center', fontSize: 28,backgroundColor:'#2980b9',color:'white' }}> Toutes les disponibilités</Text>
-
-                        <Calendar action={this.handler} />
+                            <View style={{ flexDirection: 'row', backgroundColor: '#2980b9', justifyContent: 'center' }}>
+                                <MaterialIcons color='white' name='close' size={25} onPress={() => this.setState({ modalOpen: false })} />
+                                <Text style={{ alignSelf: 'center', fontSize: 22, color: 'white' }}> Toutes les disponibilités</Text>
+                            </View>
+                            <Calendar />
                         </View>
                     </Modal>
-                    <View style={{flex:1,alignItems:'center'}}>
-                    <TouchableOpacity style={{marginTop:10,backgroundColor: '#FFC617', height: 25, width: 100, borderRadius: 10 }} onPress={() => this.setState({ modalOpen: true })}>
-                        <Text style={{ textAlign: 'center', fontStyle: 'italic', color: 'white' }}> Voir plus</Text>
-                    </TouchableOpacity>
+                    <View style={{ flex: 1, alignItems: 'center' }}>
+                        <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#FFC617', height: 25, width: 100, borderRadius: 10 }} onPress={() => this.setState({ modalOpen: true })}>
+                            <Text style={{ textAlign: 'center', fontStyle: 'italic', color: 'white' }}> Voir plus</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
@@ -81,12 +83,12 @@ class MedItem extends React.Component {
 }
 const styles = StyleSheet.create({
     main_container: {
-        flex:1,
+        flex: 1,
         height: 300,
         flexDirection: 'column',
         backgroundColor: "grey",
         width: '95%',
-        margin:10,
+        margin: 10,
     },
     ctr1: {
         flex: 1,
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
         //alignItems: 'center',
         //justifyContent:'center',
         backgroundColor: 'white',
-        marginTop:1
+        marginTop: 1
         //margin: 2,
         //flexWrap:'wrap'
     },
@@ -121,33 +123,35 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     v_slt: {
-        flex:1,
-        flexDirection:'column',
-        justifyContent:'space-between',
-        marginTop:3,
-        paddingLeft:5
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        marginTop: 3,
+        paddingLeft: 5
         //marginRight:20
     },
     v_slt1: {
-        flex:2,
-        flexDirection:'column',
-        justifyContent:'space-between',
-        marginTop:3,
-        paddingRight:10
+        flex: 2,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        marginTop: 3,
+        paddingRight: 10
         //marginRight:20
     },
     txt_slt: {
-        textAlign:'center',
+        textAlign: 'center',
         backgroundColor: '#1E79C5',
-        width:50,
-        color:'white',
-        marginBottom:2
+        width: 70,
+        color: 'white',
+        marginBottom:2,
+        borderRadius: 3
     },
     modal: {
-        flex:1,
-        backgroundColor: 'white',
-        margin: 30, 
-        height:'20%'
+        //flex:1,
+        backgroundColor: '#fff',
+        margin: 30,
+        height: '50%',
+        borderRadius: 5,
     },
 });
 export default MedItem

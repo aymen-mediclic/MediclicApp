@@ -49,6 +49,9 @@ class ConnectionScreen extends React.Component {
             <Text style={{color:'#FFC617',textAlign:'center',fontSize:18,marginTop:5}}> SE CONNECTER</Text>
             </TouchableOpacity>
           <Text style={{color:'white',fontWeight:'bold'}}>MOT DE PASSE OUBLIE? </Text>
+          <TouchableOpacity style={styles.btn} onPress={()=>NavigationService.navigate('Inscription')}>
+            <Text style={{color:'#FFC617',textAlign:'center',fontSize:18,marginTop:5}}> S'INSCRIRE</Text>
+            </TouchableOpacity>
         </View>
 
         {/*<View  style={styles.pat_ctr}>
@@ -101,7 +104,7 @@ class ConnectionScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f73c9',
+    backgroundColor: '#1E79C5',
     alignItems: 'center',
     //justifyContent: 'space-around'
 

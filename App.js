@@ -1,4 +1,4 @@
-import React,  { Component }   from 'react';
+import React  from 'react';
 import {createStackNavigator} from '@react-navigation/stack'
 import AccueilScreen from './Screens/AccueilScreen';
 import ListMed from './Screens/ListMed';
@@ -12,15 +12,16 @@ import {MaterialIcons } from '@expo/vector-icons';
 import {TouchableOpacity,Text} from 'react-native';
 import { DrawerActions } from '@react-navigation/native';
 import Calendar from './Components/Calendar';
-import lien from './Screens/lienScreen';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 import * as NavigationService from './Navigation/NavigationService';
 import SearchScreen from './Screens/SearchBarScreen';
 import RDV from './Screens/RdvScreen';
 import CentreProfilScreen from './Screens/CentreProfilScreen';
-
-
+import Inscription from './Screens/InscriptionScreen';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import DateC from './Screens/DateConsultation';
+import TypeC from './Components/TypeC';
 export default class App extends React.Component  {
   constructor(props){
     super(props);
@@ -38,15 +39,16 @@ export default class App extends React.Component  {
                 },
                 headerTitleStyle:{
                   fontWeight:'bold',
-                  fontStyle:'italic'
+                  textAlign:'center',
                 },
+                headerTitleAlign:'center',
                 headerRight:()=>
-                <TouchableOpacity style={{marginRight:5}} onPress={()=> NavigationService.navigate('Se connecter')} >
-                  <MaterialIcons name='accessibility' size= {28} color={'white'}/>
+                <TouchableOpacity style={{padding:10}} onPress={()=> NavigationService.navigate('Se connecter')} >
+                  <Icon name='user' size= {20} color={'white'}/>
                   {/*<FontAwesomeIcon icon='user' />*/}
                 </TouchableOpacity>,
                 headerLeft:()=>
-                <TouchableOpacity  style={{marginLeft:5}} onPress={ ()=> alert('ok')} >
+                <TouchableOpacity  style={{marginLeft:5}} onPress={ ()=>  NavigationService.navigate('Type de consultation')} >
                     <MaterialIcons name='menu' size= {28} color={'white'}  />
                 </TouchableOpacity>,
               }
@@ -64,13 +66,13 @@ export default class App extends React.Component  {
               <Stack.Screen name="Se connecter" component={ConnectionScreen} options={{
                 headerTintColor :'#fff',
                 headerStyle :{
-                backgroundColor:'#0f73c9',
+                backgroundColor:'#1E79C5',
                 height: 80,
                 },
                 headerTitleStyle:{
                   fontWeight:'bold'
                 },
-                headerShown:false
+                headerTitleAlign:'center',
               }} />
               <Stack.Screen name="MedProfil" component={MedProfilScreen} options={{
                 headerTintColor :'#fff',
@@ -108,6 +110,7 @@ export default class App extends React.Component  {
                 backgroundColor:'#1E79C5',
                 height: 80,
                 },
+                headerTitleAlign:'center',
                 headerTitleStyle:{
                   fontWeight:'bold'
                 }
@@ -122,12 +125,33 @@ export default class App extends React.Component  {
                   fontWeight:'bold'
                 }
               }} />
-              <Stack.Screen name="lien" component={lien} options={{
+              <Stack.Screen name="Inscription" component={Inscription} options={{
                 headerTintColor :'#fff',
                 headerStyle :{
                 backgroundColor:'#1E79C5',
                 height: 80,
                 },
+                headerTitleStyle:{
+                  fontWeight:'bold'
+                }
+              }} />
+              <Stack.Screen name="Date de rendez-vous" component={DateC} options={{
+                headerTintColor :'#fff',
+                headerStyle :{
+                backgroundColor:'#1E79C5',
+                height: 80,
+                },
+                headerTitleStyle:{
+                  fontWeight:'bold'
+                }
+              }} />
+              <Stack.Screen name="Type de consultation" component={TypeC} options={{
+                headerTintColor :'#fff',
+                headerStyle :{
+                backgroundColor:'#1E79C5',
+                height: 80,
+                },
+                headerTitleAlign:'center',
                 headerTitleStyle:{
                   fontWeight:'bold'
                 }

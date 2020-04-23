@@ -2,7 +2,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, FlatList, RefreshControl, Modal, TouchableOpacity, ActivityIndicator } from 'react-native'
 import MedItem from '../Components/MedItem'
-import { getFilmsFromApiWithSearchedText1, fetchLien } from '../Navigation/WelcomeStack'
+import {fetchLien } from '../Navigation/WelcomeStack'
 import { MaterialIcons } from '@expo/vector-icons'
 import Filter from '../Components/Filter'
 import { object } from 'prop-types'
@@ -27,10 +27,10 @@ class RechercheScreen extends React.Component {
     //this.setState({ isLoading: true })
     fetchLien(this.props.route.params.lien
     ).then((res) => {
-      console.log(res);
+      //console.log(res);
       this.setState({
         isLoading: false,
-        // dataSource:res,
+        dataSource:res,
         refreshing: false
       })
     })
@@ -75,9 +75,9 @@ class RechercheScreen extends React.Component {
             </TouchableOpacity> <MedItem Med={item}/>*/}
 
         <FlatList
-          data={[this.state.dataSource]}
+          data={this.state.dataSource}
           keyExtractor={item => { return item.id }}
-          renderItem={({ item }) => console.log(item)}
+          renderItem={({ item }) =>{if(item.length>0){ console.log(item[0].profil.name)}}}
           refreshing={this.state.refreshing}
           onRefresh={this.handleRefresh}
         />

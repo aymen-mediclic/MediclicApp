@@ -24,6 +24,8 @@ export default class Search extends React.Component {
     .then(response => {
       console.log('*************************')
       console.log(response)
+      console.log('*************************')
+      //console.log(this.props.state.selectedValue)
       this.setState(
         {
           loading: false,

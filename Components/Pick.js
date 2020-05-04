@@ -3,7 +3,7 @@ import {View,Picker} from 'react-native'
 export default class Pick extends React.Component{
     state = {
         
-        selectedValue:'p'
+        selectedValue:'c'
       };
     render(){
     return(
@@ -14,9 +14,8 @@ export default class Pick extends React.Component{
                      style={{ height: 50, width: 150 }}
                     onValueChange={(itemValue, itemIndex) => this.setState({selectedValue:itemValue})}
                     >
-                <Picker.Item label="Choix 1" value='p'/>
-                <Picker.Item label="choix 2" value='s'/>
-                <Picker.Item label="Choix 3" value='o'/>
+                <Picker.Item label="au Cabinet/Centre" value='c'/>
+                <Picker.Item label="Domicile" value='d'/>
                 </Picker>
  </View>
     )}

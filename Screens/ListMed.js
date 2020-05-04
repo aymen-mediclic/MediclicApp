@@ -14,10 +14,10 @@ class PlanScreen extends React.Component {
     render(){
       return (
         <View style={styles.container}>
-            <Map/>
-            {/*<TouchableOpacity >
+           {/* <Map/>*/}
+            <TouchableOpacity >
                     <Image style={styles.img} source={require('../assets/map.jpg')} />
-            </TouchableOpacity> */}
+            </TouchableOpacity> 
           
         </View>
       );

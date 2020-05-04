@@ -19,7 +19,12 @@ export default class TypeC extends React.Component {
           <Picker.Item label="A domicile" value="d" />
           <Picker.Item label="Video conférence" value="v" />
         </Picker>
-        <Button title='Suivant' onPress={()=>NavigationService.navigate('Rechercher')} />
+        {this.state.selectedValue =='c'&& (
+        <Button title='Suivant' onPress={()=>NavigationService.navigate('Rechercher',this.state.selectedValue)} />
+        )}
+        {this.state.selectedValue =='d'&& (
+        <Button title='Suivant' onPress={()=>NavigationService.navigate('Choisisser la ville:',this.state.selectedValue)} />
+        )}
       </View>
     );
   }

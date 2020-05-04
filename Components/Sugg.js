@@ -8,10 +8,10 @@ export default class Sugg extends React.Component {
 
     render() {
         const su = this.props.su
-        //NavigationService.navigate('Médecin',su)
+        //NavigationService.navigate('Médecin',{screen:'Recherche',params:{lien:su.lien}})
         return (
             
-                <TouchableOpacity onPress={()=>NavigationService.navigate('Médecin',{screen:'Recherche',params:{lien:su.lien}})}>
+                <TouchableOpacity onPress={()=>NavigationService.navigate('Choisisser la ville')}>
                     {su.type == 'spécialité' && (
                         <Text> {su.name}</Text>)}
                     {su.type != 'spécialité' && (

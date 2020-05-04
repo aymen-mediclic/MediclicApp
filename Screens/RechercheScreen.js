@@ -21,7 +21,7 @@ class RechercheScreen extends React.Component {
   }
 
   componentDidMount() {
-    this._Request();
+    //this._Request();
   }
   _Request = () => {
     //this.setState({ isLoading: true })
@@ -77,7 +77,7 @@ class RechercheScreen extends React.Component {
         <FlatList
           data={this.state.dataSource}
           keyExtractor={item => { return item.id }}
-          renderItem={({ item }) =>{if(item.length>0){ console.log(item[0].profil.name)}}}
+          renderItem={({ item }) =>{if(item.length>0){ <Text> Résultats</Text>}}}
           refreshing={this.state.refreshing}
           onRefresh={this.handleRefresh}
         />

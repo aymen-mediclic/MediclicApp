@@ -13,7 +13,7 @@ export default class Sugg extends React.Component {
             
                 <TouchableOpacity onPress={()=>NavigationService.navigate('Choisisser la ville')}>
                     {su.type == 'spécialité' && (
-                        <Text> {su.name}</Text>)}
+                        <Text style={{margin:5,color:'grey'}}> {su.name}</Text>)}
                     {su.type != 'spécialité' && (
                         <View style={{ backgroundColor: 'grey', flexDirection: 'row' }}>
                             <Image style={{ height: 50, width: 80 }} source={require('../assets/Title.jpg')} />

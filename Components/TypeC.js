@@ -9,10 +9,10 @@ export default class TypeC extends React.Component {
     
     return (
       <View style={styles.container}>
-          <Text style={styles.txt}> Sélectionner un type de RDV</Text>
+          <Text style={styles.txt}> Sélectionner un type de RDV :</Text>
         <Picker
           selectedValue={this.state.selectedValue}
-          style={{ height: 50, width: 200,marginTop:10,marginBottom:250 }}
+          style={{ height: 50, width:'90%',marginBottom:20}}
           onValueChange={(itemValue, itemIndex) => this.setState({selectedValue:itemValue})}
         >
           <Picker.Item label="Au cabinet/centre" value="c" />
@@ -33,10 +33,15 @@ export default class TypeC extends React.Component {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: 40,
-      alignItems: "center"
+      
+      alignItems: "center",
+      //justifyContent:'center'
     },
     txt:{
-        fontSize:18
+        fontSize:20,
+        marginBottom:50,
+        marginTop:80,
+        color:'#1E79C5',
+        fontFamily:''
     }
   });

@@ -26,6 +26,9 @@ import VilleC from './Screens/VilleConsultation';
 import VilleC1 from './Screens/VilleC1';
 import ShortCut from './Components/ShortCut'
 import ChangeP from './Screens/ChangePosition';
+import Web from './Screens/Web';
+import {Root} from 'native-base'
+import GProfMed from './Screens/GestProfMed';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -35,7 +38,7 @@ export default class App extends React.Component {
   }
   render() {
     return (
-
+      <Root>
       <NavigationContainer ref={navigationRef}>
         <Modal visible={this.state.modalOpen} animationType='slide' transparent={true}  >
           
@@ -66,7 +69,7 @@ export default class App extends React.Component {
                   {/*<FontAwesomeIcon icon='user' />*/}
                 </TouchableOpacity>,
               headerLeft: () =>
-                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => NavigationService.navigate('Prendre un rendez-vous')} >
+                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => NavigationService.navigate('Video Call')} >
                   <MaterialIcons name='menu' size={28} color={'white'} />
                 </TouchableOpacity>,
             }
@@ -212,10 +215,22 @@ export default class App extends React.Component {
               fontWeight: 'bold'
             }
           }} />
+          <Stack.Screen name="Video Call" component={Web} options={{
+            headerTintColor: '#fff',
+            headerStyle: {
+              backgroundColor: '#1E79C5',
+              height: 80,
+            },
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              fontWeight: 'bold'
+            }
+          }} />
+          
         </Stack.Navigator>
       </NavigationContainer>
 
-
+      </Root>
     );
   }
 }

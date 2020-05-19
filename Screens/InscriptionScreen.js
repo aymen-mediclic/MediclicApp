@@ -1,109 +1,115 @@
 ////////////lM39oul/////////////////////////
 import React from 'react'
-import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native'
+import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon } from 'react-native'
 import { Formik } from 'formik';
 import { RadioButton } from 'react-native-paper';
+//import { CheckBox } from 'native-base';
+import CheckBox from 'react-native-check-box'
 export default class Inscription extends React.Component {
   state = {
     value: 'first',
+    chkbox: false,
   };
   render() {
     return (
-      <View style={styles.main_container}>
+      
         <Formik
           initialValues={{ email: '' }}
           onSubmit={values => console.log(values)}
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
-            <ScrollView>
+            <ScrollView contentContainerStyle={styles.main_container}>
               <RadioButton.Group
                 onValueChange={value => this.setState({ value })}
                 value={this.state.value}
               >
                 <Text style={{ fontSize: 16 }}>Civilité:</Text>
-              <View style={{ flexDirection: 'row' }}>
-                <View style={{ marginRight: 30 }}>
-                  <Text>Monsieur</Text>
-                  <RadioButton value="first" />
+                <View style={{ flexDirection: 'row' }}>
+                  <View style={{ marginRight: 30 }}>
+                    <Text style={styles.text}>Monsieur</Text>
+                    <RadioButton value="first" />
+                  </View>
+                  <View>
+                    <Text>Madame</Text>
+                    <RadioButton value="second" />
+                  </View>
                 </View>
-                <View>
-                  <Text>Madame</Text>
-                  <RadioButton value="second" />
-                </View>
-              </View>
               </RadioButton.Group>
-              
 
-              <Text>Nom</Text>
+
+              <Text style={styles.text}>Nom</Text>
               <TextInput style={styles.text_input}
                 placeholder='Nom'
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email}
               />
-              <Text>Prénom</Text>
+              <Text style={styles.text}>Prénom</Text>
               <TextInput style={styles.text_input}
                 placeholder='Prénom'
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email}
               />
-              <Text>Date de naissance</Text>
-              <TextInput style={styles.text_input}
-                placeholder='Date de naissance'
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                value={values.email}
+              <Text style={styles.text}>Vous êtes majeur?</Text>
+              <CheckBox
+                style={{ flex: 1, padding: 10 }}
+                onClick={() => {
+                  this.setState({
+                    isChecked: !this.state.isChecked
+                  })
+                }}
+                isChecked={this.state.isChecked}
+                rightText={"Oui"}
               />
-              <Text>N°Téléphone</Text>
+              <Text style={styles.text}>N°Téléphone</Text>
               <TextInput style={styles.text_input}
                 placeholder='N°Téléphone'
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email}
               />
-              <Text>Confirmer N°Téléphone</Text>
-              <TextInput style={styles.text_input}
-                placeholder='Confirmer N°Téléphone'
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                value={values.email}
-              />
-              <Text>Email</Text>
+
+              <Text style={styles.text}>Email</Text>
               <TextInput style={styles.text_input}
                 placeholder='Email'
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email}
               />
-              <Text>Confirmer Email</Text>
-              <TextInput style={styles.text_input}
-                placeholder='Confirmer Email'
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                value={values.email}
-              />
-              <Text>Mot de passe</Text>
+
+              <Text style={styles.text}>Mot de passe</Text>
               <TextInput style={styles.text_input}
                 placeholder='Mot de passe'
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email}
               />
-              <Text>Confirmer mot de passe</Text>
+              <Text style={styles.text}>Confirmer mot de passe</Text>
               <TextInput style={styles.text_input}
                 placeholder='Confirmer mot de passe'
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email}
               />
-              <Button onPress={handleSubmit} title="Inscription" />
+              <CheckBox
+                style={{ flex: 1, padding: 10 }}
+                onClick={() => {
+                  this.setState({
+                    isChecked: !this.state.isChecked
+                  })
+                }}
+                isChecked={this.state.isChecked}
+                rightText={"J'accepte les conditions d'utilisation de la plateforme"}
+              />
+
+              <Button   onPress={handleSubmit} title="Inscription" />
             </ScrollView>
 
 
           )}
         </Formik>
-      </View>
+      
     );
   }
 
@@ -111,22 +117,27 @@ export default class Inscription extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    flex: 1,
-    alignItems: 'center',
+    //flex: 1,
+    //alignItems: 'center',
     //justifyContent: 'center',
     backgroundColor: 'white'
   },
+  text: {
+    marginLeft: 10,
+  },
   text_input: {
-    marginLeft: 5,
-    marginRight: 5,
+    marginLeft: 10,
+    //marginRight: 5,
     height: 30,
-    width: 300,
-    borderColor: '#000000',
+    width:'90%',
+    borderColor: 'grey',
     borderWidth: 1,
+    borderRadius: 5,
     paddingLeft: 10,
     marginBottom: 10,
+    marginTop: 5,
     backgroundColor: "white",
-
+    alignItems:'center'
   }
 });
 

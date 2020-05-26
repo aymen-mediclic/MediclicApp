@@ -7,6 +7,7 @@ import { Button, ActionSheet } from "native-base";
 var BUTTONS = ["Patient", "Professionnel", "Centre", "Annuler"];
 var DESTRUCTIVE_INDEX = 3;
 var CANCEL_INDEX = 4;
+//{this.Autho}
 class ConnectionScreen extends React.Component {
   constructor(props) {
     super(props)
@@ -49,7 +50,7 @@ class ConnectionScreen extends React.Component {
             leftIcon={{ type: 'font-awesome', name: 'lock', color: 'white' }}
             rightIcon={{ type: 'feather', name: 'eye-off', color: 'white' }}
           />
-          <TouchableOpacity style={styles.btn} onPress={this.Autho}>
+          <TouchableOpacity style={styles.btn} onPress= {() => NavigationService.navigate('Mon Profil:')}>
             <Text style={{ color: '#FFC617', textAlign: 'center', fontSize: 18, marginTop: 5 }}> SE CONNECTER</Text>
           </TouchableOpacity>
           <Text style={{ color: 'white', fontWeight: 'bold' }}>MOT DE PASSE OUBLIE? </Text>

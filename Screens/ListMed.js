@@ -1,7 +1,7 @@
 import React from 'react'
 import {View,Text,Button,StyleSheet,TouchableOpacity,Image} from 'react-native'
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
-import { NavigationContainer } from '@react-navigation/native';
+
 import RechercheScreen from './RechercheScreen'
 import Map from '../Components/Map';
 

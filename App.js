@@ -31,6 +31,7 @@ import Web from './Screens/Web';
 import {Root} from 'native-base'
 import GProfMed from './Screens/GestProfMed';
 import GProfPatient from './Screens/GestProfPatient';
+import GProcheProfil from './Screens/PatProfil/GestProcheProfil';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -71,7 +72,7 @@ export default class App extends React.Component {
                   {/*<FontAwesomeIcon icon='user' />*/}
                 </TouchableOpacity>,
               headerLeft: () =>
-                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => NavigationService.navigate('Prendre un rendez-vous')} >
+                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => NavigationService.navigate('Choisisser la ville:')} >
                   <MaterialIcons name='menu' size={28} color={'white'} />
                 </TouchableOpacity>,
             }
@@ -242,6 +243,17 @@ export default class App extends React.Component {
             title:() =>{<Image style={{ height: 60, width: 100 }} source={require('./assets/Title.jpg')} />} 
           }} />
           <Stack.Screen name="Mon Profil:" component={GProfPatient} options={{
+            headerTintColor: '#fff',
+            headerStyle: {
+              backgroundColor: '#1E79C5',
+              height: 80,
+            },
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              fontWeight: 'bold'
+            }
+          }} />
+           <Stack.Screen name="Proche Profil:" component={GProcheProfil} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',

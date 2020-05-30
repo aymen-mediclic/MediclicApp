@@ -1,26 +1,55 @@
 import React, { useEffect, useState } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Modal } from 'react-native'
-import FScreen from './PatProfil/FilesScreen';
-import MrdvScreen from './PatProfil/MrdvScreen';
-import MprofilScreen from './PatProfil/MprofilScreen';
-import MprochesScreen from './PatProfil/MprocheScreen';
 
 
 
+class PlanScreen extends React.Component {
+    render(){
+      return (
+        <View style={styles.container}>
+           
+          
+        </View>
+      );
+    }
+  
+  }
+  class PlanScreen2 extends React.Component {
+    render(){
+      return (
+        <View style={styles.container}>
+           
+          
+        </View>
+      );
+    }
+  
+  }
+  class PlanScreen3 extends React.Component {
+    render(){
+      return (
+        <View style={styles.container}>
+           
+          
+        </View>
+      );
+    }
+  
+  }
 
 
 
 const Drawer = createDrawerNavigator();
 
-export default function GProfPatient() {
+export default function GProcheProfil() {
     return (
 
         <Drawer.Navigator initialRouteName="Home">
-            <Drawer.Screen name="Mon profil" component={MprofilScreen} />
-            <Drawer.Screen name="Mes RDV" component={MrdvScreen} />
-            <Drawer.Screen name="Mes documents" component={FScreen} />
-            <Drawer.Screen name="Mes proches" component={MprochesScreen} />
+            <Drawer.Screen name="Mon profil" component={PlanScreen} />
+            <Drawer.Screen name="Mes RDV" component={PlanScreen2} />
+            <Drawer.Screen name="Mes documents" component={PlanScreen3} />
+            
 
         </Drawer.Navigator>
 

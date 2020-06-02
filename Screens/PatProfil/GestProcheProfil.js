@@ -1,42 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Modal } from 'react-native'
+import FprocheScreen from './Pdocument';
+import Prdv from './Prdv';
+import Pprofil from './Pprofil';
 
 
 
-class PlanScreen extends React.Component {
-    render(){
-      return (
-        <View style={styles.container}>
-           
-          
-        </View>
-      );
-    }
+
   
-  }
-  class PlanScreen2 extends React.Component {
-    render(){
-      return (
-        <View style={styles.container}>
-           
-          
-        </View>
-      );
-    }
   
-  }
-  class PlanScreen3 extends React.Component {
-    render(){
-      return (
-        <View style={styles.container}>
-           
-          
-        </View>
-      );
-    }
-  
-  }
 
 
 
@@ -46,9 +19,9 @@ export default function GProcheProfil() {
     return (
 
         <Drawer.Navigator initialRouteName="Home">
-            <Drawer.Screen name="Mon profil" component={PlanScreen} />
-            <Drawer.Screen name="Mes RDV" component={PlanScreen2} />
-            <Drawer.Screen name="Mes documents" component={PlanScreen3} />
+            <Drawer.Screen name="Mon profil" component={Pprofil} />
+            <Drawer.Screen name="Mes RDV" component={Prdv} />
+            <Drawer.Screen name="Mes documents" component={FprocheScreen} />
             
 
         </Drawer.Navigator>

@@ -7,7 +7,7 @@ import { Button, ActionSheet } from "native-base";
 var BUTTONS = ["Patient", "Professionnel", "Centre", "Annuler"];
 var DESTRUCTIVE_INDEX = 3;
 var CANCEL_INDEX = 4;
-//{this.Autho}
+// {this.Autho}
 class ConnectionScreen extends React.Component {
   constructor(props) {
     super(props)
@@ -30,10 +30,7 @@ class ConnectionScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.med_ctr}>
-          <View style={{ flexDirection: 'row', marginBottom: 20 }}>
-            <TouchableOpacity style={styles.pat}><Text style={{ color: 'white', fontSize: 16 }}>Espace patient</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.med}><Text style={{ fontSize: 16 }}>Espace médecin</Text></TouchableOpacity>
-          </View>
+         
 
           <Input inputStyle={styles.txt_input_u} placeholder='Nom de compte' placeholderTextColor="white"
             onChangeText={(login) => this.setState({ login })}
@@ -50,7 +47,7 @@ class ConnectionScreen extends React.Component {
             leftIcon={{ type: 'font-awesome', name: 'lock', color: 'white' }}
             rightIcon={{ type: 'feather', name: 'eye-off', color: 'white' }}
           />
-          <TouchableOpacity style={styles.btn} onPress= {() => NavigationService.navigate('Mon Profil:')}>
+          <TouchableOpacity style={styles.btn} onPress= {() => NavigationService.navigate('Mon Profil:')} >
             <Text style={{ color: '#FFC617', textAlign: 'center', fontSize: 18, marginTop: 5 }}> SE CONNECTER</Text>
           </TouchableOpacity>
           <Text style={{ color: 'white', fontWeight: 'bold' }}>MOT DE PASSE OUBLIE? </Text>
@@ -79,10 +76,11 @@ class ConnectionScreen extends React.Component {
     );
   }
 
+  
   Autho = () => {
     console.log(this.state)
-    fetch('http://51.254.39.98:8069/web/login?db=Mediclic')
-    fetch('http://51.254.39.98:8069/api/auth/token?login=' + this.state.login + '&password=' + this.state.password + '&db=Mediclic')
+    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+    fetch('http://51.91.249.185:8069/api/auth/token?login=' + this.state.login + '&password=' + this.state.password + '&db=new_installation')
 
       .then((response) => response.json())
       .then((res) => {
@@ -93,7 +91,7 @@ class ConnectionScreen extends React.Component {
         console.log("***************************")
         if ("user_context" in res) {
           AsyncStorage.setItem('user', res.user);
-          NavigationService.navigate('Mediclic');
+          NavigationService.navigate('Mon Profil:')
 
         }
         else {
@@ -103,7 +101,6 @@ class ConnectionScreen extends React.Component {
       })
       .done();
   }
-
 
 }
 

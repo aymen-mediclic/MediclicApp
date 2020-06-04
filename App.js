@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator, HeaderTitle } from '@react-navigation/stack'
 import AccueilScreen from './Screens/AccueilScreen';
 import ListMed from './Screens/ListMed';
 import AboutScreen from './Screens/AboutScreen';
@@ -32,6 +32,7 @@ import {Root} from 'native-base'
 import GProfMed from './Screens/GestProfMed';
 import GProfPatient from './Screens/GestProfPatient';
 import GProcheProfil from './Screens/PatProfil/GestProcheProfil';
+import Pheader from './Screens/PatProfil/Pheader';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -254,15 +255,16 @@ export default class App extends React.Component {
             }
           }} />
            <Stack.Screen name="Proche Profil:" component={GProcheProfil} options={{
-            headerTintColor: '#fff',
-            headerStyle: {
-              backgroundColor: '#1E79C5',
-              height: 80,
-            },
-            headerTitleAlign: 'center',
-            headerTitleStyle: {
-              fontWeight: 'bold'
-            }
+             headerTintColor: '#fff',
+             headerStyle: {
+               backgroundColor: '#1E79C5',
+               height: 80,
+             },
+             //headerTitleAlign: 'center',
+             headerTitleStyle: {
+               fontWeight: 'bold'
+             },
+            headerTitle: ()=> <Pheader/>
           }} />
           
         </Stack.Navigator>

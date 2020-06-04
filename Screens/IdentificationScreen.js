@@ -23,66 +23,6 @@ class Identification extends React.Component {
     }
   }
 
-  /*
-  got = () => {
-    console.log(this.state)
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-    return fetch('http://51.91.249.185:8069/api/update_profil', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        adresse: "aymentka ",
-        Num_CIN: "bg2222",
-        nom:"aymane",
-        prenom:"aymane",
-        date_nais:"06/07/1993",
-        civilite:"homme",
-        Num_mut:"20555",
-        ville:"casa"
-      })
-    })
-
-      .then((response) => response.json())
-      .then((res) => {
-        console.log("repooooonse")
-        console.log(res)
-        console.log("*********success***********")
-        
-        
-      })
-      .done();
-      ********
-      var request = new XMLHttpRequest();
-    
-    request.onreadystatechange = (e) => {
-      if (request.readyState !== 4) {
-        return;
-      }
-  
-      if (request.status === 200) {
-        console.log('success', request.responseText);
-      } else {
-        console.warn('error');
-      }
-    };
-    var param = "email=asmaa@odoo.com&name=asmaa";
-    request.open('POST', 'http://51.91.249.185:8069/api/update_profil', true);
-    request.send(param);
-    ********
-     axios.post('http://51.91.249.185:8069/api/update_profil', {
-      firstName: 'Fred',
-      lastName: 'Flintstone'
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }*/
   got=()=>{
     fetch('http://51.91.249.185:8069/web/login?db=new_installation')
      fetch('http://51.91.249.185:8069/api/update_profil', {
@@ -92,7 +32,7 @@ class Identification extends React.Component {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
       },
       body: JSON.stringify({
-        uid:'85',
+        uid:"85",
         adresse: "aymentka ",
         Num_CIN: "bg2222",
         nom:"aymane",
@@ -114,8 +54,123 @@ class Identification extends React.Component {
       })
       .done();
   }
-  
+  pot=()=>{
+    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+     fetch('http://51.91.249.185:8069/api/ajout_proche', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/javascript, */*; q=0.01',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+      body: JSON.stringify({
+        uid:"85",
+        nom:"aymane",
+        prenom:"aymane",
+        
+        email: "aymentka@gmail.com ",
+        tel:"0607199344",
+      })
+    })
 
+      .then((response) => response.json())
+      .then((res) => {
+        console.log("repooooonse")
+        console.log(res)
+        console.log("*********success***********")
+        
+        
+      })
+      .done();
+  }
+  
+  sot=()=>{
+    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+     fetch('http://51.91.249.185:8069/api/update_proche', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/javascript, */*; q=0.01',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+      body: JSON.stringify({
+        uid:"85",
+        uid_p:"118",
+        adresse: "aymentka ",
+        Num_CIN: "bg2222",
+        nom:"aymane",
+        prenom:"aymane",
+        date_nais:"06/07/1993",
+        civilite:"homme",
+        Num_mut:"20555",
+        ville:"casa",
+        
+      })
+    })
+
+      .then((response) => response.json())
+      .then((res) => {
+        console.log("repooooonse")
+        console.log(res)
+        console.log("*********success***********")
+        
+        
+      })
+      .done();
+  }
+  rot=()=>{
+    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+     fetch('http://51.91.249.185:8069/api/delete_rdv', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/javascript, */*; q=0.01',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+      body: JSON.stringify({
+        uid:"85",
+        'mode':'supprimer_rdv',
+        'rdv': '339',
+
+        
+      })
+    })
+
+      .then((response) => response.json())
+      .then((res) => {
+        console.log("repooooonse")
+        console.log(res)
+        console.log("*********success***********")
+        
+        
+      })
+      .done();
+  }
+  prot=()=>{
+    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+     fetch('http://51.91.249.185:8069/api/delete_rdv', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/javascript, */*; q=0.01',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+      body: JSON.stringify({
+        uid:"85",
+        proche:'118',
+        'mode':'supprimer_rdv_proche',
+        'rdv': '262',
+
+        
+      })
+    })
+
+      .then((response) => response.json())
+      .then((res) => {
+        console.log("repooooonse")
+        console.log(res)
+        console.log("*********success***********")
+        
+        
+      })
+      .done();
+  }
   render() {
    
     return (

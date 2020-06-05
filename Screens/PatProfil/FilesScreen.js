@@ -77,7 +77,7 @@ export default function FScreen({ navigation }) {
                         keyExtractor={item => item[0].id.toString()}
                     />
                     :
-                    <Text style={{alignItems:'center'}}>No Data is Available</Text>
+                    <Text style={{alignItems:'center',justifyContent:'center'}}>Veuillez patientez svp</Text>
             }
 
         </View >

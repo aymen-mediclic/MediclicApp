@@ -7,6 +7,14 @@ import * as NavigationService from '../../Navigation/NavigationService';
 export default function MprochesScreen({ navigation }) {
     const [Data, setData] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
+
+    const [nom, setNom] = useState("")
+    const [prenom, setPreNom] = useState("")
+    const [mail, setMail] = useState("")
+    const [tel, setTel] = useState("")
+
+
+
     useEffect(() => {
         fetch('http://51.91.249.185:8069/web/login?db=new_installation')
         return fetch('http://51.91.249.185:8069/api/profil?uid=85&get_proche')
@@ -18,9 +26,47 @@ export default function MprochesScreen({ navigation }) {
             })
             .done();
     }, []);
+
+    const update = () => {
+
+
+
+        let bodyData = JSON.stringify({
+            uid: "85",
+            nom:nom,
+            prenom:prenom,
+            
+            email: mail,
+            tel:tel,
+        })
+
+
+        console.log(bodyData, "-------------------")
+
+        fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+        fetch('http://51.91.249.185:8069/api/ajout_proche', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/javascript, */*; q=0.01',
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+            },
+            body: bodyData
+        })
+
+            .then((response) => response.json())
+            .then((res) => {
+                console.log("repooooonse")
+                console.log(res)
+                console.log("*********success***********")
+                
+               
+                setModalVisible(false)
+            })
+            .done();
+    }
     function Item({ item }) {
         return (
-
+            
             <View style={styles.item}>
 
 
@@ -35,13 +81,13 @@ export default function MprochesScreen({ navigation }) {
                 <TouchableOpacity onPress={() => NavigationService.navigate('Proche Profil:')} style={{ backgroundColor: '#3498db', width: 80, borderRadius: 5, alignItems: 'center', marginVertical: 5, alignSelf: 'flex-end' }} >
                     <Text style={{ color: 'white' }}> voir plus</Text>
                 </TouchableOpacity>
-
+                
             </View>
         );
     }
     console.log(Data, "<><><><><><><><")
     return (
-        <View>
+        <View style={styles.container}>
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -61,19 +107,33 @@ export default function MprochesScreen({ navigation }) {
                         <Text style={styles.textStyle}>Fermer</Text>
                     </TouchableOpacity>
                     <ScrollView>
-                        <Text style={styles.text}>Nom:</Text>
-                        <TextInput style={styles.text_input} placeholder="nom" />
+                    <Text style={styles.text}>Nom:</Text>
+                        <TextInput
+                            style={styles.text_input}
+                            placeholder="nom"
+                            onChangeText={(nom) => { setNom(nom) }}
+                        />
                         <Text style={styles.text}>Prénom:</Text>
-                        <TextInput style={styles.text_input} placeholder="Prénom" />
+                        <TextInput
+                            style={styles.text_input}
+                            placeholder="nom"
+                            onChangeText={(prenom) => { setPreNom(prenom) }}
+                        />
                         <Text style={styles.text}>Adresse e-mail:</Text>
-                        <TextInput style={styles.text_input} placeholder="e-mail" />
+                        <TextInput
+                            style={styles.text_input}
+                            placeholder="nom"
+                            onChangeText={(mail) => { setMail(mail) }}
+                        />
                         <Text style={styles.text}>Téléphone:</Text>
-                        <TextInput style={styles.text_input} placeholder="Téléphone" />
+                        <TextInput
+                            style={styles.text_input}
+                            placeholder="nom"
+                            onChangeText={(tel) => { setTel(tel) }}
+                        />
                         <TouchableOpacity
                             style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                            onPress={() => {
-                                setModalVisible(!modalVisible);
-                            }}
+                            onPress={() => update()}
                         >
                             <Text style={styles.textStyle}>Ajouter</Text>
                         </TouchableOpacity>
@@ -87,7 +147,7 @@ export default function MprochesScreen({ navigation }) {
                 }}>
                 <Text style={{ color: 'white', fontSize: 15 }}> Ajouter un proche</Text>
             </TouchableOpacity>
-            <View>
+            
 
 
                 {
@@ -97,13 +157,13 @@ export default function MprochesScreen({ navigation }) {
                         <FlatList
                             data={Data.proches}
                             renderItem={({ item }) => <Item item={item[0]} />}
-                            keyExtractor={item => item[0].id}
+                            keyExtractor={item => item[0].id.toString()}
                         />
                         :
                         <Text style={{ alignItems: 'center', justifyContent: 'center' }}>Veuillez patienter Svp</Text>
                 }
 
-            </View>
+            
         </View>
     );
 }
@@ -117,6 +177,7 @@ const styles = StyleSheet.create({
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
+        
     },
     title1: {
         fontSize: 14,

@@ -145,8 +145,8 @@ export default function Pprofil({ navigation }) {
                             format="DD-MM-YYYY"
                             minDate="01-01-1940"
                             maxDate="01-01-2019"
-                            confirmBtnText="Confirm"
-                            cancelBtnText="Cancel"
+                            confirmBtnText="Confirmer"
+                            cancelBtnText="Annuler"
                             customStyles={{
                                 dateIcon: {
                                     position: 'absolute',

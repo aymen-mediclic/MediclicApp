@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity, Modal } from 'react-native'
+import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity, Modal,Alert } from 'react-native'
 import { ActionSheet } from "native-base";
 //import * as NavigationService from '../Navigation/NavigationService';
-var BUTTONS = ["Ajouer Pdf", "Supprimer", "Téléconsultation", "Annuler"];
-var DESTRUCTIVE_INDEX = 3;
-var CANCEL_INDEX = 4;
+var BUTTONS = [ { text: "Supprimer", icon: "trash",iconColor:"#e74c3c" }, { text: "Annuler" }];
+var DESTRUCTIVE_INDEX = 2;
+var CANCEL_INDEX = 3;
 export default function Prdv({ navigation }) {
     const [Data, setData] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
@@ -19,6 +19,34 @@ export default function Prdv({ navigation }) {
             })
             .done();
     }, []);
+    function Prot(){
+        fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+        return fetch('http://51.91.249.185:8069/api/delete_rdv', {
+         method: 'POST',
+         headers: {
+           'Accept': 'application/json, text/javascript, */*; q=0.01',
+           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+         },
+         body: JSON.stringify({
+           uid:"85",
+           proche:'118',
+           'mode':'supprimer_rdv_proche',
+           'rdv': '261',
+   
+           
+         })
+       })
+   
+         .then((response) => response.json())
+         .then((res) => {
+           console.log("repooooonse")
+           console.log(res)
+           console.log("*********success***********")
+           setData(res)
+           
+         })
+         .done();
+    }
     function Item({ item }) {
         return (
             <View style={styles.item}>
@@ -124,7 +152,25 @@ export default function Prdv({ navigation }) {
                             destructiveButtonIndex: DESTRUCTIVE_INDEX,
                             //title: "Testing ActionSheet"
                         },
-                        
+                        buttonIndex => {
+                            if (buttonIndex === 0) {
+                                
+                                Alert.alert(  
+                                    'Supprimer',  
+                                    'Vous êtes sur que vous voulez supprimer ce rdv?',  
+                                    [  
+                                        {  
+                                            text: 'Annuler',  
+                                            onPress: () => console.log('Cancel Pressed'),  
+                                            style: 'cancel',  
+                                        },  
+                                        {text: 'Oui', onPress:()=> Prot()},  
+                                    ]  
+                                );  
+                                    
+                                   
+                            }
+                        }
                     )}>
                         <Text style={styles.textStyle}> Actions</Text>
                     </TouchableOpacity>

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { View, TextInput, Button, StyleSheet, Text, Alert, TouchableOpacity, ScrollView, checkedIcon, Modal, FlatList } from 'react-native'
 import DatePicker from 'react-native-datepicker';
 import { RadioButton } from 'react-native-paper';
+import moment from 'moment';
+import 'moment/locale/fr'
+moment.locale('fr')
 export default function App({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [Data, setData] = useState([]);
@@ -144,13 +147,13 @@ export default function App({ navigation }) {
                             style={{ width: 200 }}
                             date={niassance} //initial date from state
                             mode="date" //The enum of date, datetime and time
-                            locale="fre"
+                            //locale="fr"
                             placeholder="selectionner une date"
                             format="DD-MM-YYYY"
                             minDate="01-01-1940"
                             maxDate="01-01-2019"
-                            confirmBtnText="Confirm"
-                            cancelBtnText="Cancel"
+                            confirmBtnText="Confirmer"
+                            cancelBtnText="Annuler"
                             customStyles={{
                                 dateIcon: {
                                     position: 'absolute',

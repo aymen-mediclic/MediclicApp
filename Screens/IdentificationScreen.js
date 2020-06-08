@@ -209,8 +209,7 @@ class Identification extends React.Component {
         console.log("repooooonse")
         console.log(res)
         console.log("*********success***********")
-        console.log(res.succes)
-        console.log("***************************")
+
         if ("user_context" in res) {
           AsyncStorage.setItem('user', res.user);
           alert('connection réussie')

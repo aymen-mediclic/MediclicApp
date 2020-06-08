@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity, Modal } from 'react-native'
+import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity, Modal, Alert } from 'react-native'
 import { ActionSheet } from "native-base";
+import Dialog from "react-native-dialog";
+
 //import * as NavigationService from '../Navigation/NavigationService';
-var BUTTONS = ["Ajouer Pdf", "Supprimer", "Téléconsultation", "Annuler"];
-var DESTRUCTIVE_INDEX = 3;
-var CANCEL_INDEX = 4;
+var BUTTONS = [ { text: "Supprimer", icon: "trash",iconColor:"#e74c3c" },  { text: "Annuler" }];
+var DESTRUCTIVE_INDEX = 2;
+var CANCEL_INDEX = 1;
 export default function MrdvScreen({ navigation }) {
     const [Data, setData] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
+    const [Dial, setDial] = useState(false);
+    
+      
     useEffect(() => {
         fetch('http://51.91.249.185:8069/web/login?db=new_installation')
         return fetch('http://51.91.249.185:8069/api/profil?uid=85&get_rdv')
@@ -19,6 +24,33 @@ export default function MrdvScreen({ navigation }) {
             })
             .done();
     }, []);
+    function rot(){
+        fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+     return fetch('http://51.91.249.185:8069/api/delete_rdv', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/javascript, */*; q=0.01',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+      body: JSON.stringify({
+        uid:"85",
+        'mode':'supprimer_rdv',
+        'rdv': '337',
+
+        
+      })
+    })
+
+      .then((response) => response.json())
+      .then((res) => {
+        
+        console.log("*********success***********")
+        setData(res);
+        
+      })
+      .done();
+    }
+
     function Item({ item }) {
         return (
             <View style={styles.item}>
@@ -117,6 +149,7 @@ export default function MrdvScreen({ navigation }) {
                     >
                         <Text style={styles.textStyle}>Détails</Text>
                     </TouchableHighlight>
+                   
                     <TouchableOpacity style={{ backgroundColor: '#3498db', width: 90, borderRadius: 5 }} onPress={() => ActionSheet.show(
                         {
                             options: BUTTONS,
@@ -124,7 +157,25 @@ export default function MrdvScreen({ navigation }) {
                             destructiveButtonIndex: DESTRUCTIVE_INDEX,
                             //title: "Testing ActionSheet"
                         },
-                        
+                        buttonIndex => {
+                            if (buttonIndex === 0) {
+                                
+                                Alert.alert(  
+                                    'Supprimer',  
+                                    'Vous êtes sur que vous voulez supprimer ce rdv?',  
+                                    [  
+                                        {  
+                                            text: 'Annuler',  
+                                            onPress: () => console.log('Cancel Pressed'),  
+                                            style: 'cancel',  
+                                        },  
+                                        {text: 'Oui', onPress:()=> rot()}]  
+                                );  
+                                    
+                                   
+                            }
+                        }
+
                     )}>
                         <Text style={styles.textStyle}> Actions</Text>
                     </TouchableOpacity>
@@ -132,9 +183,11 @@ export default function MrdvScreen({ navigation }) {
             </View>
         );
     }
+
     console.log(Data, "<><><><><><><><")
     return (
-
+        
+        
         <View>
             {
                 (Data.rdvs)
@@ -143,13 +196,14 @@ export default function MrdvScreen({ navigation }) {
                         data={Data.rdvs}
                         renderItem={({ item }) => <Item item={item[0]} />}
                         keyExtractor={item => item[0].id.toString()}
+                        extraData={Data}
                     />
                     :
                     <Text style={{ alignItems: 'center', justifyContent: 'center' }}>Veuillez patienter Svp</Text>
             }
 
         </View>
-
+            
     );
 }
 const styles = StyleSheet.create({

@@ -4,9 +4,9 @@ import { Container, Header, Content, Accordion, Item } from "native-base";
 import * as NavigationService from '../Navigation/NavigationService';
 console.disableYellowBox = true;
 const data = [
-  { title: "Lundi 13 avril", content:<Text style={{backgroundColor:'#3498db'}}>Horaires</Text>  },
-  { title: "Mardi 14 avril", content:<Text style={{backgroundColor:'#3498db'}}>Horaires</Text> },
-  { title: "Mercredi 15 avril", content: <Text style={{backgroundColor:'#3498db'}}>Horaires</Text> },
+  { title: "", content:<Text style={{color:'#3498db'}}>2020-06-11 07:00</Text>  },
+  { title: "", content:<Text style={{color:'#3498db'}}>2020-06-11 11:00</Text> },
+  { title: "", content: <Text style={{color:'#3498db'}}>2020-06-11 10:00</Text> },
 ];
 export default class Calendar extends React.Component {
   render(){

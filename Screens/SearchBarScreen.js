@@ -81,7 +81,7 @@ export default class Search extends React.Component {
           <FlatList
             data={this.state.data.sort((a, b) => a.type === 'spécialité' ? -1 : 1)}
             keyExtractor={item => { return item.id }}
-            renderItem={({ item }) => <TouchableOpacity onPress={() => NavigationService.navigate('Choisisser la ville')}>
+            renderItem={({ item }) => <TouchableOpacity onPress={() => NavigationService.navigate('Médecin',{screen:'Recherche',params:{lien:item.lien}})}>
               {item.type == 'spécialité' && (
                 <Highlighter
                   highlightStyle={{ backgroundColor: '#f39c12' }}

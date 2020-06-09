@@ -1,7 +1,7 @@
 
 export function getFilmsFromApiWithSearchedText(text) {
-  fetch('http://54.37.228.205:8069/web/login?db=prise_rdv_185')
-  return fetch('http://54.37.228.205:8069/searchmob?input=' + text)
+  fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+  return fetch('http://51.91.249.185:8069/searchmob?input=' + text)
     .then((response) => response.json())
     .catch((error) => console.error(error))
 }
@@ -13,8 +13,8 @@ export function getFilmsFromApiWithSearchedText1 () {
     .catch((error) => console.error(error))
 }
 export function fetchLien(text) {
-  fetch('http://54.37.228.205:8069/web/login?db=prise_rdv_185')
-  return fetch('http://54.37.228.205:8069' + text)
+  fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+  return fetch('http://51.91.249.185:8069' + text+'&lng=7.6353386&lat=33.5912796&location=119 Boulevard Abdelmoumen, Casablanca, Maroc&type_rdv=C')
     .then((response) => response.json())
     .catch((error) => console.error(error))
 }

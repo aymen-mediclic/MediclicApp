@@ -5,7 +5,7 @@ import MedItem from '../Components/MedItem'
 import {fetchLien } from '../Navigation/WelcomeStack'
 import { MaterialIcons } from '@expo/vector-icons'
 import Filter from '../Components/Filter'
-import { object } from 'prop-types'
+import moment from 'moment';
 
 
 class RechercheScreen extends React.Component {
@@ -21,13 +21,19 @@ class RechercheScreen extends React.Component {
   }
 
   componentDidMount() {
-    //this._Request();
+    this._Request();
   }
   _Request = () => {
     //this.setState({ isLoading: true })
     fetchLien(this.props.route.params.lien
     ).then((res) => {
-      //console.log(res);
+      
+      console.log("****************");
+      console.log(res[2].days);
+      console.log("****************");
+      console.log(res[0].obj.name);
+      let date=moment(res[0].days[0].date_start).format('YYYY-MM-DD');
+      console.log(date)
       this.setState({
         isLoading: false,
         dataSource:res,
@@ -72,19 +78,22 @@ class RechercheScreen extends React.Component {
         {/*<TouchableOpacity size={24} style={styles.filter_btn}  onPress={()=> this.setState({modalOpen:true})}> 
               <MaterialIcons name='filter' size={15} />
               <Text style={{textAlign:'center',marginLeft:20}}>Filtrer</Text>
-            </TouchableOpacity> <MedItem Med={item}/>*/}
-
+            </TouchableOpacity> <MedItem Med={item}/>
+<Text> {item.obj.name}{item.days[0].date_start}</Text>
         <FlatList
           data={this.state.dataSource}
           keyExtractor={item => { return item.id }}
           renderItem={({ item }) =>{if(item.length>0){ <Text> Résultats</Text>}}}
           refreshing={this.state.refreshing}
           onRefresh={this.handleRefresh}
-        />
-        <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-          <Text style={{ borderRadius: 4, backgroundColor: 'white', width: 100, height: 30, textAlign: 'center', color: '#1E79C5' }}>Précedent</Text>
-          <Text style={{ borderRadius: 4, backgroundColor: 'white', width: 100, height: 30, textAlign: 'center', color: '#1E79C5' }}>Suivant</Text>
-        </TouchableOpacity>
+        />*/}
+        <FlatList
+          data={this.state.dataSource}
+          keyExtractor={item => { return item.id }}
+      renderItem={({ item }) =><MedItem Med={item}/> }
+          refreshing={this.state.refreshing}
+          onRefresh={this.handleRefresh}/>
+        
       </View>
     );
   }

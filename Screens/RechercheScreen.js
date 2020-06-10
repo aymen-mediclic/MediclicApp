@@ -29,7 +29,7 @@ class RechercheScreen extends React.Component {
     ).then((res) => {
       
       console.log("****************");
-      console.log(res[2].days);
+      console.log(res[0].days);
       console.log("****************");
       console.log(res[0].obj.name);
       let date=moment(res[0].days[0].date_start).format('YYYY-MM-DD');

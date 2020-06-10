@@ -87,7 +87,8 @@ export default class VilleC extends React.Component {
                     language={"en-US"}
                     queryCountries={['ma']}
                     onSelect={place => {
-                        NavigationService.navigate('Médecin')
+                      NavigationService.navigate('Médecin',{screen:'Recherche',params:{lien: this.props.route.params.lien}})  
+                      //NavigationService.navigate('Médecin')
                         //this.props.goToPoint(get(place, 'result.geometry.location.lat'), get(place, 'result.geometry.location.lng'))
                     }}
                     //iconResult={<Ionicons name="md-pin" size={25} style={styles.placeIcon}/>}

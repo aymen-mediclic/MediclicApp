@@ -4,12 +4,9 @@ import { Container, Header, Content, Accordion, Item } from "native-base";
 import * as NavigationService from '../Navigation/NavigationService';
 
 const dataArray = [
-    { title: "Mercredi" },
-    { title: "jeudi", content: "300.0 Dhs" },
-    { title: "Vendredi", content: 'généraliste' },
-    { title: "Samedi", content: "Français" },
-    { title: "Lundi", content: "Français" },
-    { title: "Mardi", content: "Français" }
+    { title: "16/06/2020" },
+    
+    
 ];
 
 
@@ -17,18 +14,27 @@ const dataArray = [
 export default class DateC extends React.Component {
     _renderContent() {
         return (
+            <View>
             <View style={{ flexDirection: 'row', justifyContent: "space-around" }}>
+                <TouchableOpacity style={styles.btn}>
+                    <Text>07:00</Text>
+                </TouchableOpacity>
                 <TouchableOpacity style={styles.btn}>
                     <Text>08:00</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.btn}>
                     <Text>09:00</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.btn}>
-                    <Text>10:00</Text>
-                </TouchableOpacity>
+                
             </View>
+            <View style={{ flexDirection: 'row', justifyContent: "space-around" }}>
+            <TouchableOpacity style={styles.btn}>
+                <Text>10:00</Text>
+            </TouchableOpacity>
             
+            
+        </View>
+        </View>
 
         )
     }

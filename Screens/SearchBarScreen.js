@@ -64,6 +64,8 @@ export default class Search extends React.Component {
     }
   }
   render() {
+    const c = this.props.route.params.choix;
+    console.log(c)
     return (
       <View style={styles.main_container}>
         <SearchBar

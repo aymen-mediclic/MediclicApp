@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Button, Image, View, Picker } from 'react-native';
+import { Button, Image, View, Picker,TextInput } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { RadioButton, Text } from 'react-native-paper';
 import { CameraRoll } from 'react-native-cameraroll';
+
 
 export default class ImagePickerExample extends React.Component {
   state = {
@@ -43,6 +44,8 @@ export default class ImagePickerExample extends React.Component {
               <Picker.Item label="Oncle" value='o' />
             </Picker>
           )}
+          <Text style={{ fontSize: 16,alignSelf:'center',marginTop:30 }}> Veuillez renseignez votre adresse svp:</Text>
+          <TextInput style={{ alignSelf:'center',borderWidth:1,borderRadius:5,width:250,marginVertical:10,padding:5 }} placeholder='Adresse'/>
 
         </View>
 

@@ -213,7 +213,7 @@ class Identification extends React.Component {
         if ("user_context" in res) {
           AsyncStorage.setItem('user', res.user);
           alert('connection réussie')
-
+          this.setState({val:'b'})
         }
         else {
           alert("Erreur d'authentification");

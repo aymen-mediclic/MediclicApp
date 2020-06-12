@@ -1,18 +1,41 @@
 import React from 'react';
 import {View,Text,Button,StyleSheet} from 'react-native'
-
+import moment from 'moment';
 
 class Recap extends React.Component {
   render(){
+    console.log(this.props.Name)
+    const text =this.props.text
     return (
         <View style={styles.container}>
        
              <View style={styles.ctr1} >
                 <Text style={styles.title} > Informations sur le rendez-vous:</Text>
-                <Text style={styles.txt}> Medecin: Dr xavier vilan</Text>
-                <Text style={styles.txt}> Motif de consultation:</Text>
-                <Text style={styles.txt}> Heure:08:18</Text>
-                <Text style={styles.txt}> Date:2020-03-30</Text>
+                <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
+                <Text style={styles.txt}> Type du RDV: </Text>
+                <Text style={styles.txt1}> C</Text>
+                </View>
+                <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
+                <Text style={styles.txt}> Medecin: </Text>
+                <Text style={styles.txt1}> {this.props.Name}</Text>
+                </View>
+                <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
+                <Text style={styles.txt}> Adresse:</Text>
+                <Text style={styles.txt1}> Casablanca </Text>
+                </View>
+                <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
+                <Text style={styles.txt}> Adresse domicile:</Text>
+                <Text style={styles.txt1}> Maison </Text>
+                </View>
+                <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
+                <Text style={styles.txt}> Date:</Text>
+                <Text style={styles.txt1}> {moment(text).format("h:mm a")}</Text>
+                </View>
+                <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
+                <Text style={styles.txt}> Heure:</Text>
+                <Text style={styles.txt1}> {moment(text).format("DD-MM-YYYY")}</Text>
+                </View>
+                
              </View>
              <View style={styles.ctr2} >
                 <Text style={styles.title}> Informations sur le patient:</Text>
@@ -49,15 +72,21 @@ const styles = StyleSheet.create({
     width:'80%'
   },
   title : {
-    fontSize:20,
-    color:'black',
-    marginBottom:5,
+    fontSize:19,
+    color:'#34495e',
+    marginBottom:8,
     textAlign:'center'
   },
   txt : {
     fontSize:15,
-    color:'grey',
-    marginBottom:5
+    fontWeight:'bold',
+    
+    
+  },
+  txt1 : {
+    fontSize:15,
+    //fontWeight:'bold'
+    
   },
  
 });

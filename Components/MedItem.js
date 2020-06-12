@@ -8,17 +8,13 @@ import DateC from '../Screens/DateConsultation';
 class MedItem extends React.Component {
     constructor(props) {
         super(props);
-        this.handler = this.handler.bind(this);
+
         this.state = {
             modalOpen: false,
             data: []
         }
     }
-    handler() {
-        this.setState({
-            modalOpen: false,
-        });
-    }
+    
 
     componentDidMount() {
         const input = this.props.Med.days;
@@ -88,7 +84,9 @@ class MedItem extends React.Component {
                                             item[1].map((day, i) => {
                                                 //show only 3 times
                                                 return (i < 3) ?
-                                                    <Text style={[styles.txt_slt, { marginHorizontal: 2 }]}>{moment(day.date_start).format("h:mm a")}</Text>
+                                                <TouchableOpacity style={[styles.txt_slt, { marginHorizontal: 2 }]} onPress={() => NavigationService.navigate('Prendre un rendez-vous', { text: day.date_start,name:Med.obj.name })}>
+                                                    <Text style={[styles.txt_slt, { marginHorizontal: 2 }]} >{moment(day.date_start).format("h:mm a")}</Text>
+                                                    </TouchableOpacity>
                                                     :
                                                     <></>
                                             })
@@ -120,7 +118,7 @@ class MedItem extends React.Component {
                                 
                             </View>
                         </View>
-                    </View> */}
+                    </View>// this.setState({ modalOpen: true }) */}
                     <Modal visible={this.state.modalOpen} animationType='slide' transparent={true}  >
                         <View style={styles.modal}>
                             <View style={{ flexDirection: 'row', backgroundColor: '#1E79C5', justifyContent: 'center' }}>
@@ -134,7 +132,7 @@ class MedItem extends React.Component {
                         </View>
                     </Modal>
                     <View style={{ flex: 1, alignItems: 'center' }}>
-                        <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#FFC617', height: 25, width: 100, borderRadius: 10 }} onPress={() => this.setState({ modalOpen: true })}>
+                        <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#FFC617', height: 25, width: 100, borderRadius: 10 }} onPress={() => NavigationService.navigate('Date de rendez-vous')}>
                             <Text style={{ textAlign: 'center', fontWeight:'bold', color: 'white' }}> Voir plus</Text>
                         </TouchableOpacity>
                     </View>

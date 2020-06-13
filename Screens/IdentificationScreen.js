@@ -10,7 +10,7 @@ class Identification extends React.Component {
     this.state = {
       login: '',
       password: '',
-      val: 'a'
+      isUser: false
     }
   }
   componentDidMount() {
@@ -19,7 +19,9 @@ class Identification extends React.Component {
   _loadInitialState = async () => {
     var value = await AsyncStorage.getItem('user');
     if (value !== null) {
-      this.props.navigation.navigate('Mediclic');
+      this.setState({
+        isUser: JSON.parse(value)
+      })
     }
   }
 
@@ -177,7 +179,7 @@ class Identification extends React.Component {
       <View>
         <Text style={{ fontSize: 18, fontWeight: 'bold', alignSelf: 'center', color: '#2f3542' }}>Confirmation de votre rendez-vous</Text>
         <View >
-          {this.state.val == 'a' && (
+          {(this.state.isUser)?
             <View style={styles.med_ctr}>
               <Text style={styles.text}>J'ai deja un compte Mediclic</Text>
               <TextInput style={styles.text_input} placeholder='Nom de compte'
@@ -191,9 +193,9 @@ class Identification extends React.Component {
               <Button color='#FFC617' title='Se connecter' onPress={this.Autho} />
               <Text style={{ margin: 10 }}>Mot de passe oublié? </Text>
               <Button color='' title='Inscrivez-vous' onPress={this.got} />
-            </View>)}
-          {this.state.val == 'b' && (
-            <MyComponent />)}
+            </View>:
+          
+            <MyComponent />}
         </View>
       </View>
     );

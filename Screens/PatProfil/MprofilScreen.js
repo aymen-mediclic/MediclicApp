@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { View, TextInput, Button, StyleSheet, Text, Alert, TouchableOpacity, ScrollView, checkedIcon, Modal, FlatList } from 'react-native'
+import { View, TextInput, Button, StyleSheet, Text, Alert, TouchableOpacity, ScrollView, AsyncStorage, checkedIcon, Modal, FlatList } from 'react-native'
 import DatePicker from 'react-native-datepicker';
 import { RadioButton } from 'react-native-paper';
 import moment from 'moment';
 import 'moment/locale/fr'
+import * as NavigationService from '../../Navigation/NavigationService';
 moment.locale('fr')
 export default function App({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
@@ -29,6 +30,8 @@ export default function App({ navigation }) {
             .then((res) => {
                 console.log("repooooonse")
                 console.log(res)
+                // i think its this one ah ok no problem.
+                AsyncStorage.setItem("userInfo",JSON.stringify(res))
                 setData(res)
             })
             .done();
@@ -67,6 +70,8 @@ export default function App({ navigation }) {
             .then((res) => {
                 console.log("repooooonse")
                 console.log(res)
+                //this data you want to display right? yes ok wait  sec i check pls
+               
                 console.log("*********success***********")
 
                 setData({
@@ -207,6 +212,21 @@ export default function App({ navigation }) {
                 </View>
 
             </Modal>
+            <TouchableOpacity style={styles.btn}
+                onPress={async() => {
+                    try{
+                        await AsyncStorage.removeItem("user")
+                        await AsyncStorage.removeItem("userInfo")
+                        console.log("LOgout Pres")
+                    }catch(error){console.log(error, "---------ON LOGOUT------------")}
+                    
+
+                    
+                        NavigationService.navigate('Mediclic')
+                      
+                }}>
+                <Text style={{ color: 'white', fontSize: 15 }}>log out</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.btn}
                 onPress={() => {
                     setModalVisible(true);

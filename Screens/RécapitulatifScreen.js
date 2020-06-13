@@ -1,11 +1,31 @@
 import React from 'react';
-import {View,Text,Button,StyleSheet} from 'react-native'
+import {View,Text,Button,StyleSheet, AsyncStorage} from 'react-native'
 import moment from 'moment';
 
 class Recap extends React.Component {
+
+  state = {
+    userInfo: false
+  }
+
+    componentDidMount(){
+      this.getUser();
+    }
+
+    getUser = async ()=>{
+      let userInfo  = await AsyncStorage.getItem("userInfo");
+      if(userInfo){
+        userInfo      = JSON.parse(userInfo);
+        this.setState({userInfo});
+        console.log(userInfo,"------------- SOMY TEST ------------------")
+      }
+    }
+
+
   render(){
     console.log(this.props.Name)
     const text =this.props.text
+    console.log(this.state.userInfo.nom, "============= INSIDE RENDER ===========")
     return (
         <View style={styles.container}>
        
@@ -40,9 +60,15 @@ class Recap extends React.Component {
              <View style={styles.ctr2} >
                 <Text style={styles.title}> Informations sur le patient:</Text>
                 <Text style={styles.txt}> Nom:</Text>
-                <Text style={styles.txt}> Prénom:</Text>
-                <Text style={styles.txt}> Téléphone:</Text>
-                <Text style={styles.txt}> E-mail:</Text>
+                {(this.state.userInfo)?
+                  <>
+                    <Text style={styles.txt}> {`${this.state.userInfo.nom}`}</Text>
+                    <Text style={styles.txt}> Téléphone:</Text>
+                    <Text style={styles.txt}> E-mail:</Text>
+                  </>
+                  :
+                  <></>
+                }
              </View>
 
 

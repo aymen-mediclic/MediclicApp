@@ -17,15 +17,7 @@ class ConnectionScreen extends React.Component {
 
     }
   }
-  componentDidMount() {
-    this._loadInitialState().done();
-  }
-  _loadInitialState = async () => {
-    var value = await AsyncStorage.getItem('user');
-    if (value !== null) {
-      this.props.navigation.navigate('Mediclic');
-    }
-  }
+  
   render() {
     return (
       <View style={styles.container}>
@@ -47,7 +39,7 @@ class ConnectionScreen extends React.Component {
             leftIcon={{ type: 'font-awesome', name: 'lock', color: 'white' }}
             rightIcon={{ type: 'feather', name: 'eye-off', color: 'white' }}
           />
-          <TouchableOpacity style={styles.btn} onPress= {() => NavigationService.navigate('Mon Profil:')} >
+          <TouchableOpacity style={styles.btn} onPress= {this.Autho} >
             <Text style={{ color: '#FFC617', textAlign: 'center', fontSize: 18, marginTop: 5 }}> SE CONNECTER</Text>
           </TouchableOpacity>
           <Text style={{ color: 'white', fontWeight: 'bold' }}>MOT DE PASSE OUBLIE? </Text>
@@ -83,14 +75,16 @@ class ConnectionScreen extends React.Component {
     fetch('http://51.91.249.185:8069/api/auth/token?login=' + this.state.login + '&password=' + this.state.password + '&db=new_installation')
 
       .then((response) => response.json())
-      .then((res) => {
+      .then(async (res) => {
         console.log("repooooonse")
         console.log(res)
         console.log("*********success***********")
         console.log(res.succes)
         console.log("***************************")
-        if ("user_context" in res) {
-          AsyncStorage.setItem('user', res.user);
+        //changes here
+        if (res.user_context) {
+          console.log("user login now -------------------")
+          await AsyncStorage.setItem('user', JSON.stringify(res));
           NavigationService.navigate('Mon Profil:')
 
         }
@@ -174,3 +168,12 @@ const styles = StyleSheet.create({
   },
 });
 export default ConnectionScreen
+/*
+
+onLogout = async ()=>{
+  await AsyncStorage.removeItem("user")
+  AsyncStroage.removeItem("userInfo")
+}
+
+}
+*/

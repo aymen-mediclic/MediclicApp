@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, AsyncStorage } from 'react-native';
 import { createStackNavigator, HeaderTitle } from '@react-navigation/stack'
 import AccueilScreen from './Screens/AccueilScreen';
 import ListMed from './Screens/ListMed';
@@ -38,9 +38,22 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       modalOpen: false,
+      isUser: false
+    }
+  }
+  componentDidMount() {
+    this._loadInitialState().done();
+  }
+  _loadInitialState = async () => {
+    var value = await AsyncStorage.getItem('user');
+    if (value !== null) {
+      this.setState({
+        isUser: JSON.parse(value)
+      })
     }
   }
   render() {
+   console.log(this.state.isUser, "----------------------") 
     return (
       <Root>
       <NavigationContainer ref={navigationRef}>
@@ -68,7 +81,12 @@ export default class App extends React.Component {
               },
               headerTitleAlign: 'center',
               headerRight: () =>
-                <TouchableOpacity style={{ padding: 10 }} onPress={() => NavigationService.navigate('Se connecter')} >
+                <TouchableOpacity style={{ padding: 10 }} onPress={() => {
+                  (this.state.isUser)?
+                  NavigationService.navigate('Mon Profil:'):
+                    NavigationService.navigate('Se connecter')
+                  }} 
+                >
                   <Icon name='user' size={20} color={'white'} />
                   {/*<FontAwesomeIcon icon='user' />*/}
                 </TouchableOpacity>,

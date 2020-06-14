@@ -1,11 +1,46 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, } from 'react-native'
+import { View, Text, Button, StyleSheet,AsyncStorage } from 'react-native'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 
 import Recap from './RécapitulatifScreen';
 import MyComponent from '../Components/RadioButton';
 import Identification from './IdentificationScreen';
+
 class RDV extends React.Component {
+
+  state = {
+    userInfo: false
+  }
+
+  onFocusFunction = () => {
+    // do some stuff on every screen focus
+    //alert('Focus')
+    
+    this.getUser();
+  }
+  
+  // add a focus listener onDidMount
+  componentDidMount () {
+    this.focusListener = this.props.navigation.addListener('focus', () => {
+      this.onFocusFunction()
+    })
+  }
+  
+  
+  // componentWillUnmount () {
+  //   this.focusListener.remove()
+  // }
+  
+
+    getUser = async ()=>{
+      let userInfo  = await AsyncStorage.getItem("userInfo");
+      if(userInfo){
+        userInfo      = JSON.parse(userInfo);
+        this.setState({userInfo});
+        console.log(userInfo,"------------- Aymane TEST ------------------")
+      }
+    }
+
 
 
   render() {
@@ -24,7 +59,7 @@ class RDV extends React.Component {
           </ProgressStep>
 
           <ProgressStep label="Récapitulatif" nextBtnText="Suivant" previousBtnText="Précédent" >
-            <Recap Name={name} text={text} />
+            <Recap Name={name} text={text} userInfo = {this.state.userInfo}/>
           </ProgressStep>
           <ProgressStep label="Confirmation" previousBtnText="Précédent" finishBtnText='Confirmer' onSubmit={() => alert("Félicitation, votre rendez-vous est confirmé !")} >
             <View style={{ alignItems: 'center' }}>

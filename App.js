@@ -7,7 +7,7 @@ import AboutScreen from './Screens/AboutScreen';
 import ConnectionScreen from './Screens/ConnectionScreen';
 import MedProfilScreen from './Screens/MedProfilScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer,useNavigation } from '@react-navigation/native';
 import { navigationRef } from './Navigation/NavigationService';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity, Text, Modal, View } from 'react-native';
@@ -33,27 +33,30 @@ import GProfMed from './Screens/GestProfMed';
 import GProfPatient from './Screens/GestProfPatient';
 import GProcheProfil from './Screens/PatProfil/GestProcheProfil';
 import Pheader from './Screens/PatProfil/Pheader';
+import { NavigationEvents } from 'react-navigation';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       modalOpen: false,
-      isUser: false
+      // isUser: false
     }
   }
   componentDidMount() {
-    this._loadInitialState().done();
+    // this._loadInitialState().done();
   }
   _loadInitialState = async () => {
-    var value = await AsyncStorage.getItem('user');
+    const value = await AsyncStorage.getItem('user');
     if (value !== null) {
-      this.setState({
-        isUser: JSON.parse(value)
-      })
+      NavigationService.navigate('Mon Profil:')
+      
+    }else{
+      NavigationService.navigate('Se connecter')
     }
   }
+  
   render() {
-   console.log(this.state.isUser, "----------------------") 
+  //  console.log(this.state.isUser, "----------------------")
     return (
       <Root>
       <NavigationContainer ref={navigationRef}>
@@ -81,11 +84,7 @@ export default class App extends React.Component {
               },
               headerTitleAlign: 'center',
               headerRight: () =>
-                <TouchableOpacity style={{ padding: 10 }} onPress={() => {
-                  (this.state.isUser)?
-                  NavigationService.navigate('Mon Profil:'):
-                    NavigationService.navigate('Se connecter')
-                  }} 
+                <TouchableOpacity style={{ padding: 10 }} onPress={this._loadInitialState} 
                 >
                   <Icon name='user' size={20} color={'white'} />
                   {/*<FontAwesomeIcon icon='user' />*/}

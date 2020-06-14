@@ -85,7 +85,8 @@ class ConnectionScreen extends React.Component {
         if (res.user_context) {
           console.log("user login now -------------------")
           await AsyncStorage.setItem('user', JSON.stringify(res));
-          NavigationService.navigate('Mon Profil:')
+          //NavigationService.navigate('Mon Profil:')
+          this.props.navigation.replace('Mon Profil:');
 
         }
         else {

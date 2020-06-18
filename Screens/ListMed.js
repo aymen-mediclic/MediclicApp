@@ -3,7 +3,7 @@ import {View,Text,Button,StyleSheet,TouchableOpacity,Image} from 'react-native'
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 
 import RechercheScreen from './RechercheScreen'
-import Map from '../Components/Map';
+import MapR from '../Components/MapRepere';
 
 const tab = createMaterialTopTabNavigator();
 
@@ -14,10 +14,10 @@ class PlanScreen extends React.Component {
     render(){
       return (
         <View style={styles.container}>
-           {/* <Map/>*/}
-            <TouchableOpacity >
+           <MapR/>
+             {/*<TouchableOpacity >
                     <Image style={styles.img} source={require('../assets/map.jpg')} />
-            </TouchableOpacity> 
+            </TouchableOpacity> */}
           
         </View>
       );

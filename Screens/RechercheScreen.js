@@ -29,14 +29,14 @@ class RechercheScreen extends React.Component {
     ).then((res) => {
       
       console.log("****************");
-      console.log(res.medecin[0].obj.name);
+      console.log(res.medecin);
       console.log("****************");
       //console.log(res[1].obj.name);
       //let date=moment(res[1].days[0].date_start).format('YYYY-MM-DD');
       //console.log(date)
       this.setState({
         isLoading: false,
-        dataSource:res,
+        dataSource:res.medecin,
         refreshing: false
       })
     })

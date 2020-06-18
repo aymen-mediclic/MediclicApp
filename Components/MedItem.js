@@ -39,14 +39,16 @@ class MedItem extends React.Component {
 
 
     }
-
+   
 
     render() {
         const Med = this.props.Med
 
 
-        const encodedData = Med.image_obj;
-
+        //const encodedData = Med.image_obj;
+       function getImageFromApi (name) {
+            return 'http://51.91.249.185:8069' + name
+          }
 
 
         return (
@@ -62,11 +64,11 @@ class MedItem extends React.Component {
                         }
                     }}>
 
-                        <Image style={styles.img} source={{ uri: `data:image/gif;base64,${encodedData}` }} />
+                        <Image style={styles.img} source={{ uri:getImageFromApi( Med.obj.image ) }} />
                         <View style={{ flexDirection: 'column', flex: 1 }}>
                             <Text style={styles.txt}> {Med.obj.name} </Text>
                             <Text> {Med.obj.specialite} </Text>
-
+                            <Text> {Med.obj.adress_obj} </Text>
                         </View>
                     </TouchableOpacity>
                 </View>

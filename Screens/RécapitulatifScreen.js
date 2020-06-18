@@ -48,8 +48,10 @@ class Recap extends React.Component {
                 {(this.props.userInfo)?
                   <>
                     <Text style={styles.txt}> {`Nom: ${this.props.userInfo.nom}`}</Text>
-                    <Text style={styles.txt}> Téléphone:</Text>
-                    <Text style={styles.txt}> E-mail:</Text>
+                    <Text style={styles.txt}> {`Prenom: ${this.props.userInfo.prenom}`}</Text>
+                    <Text style={styles.txt}> {`Téléphone:0622102874 `}</Text>
+                    <Text style={styles.txt}> {`E-mail: asmaa@odoo.com`}</Text>
+                    
                   </>
                   :
                   <></> 
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
   },
   txt : {
     fontSize:15,
-    fontWeight:'bold',
+    //fontWeight:'bold',
     
     
   },

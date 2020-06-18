@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, Button, StyleSheet, Image, Modal, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, Modal, TouchableOpacity } from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
 import Calendar from './Calendar';
-import { MaterialIcons } from '@expo/vector-icons'
+import { Button } from 'native-base';
 import moment from 'moment';
 import DateC from '../Screens/DateConsultation';
 class MedItem extends React.Component {
@@ -14,7 +14,7 @@ class MedItem extends React.Component {
             data: []
         }
     }
-    
+
 
     componentDidMount() {
         const input = this.props.Med.days;
@@ -45,7 +45,7 @@ class MedItem extends React.Component {
         const Med = this.props.Med
 
 
-        const encodedData = Med.image;
+        const encodedData = Med.image_obj;
 
 
 
@@ -62,7 +62,7 @@ class MedItem extends React.Component {
                         }
                     }}>
 
-
+                        <Image style={styles.img} source={{ uri: `data:image/gif;base64,${encodedData}` }} />
                         <View style={{ flexDirection: 'column', flex: 1 }}>
                             <Text style={styles.txt}> {Med.obj.name} </Text>
                             <Text> {Med.obj.specialite} </Text>
@@ -84,8 +84,8 @@ class MedItem extends React.Component {
                                             item[1].map((day, i) => {
                                                 //show only 3 times
                                                 return (i < 3) ?
-                                                <TouchableOpacity style={[styles.txt_slt, { marginHorizontal: 2 }]} onPress={() => NavigationService.navigate('Prendre un rendez-vous', { text: day.date_start,name:Med.obj.name })}>
-                                                    <Text style={[styles.txt_slt, { marginHorizontal: 2 }]} >{moment(day.date_start).format("h:mm a")}</Text>
+                                                    <TouchableOpacity style={[styles.txt_slt, { marginHorizontal: 2 }]} onPress={() => NavigationService.navigate('Prendre un rendez-vous', { text: day.date_start, name: Med.obj.name })}>
+                                                        <Text style={[styles.txt_slt, { marginHorizontal: 2 }]} >{moment(day.date_start).format("h:mm a")}</Text>
                                                     </TouchableOpacity>
                                                     :
                                                     <></>
@@ -100,40 +100,21 @@ class MedItem extends React.Component {
 
 
 
-                    {/* <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.v_slt}>
-                            <Text style={{ color: 'grey' }}>Today</Text>
-                            <Text style={{ color: 'grey' }}>Tomorrow</Text>
-                        </View>
-                        <View style={styles.v_slt1}>
-                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={styles.txt_slt}>07:00</Text>
-
-                                <Text style={styles.txt_slt}>08:00</Text>
-                                <Text style={styles.txt_slt}>11:00</Text>
-
-                            </View>
-                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={styles.txt_slt}>08:00</Text>
-                                
-                            </View>
-                        </View>
-                    </View>// this.setState({ modalOpen: true }) */}
                     <Modal visible={this.state.modalOpen} animationType='slide' transparent={true}  >
                         <View style={styles.modal}>
                             <View style={{ flexDirection: 'row', backgroundColor: '#1E79C5', justifyContent: 'center' }}>
 
                                 <Text style={{ alignSelf: 'center', fontSize: 22, color: 'white' }}> Toutes les disponibilités</Text>
                             </View>
-                            <DateC/>
+                            <DateC />
                             <TouchableOpacity style={{ marginTop: 10, marginRight: 10, backgroundColor: '#FFC617', height: 25, width: 100, borderRadius: 3, alignSelf: "flex-end" }} onPress={() => this.setState({ modalOpen: false })} >
-                                <Text style={{ textAlign: 'center', fontWeight:'bold', color: 'white' }}>Fermer</Text>
+                                <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'white' }}>Fermer</Text>
                             </TouchableOpacity>
                         </View>
                     </Modal>
                     <View style={{ flex: 1, alignItems: 'center' }}>
                         <TouchableOpacity style={{ marginTop: 10, backgroundColor: '#FFC617', height: 25, width: 100, borderRadius: 10 }} onPress={() => NavigationService.navigate('Date de rendez-vous')}>
-                            <Text style={{ textAlign: 'center', fontWeight:'bold', color: 'white' }}> Voir plus</Text>
+                            <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'white' }}> Voir plus</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

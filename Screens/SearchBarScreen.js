@@ -6,6 +6,7 @@ import Sugg from '../Components/Sugg';
 import { SearchBar } from 'react-native-elements';
 import Highlighter from 'react-native-highlight-words';
 import * as NavigationService from '../Navigation/NavigationService';
+//NavigationService.navigate('Choisisser la ville',{lien:item.lien})
 export default class Search extends React.Component {
 
   constructor(props) {
@@ -83,7 +84,7 @@ export default class Search extends React.Component {
           <FlatList
             data={this.state.data.sort((a, b) => a.type === 'spécialité' ? -1 : 1)}
             keyExtractor={item => { return item.id }}
-            renderItem={({ item }) => <TouchableOpacity onPress={() => NavigationService.navigate('Choisisser la ville',{lien:item.lien})}>
+            renderItem={({ item }) => <TouchableOpacity onPress={() =>NavigationService.navigate('Médecin',{screen:'Recherche',params:{lien: item.lien}}) }> 
               {item.type == 'spécialité' && (
                 <Highlighter
                   highlightStyle={{ backgroundColor: '#f39c12' }}

@@ -269,7 +269,7 @@ export default class App extends React.Component {
             headerTitleAlign: 'center',
             headerTitleStyle: {
               fontWeight: 'bold'
-            }
+            },
           }} />
            <Stack.Screen name="Proche Profil:" component={GProcheProfil} options={{
              headerTintColor: '#fff',

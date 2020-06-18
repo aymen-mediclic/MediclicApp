@@ -79,8 +79,6 @@ class ConnectionScreen extends React.Component {
         console.log("repooooonse")
         console.log(res)
         console.log("*********success***********")
-        console.log(res.succes)
-        console.log("***************************")
         //changes here
         if (res.user_context) {
           console.log("user login now -------------------")
@@ -169,12 +167,3 @@ const styles = StyleSheet.create({
   },
 });
 export default ConnectionScreen
-/*
-
-onLogout = async ()=>{
-  await AsyncStorage.removeItem("user")
-  AsyncStroage.removeItem("userInfo")
-}
-
-}
-*/

@@ -82,7 +82,7 @@ export default class VilleC extends React.Component {
         return (
 <View style={{flex:1}}>
 <PlacesInput
-                    googleApiKey={'AIzaSyAM8Nsgo_wAY--K5UuDY7K7YSlUNOcmCog'}
+                    googleApiKey={'AIzaSyA4qngbP1rO_kRLSg__RhqrT29Kst_yHXg'}
                     placeHolder={"Choisir la ville "}
                     language={"en-US"}
                     queryCountries={['ma']}

@@ -44,8 +44,8 @@ export default class ImagePickerExample extends React.Component {
               <Picker.Item label="Oncle" value='o' />
             </Picker>
           )}
-          <Text style={{ fontSize: 16,alignSelf:'center',marginTop:30 }}> Veuillez renseignez votre adresse svp:</Text>
-          <TextInput style={{ alignSelf:'center',borderWidth:1,borderRadius:5,width:250,marginVertical:10,padding:5 }} placeholder='Adresse'/>
+         
+    
 
         </View>
 

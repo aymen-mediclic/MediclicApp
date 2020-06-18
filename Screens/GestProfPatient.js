@@ -1,26 +1,53 @@
 import React, { useEffect, useState } from 'react'
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Modal } from 'react-native'
+import {
+    createDrawerNavigator, DrawerContentScrollView,
+    DrawerItemList,
+    DrawerItem,
+} from '@react-navigation/drawer';
+import { View, TextInput, Button, StyleSheet, Text, AsyncStorage } from 'react-native'
 import FScreen from './PatProfil/FilesScreen';
 import MrdvScreen from './PatProfil/MrdvScreen';
 import MprofilScreen from './PatProfil/MprofilScreen';
 import MprochesScreen from './PatProfil/MprocheScreen';
-
-
-
-
+import Feather from 'react-native-vector-icons/Feather';
+import EntypoI from 'react-native-vector-icons/Entypo'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import * as NavigationService from '../Navigation/NavigationService';
 
 
 const Drawer = createDrawerNavigator();
+function CustomDrawerContent(props) {
+
+    return (
+        <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props} labelStyle={{ color: 'black' }} />
+            <DrawerItem
+                icon={({ focused, color, size }) => <Feather color={color} size={20} name={'log-out'} />}
+                labelStyle={{ color: 'black' }}
+                label="Se déconnecter" onPress={async () => {
+                    try {
+                        await AsyncStorage.removeItem("user")
+                        await AsyncStorage.removeItem("userInfo")
+                        console.log("LOgout Pres")
+                    } catch (error) { console.log(error, "---------ON LOGOUT------------") }
+
+
+
+                    NavigationService.navigate('Mediclic')
+                }} />
+
+        </DrawerContentScrollView>
+    );
+}
 
 export default function GProfPatient() {
     return (
 
-        <Drawer.Navigator initialRouteName="Home">
-            <Drawer.Screen name="Mon profil" component={MprofilScreen} />
-            <Drawer.Screen name="Mes RDV" component={MrdvScreen} />
-            <Drawer.Screen name="Mes documents" component={FScreen} />
-            <Drawer.Screen name="Mes proches" component={MprochesScreen} />
+        <Drawer.Navigator initialRouteName="Home" drawerContent={props => <CustomDrawerContent {...props} />} >
+            <Drawer.Screen name="Mon profil" component={MprofilScreen} options={{ drawerLabel: 'Profil', drawerIcon: ({ focused, color, size }) => (<Feather color={color} size={20} name={'user'} />) }} />
+            <Drawer.Screen name="Mes RDV" component={MrdvScreen} options={{ drawerIcon: ({ focused, color, size }) => (<Feather color={color} size={20} name={'calendar'} />) }} />
+            <Drawer.Screen name="Mes documents" component={FScreen} options={{ drawerIcon: ({ focused, color, size }) => (<EntypoI color={color} size={20} name={'text-document'} />) }} />
+            <Drawer.Screen name="Mes proches" component={MprochesScreen} options={{ drawerIcon: ({ focused, color, size }) => (<Ionicons color={color} size={22} name={'ios-people'} />) }} />
 
         </Drawer.Navigator>
 
@@ -56,5 +83,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    
+
 });

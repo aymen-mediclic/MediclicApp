@@ -6,7 +6,7 @@ import moment from 'moment';
 import 'moment/locale/fr'
 import * as NavigationService from '../../Navigation/NavigationService';
 moment.locale('fr')
-export default function App({ navigation }) {
+export default function Mprofil({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [Data, setData] = useState([]);
     
@@ -91,6 +91,18 @@ export default function App({ navigation }) {
                 setModalVisible(false)
             })
             .done();
+    }
+    let Logout=async() => {
+        try{
+            await AsyncStorage.removeItem("user")
+            await AsyncStorage.removeItem("userInfo")
+            console.log("LOgout Pres")
+        }catch(error){console.log(error, "---------ON LOGOUT------------")}
+        
+
+        
+            NavigationService.navigate('Mediclic')
+          
     }
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }} >
@@ -212,21 +224,7 @@ export default function App({ navigation }) {
                 </View>
 
             </Modal>
-            <TouchableOpacity style={styles.btn}
-                onPress={async() => {
-                    try{
-                        await AsyncStorage.removeItem("user")
-                        await AsyncStorage.removeItem("userInfo")
-                        console.log("LOgout Pres")
-                    }catch(error){console.log(error, "---------ON LOGOUT------------")}
-                    
-
-                    
-                        NavigationService.navigate('Mediclic')
-                      
-                }}>
-                <Text style={{ color: 'white', fontSize: 15 }}>log out</Text>
-            </TouchableOpacity>
+            
             <TouchableOpacity style={styles.btn}
                 onPress={() => {
                     setModalVisible(true);

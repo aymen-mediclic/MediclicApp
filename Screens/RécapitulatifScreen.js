@@ -47,10 +47,22 @@ class Recap extends React.Component {
                 <Text style={styles.title}> Informations sur le patient:</Text>
                 {(this.props.userInfo)?
                   <>
-                    <Text style={styles.txt}> {`Nom: ${this.props.userInfo.nom}`}</Text>
-                    <Text style={styles.txt}> {`Prenom: ${this.props.userInfo.prenom}`}</Text>
-                    <Text style={styles.txt}> {`Téléphone:0622102874 `}</Text>
-                    <Text style={styles.txt}> {`E-mail: asmaa@odoo.com`}</Text>
+                  <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
+                  <Text style={styles.txt}> Nom:</Text>
+                  <Text style={styles.txt1}> {this.props.userInfo.nom}</Text>
+                  </View>
+                  <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
+                  <Text style={styles.txt}> Prenom:</Text>
+                  <Text style={styles.txt1}> {this.props.userInfo.prenom}</Text>
+                  </View>
+                  <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
+                  <Text style={styles.txt}> Téléphone::</Text>
+                  <Text style={styles.txt1}> 0622102874</Text>
+                  </View>
+                  <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
+                  <Text style={styles.txt}> E-mail:</Text>
+                  <Text style={styles.txt1}> asmaa@odoo.com</Text>
+                  </View>
                     
                   </>
                   :
@@ -92,7 +104,7 @@ const styles = StyleSheet.create({
   },
   txt : {
     fontSize:15,
-    //fontWeight:'bold',
+    fontWeight:'bold',
     
     
   },

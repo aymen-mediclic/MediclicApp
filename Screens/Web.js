@@ -1,4 +1,4 @@
-import * as React from 'react';
+/*import * as React from 'react';
 import { Button, Image, View, Picker } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
@@ -32,7 +32,7 @@ export default class Web extends React.Component {
                     style={{ width: "100%", height: 250 }}
                 />
                 <Image source={require('../assets/w3.jpg')} style={{ width:"100%", height: 250 }} />
-                {/*<Image source={require('../assets/w.jpg')} style={{ width: 250, height: 250,flex:1 }} />*/}
+                {/*<Image source={require('../assets/w.jpg')} style={{ width: 250, height: 250,flex:1 }} />
                 {image &&
                     <Image source={{ uri: image }} style={{ width: 250, height: 250, flex: 1 }} />}
                 <View style={{ margin: 10, flexDirection: "row" }}>

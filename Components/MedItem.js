@@ -86,7 +86,21 @@ class MedItem extends React.Component {
                                             item[1].map((day, i) => {
                                                 //show only 3 times
                                                 return (i < 3) ?
-                                                    <TouchableOpacity style={[styles.txt_slt, { marginHorizontal: 2 }]} onPress={() => NavigationService.navigate('Prendre un rendez-vous', { text: day.date_start, name: Med.obj.name })}>
+                                                    <TouchableOpacity style={[styles.txt_slt, { marginHorizontal: 2 }]} onPress={() => NavigationService.navigate('Prendre un rendez-vous', 
+                                                    {name: Med.obj.name,
+                                                    namo: day.name,
+                                                    text: day.date_start,
+                                                    text1: day.date_end,
+                                                    doctor: day.doctor,
+                                                    duration:day.duration ,
+                                                    partner_id: day.partner_id,
+                                                    context:day.context,
+                                                    praticien:day.praticien,
+                                                    service_id:day.service_id,
+                                                    service_name:day.service_name,
+                                                    service_salle:day.service_salle,
+                                                    adresse_rdv: day.adresse_rdv
+                                                 })}>
                                                         <Text style={[styles.txt_slt, { marginHorizontal: 2 }]} >{moment(day.date_start).format("h:mm a")}</Text>
                                                     </TouchableOpacity>
                                                     :

@@ -236,17 +236,7 @@ export default class App extends React.Component {
               fontWeight: 'bold'
             }
           }} />
-          <Stack.Screen name="Video Call" component={Web} options={{
-            headerTintColor: '#fff',
-            headerStyle: {
-              backgroundColor: '#1E79C5',
-              height: 80,
-            },
-            headerTitleAlign: 'center',
-            headerTitleStyle: {
-              fontWeight: 'bold'
-            }
-          }} />
+         
           <Stack.Screen name="Mon Profil" component={GProfMed} options={{
             headerTintColor: '#fff',
             headerStyle: {

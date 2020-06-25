@@ -169,8 +169,7 @@ class Identification extends React.Component {
       <View>
         <Text style={{ fontSize: 18, fontWeight: 'bold', alignSelf: 'center', color: '#2f3542' }}>Confirmation de votre rendez-vous</Text>
         <View >
-        {(this.props.userInfo)?
-                  <>
+       
             <View style={styles.med_ctr}>
               <Text style={styles.text}>J'ai deja un compte Mediclic</Text>
               <TextInput style={styles.text_input} placeholder='Nom de compte'
@@ -185,12 +184,7 @@ class Identification extends React.Component {
               <Text style={{ margin: 10 }}>Mot de passe oublié? </Text>
               <Button color='' title='Inscrivez-vous' onPress={this.got} />
             </View>
-            </>
-                  :
-                  <></> 
-                  
-                }
-          
+           
           
             <MyComponent />
         </View>
@@ -218,6 +212,20 @@ class Identification extends React.Component {
           alert("Erreur d'authentification");
           console.log(res);
         }
+      })
+      .done();
+  }
+  kaka = () => {
+    
+    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+    fetch('51.91.249.185:8069/api/profil_medecin?uid=ra9m&get_general' )
+
+      .then((response) => response.json())
+      .then((res) => {
+        console.log("repooooonse")
+        console.log(res)
+        console.log("*********success***********")
+        
       })
       .done();
   }

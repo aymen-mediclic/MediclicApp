@@ -1,29 +1,97 @@
+// tel patient generer+ update
 import * as React from 'react';
-import { Button, Image, View, Picker,TextInput } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
+import { View, Picker, TextInput, Modal, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { RadioButton, Text } from 'react-native-paper';
-import { CameraRoll } from 'react-native-cameraroll';
+
 
 
 export default class ImagePickerExample extends React.Component {
   state = {
-    image: null,
     value: 'first',
-    selectedValue: 'p'
+    selectedValue: '',
+    data: [],
+    modalVisible: false,
+    nom:"",
+    prenom:"",
+    mail:"",
+    tel:"",
+    
   };
+  componentDidMount() {
+    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+    return fetch('http://51.91.249.185:8069/api/profil?uid=85&get_proche')
+      .then((response) => response.json())
+      .then((res) => {
+        console.log("!!!test proches")
+        console.log(res.proches[2][0].nom)
+        console.log("!!!!!!!!!")
+        console.log(res.proches.length)
+        let da = [];
+        var count = Object.keys(res.proches).length;
+        for (var i = 0; i < count; i++) {
+          //console.log(res.proches[i][0].nom) // I need to add 
+          da.push(res.proches[i][0].nom); // Create your array of data
+        }
+
+
+        this.setState({
+          data: da
+        })
+
+
+      })
+      .done();
+  }
+  
 
   render() {
-    let { image, value } = this.state;
+    let { value } = this.state;
+    console.log("!!!!!!!!!")
+    console.log(this.state.data);
+    const update = () => {
+
+
+
+      let bodyData = JSON.stringify({
+          uid: "85",
+          'nom':this.state.nom,
+          'prenom':this.state.prenom,
+          
+          'email': this.state.mail,
+          'tel':this.state.tel,
+      })
+
+
+      console.log(bodyData, "-------------------")
+
+      fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+      fetch('http://51.91.249.185:8069/api/ajout_proche', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json, text/javascript, */*; q=0.01',
+              'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+          },
+          body: bodyData
+      })
+
+          .then((response) => response.json())
+          .then((res) => {
+              console.log("repooooonse")
+              console.log(res)
+              console.log("*********success***********")
+              this.setState({ modalVisible: false })
+              alert("Votre proche a été ajouté avec succes!")
+          })
+          .done();
+  }
     return (
       <RadioButton.Group
         onValueChange={value => this.setState({ value })}
         value={this.state.value}
       >
-        <View style={{marginTop:20,backgroundColor:'white',paddingBottom:200}}>
-          <Text style={{ fontSize: 16,alignSelf:'center' }}>Vous prenez un rendez-vous pour:</Text>
-          <View style={{ flexDirection: 'row',alignSelf:'center',marginTop:15 }}>
+        <View style={{ marginTop: 20, backgroundColor: 'white', paddingBottom: 200 }}>
+          <Text style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>Vous prenez un rendez-vous pour:</Text>
+          <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 15 }}>
             <View style={{ marginRight: 30 }}>
               <Text>Pour vous</Text>
               <RadioButton value="first" />
@@ -33,19 +101,89 @@ export default class ImagePickerExample extends React.Component {
               <RadioButton value="second" />
             </View>
           </View>
-          {value == 'second' && (
-            <Picker
-              selectedValue={this.state.selectedValue}
-              style={{ height: 50, width: 150 }}
-              onValueChange={(itemValue, itemIndex) => this.setState({ selectedValue: itemValue })}
-            >
-              <Picker.Item label="Parent" value='p' />
-              <Picker.Item label="Soeur" value='s' />
-              <Picker.Item label="Oncle" value='o' />
-            </Picker>
-          )}
-         
-    
+          <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 15 }}>
+            {value == 'second' && (
+              <View>
+              <Picker
+                selectedValue={this.state.selectedValue}
+                style={{ height: 100, width: 200 }}
+                onValueChange={(itemValue, itemIndex) => this.setState({selectedValue:itemValue})} >
+                {this.state.data.map((item, index) =>
+                  <Picker.Item label={item} value={index} key={index} />
+                )}
+              </Picker>
+              <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.modalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+              }}>
+              <View style={styles.modalView}>
+
+
+                <TouchableOpacity
+                  style={{ backgroundColor: "#2196F3" }}
+                  onPress={() => {
+                    this.setState({ modalVisible: false });
+                  }}
+                >
+                  <Text style={styles.textStyle}>Fermer</Text>
+                </TouchableOpacity>
+                <ScrollView>
+                  <Text style={styles.text}>Nom:</Text>
+                  <TextInput
+                    style={styles.text_input}
+                    placeholder="nom"
+                    value={this.state.nom}
+                    onChangeText={(name) => this.setState({nom:name}) }
+                  />
+                  <Text style={styles.text}>Prénom:</Text>
+                  <TextInput
+                    style={styles.text_input}
+                    value={this.state.prenom}
+                    placeholder="Pénom"
+                    onChangeText={(prename) => { this.setState({prenom:prename}) }}
+
+                  />
+                  <Text style={styles.text}>Adresse e-mail:</Text>
+                  <TextInput
+                    style={styles.text_input}
+                    placeholder="e-mail:"
+                    defaultValue='asmaa@odoo.com'
+                    onChangeText={(maili) => { this.setState({mail:maili}) }}
+
+                  />
+                  <Text style={styles.text}>Téléphone:</Text>
+                  <TextInput
+                    style={styles.text_input}
+                    placeholder="Téléphone:"
+                    defaultValue='0673259781'
+                    onChangeText={(tele) => { this.setState({tel:tele}) }}
+
+                  />
+                  <TouchableOpacity
+                    style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                    onPress={() => update()}
+                  >
+                    <Text style={styles.textStyle}>Ajouter</Text>
+                  </TouchableOpacity>
+
+                </ScrollView>
+              </View>
+
+            </Modal>
+            <TouchableOpacity style={styles.btn}
+              onPress={() => {
+                this.setState({ modalVisible: true });
+              }}>
+              <Text style={{ color: 'white', fontSize: 15 }}> Ajouter un proche</Text>
+            </TouchableOpacity>
+              </View>
+              
+            )}
+            
+          </View>
 
         </View>
 
@@ -53,154 +191,112 @@ export default class ImagePickerExample extends React.Component {
     );
   }
 
-  componentDidMount() {
-    this.getPermissionAsync();
-    console.log('hi');
-  }
 
-  getPermissionAsync = async () => {
-    if (Constants.platform.ios) {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
-      }
-    }
-  }
 
-  _pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1
-    });
 
-    console.log(result);
 
-    if (!result.cancelled) {
-      this.setState({ image: result.uri });
-    }
-  };
-  _takePhoto = async () => {
-    const result = await ImagePicker.launchCameraAsync({
-      allowEditing: false,
-      exif: true
-    });
 
-    if (!result.cancelled) {
-      this.setState({ image: result.uri });
-    }
-    CameraRoll.saveToCameraRoll(this.state.image);
-  };
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
 
-/*import * as React from 'react';
-import { Button, Image, View,Picker} from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
-import { RadioButton, Text } from 'react-native-paper';
-import {CameraRoll} from 'react-native-cameraroll';
+  },
+  item: {
+    backgroundColor: 'white',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
 
-export default class ImagePickerExample extends React.Component {
-  state = {
-    image: null,
-    value: 'first',
-    selectedValue:'p'
-  };
+  },
+  title1: {
+    fontSize: 14,
 
-  render() {
-    let { image,value } = this.state;
-    return (
-      <RadioButton.Group
-        onValueChange={value => this.setState({ value })}
-        value={this.state.value}
-      >
-        <View>
-        <Text style={{fontWeight:'bold',fontSize:16}}>Pour qui vous prenez rendez-vous:</Text>
-        <View style={{flexDirection:'row'}}>
-          <View style={{marginRight:30}}>
-            <Text>Pour vous</Text>
-            <RadioButton value="first" />
-          </View>
-          <View>
-            <Text>Pour un Proche</Text>
-            <RadioButton value="second" />
-          </View>
-          </View>
-          {value =='second'&& (
-            <Picker
-            selectedValue={this.state.selectedValue}
-            style={{ height: 50, width: 150 }}
-            onValueChange={(itemValue, itemIndex) => this.setState({selectedValue:itemValue})}
-          >
-            <Picker.Item label="Parent" value='p'/>
-            <Picker.Item label="Soeur" value='s'/>
-            <Picker.Item label="Oncle" value='o'/>
-          </Picker>
-          )}
+  },
+  title: {
+    fontSize: 16,
+    marginRight: 5,
+    fontWeight: 'bold',
+    marginVertical: 5,
+    color: '#2c3e50'
+  },
+  textStyle: {
+    color: 'white',
+    alignSelf: 'center',
+    fontSize: 14,
+  },
+  centeredView: {
+    flex: 1,
+    //justifyContent: "center",
+    //alignItems: "center",
+    //marginBottom: 60,
+    //marginTop:30,
+    backgroundColor: 'white'
+  },
+  btn: {
+    borderRadius: 8,
+    backgroundColor: 'orange',
+    color: 'white',
+    width: 200,
+    height: 30,
+    alignSelf: 'flex-end',
+    marginRight: 10,
+    marginBottom: 10,
+    marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
 
-        </View>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
+  modalView: {
+    //margin: 5,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 10,
+    //alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 10,
+    padding: 10,
+    elevation: 2,
+    width: 150,
+    alignSelf: 'flex-end'
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  text_input: {
+    alignSelf: 'center',
+    height: 30,
+    width: "90%",
+    borderColor: '#dfe4ea',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingLeft: 10,
+    backgroundColor: 'white',
+    marginBottom: 15,
+  },
+  text: {
 
-        <Button
-          color='grey'
-          title="Importer une image"
-          onPress={this._pickImage}
-        />
-        <View style={{marginTop:5}}>
-          <Button
-            color='grey'
-            title="Prendre une Image"
-            onPress={this._takePhoto}
-          />
-        </View>
-        {image &&
-          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-      </View>
-      </RadioButton.Group>
-    );
-  }
-
-  componentDidMount() {
-    this.getPermissionAsync();
-    console.log('hi');
-  }
-
-  getPermissionAsync = async () => {
-    if (Constants.platform.ios) {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
-      }
-    }
-  }
-
-  _pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1
-    });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      this.setState({ image: result.uri });
-    }
-  };
-  _takePhoto = async () => {
-    const result = await ImagePicker.launchCameraAsync({
-      allowEditing: false,
-      exif: true
-    });
-
-    if (!result.cancelled) {
-      this.setState({ image: result.uri });
-    }
-    CameraRoll.saveToCameraRoll(this.state.image);
-  };
-}*/
-
+    
+    marginLeft: 10,
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: '#2c3e50'
+  },
+});

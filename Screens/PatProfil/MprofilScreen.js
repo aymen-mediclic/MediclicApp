@@ -6,11 +6,11 @@ import moment from 'moment';
 import 'moment/locale/fr'
 import * as NavigationService from '../../Navigation/NavigationService';
 moment.locale('fr')
-export default function Mprofil({ navigation }) {
+export default function Mprofil({ navigation,route }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [Data, setData] = useState([]);
-    
-
+   //const { uid} = route.params;
+    //console.log(uid)
     // MODIFIED
 
     const [nom, setNom] = useState("")
@@ -25,7 +25,7 @@ export default function Mprofil({ navigation }) {
     useEffect(() => {
 
         fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-        return fetch('http://51.91.249.185:8069/api/profil?uid=85&get_profil')
+        return fetch('http://51.91.249.185:8069/api/profil?uid=11&get_profil')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")

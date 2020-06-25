@@ -81,11 +81,25 @@ class ConnectionScreen extends React.Component {
         console.log("*********success***********")
         //changes here
         if (res.user_context) {
+          if (res.etat[1] == null) {
           console.log("user login now -------------------")
           await AsyncStorage.setItem('user', JSON.stringify(res));
-          //NavigationService.navigate('Mon Profil:')
+          let uid=res.uid;
+          console.log("uid here!!!")
+          console.log(uid)
+          console.log(res.etat[1])
           this.props.navigation.replace('Mon Profil:');
-
+          }
+          else{
+            console.log("user login now -------------------")
+          await AsyncStorage.setItem('user', JSON.stringify(res));
+          let uid=res.uid;
+          console.log("uid here!!!")
+          console.log(uid)
+          console.log(res.etat[1])
+          this.props.navigation.replace('Mon Profil');
+          }
+          
         }
         else {
           alert("Erreur d'authentification");
@@ -94,7 +108,20 @@ class ConnectionScreen extends React.Component {
       })
       .done();
   }
+  kaka = () => {
+    
+    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+    return fetch('http://51.91.249.185:8069/api/profil_medecin?uid=11&get_general' )
 
+      .then((response) => response.json())
+      .then((res) => {
+        console.log("repooooonse")
+        console.log(res)
+        console.log("*********success***********")
+        
+      })
+      .done();
+  }
 }
 
 

@@ -12,9 +12,9 @@ export function getFilmsFromApiWithSearchedText1 () {
     .then((response) => response.json())
     .catch((error) => console.error(error))
 }
-export function fetchLien(text) {
+export function fetchLien(text,ch) {
   fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-  return fetch('http://51.91.249.185:8069' + text+'&lng=7.6353386&lat=33.5912796&location=119 Boulevard Abdelmoumen, Casablanca, Maroc&type_rdv=C')
+  return fetch('http://51.91.249.185:8069' + text+'&lng=7.6353386&lat=33.5912796&location=119 Boulevard Abdelmoumen, Casablanca, Maroc&type_rdv='+ch)
     .then((response) => response.json())
     .catch((error) => console.error(error))
 }

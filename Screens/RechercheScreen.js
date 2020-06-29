@@ -25,11 +25,11 @@ class RechercheScreen extends React.Component {
   }
   _Request = () => {
     //this.setState({ isLoading: true })
-    fetchLien(this.props.route.params.lien
+    fetchLien(this.props.route.params.lien,this.props.route.params.choice
     ).then((res) => {
       
       console.log("****************");
-      console.log(res.medecin[0].days);
+      console.log(res.medecin[0].obj);
       console.log("****************");
       //console.log(res[1].obj.name);
       //let date=moment(res[1].days[0].date_start).format('YYYY-MM-DD');
@@ -59,6 +59,8 @@ class RechercheScreen extends React.Component {
     }
   }
   render() {
+    let A = this.props.route.params.choix;
+    console.log(A,'126566')
     return (
       <View style={styles.main_container}>
         {this.displayLoading()}

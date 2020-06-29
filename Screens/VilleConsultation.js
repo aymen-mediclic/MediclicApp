@@ -6,7 +6,7 @@ import { View,TextInput,ScrollView,Text } from 'react-native';
 import { GoogleAutoComplete } from 'react-native-google-autocomplete';
 import * as NavigationService from '../Navigation/NavigationService';
 
-/*
+
 export default class VilleC extends React.Component {
     render() {
         return (
@@ -22,13 +22,14 @@ export default class VilleC extends React.Component {
         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
           console.log(data);
           console.log(details);
+          NavigationService.navigate('Médecin',{screen:'Recherche',params:{lien: this.props.route.params.lien, choice: this.props.route.params.choix}})
         }}
         getDefaultValue={() => {
           return ''; // text input default value
         }}
         query={{
           // available options: https://developers.google.com/places/web-service/autocomplete
-          key: 'AIzaSyAM8Nsgo_wAY--K5UuDY7K7YSlUNOcmCog',
+          key: 'AIzaSyA4qngbP1rO_kRLSg__RhqrT29Kst_yHXg',
           language: 'en', // language of the results
           types: '(cities)', // default: 'geocode'
         }}
@@ -68,9 +69,9 @@ export default class VilleC extends React.Component {
     </View>
         );
 }
-}*/
+}
 
-
+/*
 export default class VilleC extends React.Component {
     constructor(props) {
         super(props);
@@ -87,7 +88,8 @@ export default class VilleC extends React.Component {
                     language={"en-US"}
                     queryCountries={['ma']}
                     onSelect={place => {
-                      NavigationService.navigate('Médecin',{screen:'Recherche',params:{lien: this.props.route.params.lien}})  
+                      //NavigationService.navigate('Médecin',{screen:'Recherche',params:{lien: this.props.route.params.lien}}) 
+                      NavigationService.navigate('Médecin',{screen:'Recherche',params:{lien: this.props.route.params.lien, choice: this.props.route.params.choix}}) 
                       //NavigationService.navigate('Médecin')
                         //this.props.goToPoint(get(place, 'result.geometry.location.lat'), get(place, 'result.geometry.location.lng'))
                     }}
@@ -97,4 +99,4 @@ export default class VilleC extends React.Component {
     </View>
         );
 }
-}
+}*/

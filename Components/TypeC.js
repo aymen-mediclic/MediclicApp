@@ -5,7 +5,7 @@ import * as NavigationService from '../Navigation/NavigationService';
 //import { Button } from "native-base";
 export default class TypeC extends React.Component {
   state = {
-    selectedValue: 'c'
+    selectedValue: 'C'
   };
   render() {
 
@@ -19,16 +19,16 @@ export default class TypeC extends React.Component {
           style={{ height: 50, width: '70%', marginBottom: 20 }}
           onValueChange={(itemValue, itemIndex) => this.setState({ selectedValue: itemValue })}
         >
-          <Picker.Item label="Au cabinet/centre" value="c" />
-          <Picker.Item label="A domicile" value="d" />
-          <Picker.Item label="Video conférence" value="v" />
+          <Picker.Item label="Au cabinet/centre" value="C" />
+          <Picker.Item label="A domicile" value="D" />
+          <Picker.Item label="Video conférence" value="V" />
         </Picker>
-        {this.state.selectedValue == 'c' && (
+        {this.state.selectedValue == 'C' && (
           <TouchableOpacity style={{backgroundColor:'#3498db',height:30,width:80,marginTop:7,borderRadius:5,alignItems:'center',justifyContent:'center'}} onPress={() => NavigationService.navigate('Rechercher', { choix: this.state.selectedValue })} >
             <Text style={{color:'white', fontWeight:'bold'}}>Suivant</Text>
             </TouchableOpacity>
         )}
-        {this.state.selectedValue == 'd' && (
+        {this.state.selectedValue == 'D' && (
           <Button title='SUIVANT' onPress={() => NavigationService.navigate('Choisisser la ville:')} />
         )}
         </View>

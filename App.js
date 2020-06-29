@@ -6,6 +6,9 @@ import ListMed from './Screens/ListMed';
 import AboutScreen from './Screens/AboutScreen';
 import ConnectionScreen from './Screens/ConnectionScreen';
 import MedProfilScreen from './Screens/MedProfilScreen';
+
+import WebViewScreen from "./Screens/WebViewScreen"
+
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer,useNavigation } from '@react-navigation/native';
 import { navigationRef } from './Navigation/NavigationService';
@@ -90,7 +93,7 @@ export default class App extends React.Component {
                   {/*<FontAwesomeIcon icon='user' />*/}
                 </TouchableOpacity>,
               headerLeft: () =>
-                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => NavigationService.navigate('Mon Profil')} >
+                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => NavigationService.navigate('WebViewScreen')} >
                   <MaterialIcons name='menu' size={28} color={'white'} />
                 </TouchableOpacity>,
             }
@@ -250,6 +253,19 @@ export default class App extends React.Component {
             
             title:() =>{<Image style={{ height: 60, width: 100 }} source={require('./assets/Title.jpg')} />} 
           }} />
+
+          <Stack.Screen name="WebViewScreen" component={WebViewScreen} options={{
+            headerTintColor: '#fff',
+            headerStyle: {
+              backgroundColor: '#1E79C5',
+              height: 80,
+            },
+            headerTitleStyle: {
+              fontWeight: 'bold'
+            },
+            headerTitleAlign: 'center',
+          }} />
+
           <Stack.Screen name="Mon Profil:" component={GProfPatient} options={{
             headerTintColor: '#fff',
             headerStyle: {

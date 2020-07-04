@@ -154,8 +154,7 @@ class ConnectionScreen extends React.Component {
   kaka = () => {
     
     fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-    return fetch('http://51.91.249.185:8069/api/profil_medecin?uid=11&get_general' )
-
+    return fetch('http://51.91.249.185:8069/api/profil_profe?medecin_id=7')
       .then((response) => response.json())
       .then((res) => {
         console.log("repooooonse")

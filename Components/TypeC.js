@@ -1,3 +1,64 @@
+import React, { Component } from 'react';
+import {  View, StyleSheet,TouchableOpacity } from 'react-native';
+import { Container, Header, Content, ListItem, Text, Radio, Right, Left } from 'native-base';
+import * as NavigationService from '../Navigation/NavigationService';
+export default class CustomRadioButtonExample extends Component {
+  state = {
+    selectedValue: 'C'
+  };
+  render() {
+    return (
+      <Container>
+        
+        <Content>
+          <ListItem   >
+            <Left>
+              <Text>Au cabinet/centre</Text>
+            </Left>
+            <Right>
+              <Radio
+                color={"#f0ad4e"}
+                selectedColor={"#5cb85c"}
+                selected={this.state.selectedValue=='C'}
+                onPress={() => this.setState({ selectedValue: 'C' })}
+              />
+            </Right>
+          </ListItem>
+          <ListItem>
+            <Left>
+              <Text>A domicile</Text>
+            </Left>
+            <Right>
+              <Radio
+                color={"#f0ad4e"}
+                selectedColor={"#5cb85c"}
+                selected={this.state.selectedValue=='D'}
+                onPress={() => this.setState({ selectedValue: 'D' })}
+              />
+            </Right>
+          </ListItem>
+          <ListItem selected={true}>
+            <Left>
+              <Text>Video conférence</Text>
+            </Left>
+            <Right>
+              <Radio
+                color={"#f0ad4e"}
+                selectedColor={"#5cb85c"}
+                selected={this.state.selectedValue=='V'}
+                onPress={() => this.setState({ selectedValue: 'V' })}
+              />
+            </Right>
+          </ListItem>
+          <TouchableOpacity style={{backgroundColor:'#3498db',height:30,width:120,margin:7,borderRadius:5,alignItems:'center',justifyContent:'center',alignSelf:'flex-end'}} onPress={() => NavigationService.navigate('Rechercher', { choix: this.state.selectedValue })} >
+            <Text style={{color:'white'}}>SUIVANT</Text>
+            </TouchableOpacity>
+        </Content>
+      </Container>
+    );
+  }
+}
+/*
 import * as React from 'react';
 import { Button, Text, View, StyleSheet, Picker,TouchableOpacity } from 'react-native';
 import * as NavigationService from '../Navigation/NavigationService';
@@ -51,3 +112,4 @@ const styles = StyleSheet.create({
     
   }
 });
+*/

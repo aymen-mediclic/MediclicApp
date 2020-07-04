@@ -243,7 +243,7 @@ export default class App extends React.Component {
           <Stack.Screen name="Mon Profil" component={GProfMed} options={{
             headerTintColor: '#fff',
             headerStyle: {
-              backgroundColor: 'grey',
+              backgroundColor: '#1E79C5',
               height: 100,
             },
             headerTitleAlign: 'center',
@@ -251,7 +251,7 @@ export default class App extends React.Component {
               fontWeight: 'bold'
             },
             
-            title:() =>{<Image style={{ height: 60, width: 100 }} source={require('./assets/Title.jpg')} />} 
+            //title:() =>{<Image style={{ height: 60, width: 100 }} source={require('./assets/Title.jpg')} />} 
           }} />
 
           <Stack.Screen name="WebViewScreen" component={WebViewScreen} options={{

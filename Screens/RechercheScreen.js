@@ -1,12 +1,12 @@
 ////////////lM39oul/////////////////////////
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, RefreshControl, Modal, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, FlatList, RefreshControl, Modal, TouchableOpacity,TouchableHighlight, ActivityIndicator } from 'react-native'
 import MedItem from '../Components/MedItem'
 import {fetchLien } from '../Navigation/WelcomeStack'
 import { MaterialIcons } from '@expo/vector-icons'
 import Filter from '../Components/Filter'
-import moment from 'moment';
-
+import {  Header,Button, Segment, Content } from 'native-base';
+import ShortCut from '../Components/ShortCut'
 
 class RechercheScreen extends React.Component {
 
@@ -15,6 +15,7 @@ class RechercheScreen extends React.Component {
     this.state = {
       isLoading: true,
       dataSource: [],
+      datafiltre: [],
       modalOpen: false,
       refreshing: false,
     }
@@ -37,7 +38,8 @@ class RechercheScreen extends React.Component {
       this.setState({
         isLoading: false,
         dataSource:res.medecin,
-        refreshing: false
+        datafiltre:res,
+        refreshing: false,
       })
     })
   }
@@ -59,36 +61,31 @@ class RechercheScreen extends React.Component {
     }
   }
   render() {
-    let A = this.props.route.params.choix;
+    let A = this.props.route.params.choice;
     console.log(A,'126566')
     return (
       <View style={styles.main_container}>
         {this.displayLoading()}
-        <Modal visible={this.state.modalOpen} animationType='slide'  >
-          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', marginTop: 30 }}>
-            <MaterialIcons
-              name='close' size={30}
-              onPress={() => this.setState({ modalOpen: false })}
-            />
-            <Text style={{ alignSelf: 'center', fontSize: 28, paddingLeft: 5 }}> Filtrer</Text>
-
+        <Modal visible={this.state.modalOpen} animationType='slide' transparent={true}  >
+        <View style={{ flexDirection: 'row', backgroundColor: '#1E79C5',marginTop:15 }}>
+            <MaterialIcons color='white' name='close' size={25} onPress={() => this.setState({ modalOpen: false })} />
+            <Text style={{ fontSize: 18, color: 'white',marginLeft:10 }}> Nouvelle recherche</Text>
           </View>
 
-          <Filter />
+          <ShortCut data={this.state.datafiltre} />
         </Modal>
+        <Segment style={{backgroundColor:'white',justifyContent: 'center'}}>  
+        <TouchableOpacity delayPressIn={100} onPress={() => this.setState({modalOpen:true})} >
+          <Text style={styles.fabIcon}>FILTRER</Text>
+        </TouchableOpacity>
+        </Segment>
+        
+        
 
-        {/*<TouchableOpacity size={24} style={styles.filter_btn}  onPress={()=> this.setState({modalOpen:true})}> 
-              <MaterialIcons name='filter' size={15} />
-              <Text style={{textAlign:'center',marginLeft:20}}>Filtrer</Text>
-            </TouchableOpacity> <MedItem Med={item}/>
-<Text> {item.obj.name}{item.days[0].date_start}</Text>
-        <FlatList
-          data={this.state.dataSource}
-          keyExtractor={item => { return item.id }}
-          renderItem={({ item }) =>{if(item.length>0){ <Text> Résultats</Text>}}}
-          refreshing={this.state.refreshing}
-          onRefresh={this.handleRefresh}
-        />*/}
+        {/*<TouchableOpacity delayPressIn={100} onPress={() => alert('FAB clicked')} style={styles.fab}>
+          <Text style={styles.fabIcon}>FILTRER</Text>
+        </TouchableOpacity>
+        */}
         <FlatList
           data={this.state.dataSource}
           keyExtractor={item => { return item.id }}
@@ -107,261 +104,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ecf0f1',
   },
-  filter_btn: {
-    backgroundColor: '#bdc3c7',
-    width: 100,
-    height: 20,
-    marginTop: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: "center"
-  }
+  fab: { 
+    position: 'absolute', 
+    width: 120, 
+    height: 35, 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    alignSelf:'center',
+    //right: 20, 
+    bottom: 20, 
+    backgroundColor: '#ecf0f1', 
+    borderRadius: 5, 
+    elevation: 8 
+    }, 
+    fabIcon: { 
+      fontSize: 15, 
+      color: '#2c3e50' 
+    }
 });
 
 export default RechercheScreen
-/*mo3tamada////////////lM39oul/////////////////////////
-import React, { useEffect, useState } from 'react'
-import {View,Text,Button,StyleSheet,FlatList,Modal,TouchableOpacity} from 'react-native'
-import MedItem from '../Components/MedItem'
-import { getFilmsFromApiWithSearchedText1, fetchLien} from '../Navigation/WelcomeStack'
-import{MaterialIcons} from '@expo/vector-icons'
-import Filter from '../Components/Filter'
-
-
-
-    
-    
-export default function lienScreen({ route }) {
-      const { lien } = route.params;
-      const [data, setData] = useState([])
-      useEffect(() => {
-        fetchLien(lien).then((res) => {
-            setData(res);
-          })
-          .done();
-      }, []);
-      return (
-        <View style={styles.main_container}>
-            {/*<Modal visible={this.state.modalOpen} animationType='slide'  >
-              <View style={{flex:1,flexDirection:'row',alignItems:'center',marginTop:30}}>
-                <MaterialIcons
-                name='close'size={30} 
-                onPress={()=> this.setState({modalOpen:false})}
-                />
-                <Text style={{alignSelf:'center',fontSize:28,paddingLeft:5}}> Filtrer</Text>
-              
-              </View>
-              
-              <Filter />
-            </Modal>
-           
-            <TouchableOpacity size={24} style={styles.filter_btn}  onPress={()=> this.setState({modalOpen:true})}> 
-              <MaterialIcons name='filter' size={15} />
-              <Text style={{textAlign:'center',marginLeft:20}}>Filtrer</Text>
-      </TouchableOpacity>
-            
-            <FlatList 
-                data={data}
-                keyExtractor={item=> item.id.toString()}
-                renderItem= {({item})=> <MedItem Med={item}  />} />
-        </View>
-      );
-    
-   
-}
-
-const styles = StyleSheet.create({
-    main_container: {
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center',
-    },
-    filter_btn:{
-      backgroundColor:'#bdc3c7',
-      width:100,
-      height:20,
-      marginTop:10,
-      flexDirection:'row',
-      alignItems:'center',
-      justifyContent:"center"
-    }
-    });*/
-
-
-/*
-////////////lM39oul/////////////////////////
-import React from 'react'
-import {View,Text,Button,StyleSheet,FlatList,Modal,TouchableOpacity} from 'react-native'
-import MedItem from '../Components/MedItem'
-import { getFilmsFromApiWithSearchedText1, fetchLien} from '../Navigation/WelcomeStack'
-import{MaterialIcons} from '@expo/vector-icons'
-import Filter from '../Components/Filter'
-
-
-
-    
-    
-export default function RechercheScreen({ route }) {
-      const { lien } = route.params;
-      const [data, setData] = useState([])
-      useEffect(() => {
-        fetchLien(lien).then((res) => {
-            setData(res);
-          })
-          .done();
-      }, []);
-      return (
-        <View style={styles.main_container}>
-            <Modal visible={this.state.modalOpen} animationType='slide'  >
-              <View style={{flex:1,flexDirection:'row',alignItems:'center',marginTop:30}}>
-                <MaterialIcons
-                name='close'size={30} 
-                onPress={()=> this.setState({modalOpen:false})}
-                />
-                <Text style={{alignSelf:'center',fontSize:28,paddingLeft:5}}> Filtrer</Text>
-              
-              </View>
-              
-              <Filter />
-            </Modal>
-           
-            <TouchableOpacity size={24} style={styles.filter_btn}  onPress={()=> this.setState({modalOpen:true})}> 
-              <MaterialIcons name='filter' size={15} />
-              <Text style={{textAlign:'center',marginLeft:20}}>Filtrer</Text>
-            </TouchableOpacity>
-            
-            <FlatList 
-                data={this.state.dataSource}
-                keyExtractor={item=> item.id.toString()}
-                renderItem= {({item})=> <MedItem Med={item}  />} />
-        </View>
-      );
-    
-   
-}
-
-const styles = StyleSheet.create({
-    main_container: {
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center',
-    },
-    filter_btn:{
-      backgroundColor:'#bdc3c7',
-      width:100,
-      height:20,
-      marginTop:10,
-      flexDirection:'row',
-      alignItems:'center',
-      justifyContent:"center"
-    }
-    });
-*/
-
- 
-
-
-
-
-
-
-
-/*
-////////////lM39oul/////////////////////////
-import React from 'react'
-import {View,Text,Button,StyleSheet,FlatList,Modal,TouchableOpacity} from 'react-native'
-import MedItem from '../Components/MedItem'
-import { getFilmsFromApiWithSearchedText1, fetchLien} from '../Navigation/WelcomeStack'
-import{MaterialIcons} from '@expo/vector-icons'
-import Filter from '../Components/Filter'
-import * as NavigationService from '../Navigation/NavigationService';
-
-class RechercheScreen extends React.Component {
-    
-    constructor(props){
-        super(props);
-        this.state={
-            isLoading:true,
-            dataSource:[],
-            modalOpen:false,
-        }
-    }
-    
-   /* componentDidMount(){
-      fetchLien(lien).then((res) => {
-        this.setState({
-          isLoading:false,
-          dataSource:res,
-        })
-      })
-    }
-    componentDidMount(){        
-      getFilmsFromApiWithSearchedText1 ('xavier').then((res) => {
-      console.log("repooooonse")
-      console.log(res)
-      console.log("*********success***********")
-      console.log(res.lenght)
-      console.log("***************************")
-      console.log(res[0]['name'])
-      this.setState({
-        isLoading:false,
-        dataSource:res,
-      })
-
-  })
-  //.done();
-  }
-    render(){
-      //const link = this.props.navigation.getParam('lien', '2');
-      //console.log('***') 
-      //console.log(this.props.navigation.state.params);
-      return (
-        <View style={styles.main_container}>
-            <Modal visible={this.state.modalOpen} animationType='slide'  >
-              <View style={{flex:1,flexDirection:'row',alignItems:'center',marginTop:30}}>
-                <MaterialIcons
-                name='close'size={30} 
-                onPress={()=> this.setState({modalOpen:false})}
-                />
-                <Text style={{alignSelf:'center',fontSize:28,paddingLeft:5}}> Filtrer</Text>
-              
-              </View>
-              
-              <Filter />
-            </Modal>
-           
-            <TouchableOpacity size={24} style={styles.filter_btn}  onPress={()=> this.setState({modalOpen:true})}> 
-              <MaterialIcons name='filter' size={15} />
-              <Text style={{textAlign:'center',marginLeft:20}}>Filtrer</Text>
-            </TouchableOpacity>
-            
-            <FlatList 
-                data={this.state.dataSource}
-                keyExtractor={item=> item.id.toString()}
-                renderItem= {({item})=> <MedItem Med={item}  />} />
-        </View>
-      );
-    }
-   
-}
-
-const styles = StyleSheet.create({
-    main_container: {
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center',
-    },
-    filter_btn:{
-      backgroundColor:'#bdc3c7',
-      width:100,
-      height:20,
-      marginTop:10,
-      flexDirection:'row',
-      alignItems:'center',
-      justifyContent:"center"
-    }
-    });
-
-export default RechercheScreen*/
- 
-

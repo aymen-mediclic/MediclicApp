@@ -7,7 +7,10 @@ import * as NavigationService from '../Navigation/NavigationService';
 export default class ShortCut extends React.Component {
     state = {
 
-        selectedValue: 'c'
+        selectedValue: this.props.data.type_calendrier,
+        selectedValue2: this.props.data.type_rdv,
+        selectedValue3: this.props.data.speciality_param,
+        selectedValue4: this.props.data.service_param
     };
     functionOne(itemValue){
         this.setState({selectedValue:itemValue})
@@ -18,28 +21,68 @@ export default class ShortCut extends React.Component {
             NavigationService.navigate('Choisisser votre position')   
         }
     render() {
+        console.log("gggg")
+        console.log(this.props.data.speciality[0])
+        let da = [];
+        var count = Object.keys(this.props.data.speciality).length;
+        for (var i = 0; i < count; i++) {
+          //console.log(res.proches[i][0].nom) // I need to add 
+          da.push(this.props.data.speciality[i]); // Create your array of data
+        }
+        let dat = [];
+        var count = Object.keys(this.props.data.services).length;
+        for (var i = 0; i < count; i++) {
+          //console.log(res.proches[i][0].nom) // I need to add 
+          dat.push(this.props.data.services[i]); // Create your array of data
+        }
+       
         return (
 
             <View style={styles.ctr}>
                 
                     <Picker
-
+                        mode='dropdown'
                         selectedValue={this.state.selectedValue}
-                        style={{ height: 40,color:'white',margin:10}}
+                        style={{ height: 40,backgroundColor:'white',margin:10, borderRadius:5}}
                         onValueChange={(itemValue, itemIndex) =>  { this.functionOne(itemValue); this.functionTwo(); }}
                     >
-                        <Picker.Item label="au Cabinet/Centre" value='c' />
-                        <Picker.Item label="Domicile" value='d' />
+                        <Picker.Item label="Consultation ou Service" value='all' />
+                        <Picker.Item label="Consultation" value='professionel' />
+                        <Picker.Item label="Service" value='service' />
                     </Picker>
-                    {/*<Text style={styles.txt}>au Cabinet/Centre</Text>*/}
+                    <Picker
+                        mode='dropdown'
+                        selectedValue={this.state.selectedValue2}
+                        style={{ height: 40,backgroundColor:'white',margin:10, borderRadius:5}}
+                        onValueChange={(itemValue, itemIndex) =>  { this.functionOne(itemValue); this.functionTwo(); }}
+                    >
+                        <Picker.Item label="Au cabinet/centre" value='C' />
+                        <Picker.Item label="A domicile" value='D' />
+                        <Picker.Item label="Video conférence" value='V' />
+                    </Picker>
+                    <Picker
+                        //mode='dropdown'
+                        selectedValue={this.state.selectedValue3}
+                        style={{ height: 40,backgroundColor:'white',margin:10, borderRadius:5}}
+                        onValueChange={(itemValue, itemIndex) =>  { this.functionOne(itemValue); this.functionTwo(); }}
+                    >
+                       {da.map((item, index) =>
+                  <Picker.Item label={item.name} value={item.id} key={index} />
+                )}
+                    </Picker>
+                    <Picker
+                        //mode='dropdown'
+                        selectedValue={this.state.selectedValue4}
+                        style={{ height: 40,backgroundColor:'white',margin:10, borderRadius:5}}
+                        onValueChange={(itemValue, itemIndex) =>  { this.functionOne(itemValue); this.functionTwo(); }}
+                    >
+                       {dat.map((item, index) =>
+                  <Picker.Item label={item.name} value={item.id} key={index} />
+                )}
+                    </Picker>
                 
-                <Text style={styles.txt}>Cardiologue</Text>
-                <Text style={styles.txt}>Casablanca</Text>
-                <Text style={styles.txt1}>consultation ou service</Text>
-                <Text style={styles.txt1}>Quelle service aimeriez vous?</Text>
-                <Text style={styles.txt1}>Médecin ou centre?</Text>
-                <Text style={styles.txt1}>Disponibilité</Text>
-                <Button title='rechecher' color='orange' onPress={() => { }} />
+                
+                
             </View>
 
         )

@@ -15,7 +15,12 @@ class MedItem extends React.Component {
         }
     }
 
-
+/* if (Med.identifier == 'medecin') {
+                            NavigationService.navigate('MedProfil', Med.obj.id)
+                        }
+                        else {
+                            NavigationService.navigate('CentreProfil', Med)
+                        } */
     componentDidMount() {
         const input = this.props.Med.days;
 
@@ -56,12 +61,10 @@ class MedItem extends React.Component {
 
                 <View style={styles.ctr1}>
                     <TouchableOpacity style={{ flexDirection: 'row', flex: 1 }} onPress={() => {
-                        if (Med.identifier == 'medecin') {
-                            NavigationService.navigate('MedProfil', Med)
-                        }
-                        else {
-                            NavigationService.navigate('CentreProfil', Med)
-                        }
+                        
+                            NavigationService.navigate('Mon Profil', Med.obj)
+                        
+                        
                     }}>
 
                         <Image style={styles.img} source={{ uri:getImageFromApi( Med.obj.image ) }} />

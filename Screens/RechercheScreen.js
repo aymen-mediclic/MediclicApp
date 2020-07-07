@@ -1,6 +1,6 @@
 ////////////lM39oul/////////////////////////
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, RefreshControl, Modal, TouchableOpacity,TouchableHighlight, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, FlatList, RefreshControl, Modal, TouchableOpacity,TouchableHighlight, ActivityIndicator, KeyboardAvoidingView } from 'react-native'
 import MedItem from '../Components/MedItem'
 import {fetchLien } from '../Navigation/WelcomeStack'
 import { MaterialIcons } from '@expo/vector-icons'
@@ -67,12 +67,12 @@ class RechercheScreen extends React.Component {
       <View style={styles.main_container}>
         {this.displayLoading()}
         <Modal visible={this.state.modalOpen} animationType='slide' transparent={true}  >
-        <View style={{ flexDirection: 'row', backgroundColor: '#1E79C5',marginTop:15 }}>
+        <KeyboardAvoidingView style={{ flexDirection: 'row', backgroundColor: '#1E79C5',marginRight:15,marginLeft:15,marginTop:15,borderWidth:1,borderColor:'white' }}>
             <MaterialIcons color='white' name='close' size={25} onPress={() => this.setState({ modalOpen: false })} />
             <Text style={{ fontSize: 18, color: 'white',marginLeft:10 }}> Nouvelle recherche</Text>
-          </View>
+          </KeyboardAvoidingView>
 
-          <ShortCut data={this.state.datafiltre} />
+          <ShortCut data={this.state.datafiltre} modal={this.state.modalOpen} />
         </Modal>
         <Segment style={{backgroundColor:'white',justifyContent: 'center'}}>  
         <TouchableOpacity delayPressIn={100} onPress={() => this.setState({modalOpen:true})} >

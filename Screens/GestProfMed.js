@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 
 
@@ -32,26 +31,44 @@ class HomeScreen extends React.Component {
 
   render() {
     
-    console.log('4444444444444444444')
-    console.log(this.props.data,'44')
-    console.log('44444444444444')
-    
+    console.log('==============================')
+    console.log(this.props.data.langue)
+    console.log('==============================')
+    function getImageFromApi (name) {
+      return 'http://51.91.249.185:8069' + name
+    }
     return (
       <ScrollView >
         <View style={styles.ctr1}>
-          <Image style={{ height: 200, width: 200, borderRadius: 200/2 , alignSelf: 'center', marginTop: 5, overflow: "hidden" }} source={require('../assets/Capture.jpg')} />
+          <Image style={{ height: 200, width: 200, borderRadius: 200/2 , alignSelf: 'center', marginTop: 5, overflow: "hidden" }} source={{ uri:getImageFromApi( this.props.data.image ) }} />
 
 
           <Text style={styles.txt_name}>{this.props.data.name}</Text>
           <Text style={styles.txt_spe}>{this.props.data.speciality}</Text>
           <Text style={styles.txt_spe}>{this.props.data.presentation}</Text>
+      
+           {
+            (this.props.data && this.props.data.langue )?
+               <Text style={styles.txt_spe}>{this.props.data.langue[0].langue}</Text>
+            :
+            <></>
+          
+          }
         </View>
         <Text style={{ fontSize: 20, alignSelf: 'center', margin: 5,fontWeight:'bold' }}>Lieux</Text>
         <Swiper showsButtons={true}>
 
           <View style={{ height: 300, backgroundColor: 'white', flex: 1 }}>
+          {
+            (this.props.data && this.props.data.lieux )?
+            <View> 
             <Text style={{ fontSize: 15, alignSelf: 'center',color:'#2980b9',margin:10 }}>Lieu 1</Text>
-            <Text style={{ fontSize: 15, alignSelf: 'center' }}>Type de consultation:Cabinet </Text>
+            <Text style={{ fontSize: 15, alignSelf: 'center' }}>Type de consultation:{this.props.data.lieux[0].type} </Text>
+            </View>
+            :
+            <></>
+          
+          }
             <MapView style={styles.mapStyle}
               scrollEnabled={false}
               initialRegion={{
@@ -187,11 +204,23 @@ class SettingsScreen extends React.Component {
 class GalerieScreen extends React.Component {
   
   render() {
+    function getImageFromApi (name) {
+      return 'http://51.91.249.185:8069' + name
+    }
+
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',backgroundColor:'white' }}>
         <Swiper showsButtons={true}>
         <View style={styles.slide1}>
-        <Image style={{margin: 5,alignSelf:'center',height:350,width:300}} source={require('../assets/Capture.jpg')} />
+        {
+            (this.props.data && this.props.data.galerie )?
+               
+               <Image style={{margin: 5,alignSelf:'center',height:350,width:300}} source={{ uri:getImageFromApi( this.props.data.galerie[0].image ) }} />
+            :
+            <></>
+          
+          }
+        
         </View>
         </Swiper>
       </View>

@@ -37,6 +37,8 @@ import GProfPatient from './Screens/GestProfPatient';
 import GProcheProfil from './Screens/PatProfil/GestProcheProfil';
 import Pheader from './Screens/PatProfil/Pheader';
 import { NavigationEvents } from 'react-navigation';
+import SearchMed from './Components/SearchMed';
+import SearchVille from './Components/SearchVille';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -93,7 +95,7 @@ export default class App extends React.Component {
                   {/*<FontAwesomeIcon icon='user' />*/}
                 </TouchableOpacity>,
               headerLeft: () =>
-                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => NavigationService.navigate('WebViewScreen')} >
+                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => NavigationService.navigate('médecin ou centre')} >
                   <MaterialIcons name='menu' size={28} color={'white'} />
                 </TouchableOpacity>,
             }
@@ -288,6 +290,28 @@ export default class App extends React.Component {
                fontWeight: 'bold'
              },
             headerTitle: ()=> <Pheader/>
+          }} />
+           <Stack.Screen name="médecin ou centre" component={SearchMed} options={{
+            headerTintColor: '#fff',
+            headerStyle: {
+              backgroundColor: '#1E79C5',
+              height: 80,
+            },
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              fontWeight: 'bold'
+            },
+          }} />
+          <Stack.Screen name="changer de ville" component={SearchVille} options={{
+            headerTintColor: '#fff',
+            headerStyle: {
+              backgroundColor: '#1E79C5',
+              height: 80,
+            },
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              fontWeight: 'bold'
+            },
           }} />
           
         </Stack.Navigator>

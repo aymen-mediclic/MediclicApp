@@ -82,24 +82,26 @@ class ConnectionScreen extends React.Component {
         console.log("*********success***********")
         //changes here
         if (res.user_context) {
-          if (res.etat[1] !== null) {
+          if (res.etat[1] == null) {
           // console.log("user login now -------------------")
           // await AsyncStorage.setItem('user', JSON.stringify(res));
           // let uid=res.uid;
           // console.log("uid here!!!")
-          alert("ss")
+          //alert("ss")
           // console.log(uid)
           // console.log(res.etat[1])
-          this.props.navigation.replace('WebViewScreen');
-          }
-          else{
-            console.log("user login now -------------------")
+          //this.props.navigation.replace('WebViewScreen');
+          console.log("user login now -------------------")
           await AsyncStorage.setItem('user', JSON.stringify(res));
           let uid=res.uid;
           console.log("uid here!!!")
           console.log(uid)
           console.log(res.etat[1])
-          this.props.navigation.replace('Mon Profil');
+          this.props.navigation.replace('Mon Profil:');
+          }
+          else{
+            alert("ss")
+            this.props.navigation.replace('WebViewScreen');
           }
           
         }

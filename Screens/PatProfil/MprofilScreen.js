@@ -25,7 +25,7 @@ export default function Mprofil({ navigation,route }) {
     useEffect(() => {
 
         fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-        return fetch('http://51.91.249.185:8069/api/profil?uid=11&get_profil')
+        return fetch('http://51.91.249.185:8069/api/profil?uid=85&get_profil')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")

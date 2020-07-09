@@ -1,3 +1,4 @@
+//date et lieux
 import * as React from 'react';
 
 
@@ -47,20 +48,20 @@ class HomeScreen extends React.Component {
           <Text style={styles.txt_spe}>{this.props.data.speciality}</Text>
           <Text style={styles.txt_spe}>{this.props.data.presentation}</Text>
       
-           {
+          { /*{
             (this.props.data && this.props.data.langue )?
                <Text style={styles.txt_spe}>{this.props.data.langue[0].langue}</Text>
             :
             <></>
           
-          }
+          }*/}
         </View>
         <Text style={{ fontSize: 20, alignSelf: 'center', margin: 5,fontWeight:'bold' }}>Lieux</Text>
         <Swiper showsButtons={true}>
 
           <View style={{ height: 300, backgroundColor: 'white', flex: 1 }}>
-          {
-            (this.props.data && this.props.data.lieux )?
+          {/*{
+            (this.props.data && this.props.data.lieux)?
             <View> 
             <Text style={{ fontSize: 15, alignSelf: 'center',color:'#2980b9',margin:10 }}>Lieu 1</Text>
             <Text style={{ fontSize: 15, alignSelf: 'center' }}>Type de consultation:{this.props.data.lieux[0].type} </Text>
@@ -68,7 +69,7 @@ class HomeScreen extends React.Component {
             :
             <></>
           
-          }
+          }*/}
             <MapView style={styles.mapStyle}
               scrollEnabled={false}
               initialRegion={{
@@ -158,43 +159,56 @@ class SettingsScreen extends React.Component {
       <View style={{backgroundColor:'white',flex:1 }}>
         <Text style={{fontSize:20,fontWeight:'bold',alignSelf:'center',margin:5}}>Formation(s) et parcours</Text>
         <Text style={{fontSize:16,color:'#7f8c8d',margin:10}}>Formation(s):</Text>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ flexDirection: 'column',flex:1 ,backgroundColor:'#bdc3c7',margin:5}}>
-            <Text>2004 - 2012</Text>
-            <Text>Université de Paris Hypnose thérapeutique: addictions: alcool, tabac </Text>
-          </View>
-          <View style={{ flex:1}}>
-          <Text>Hypnose thérapeutique: addictions: alcool, tabac drogues) stress, phobies, confiance en soi, estime de soi</Text>
-          </View>
+        
           
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ flexDirection: 'column',flex:1 ,backgroundColor:'#bdc3c7',margin:5}}>
-            <Text>2013 - 2016</Text>
-            <Text>Université de Paris</Text>
-          </View>
-          <View style={{ flex:1}}>
-          <Text>Homéopathie</Text>
-          </View>
-          
-        </View>
+          {
+            (this.props.data && this.props.data.education)?
+              this.props.data.education.map((lng, key)=>{ 
+               return <View style={{ flexDirection: 'row' }}>
+                  <View style={{ flexDirection: 'column',flex:1 ,backgroundColor:'#bdc3c7',margin:5}}>
+                  <Text key= {key} style={{margin:5}}>{lng.ecole}</Text>
+                  <Text key= {key} style={{margin:5}}>{lng.ville}</Text>
+                  </View>
+                  <View style={{ flex:1}}>
+                  <Text>{lng.diplome}</Text>
+                  </View>
+                </View>
+               
+              })
+            :
+            <></>
+          }
+            
         <Text style={{fontSize:16,color:'#7f8c8d',margin:10}}>Parcours:</Text>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ flexDirection: 'column',flex:1 ,backgroundColor:'#bdc3c7',margin:5}}>
-            <Text>2005 - 2010</Text>
-            <Text>Faculté de médecine de Rabat</Text>
-          </View>
-          <View style={{ flex:1}}>
-          <Text>Enseignante d'Homéopathie</Text>
-          </View>
-          
-        </View>
+        {
+            (this.props.data && this.props.data.formation)?
+              this.props.data.formation.map((lng, key)=>{ 
+               return <View style={{ flexDirection: 'row' }}>
+                  <View style={{ flexDirection: 'column',flex:1 ,backgroundColor:'#bdc3c7',margin:5}}>
+                  <Text key= {key} style={{margin:5}}>{lng.societe}</Text>
+                  <Text key= {key} style={{margin:5}}>{lng.ville}</Text>
+                  </View>
+                  <View style={{ flex:1}}>
+                  <Text>{lng.poste}</Text>
+                  </View>
+                </View>
+               
+              })
+            :
+            <></>
+          }
+        
         
         <Text style={{fontSize:16,color:'#7f8c8d',margin:10}}>Langue(s) parlée(s) :</Text>
         <View style={{ flexDirection: 'column',margin:10 }}>
-            <Text>Arabe</Text>
-            <Text>Français</Text>
-            <Text>Anglais</Text>
+        {
+            (this.props.data.langue)?
+              this.props.data.langue.map((lng, key)=>{
+                return <Text key= {key} style={styles.txt_spe}>{lng.langue}</Text>
+              })
+            :
+            <></>
+          }
        </View>
       </View>
       
@@ -233,10 +247,23 @@ class CScreen extends React.Component {
     return (
       <View style={{backgroundColor:'white',flex:1 }}>
         <Text style={{fontSize:20,fontWeight:'bold',alignSelf:'center',margin:5}}>Actes et tarifs :</Text>
-      <Text style={{fontSize:16,color:'#7f8c8d',margin:10}}>Consultation : 100.0 Dhs</Text>
+        {
+            (this.props.data && this.props.data.tarif)?
+              this.props.data.tarif.map((lng, key)=>{
+                return <Text key= {key} style={{fontSize:16,color:'#7f8c8d',margin:10}}>{lng.type}: {lng.prix}</Text>
+              })
+            :
+            <></>
+          }
       <Text style={{fontSize:20,fontWeight:'bold',alignSelf:'center',margin:5}}>Moyen(s) de paiement accepté(s) :</Text>
-      <Text style={{fontSize:16,color:'#7f8c8d',margin:10}}>Carte bancaire</Text>
-      <Text style={{fontSize:16,color:'#7f8c8d',margin:10}}>Espece</Text>
+      {
+            (this.props.data && this.props.data.paiement)?
+              this.props.data.paiement.map((lng, key)=>{
+                return <Text key= {key} style={{fontSize:16,color:'#7f8c8d',margin:10}}>{lng.mode}</Text>
+              })
+            :
+            <></>
+          }
        </View>
     );
   }
@@ -254,9 +281,10 @@ export default class GProfMed extends React.Component {
       refreshing: false,
     }
   }
-  componentDidMount() {
+  Id = this.props.route.params.id;
+  componentDidMount(Id) {
     fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-    return fetch('http://51.91.249.185:8069/api/profil_profe?medecin_id=13')
+    return fetch('http://51.91.249.185:8069/api/profil_profe?medecin_id=12')
 
       .then((response) => response.json())
       .then((res) => {
@@ -266,8 +294,8 @@ export default class GProfMed extends React.Component {
           isLoading: false,
           data: res
         });
-        console.log("rep!!!!!1213", this.state.data.lieux[0].type)
-        console.log("rep!!!!!", this.state.data.galerie[0].image)
+       // console.log("rep!!!!!1213", this.state.data.lieux[0].type)+this.props.route.params.id
+       // console.log("rep!!!!!", this.state.data.galerie[0].image)
       })
       .done();
   }
@@ -282,6 +310,8 @@ export default class GProfMed extends React.Component {
     }
   }
   render() {
+    const Id = this.props.route.params.id;
+    console.log(Id,'white***********************')
     return (
 
       <Tab.Navigator tabBarOptions={{
@@ -293,10 +323,14 @@ export default class GProfMed extends React.Component {
           {props => <HomeScreen data={this.state.data} />}
         </Tab.Screen>
         <Tab.Screen name="Galerie">
-        {props => <GalerieScreen   data={ this.state.data.galerie}  />}
+        {props => <GalerieScreen   data={ this.state.data}  />}
           </Tab.Screen> 
-        <Tab.Screen name="Formation" component={SettingsScreen} />
-        <Tab.Screen name="Tarif" component={CScreen} />
+        <Tab.Screen name="Formation">
+        {props => <SettingsScreen data={this.state.data} />}
+        </Tab.Screen> 
+        <Tab.Screen name="Tarif">
+        {props => <CScreen data={this.state.data} />}
+        </Tab.Screen>
 
       </Tab.Navigator>
 

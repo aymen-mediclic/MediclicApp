@@ -65,25 +65,3 @@ class MapContainer extends React.Component {
 }
 
 export default MapContainer;
-/*import React from 'react'
-import { View, Picker, Text, StyleSheet,Button } from 'react-native'
-import Map from '../Components/Map'
-
-export default class ChangeP extends React.Component {
-    render() {
-        return (
-            <View style={styles.ctr}>
-                <Map/>
-                <Button title='valider'/>
-            </View>
-        )
-    }
-}
-const styles = StyleSheet.create({
-    ctr: {
-        flex: 1,
-        //marginTop:20,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-})*/

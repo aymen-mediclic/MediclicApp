@@ -8,6 +8,14 @@ import * as NavigationService from '../Navigation/NavigationService';
 
 const GOOGLE_PLACES_API_KEY = 'AIzaSyBwO4e9kDezyKMJBTIsEmGrLveDXzB1kuE'; //run
 export default class SearchVille extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      location:"",
+      lat:"",
+      lng:""
+    }
+  }
   render() {
     return (
       <KeyboardAvoidingView style={{flex:1}}>
@@ -22,8 +30,16 @@ export default class SearchVille extends React.Component {
         GooglePlacesDetailsQuery	= {{
             fields: ['geometry']
           }}
-        onPress={(data, details = null) => {console.log(details.geometry.location);
-         
+        onPress={(data, details = null) => {console.log(details.geometry.location.lat);
+          console.log(data.description);
+          this.setState({
+            location:data.description,
+            lat:details.geometry.location.lat,
+            lng:details.geometry.location.lng
+          })
+          console.log('1111',this.state.location);
+          this.props.route.params.dataFilter1( this.state.location,this.state.lat,this.state.lng)
+          NavigationService.navigate('Médecin')
         }}
         onFail={(error) => console.error(error)}
         requestUrl={{

@@ -169,8 +169,9 @@ class Identification extends React.Component {
       <View>
         <Text style={{ fontSize: 18, fontWeight: 'bold', alignSelf: 'center', color: '#2f3542' }}>Confirmation de votre rendez-vous</Text>
         <View >
-       
-            <View style={styles.med_ctr}>
+        {(this.props.userInfo)?
+                  <>
+              <View style={styles.med_ctr}>
               <Text style={styles.text}>J'ai deja un compte Mediclic</Text>
               <TextInput style={styles.text_input} placeholder='Nom de compte'
                 onChangeText={(login) => this.setState({ login })}
@@ -184,8 +185,10 @@ class Identification extends React.Component {
               <Text style={{ margin: 10 }}>Mot de passe oublié? </Text>
               <Button color='' title='Inscrivez-vous' onPress={this.got} />
             </View>
-           
-          
+            </>
+                  :
+                  <></> 
+        }
             <MyComponent />
         </View>
       </View>

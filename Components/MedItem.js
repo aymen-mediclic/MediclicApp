@@ -62,7 +62,7 @@ class MedItem extends React.Component {
                 <View style={styles.ctr1}>
                     <TouchableOpacity style={{ flexDirection: 'row', flex: 1 }} onPress={() => {
                         
-                            NavigationService.navigate('Mon Profil', Med.obj)
+                            NavigationService.navigate('Mon Profil',{id : Med.obj.id } )
                         
                         
                     }}>

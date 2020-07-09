@@ -15,10 +15,11 @@ function MapInput(props){
                     props.notifyChange(details.geometry.location);
                 }}
                 query={{
-                    key: 'AIzaSyAM8Nsgo_wAY--K5UuDY7K7YSlUNOcmCog',
-                    language: 'en',
+                    key: 'AIzaSyBwO4e9kDezyKMJBTIsEmGrLveDXzB1kuE',
+                   
                     types: ['(cities)'],
-                    componentRestrictions: { country: "ma" }
+                    language: 'fr', // language of the results
+          components: 'country:ma',
                 }}
                 nearbyPlacesAPI='GooglePlacesSearch'
                 debounce={300}

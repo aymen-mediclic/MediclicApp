@@ -4,8 +4,8 @@ import { Container, Header, Content, Accordion, Item } from "native-base";
 import * as NavigationService from '../Navigation/NavigationService';
 
 const dataArray = [
-    { title: "lun 15/06" },
-    { title: "mar 16/06" }
+    { title: "lun 13/07" },
+    { title: "mar 14/07" }
 
 
 ];
@@ -18,14 +18,12 @@ export default class DateC extends React.Component {
             <View>
                 <View style={{ flexDirection: 'row', justifyContent: "space-around" }}>
                     <TouchableOpacity style={styles.btn} onPress={() => NavigationService.navigate('Prendre un rendez-vous')}>
-                        <Text>07:00</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.btn}>
                         <Text>08:00</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.btn}>
                         <Text>09:00</Text>
                     </TouchableOpacity>
+                    
 
 
                 </View>

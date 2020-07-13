@@ -4,64 +4,79 @@ import * as NavigationService from '../Navigation/NavigationService';
 import SearchVille from './SearchVille';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
+import { MaterialIcons } from '@expo/vector-icons'
 export default class ShortCut extends React.Component {
     state = {
 
-        selectedValue:  this.props.data.type_calendrier,
+        selectedValue: this.props.data.type_calendrier,
         selectedValue2: this.props.data.type_rdv,
         selectedValue3: this.props.data.speciality_param,
         selectedValue4: this.props.data.service_param,
         selectedValue5: "0"
     };
-    functionOne(itemValue,key) {
-        this.props.dataFilter(itemValue,key)
+    functionOne(itemValue, key) {
+        this.props.dataFilter(itemValue, key)
         this.setState({ selectedValue: itemValue })
 
     }
 
-    functionTwo() {
+    functionTwo(itemValue, key) {
+        this.setState({ selectedValue2: itemValue })
+        //console.log('voila',this.state.selectedValue2)
+        if (itemValue == 'D') {
+            this.props.modalClose()
+            NavigationService.navigate('Choisisser votre position')
+        }
+        else {
+            this.functionOne(itemValue, key);
+        }
+    }
+    /*functionTwo(itemValue,key) {
+        this.setState({ selectedValue2: itemValue })
+        console.log('voila',itemValue)
         this.props.modalClose()
         NavigationService.navigate('Choisisser votre position')
-    }
+    }*/
     functionThree() {
         this.props.modalClose()
-        NavigationService.navigate('changer de ville')
-         
+        NavigationService.navigate('changer de ville', {
+            dataFilter1: (loc, lat, lng) => this.props.dataFilter1(loc, lat, lng)
+        })
+
     }
-   _Request = () => {
+    _Request = () => {
         //this.setState({ isLoading: true })
         fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-        return fetch('http://51.91.249.185:8069/api/search'+
-                '?filtres= 1'+
-                '&dispo_date='+this.state.selectedValue5+
-                '&medecin_name='+this.props.data.medecin_name+
-                '&centre_name='+this.props.data.centre_name+ 
-                '&type_calendrier='+ this.state.selectedValue+ 
-                '&type_rdv='+this.state.selectedValue2+
-                '&speciality='+this.state.selectedValue3+
-                '&service=' +this.state.selectedValue4+
-                 '&medecin_searche_id='+this.props.data.medecin_searche_id+ 
-                 '&centre_searche_id=' +this.props.data.centre_searche_id+ 
-                 '&location='+this.props.data.location+ 
-                 '&lng='+this.props.data.lng+ 
-                 '&lat='+ this.props.data.lat+
-                 '&tag=' +this.props.data.tag_id+ 
-                 '&cmp_from_medecin_calendar=' +this.props.data.cmp_from_medecin_calendar+
-                 '&cmp_from_centre_calendar=' + this.props.data.cmp_from_centre_calendar+
-                 '&cmp_from_smart_service=' +this.props.data.cmp_from_smart_service+
-                 '&is_pagination=0'+
-                 '&position_changed=0'
-            
+        return fetch('http://51.91.249.185:8069/api/search' +
+            '?filtres= 1' +
+            '&dispo_date=' + this.state.selectedValue5 +
+            '&medecin_name=' + this.props.data.medecin_name +
+            '&centre_name=' + this.props.data.centre_name +
+            '&type_calendrier=' + this.state.selectedValue +
+            '&type_rdv=' + this.state.selectedValue2 +
+            '&speciality=' + this.state.selectedValue3 +
+            '&service=' + this.state.selectedValue4 +
+            '&medecin_searche_id=' + this.props.data.medecin_searche_id +
+            '&centre_searche_id=' + this.props.data.centre_searche_id +
+            '&location=' + this.props.data.location +
+            '&lng=' + this.props.data.lng +
+            '&lat=' + this.props.data.lat +
+            '&tag=' + this.props.data.tag_id +
+            '&cmp_from_medecin_calendar=' + this.props.data.cmp_from_medecin_calendar +
+            '&cmp_from_centre_calendar=' + this.props.data.cmp_from_centre_calendar +
+            '&cmp_from_smart_service=' + this.props.data.cmp_from_smart_service +
+            '&is_pagination=0' +
+            '&position_changed=0'
+
         )
-          
-        .then((response) => response.json())
-        .then((res) => {
-          console.log("repooooonse")
-          console.log(res)
-        })
-        .done();
-      }
+
+            .then((response) => response.json())
+            .then((res) => {
+                console.log("repooooonse")
+                console.log(res)
+            })
+            .done();
+    }
     render() {
         console.log("gggg")
         console.log(this.props.data.cmp_from_medecin_calendar)
@@ -77,16 +92,21 @@ export default class ShortCut extends React.Component {
             //console.log(res.proches[i][0].nom) // I need to add 
             dat.push(this.props.data.services[i]); // Create your array of data
         }
-
+        var modalBackgroundStyle = {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)'
+          };
         return (
 
-            <KeyboardAvoidingView style={styles.ctr}>
-
+            <KeyboardAvoidingView style={[styles.ctr, modalBackgroundStyle]}>
+                <KeyboardAvoidingView style={{ flexDirection: 'row', marginRight: 15, marginLeft: 15, marginTop: 15 }}>
+                    <MaterialIcons color='white' name='close' size={25} onPress={() =>  this.props.modalClose()} />
+                    <Text style={{ fontSize: 18, color: 'white', marginLeft: 10 }}> Nouvelle recherche</Text>
+                </KeyboardAvoidingView>
                 <Picker
                     mode='dropdown'
                     selectedValue={this.state.selectedValue}
                     style={styles.Picker}
-                    onValueChange={(itemValue, itemIndex) => { this.functionOne(itemValue,"type_calendrier"); }}
+                    onValueChange={(itemValue, itemIndex) => { this.functionOne(itemValue, "type_calendrier"); }}
                 >
                     <Picker.Item label="Consultation ou Service" value='all' />
                     <Picker.Item label="Consultation" value='professionel' />
@@ -96,7 +116,7 @@ export default class ShortCut extends React.Component {
                     mode='dropdown'
                     selectedValue={this.state.selectedValue2}
                     style={styles.Picker}
-                    onValueChange={(itemValue, itemIndex) => { this.functionOne(itemValue,"type_rdv");this.functionTwo(); }}
+                    onValueChange={(itemValue, itemIndex) => { this.functionTwo(itemValue, "type_rdv"); }}
                 >
                     <Picker.Item label="Au cabinet/centre" value='C' />
                     <Picker.Item label="A domicile" value='D' />
@@ -106,7 +126,7 @@ export default class ShortCut extends React.Component {
                     //mode='dropdown'
                     selectedValue={this.state.selectedValue3}
                     style={styles.Picker}
-                    onValueChange={(itemValue, itemIndex) => { this.functionOne(itemValue,"speciality"); }}
+                    onValueChange={(itemValue, itemIndex) => { this.functionOne(itemValue, "speciality"); }}
                 >
                     {da.map((item, index) =>
                         <Picker.Item label={item.name} value={item.id} key={index} />
@@ -116,7 +136,7 @@ export default class ShortCut extends React.Component {
                     mode='dropdown'
                     selectedValue={this.state.selectedValue4}
                     style={styles.Picker}
-                    onValueChange={(itemValue, itemIndex) => { this.functionOne(itemValue,"service"); }}
+                    onValueChange={(itemValue, itemIndex) => { this.functionOne(itemValue, "service"); }}
                 >
                     {dat.map((item, index) =>
                         <Picker.Item label={item.name} value={item.id} key={index} />
@@ -127,27 +147,27 @@ export default class ShortCut extends React.Component {
                     mode='dropdown'
                     selectedValue={this.state.selectedValue5}
                     style={styles.Picker}
-                    onValueChange={(itemValue, itemIndex) => { this.functionOne(itemValue,"dispo_date");}}
+                    onValueChange={(itemValue, itemIndex) => { this.functionOne(itemValue, "dispo_date"); }}
                 >
 
                     <Picker.Item label="Disponibilité" value="0" />
                     <Picker.Item label="Disponibilité la plus proche" value="1" />
 
                 </Picker>
-                <TouchableOpacity  style={styles.Search} onPress={() => NavigationService.navigate('médecin ou centre')}>
-                <Fontisto color='#7f8c8d' size={20} name={'doctor'} />
-                    <Text style={{paddingLeft:10,color:'#7f8c8d',fontSize:16}}> Médecin</Text>
+                <TouchableOpacity style={styles.Search} onPress={() => NavigationService.navigate('médecin ou centre',{spe:this.state.selectedValue3,serv:this.state.selectedValue4,tag:this.props.data.tag_id,ctr:this.props.data.centre_searche_id})}>
+                    <Fontisto color='#7f8c8d' size={20} name={'doctor'} />
+                    <Text style={{ paddingLeft: 10, color: '#7f8c8d', fontSize: 16 }}> Médecin</Text>
                 </TouchableOpacity>
-                <TouchableOpacity  style={styles.Search} onPress={() => NavigationService.navigate('médecin ou centre')}>
-                <FontAwesome5 color='#7f8c8d' size={20} name={'hospital'} />
-                    <Text style={{paddingLeft:10,color:'#7f8c8d',fontSize:16}}> Clinique</Text>
+                <TouchableOpacity style={styles.Search} onPress={() => NavigationService.navigate('médecin ou centre')}>
+                    <FontAwesome5 color='#7f8c8d' size={20} name={'hospital'} />
+                    <Text style={{ paddingLeft: 10, color: '#7f8c8d', fontSize: 16 }}> Clinique</Text>
                 </TouchableOpacity>
-                <TouchableOpacity  style={styles.Search} onPress={() => this.functionThree()}>
-                <FontAwesome5 color='#7f8c8d' size={20} name={'city'} />
-                    <Text style={{paddingLeft:10,color:'#7f8c8d',fontSize:16}}> {this.props.data.location} </Text>
+                <TouchableOpacity style={styles.Search} onPress={() => this.functionThree()}>
+                    <FontAwesome5 color='#7f8c8d' size={20} name={'city'} />
+                    <Text style={{ paddingLeft: 10, color: '#7f8c8d', fontSize: 16 }}> {this.props.data.location} </Text>
                 </TouchableOpacity>
-                        
-                
+
+
 
             </KeyboardAvoidingView>
 
@@ -163,12 +183,13 @@ const styles = StyleSheet.create({
     },
     Picker: {
         height: 40, width: 300, //alignSelf: 'flex-end', 
-        margin: 10, borderRadius: 3,color:'white',
-
+        margin: 10, borderRadius: 3, color: 'white',
+        borderColor: 'white',
+                        borderBottomWidth:1,
     },
     Search: {
-        backgroundColor:'white', height: 30, width: 300,alignSelf:'center',borderRadius:5,
-        flexDirection:'row',padding:5,margin:10
+        backgroundColor: 'white', height: 30, width: 300, alignSelf: 'center', borderRadius: 5,
+        flexDirection: 'row', padding: 5, margin: 10
 
     }
 }
@@ -206,25 +227,25 @@ export default class ShortCut extends React.Component {
                 '?filtres= 1'+
                 '&dispo_date='+this.state.selectedValue5+
                 '&medecin_name='+this.props.data.medecin_name+
-                '&centre_name='+this.props.data.centre_name+ 
-                '&type_calendrier='+ this.props.data.type_calendrier+ 
+                '&centre_name='+this.props.data.centre_name+
+                '&type_calendrier='+ this.props.data.type_calendrier+
                 '&type_rdv='+this.props.data.type_rdv+
                 '&speciality='+this.props.data.speciality_param+
                 '&service=' +this.props.data.service_param+
-                 '&medecin_searche_id='+this.props.data.medecin_searche_id+ 
-                 '&centre_searche_id=' +this.props.data.centre_searche_id+ 
-                 '&location='+this.props.data.location+ 
-                 '&lng='+this.props.data.lng+ 
+                 '&medecin_searche_id='+this.props.data.medecin_searche_id+
+                 '&centre_searche_id=' +this.props.data.centre_searche_id+
+                 '&location='+this.props.data.location+
+                 '&lng='+this.props.data.lng+
                  '&lat='+ this.props.data.lat+
-                 '&tag=' +this.props.data.tag_id+ 
+                 '&tag=' +this.props.data.tag_id+
                  '&cmp_from_medecin_calendar=' +this.props.data.cmp_from_medecin_calendar+
                  '&cmp_from_centre_calendar=' + this.props.data.cmp_from_centre_calendar+
                  '&cmp_from_smart_service=' +this.props.data.cmp_from_smart_service+
                  '&is_pagination=0'+
                  '&position_changed=0'
-            
+
         )
-          
+
         .then((response) => response.json())
         .then((res) => {
           console.log("repooooonse")
@@ -238,13 +259,13 @@ export default class ShortCut extends React.Component {
         let da = [];
         var count = Object.keys(this.props.data.speciality).length;
         for (var i = 0; i < count; i++) {
-            //console.log(res.proches[i][0].nom) // I need to add 
+            //console.log(res.proches[i][0].nom) // I need to add
             da.push(this.props.data.speciality[i]); // Create your array of data
         }
         let dat = [];
         var count = Object.keys(this.props.data.services).length;
         for (var i = 0; i < count; i++) {
-            //console.log(res.proches[i][0].nom) // I need to add 
+            //console.log(res.proches[i][0].nom) // I need to add
             dat.push(this.props.data.services[i]); // Create your array of data
         }
 
@@ -316,9 +337,9 @@ export default class ShortCut extends React.Component {
                 <FontAwesome5 color='#7f8c8d' size={20} name={'city'} />
                     <Text style={{paddingLeft:10,color:'#7f8c8d',fontSize:16}}> {this.props.data.location} </Text>
                 </TouchableOpacity>
-                        
+
                 <TouchableOpacity  style={{width:100, backgroundColor:'orange'}} onPress={ this._Request}>
-                
+
                     <Text style={{paddingLeft:10,color:'#7f8c8d',fontSize:16}}> recherche </Text>
                 </TouchableOpacity>
 

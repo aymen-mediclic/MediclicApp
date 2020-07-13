@@ -70,7 +70,10 @@ class RechercheScreen extends React.Component {
 
   dataFilter = (value,key)=>{
   
-
+    this.setState({
+      modalOpen: false,
+      
+    })
     
   let selectedValue  = this.state.datafiltre.type_calendrier;
   let selectedValue2 = this.state.datafiltre.type_rdv;
@@ -126,7 +129,7 @@ class RechercheScreen extends React.Component {
            
            
             this.setState({
-              modalOpen: false,
+             
               dataSource:res.medecin,
               datafiltre:res
             })
@@ -144,8 +147,9 @@ class RechercheScreen extends React.Component {
     let selectedValue3 = this.state.datafiltre.speciality_param;
     let selectedValue4 = this.state.datafiltre.service_param;
     let selectedValue5 = 0;
-   
-      
+    let location = loc;
+    let lngde = lng;
+    let latde = lat;  
         
         fetch('http://51.91.249.185:8069/web/login?db=new_installation')
             return fetch('http://51.91.249.185:8069/api/search'+
@@ -159,9 +163,9 @@ class RechercheScreen extends React.Component {
             '&service=' +selectedValue4+
              '&medecin_searche_id='+this.state.datafiltre.medecin_searche_id+ 
              '&centre_searche_id=' +this.state.datafiltre.centre_searche_id+ 
-             '&location='+loc+ 
-             '&lng='+lng+ 
-             '&lat='+ lat+
+             '&location='+location+ 
+             '&lng='+lngde+ 
+             '&lat='+ latde+
              '&tag=' +this.state.datafiltre.tag_id+ 
              '&cmp_from_medecin_calendar=' +this.state.datafiltre.cmp_from_medecin_calendar+
              '&cmp_from_centre_calendar=' + this.state.datafiltre.cmp_from_centre_calendar+
@@ -193,15 +197,10 @@ class RechercheScreen extends React.Component {
     return (
       <View style={styles.main_container}>
         {this.displayLoading()}
-        <Modal visible={this.state.modalOpen} animationType='slide' transparent={true}  >
-        <KeyboardAvoidingView style={{ flexDirection: 'row', backgroundColor: '#1E79C5',marginRight:15,marginLeft:15,marginTop:15 }}>
-            <MaterialIcons color='white' name='close' size={25} onPress={() => this.setState({ modalOpen: false })} />
-            <Text style={{ fontSize: 18, color: 'white',marginLeft:10 }}> Nouvelle recherche</Text>
-          </KeyboardAvoidingView>
-
+        <Modal  visible={this.state.modalOpen} animationType='slide' transparent={true} >
           <ShortCut data={this.state.datafiltre} dataFilter = {this.dataFilter} dataFilter1 = {this.dataFilter1} modalClose = {this.CloseModal} />
         </Modal>
-        <Segment style={{backgroundColor:'white',justifyContent: 'center'}}>  
+        <Segment style={{backgroundColor:'white'}}>  
         <TouchableOpacity delayPressIn={100} onPress={() => this.setState({modalOpen:true})} >
           <Text style={styles.fabIcon}>FILTRER</Text>
         </TouchableOpacity>

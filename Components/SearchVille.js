@@ -38,8 +38,12 @@ export default class SearchVille extends React.Component {
             lng:details.geometry.location.lng
           })
           console.log('1111',this.state.location);
-          this.props.route.params.dataFilter1( this.state.location,this.state.lat,this.state.lng)
-          NavigationService.navigate('Médecin')
+          console.log('22',this.state.lat);
+          console.log('33',this.state.lng);
+          //this.props.route.params.dataFilter1( this.state.location,this.state.lat,this.state.lng)
+          //NavigationService.navigate('Médecin')
+          this.props.route.params.dataFilter1(this.state.location,this.state.lat,this.state.lng);
+          this.props.navigation.goBack();
         }}
         onFail={(error) => console.error(error)}
         requestUrl={{

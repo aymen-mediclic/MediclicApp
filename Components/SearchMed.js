@@ -20,20 +20,27 @@ export default class SearchMed extends React.Component {
   loadFilms() {
     if (this.searchedText.length > 0) { // Seulement si le texte recherché n'est pas vide
       this.setState({ loading: true })
-      getFilmsFromApiWithSearchedText(this.searchedText)
-
-        .then(response => {
-          console.log('*************************')
-          console.log(response)
-          console.log('*************************')
-          //console.log(this.props.state.selectedValue)
+      fetch('http://51.91.249.185:8069/web/login?db=new_installation')
+      return fetch('http://51.91.249.185:8002/Searche2' +
+            '?doctor_name=' +this.searchedText+
+            '&speciality_id='+this.props.route.params.spe+
+            '&service_id='+this.props.route.params.serv+
+            '&tag_id='+this.props.route.params.tag+
+            '&centre_id=' +this.props.route.params.ctr
+      )
+      .then((response) => response.json())
+      .then((res) => {
+          console.log("repooooonse")
+          console.log(res)
           this.setState(
             {
               loading: false,
-              data: response
+              data: res.obj
             },
           );
-        });
+      })
+      .done();
+       
     }
   }
 
@@ -85,25 +92,12 @@ export default class SearchMed extends React.Component {
         {this.displayLoading()}
         {this.searchedText.length > 0 && (
           <FlatList
-            data={this.state.data.sort((a, b) => a.type === 'spécialité' ? -1 : 1)}
+            data={this.state.data}
             keyExtractor={item => { return item.id }}
             renderItem={({ item }) => <TouchableOpacity onPress={() => console.log("Pressed") }> 
-              {item.type == 'spécialité' && (
-                <Highlighter
-                  highlightStyle={{ backgroundColor: '#f39c12' }}
-                  searchWords={[this.searchedText]}
-                  textToHighlight={item.name}
-                  style={{padding:10, color: 'grey',height:40,backgroundColor: 'white'}}
-                />
-              )}
-              {item.type != 'spécialité' && (
-                <View style={{ backgroundColor: 'white', flexDirection: 'row',flexWrap: 'wrap',height:80 }}>
-                <Image style={{ height: 50, width: 80,marginTop:5, borderRadius:5 }} source={{ uri:getImageFromApi( item.image ) }} />
-                <View style={{ flexDirection: 'column'}}>
-                <Text style={{ fontWeight:'bold',color:'#2980b9' }}> {item.name} </Text>
-                <Text style={{color: 'grey'}}> {item.speciality} </Text>
-                </View>
-              </View>)}
+              
+               <Text> {item.name} </Text>
+            
             </TouchableOpacity>}
             ItemSeparatorComponent={this.renderSeparator}
           />)}

@@ -5,6 +5,7 @@ import Calendar from './Calendar';
 import { Button } from 'native-base';
 import moment from 'moment';
 import DateC from '../Screens/DateConsultation';
+import { url2 } from '../Navigation/GlobalUrl';
 class MedItem extends React.Component {
     constructor(props) {
         super(props);
@@ -52,14 +53,16 @@ class MedItem extends React.Component {
 
         //const encodedData = Med.image_obj;
        function getImageFromApi (name) {
-            return 'http://51.91.249.185:8069' + name
+            return url2 + name
           }
 
 
         return (
             <View style={styles.main_container}  >
-
+                
                 <View style={styles.ctr1}>
+                {
+                 (this.props.Med.obj )?
                     <TouchableOpacity style={{ flexDirection: 'row', flex: 1 }} onPress={() => {
                         
                             NavigationService.navigate('Mon Profil',{id : Med.obj.id } )
@@ -72,9 +75,15 @@ class MedItem extends React.Component {
                             <Text style={styles.txt}> {Med.obj.name} </Text>
                             <Text> {Med.obj.specialite} </Text>
                             <Text> {Med.obj.adress_obj} </Text>
+                            <Text> {Med.service_display} </Text>
                         </View>
                     </TouchableOpacity>
-                </View>
+               :
+               <></>
+             
+             }
+               </View>
+                  
                 <View style={styles.ctr2}>
                     <Text style={{ textAlign: 'center', marginBottom: 5, fontSize: 16 }}> Prochaines disponibilités:</Text>
 

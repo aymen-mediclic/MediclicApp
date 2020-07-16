@@ -22,8 +22,9 @@ export default class VilleC extends React.Component {
         GooglePlacesDetailsQuery	= {{
             fields: ['geometry']
           }}
-        onPress={(data, details = null) => {console.log(details.geometry.location);
-          NavigationService.navigate('Médecin',{screen:'Recherche',params:{lien: this.props.route.params.lien, choice: this.props.route.params.choix}})
+        onPress={(data, details = null) => {console.log(details.geometry.location.lat);
+          console.log(data.description);
+          NavigationService.navigate('Médecin',{screen:'Recherche',params:{lien: this.props.route.params.lien, choice: this.props.route.params.choix,lat:details.geometry.location.lat,lng:details.geometry.location.lng,loc:data.description}})
         }}
         onFail={(error) => console.error(error)}
         requestUrl={{

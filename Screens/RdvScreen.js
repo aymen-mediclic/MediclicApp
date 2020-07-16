@@ -5,6 +5,7 @@ import moment from 'moment';
 import Recap from './RécapitulatifScreen';
 import MyComponent from '../Components/RadioButton';
 import Identification from './IdentificationScreen';
+import { url1, url2 } from '../Navigation/GlobalUrl';
 
     
 class RDV extends React.Component {
@@ -54,15 +55,15 @@ class RDV extends React.Component {
      service_name = this.props.route.params.service_name,
      service_salle = this.props.route.params.service_salle,
      adresse_rdv = this.props.route.params.adresse_rdv) => {
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-    fetch('http://51.91.249.185:8069/api/create_event', {
+    fetch(url1)
+    fetch(url2+'/api/create_event', {
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/javascript, */*; q=0.01',
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
       },
       body: JSON.stringify({
-        uid: "85",
+        uid: "26",
         'name': name1,
         'date_start': text,
         'date_end': text1,

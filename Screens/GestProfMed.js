@@ -19,6 +19,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import * as NavigationService from '../Navigation/NavigationService';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import Swiper from 'react-native-swiper'
+import Global, { url1, url2 } from '../Navigation/GlobalUrl'
 
 const Drawer = createDrawerNavigator();
 
@@ -283,8 +284,8 @@ export default class GProfMed extends React.Component {
   }
   Id = this.props.route.params.id;
   componentDidMount(Id) {
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-    return fetch('http://51.91.249.185:8069/api/profil_profe?medecin_id=12')
+    fetch(url1)
+    return fetch(url2+'/api/profil_profe?medecin_id=12')
 
       .then((response) => response.json())
       .then((res) => {

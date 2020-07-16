@@ -5,6 +5,7 @@ import { RadioButton } from 'react-native-paper';
 import moment from 'moment';
 import 'moment/locale/fr'
 import * as NavigationService from '../../Navigation/NavigationService';
+import { url1, url2 } from '../../Navigation/GlobalUrl';
 moment.locale('fr')
 export default function Mprofil({ navigation,route }) {
     const [modalVisible, setModalVisible] = useState(false);
@@ -24,8 +25,8 @@ export default function Mprofil({ navigation,route }) {
 
     useEffect(() => {
 
-        fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-        return fetch('http://51.91.249.185:8069/api/profil?uid=85&get_profil')
+        fetch(url1)
+        return fetch(url2+'/api/profil?uid=26&get_profil')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")

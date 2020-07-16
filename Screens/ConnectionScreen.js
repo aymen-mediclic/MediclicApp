@@ -4,6 +4,7 @@ import * as NavigationService from '../Navigation/NavigationService';
 import { Input } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Button, ActionSheet } from "native-base";
+import { url1, url2 } from '../Navigation/GlobalUrl';
 var BUTTONS = ["Patient", "Professionnel", "Centre", "Annuler"];
 var DESTRUCTIVE_INDEX = 3;
 var CANCEL_INDEX = 4;
@@ -44,7 +45,10 @@ class ConnectionScreen extends React.Component {
           <TouchableOpacity style={styles.btn} onPress= {this.Autho} >
             <Text style={{ color: '#FFC617', textAlign: 'center', fontSize: 18, marginTop: 5 }}> SE CONNECTER</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={{ borderBottomWidth:1,borderBottomColor:'white' }}>
           <Text style={{ color: 'white', fontWeight: 'bold' }}>MOT DE PASSE OUBLIE? </Text>
+          </TouchableOpacity>
+          
           <TouchableOpacity style={styles.btn} onPress={() => ActionSheet.show(
             {
               options: BUTTONS,
@@ -72,8 +76,8 @@ class ConnectionScreen extends React.Component {
 
   Autho = () => {
     console.log(this.state)
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-    fetch('http://51.91.249.185:8069/api/auth/token?login=' + this.state.login + '&password=' + this.state.password + '&db=new_installation')
+    fetch(url1)
+    fetch(url2+'/api/auth/token?login=' + this.state.login + '&password=' + this.state.password + '&db=test')
 
       .then((response) => response.json())
       .then(async (res) => {

@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { DrawerActions } from 'react-navigation';
+
 
 export const navigationRef = React.createRef();
 

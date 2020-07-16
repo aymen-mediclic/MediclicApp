@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { View, Picker, TextInput, Modal, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { RadioButton, Text } from 'react-native-paper';
+import { url2, url1 } from '../Navigation/GlobalUrl';
 
 
 
@@ -18,8 +19,8 @@ export default class ImagePickerExample extends React.Component {
     
   };
   componentDidMount() {
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-    return fetch('http://51.91.249.185:8069/api/profil?uid=85&get_proche')
+    fetch(url1)
+    return fetch(url2+'/api/profil?uid=26&get_proche')
       .then((response) => response.json())
       .then((res) => {
         console.log("!!!test proches")
@@ -64,8 +65,8 @@ export default class ImagePickerExample extends React.Component {
 
       console.log(bodyData, "-------------------")
 
-      fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-      fetch('http://51.91.249.185:8069/api/ajout_proche', {
+      fetch(url1)
+      fetch(url2+'/api/ajout_proche', {
           method: 'POST',
           headers: {
               'Accept': 'application/json, text/javascript, */*; q=0.01',

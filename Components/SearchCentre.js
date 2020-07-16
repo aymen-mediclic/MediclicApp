@@ -6,7 +6,7 @@ import { SearchBar } from 'react-native-elements';
 import Highlighter from 'react-native-highlight-words';
 import * as NavigationService from '../Navigation/NavigationService';
 //NavigationService.navigate('Choisisser la ville',{lien:item.lien})
-export default class SearchMed extends React.Component {
+export default class SearchCtr extends React.Component {
 
   constructor(props) {
     super(props)
@@ -16,17 +16,24 @@ export default class SearchMed extends React.Component {
       data: []
     }
   }
+  componentDidMount() {
+    console.log('helooo')
+    console.log(this.props.route.params.spe,'1')
+    console.log(this.props.route.params.serv,'12')
+    console.log(this.props.route.params.tag,'13')
+    console.log(this.props.route.params.mdc,'14')
+  }
 
-  loadFilms() {
+  loadFilms1() {
     if (this.searchedText.length > 0) { // Seulement si le texte recherché n'est pas vide
       this.setState({ loading: true })
       fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-      return fetch('http://51.91.249.185:8002/Searche2' +
-            '?doctor_name=' +this.searchedText+
-            '&speciality_id='+this.props.route.params.spe+
-            '&service_id='+this.props.route.params.serv+
-            '&tag_id='+this.props.route.params.tag+
-            '&centre_id=' +this.props.route.params.ctr
+      return fetch('http://51.91.249.185:8002/Searche' +
+            '?centre_name='+this.searchedText+
+            '&speciality='+this.props.route.params.spe+
+            '&service='+this.props.route.params.serv+
+            '&tag='+this.props.route.params.tag+
+            '&medecin='+this.props.route.params.mdc 
       )
       .then((response) => response.json())
       .then((res) => {
@@ -48,7 +55,7 @@ export default class SearchMed extends React.Component {
 
   _searchTextInputChanged(text) {
     this.searchedText = text
-    this.loadFilms();
+    this.loadFilms1();
   }
   renderSeparator = () => {
     return (
@@ -78,7 +85,7 @@ export default class SearchMed extends React.Component {
     return (
       <View style={styles.main_container}>
         <SearchBar
-          placeholder='Médecin...'
+          placeholder='Centre...'
           onChangeText={(text) => this._searchTextInputChanged(text)}
           value={this.searchedText}
           lightTheme='true'
@@ -92,7 +99,7 @@ export default class SearchMed extends React.Component {
           <FlatList
             data={this.state.data}
             keyExtractor={item => { return item.id }}
-            renderItem={({ item }) => <TouchableOpacity onPress={() => {this.props.route.params.dataFilter2(item.name,item.id);
+            renderItem={({ item }) => <TouchableOpacity onPress={() => {this.props.route.params.dataFilter3(item.name,item.id);
               this.props.navigation.goBack();} }> 
               
                <Text>{item.name}</Text>

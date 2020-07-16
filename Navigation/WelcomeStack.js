@@ -1,7 +1,8 @@
-
+import { url1 } from "./GlobalUrl"
+import { url2 } from "./GlobalUrl"
 export function getFilmsFromApiWithSearchedText(text) {
-  fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-  return fetch('http://51.91.249.185:8069/searchmob?input=' + text)
+  fetch(url1)
+  return fetch(url2+'/searchmob?input=' + text)
     .then((response) => response.json())
     .catch((error) => console.error(error))
 }
@@ -12,9 +13,9 @@ export function getFilmsFromApiWithSearchedText1 () {
     .then((response) => response.json())
     .catch((error) => console.error(error))
 }
-export function fetchLien(text,ch) {
-  fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-  return fetch('http://51.91.249.185:8069' + text+'&lng=7.6353386&lat=33.5912796&location=119 Boulevard Abdelmoumen, Casablanca, Maroc&type_rdv='+ch)
+export function fetchLien(text,ch,lng,lat,loc) {
+  fetch(url1)
+  return fetch(url2 + text+'&lng='+lng+'&lat='+lat+'&location='+loc+'&type_rdv='+ch)
     .then((response) => response.json())
     .catch((error) => console.error(error))
 }

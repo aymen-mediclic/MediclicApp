@@ -86,7 +86,7 @@ class ConnectionScreen extends React.Component {
         console.log("*********success***********")
         //changes here
         if (res.user_context) {
-          if (res.etat[1] == null) {
+          if (res.etat[0] == 'patient') {
           // console.log("user login now -------------------")
           // await AsyncStorage.setItem('user', JSON.stringify(res));
           // let uid=res.uid;
@@ -159,8 +159,8 @@ class ConnectionScreen extends React.Component {
   }*/
   kaka = () => {
     
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-    return fetch('http://51.91.249.185:8069/api/profil_profe?medecin_id=7')
+    fetch(url1)
+    return fetch(url2+'/api/get_speciality')
       .then((response) => response.json())
       .then((res) => {
         console.log("repooooonse")

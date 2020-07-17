@@ -301,7 +301,9 @@ class RechercheScreen extends React.Component {
 
   }
   loadMoreData = () => {
-    
+    this.setState({
+      isLoading:true
+    })
     let selectedValue = this.state.datafiltre.type_calendrier;
     let selectedValue2 = this.state.datafiltre.type_rdv;
     let selectedValue3 = this.state.datafiltre.speciality_param;
@@ -350,7 +352,8 @@ class RechercheScreen extends React.Component {
           cmp1:res.cmp_from_medecin_calendar,
         cmp2:res.cmp_from_centre_calendar,
         cmp3:res.cmp_from_smart_service,
-        pag:true
+        pag:true,
+        isLoading:false
           //datafiltre: da.concat(res),
         })
         console.log("cmp")

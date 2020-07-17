@@ -41,6 +41,7 @@ import SearchMed from './Components/SearchMed';
 import SearchVille from './Components/SearchVille';
 import SearchCtr from './Components/SearchCentre';
 import MdpOub from './Screens/MdpOub';
+import InscriptionProf from './Screens/InscriptionProf';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -97,7 +98,7 @@ export default class App extends React.Component {
                   {/*<FontAwesomeIcon icon='user' />*/}
                 </TouchableOpacity>,
               headerLeft: () =>
-                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => NavigationService.navigate('Mot de pass oublié')} >
+                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => NavigationService.navigate('Inscription Professionel')} >
                   <MaterialIcons name='menu' size={28} color={'white'} />
                 </TouchableOpacity>,
             }
@@ -166,6 +167,16 @@ export default class App extends React.Component {
             }
           }} />
           <Stack.Screen name="Prendre un rendez-vous" component={RDV} options={{
+            headerTintColor: '#fff',
+            headerStyle: {
+              backgroundColor: '#1E79C5',
+              height: 80,
+            },
+            headerTitleStyle: {
+              fontWeight: 'bold'
+            }
+          }} />
+          <Stack.Screen name="Inscription Professionel" component={InscriptionProf} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',
@@ -322,7 +333,7 @@ export default class App extends React.Component {
               fontWeight: 'bold'
             },
           }} />
-          <Stack.Screen name="Mot de pass oublié" component={MdpOub} options={{
+          <Stack.Screen name="Mot de passe oublié?" component={MdpOub} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',
@@ -330,7 +341,8 @@ export default class App extends React.Component {
             },
             headerTitleAlign: 'center',
             headerTitleStyle: {
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize:18
             },
           }} />
           

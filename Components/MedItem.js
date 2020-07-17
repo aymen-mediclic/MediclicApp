@@ -69,8 +69,8 @@ class MedItem extends React.Component {
                         
                         
                     }}>
-
-                        <Image style={styles.img} source={{ uri:getImageFromApi( Med.obj.image ) }} />
+                        <Image style={styles.img} source={require('../assets/1.jpg')} />
+                        {/*<Image style={styles.img} source={{ uri:getImageFromApi( Med.obj.image ) }} />*/}
                         <View style={{ flexDirection: 'column', flex: 1 }}>
                             <Text style={styles.txt}> {Med.obj.name} </Text>
                             <Text> {Med.obj.specialite} </Text>
@@ -91,7 +91,7 @@ class MedItem extends React.Component {
                         this.state.data.map((item, i) => {
                             //Show only two dates 
                             return (i < 2) ?
-                                <View style={{ flexDirection: 'row', marginHorizontal: 5, justifyContent: 'space-between' }}>
+                                <View style={{ flexDirection: 'row', marginHorizontal: 5,marginVertical:4, justifyContent: 'space-between' }}>
                                     <Text style={{ flex: 1 / 2, color: 'grey' }}>{moment(item[0]).format("ddd DD/MM")}</Text>
                                     <View style={{ flex: 1, flexDirection: 'row' }}>
                                         {
@@ -113,7 +113,7 @@ class MedItem extends React.Component {
                                                     service_salle:day.service_salle,
                                                     adresse_rdv: day.adresse_rdv
                                                  })}>
-                                                        <Text style={[styles.txt_slt, { marginHorizontal: 2 }]} >{moment(day.date_start).format("h:mm a")}</Text>
+                                                        <Text style={styles.txt_t}>{moment(day.date_start).format("h:mm ")}</Text>
                                                     </TouchableOpacity>
                                                     :
                                                     <></>
@@ -166,8 +166,11 @@ const styles = StyleSheet.create({
         //margin: 2,
     },
     img: {
-        width: 170,
+        width: 120,
         height: 120,
+        borderRadius:60,
+        //borderColor:'black',
+        borderWidth:1,
         margin: 10,
         borderRadius: 20
     },
@@ -209,11 +212,16 @@ const styles = StyleSheet.create({
     },
     txt_slt: {
         textAlign: 'center',
-        backgroundColor: '#1E79C5',
+        backgroundColor: '#2ecc71',
         width: 70,
         color: 'white',
         marginBottom: 2,
-        borderRadius: 3
+        borderRadius:5
+    },
+    txt_t: {
+        textAlign: 'center',
+        
+        color: 'white',
     },
     modal: {
         //flex:1,

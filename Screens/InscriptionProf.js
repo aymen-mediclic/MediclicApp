@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TextInput, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Picker, KeyboardAvoidingView } from 'react-native'
+import { View, TextInput, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Picker, KeyboardAvoidingView,Alert } from 'react-native'
 import { Formik } from 'formik';
 import { RadioButton } from 'react-native-paper';
 //import { CheckBox } from 'native-base';
@@ -22,10 +22,12 @@ export default class InscriptionProf extends React.Component {
             Mdp_c: '',
             selectedValue: '',
             data: [],
+            d1:[],
             ErrorStatus: true, ErrorStatus1: true, ErrorStatus2: true,
             ErrorStatus3: true, ErrorStatus4: true, ErrorStatus5: true,
             color: 'grey', color1: 'grey', color2: 'grey',
             color3: 'grey', color4: 'grey', color5: 'grey',
+            ercolor:'#7f8c8d',
             icon: "eye-slash",icon2: "eye-slash",
             password: true,password2: true
         };
@@ -73,32 +75,55 @@ export default class InscriptionProf extends React.Component {
                 console.log("repooooonse")
                 console.log(res)
                 console.log("*********success***********")
-                
-               
+                this.setState({
+                    d1: res
+                })
+                if(this.state.d1.error){
+                    Alert.alert(
+                        "Désolé!",
+                        this.state.d1.error,
+                        [
+                          
+                          { text: "OK", onPress: () => console.log("OK Pressed") }
+                        ],
+                        { cancelable: false }
+                      );}
+                    else if(this.state.d1.msg){
+                        Alert.alert(
+                            "Félicitation!",
+                            'Votre compte a été créer avec succès',
+                            [
+                              
+                              { text: "OK", onPress: () => console.log("OK Pressed") }
+                            ],
+                            { cancelable: false }
+                          );
+                    }
             })
             .done();
     }
     function=()=> {
         if(this.state.Nom == ''){
-            this.setState({ErrorStatus:false, color:'red'})
+            this.setState({ErrorStatus:false, color:'red',ercolor:'red'})
         }else if(this.state.Prénom == ''){
-            this.setState({ErrorStatus1:false, color1:'red'})
+            this.setState({ErrorStatus1:false, color1:'red',ercolor:'red'})
         }else if(this.state.tel == ''|| this.state.ErrorStatus2==false ){
-            this.setState({ErrorStatus2:false, color2:'red'})
+            this.setState({ErrorStatus2:false, color2:'red',ercolor:'red'})
         }
         else if(this.state.mail == ''|| this.state.ErrorStatus3==false ){
-            this.setState({ErrorStatus3:false, color3:'red'})
+            this.setState({ErrorStatus3:false, color3:'red',ercolor:'red'})
         }
         else if(this.state.Mdp == ''|| this.state.ErrorStatus4==false ){
-            this.setState({ErrorStatus4:false, color4:'red'})
+            this.setState({ErrorStatus4:false, color4:'red',ercolor:'red'})
         }
         else if(this.state.Mdp_c == ''|| this.state.Mdp_c!=this.state.Mdp ){
-            this.setState({ErrorStatus5:false, color5:'red'})
+            this.setState({ErrorStatus5:false, color5:'red',ercolor:'red'})
         }
         else{
-            this.sot
-            alert('Compte créer avec succes!')
+            this.sot()
+            
         }
+        
 
     }
 
@@ -189,7 +214,7 @@ export default class InscriptionProf extends React.Component {
                     }}
                 />
                 {this.state.ErrorStatus == false ? (
-                    <Text style={styles.errorMessage}>
+                    <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
                         Veuillez renseigner votre nom.
                     </Text>
                 ) : null}
@@ -208,7 +233,7 @@ export default class InscriptionProf extends React.Component {
 
                 />
                 {this.state.ErrorStatus1 == false ? (
-                    <Text style={styles.errorMessage}>
+                    <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
                         Veuillez renseigner votre Prénom.
                     </Text>
                 ) : null}
@@ -240,7 +265,7 @@ export default class InscriptionProf extends React.Component {
                     }}
                 />
                 {this.state.ErrorStatus2 == false ? (
-                    <Text style={styles.errorMessage}>
+                    <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
                         Veuillez renseigner un numéro de téléphone portable valide. Ce numéro doit contenir 10 chiffres et commencer par 06 ou 07.
                     </Text>
                 ) : null}
@@ -260,7 +285,7 @@ export default class InscriptionProf extends React.Component {
                 />
 
                 {this.state.ErrorStatus3 == false ? (
-                    <Text style={styles.errorMessage}>
+                    <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
                         Veuillez renseigner un email valide. Exemple : info@gmail.com.
                     </Text>
                 ) : null}
@@ -280,7 +305,7 @@ export default class InscriptionProf extends React.Component {
                     <FontAwesome color={'black'} size={18} style={{ margin: 5,width:'10%' }} name={this.state.icon} onPress={() => this._changeIcon()} />
                 </View>
                 {this.state.ErrorStatus4 == false ? (
-                    <Text style={styles.errorMessage}>
+                    <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
                         Veuillez renseigner un mot de passe valide. Ce mot doit contenir au moins un chiffre et une lettre majuscule et minuscule, et au moins 8 caractères ou plus.
                     </Text>
                 ) : null}
@@ -296,7 +321,7 @@ export default class InscriptionProf extends React.Component {
                     <FontAwesome color={'black'} size={18} style={{ margin: 5,width:'10%' }} name={this.state.icon2} onPress={() => this._changeIcon2()} />
                 </View>
                 {this.state.ErrorStatus5 == false ? (
-                    <Text style={styles.errorMessage}>
+                    <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
                         Veuillez saisir des mots de passe identiques.
                     </Text>
                 ) : null}
@@ -417,7 +442,7 @@ const styles = StyleSheet.create({
     },
     errorMessage: {
         marginLeft: 15,
-        color: '#7f8c8d',
+        //color: '#7f8c8d',
         fontWeight: 'bold'
     }
 });

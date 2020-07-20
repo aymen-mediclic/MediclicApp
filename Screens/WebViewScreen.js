@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { WebView } from 'react-native-webview';
+import { url1,url2 } from '../Navigation/GlobalUrl';
 
 // ...
 export default class WebViewScreen extends Component {
 render() {
-    return <WebView source={{ uri: 'http://51.91.249.185:8069/web?db=new_installation#action=91&active_id=mailbox_inbox&menu_id=74' }} />;
+    return <WebView source={{ uri: url2+'/web' }} />;
 }
 }

@@ -46,7 +46,6 @@ export default class InscriptionProf extends React.Component {
             })
             .done();
     }
-
     sot = () => {
         fetch(url1)
         fetch(url2 + '/create_profes', {
@@ -74,11 +73,35 @@ export default class InscriptionProf extends React.Component {
                 console.log("repooooonse")
                 console.log(res)
                 console.log("*********success***********")
-
-
+                
+               
             })
             .done();
     }
+    function=()=> {
+        if(this.state.Nom == ''){
+            this.setState({ErrorStatus:false, color:'red'})
+        }else if(this.state.Prénom == ''){
+            this.setState({ErrorStatus1:false, color1:'red'})
+        }else if(this.state.tel == ''|| this.state.ErrorStatus2==false ){
+            this.setState({ErrorStatus2:false, color2:'red'})
+        }
+        else if(this.state.mail == ''|| this.state.ErrorStatus3==false ){
+            this.setState({ErrorStatus3:false, color3:'red'})
+        }
+        else if(this.state.Mdp == ''|| this.state.ErrorStatus4==false ){
+            this.setState({ErrorStatus4:false, color4:'red'})
+        }
+        else if(this.state.Mdp_c == ''|| this.state.Mdp_c!=this.state.Mdp ){
+            this.setState({ErrorStatus5:false, color5:'red'})
+        }
+        else{
+            this.sot
+            alert('Compte créer avec succes!')
+        }
+
+    }
+
     pot = () => {
         fetch(url1)
         fetch(url2 + '/create_patient', {
@@ -129,6 +152,9 @@ export default class InscriptionProf extends React.Component {
             //console.log(res.proches[i][0].nom) // I need to add 
             da.push(this.state.data[i]); // Create your array of data
         }
+        let pass =/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.*\s).{8,}$/;
+        let t=/^((06)|(07))[0-9]{8}$/;
+        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return (
             <ScrollView contentContainerStyle={styles.main_container}>
 
@@ -158,7 +184,7 @@ export default class InscriptionProf extends React.Component {
                         if (Nom.trim() != 0) {
                             this.setState({ Nom, ErrorStatus: true, color: '#2ecc71' });
                         } else {
-                            this.setState({ Nom, ErrorStatus: false, color: 'red' });
+                            this.setState({ Nom, ErrorStatus: false, color: '#7f8c8d' });
                         }
                     }}
                 />
@@ -176,7 +202,7 @@ export default class InscriptionProf extends React.Component {
                         if (Prénom.trim() != 0) {
                             this.setState({ Prénom, ErrorStatus1: true, color1: '#2ecc71' });
                         } else {
-                            this.setState({ Prénom, ErrorStatus1: false, color1: 'red' });
+                            this.setState({ Prénom, ErrorStatus1: false, color1: '#7f8c8d' });
                         }
                     }}
 
@@ -205,11 +231,11 @@ export default class InscriptionProf extends React.Component {
                     keyboardType='numeric'
                     onChangeText={(tel) => this.setState({ tel })}
                     onChangeText={(tel) => {
-                        if (tel.trim() != 0 && this.state.tel.length <=9) {
+                        if (tel.trim() != 0 &&  tel.match(t)) {
                             this.setState({ tel, ErrorStatus2: true, color2: '#2ecc71' });
                             console.log(this.state.tel.length)
                         } else {
-                            this.setState({ tel, ErrorStatus2: false, color2: 'red' });
+                            this.setState({ tel, ErrorStatus2: false, color2: '#7f8c8d' });
                         }
                     }}
                 />
@@ -222,12 +248,13 @@ export default class InscriptionProf extends React.Component {
                 <TextInput style={[styles.text_input, { borderColor: this.state.color3 }]}
                     placeholder='Email'
                     autoCapitalize = 'none'
+                    keyboardType='email-address'
                     onChangeText={(mail) => this.setState({ mail })}
                     onChangeText={(mail) => {
-                        if (mail.trim() != 0) {
+                        if (mail.trim() != 0 && mail.match(re)) {
                             this.setState({ mail, ErrorStatus3: true, color3: '#2ecc71' });
                         } else {
-                            this.setState({ mail, ErrorStatus3: false, color3: 'red' });
+                            this.setState({ mail, ErrorStatus3: false, color3: '#7f8c8d' });
                         }
                     }}
                 />
@@ -243,10 +270,10 @@ export default class InscriptionProf extends React.Component {
                     placeholder='Mot de passe'
                     autoCapitalize = 'none'
                     onChangeText={(Mdp) => {
-                        if (Mdp.trim() != 0) {
+                        if (Mdp.trim() != 0 && Mdp.match(pass)) {
                             this.setState({ Mdp, ErrorStatus4: true, color4: '#2ecc71' });
                         } else {
-                            this.setState({ Mdp, ErrorStatus4: false, color4: 'red' });
+                            this.setState({ Mdp, ErrorStatus4: false, color4: '#7f8c8d' });
                         }
                     }}
                     />
@@ -254,7 +281,7 @@ export default class InscriptionProf extends React.Component {
                 </View>
                 {this.state.ErrorStatus4 == false ? (
                     <Text style={styles.errorMessage}>
-                        Veuillez renseigner votre mot de passe.
+                        Veuillez renseigner un mot de passe valide. Ce mot doit contenir au moins un chiffre et une lettre majuscule et minuscule, et au moins 8 caractères ou plus.
                     </Text>
                 ) : null}
                 <Text style={styles.text}>Confirmer mot de passe</Text>
@@ -263,18 +290,14 @@ export default class InscriptionProf extends React.Component {
                     placeholder='Mot de passe'
                     autoCapitalize = 'none'
                     onChangeText={(Mdp_c) => {
-                        if (Mdp_c.trim() != 0) {
-                            this.setState({ Mdp_c, ErrorStatus5: true, color5: '#2ecc71' });
-                        } else {
-                            this.setState({ Mdp_c, ErrorStatus5: false, color5: 'red' });
-                        }
-                    }}
+                        
+                            this.setState({ Mdp_c, ErrorStatus5: true, color5: '#2ecc71' })}}
                     />
                     <FontAwesome color={'black'} size={18} style={{ margin: 5,width:'10%' }} name={this.state.icon2} onPress={() => this._changeIcon2()} />
                 </View>
                 {this.state.ErrorStatus5 == false ? (
                     <Text style={styles.errorMessage}>
-                        Veuillez renseigner votre nom.
+                        Veuillez saisir des mots de passe identiques.
                     </Text>
                 ) : null}
                 <CheckBox
@@ -288,7 +311,7 @@ export default class InscriptionProf extends React.Component {
                     rightText={"J'accepte les conditions d'utilisation de la plateforme"}
                 />
 
-                <Button onPress={this.sot} title="Validation" buttonStyle={styles.btn} titleStyle={{ textAlign: 'center' }} />
+                <Button onPress={this.function} title="Validation" buttonStyle={styles.btn} titleStyle={{ textAlign: 'center' }} />
 
             </ScrollView>
             
@@ -394,7 +417,7 @@ const styles = StyleSheet.create({
     },
     errorMessage: {
         marginLeft: 15,
-        color: 'red',
+        color: '#7f8c8d',
         fontWeight: 'bold'
     }
 });

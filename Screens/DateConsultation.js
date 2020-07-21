@@ -4,8 +4,8 @@ import { Container, Header, Content, Accordion, Item } from "native-base";
 import * as NavigationService from '../Navigation/NavigationService';
 
 const dataArray = [
-    { title: "lun 13/07" },
-    { title: "mar 14/07" }
+    { title: "lun 27/07" },
+    { title: "mar 28/07" }
 
 
 ];

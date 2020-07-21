@@ -5,6 +5,7 @@ import SearchVille from './SearchVille';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { MaterialIcons } from '@expo/vector-icons'
+import { url1, url2 } from '../Navigation/GlobalUrl';
 export default class ShortCut extends React.Component {
     state = {
 
@@ -62,8 +63,8 @@ export default class ShortCut extends React.Component {
     }
     _Request = () => {
         //this.setState({ isLoading: true })
-        fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-        return fetch('http://51.91.249.185:8069/api/search' +
+        fetch(url1)
+        return fetch(url2+'/api/search' +
             '?filtres= 1' +
             '&dispo_date=' + this.state.selectedValue5 +
             '&medecin_name=' + this.props.data.medecin_name +

@@ -18,7 +18,7 @@ export default class CustomRadioButtonExample extends Component {
             <Right>
               <Radio
                 color={"#f0ad4e"}
-                selectedColor={"#5cb85c"}
+                selectedColor={"#1E79C5"}
                 selected={this.state.selectedValue=='C'}
                 onPress={() => this.setState({ selectedValue: 'C' })}
               />
@@ -31,26 +31,26 @@ export default class CustomRadioButtonExample extends Component {
             <Right>
               <Radio
                 color={"#f0ad4e"}
-                selectedColor={"#5cb85c"}
+                selectedColor={"#1E79C5"}
                 selected={this.state.selectedValue=='D'}
                 onPress={() => this.setState({ selectedValue: 'D' })}
               />
             </Right>
           </ListItem>
-          <ListItem selected={true}>
+          <ListItem >
             <Left>
               <Text>Video conférence</Text>
             </Left>
             <Right>
               <Radio
                 color={"#f0ad4e"}
-                selectedColor={"#5cb85c"}
+                selectedColor={"#1E79C5"}
                 selected={this.state.selectedValue=='V'}
                 onPress={() => this.setState({ selectedValue: 'V' })}
               />
             </Right>
           </ListItem>
-          <TouchableOpacity style={{backgroundColor:'#3498db',height:30,width:120,margin:7,borderRadius:5,alignItems:'center',justifyContent:'center',alignSelf:'flex-end'}} onPress={() => NavigationService.navigate('Rechercher', { choix: this.state.selectedValue })} >
+          <TouchableOpacity style={{backgroundColor:'#1E79C5',height:30,width:120,margin:7,borderRadius:5,alignItems:'center',justifyContent:'center',alignSelf:'flex-end'}} onPress={() => NavigationService.navigate('Rechercher', { choix: this.state.selectedValue })} >
             <Text style={{color:'white'}}>SUIVANT</Text>
             </TouchableOpacity>
         </Content>

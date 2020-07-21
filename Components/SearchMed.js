@@ -5,6 +5,7 @@ import Sugg from '../Components/Sugg';
 import { SearchBar } from 'react-native-elements';
 import Highlighter from 'react-native-highlight-words';
 import * as NavigationService from '../Navigation/NavigationService';
+import { url1, url2 } from '../Navigation/GlobalUrl';
 //NavigationService.navigate('Choisisser la ville',{lien:item.lien})
 export default class SearchMed extends React.Component {
 
@@ -20,8 +21,8 @@ export default class SearchMed extends React.Component {
   loadFilms() {
     if (this.searchedText.length > 0) { // Seulement si le texte recherché n'est pas vide
       this.setState({ loading: true })
-      fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-      return fetch('http://51.91.249.185:8002/Searche2' +
+      fetch(url1)
+      return fetch(url2+'/Searche2' +
             '?doctor_name=' +this.searchedText+
             '&speciality_id='+this.props.route.params.spe+
             '&service_id='+this.props.route.params.serv+

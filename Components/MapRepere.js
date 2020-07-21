@@ -37,7 +37,7 @@ export default class App extends React.Component {
                     <Marker coordinate={{ latitude: 33.5912796, longitude: -7.6353386, }} image={require('../assets/map_marker.png')} title="DR D">
                     <Callout>
                         <View style={{flexDirection:'column'}}>
-                        <Text style={{fontWeight:'bold'}}> Dr D</Text>
+                        <Text style={{fontWeight:'bold'}}> Dr DD Dd</Text>
                         <Text> Cardiologue</Text>
 
                         </View>
@@ -47,7 +47,7 @@ export default class App extends React.Component {
                     <Marker coordinate={{ latitude: 33.5812796, longitude: -7.6353386, }} image={require('../assets/map_marker.png')} title="test map1" >
                     <Callout>
                         <View style={{flexDirection:'column'}}>
-                        <Text style={{fontWeight:'bold'}}> test map1</Text>
+                        <Text style={{fontWeight:'bold'}}> SOS Médecins</Text>
                         <Text> adresse centre map</Text>
 
                         </View>
@@ -57,7 +57,7 @@ export default class App extends React.Component {
                     <Marker coordinate={{ latitude: 33.5812796, longitude: -7.6153386, }} image={require('../assets/map_marker.png')} title="Polyclinique casablanca" >
                     <Callout>
                         <View style={{flexDirection:'column'}}>
-                        <Text style={{fontWeight:'bold'}}> Polyclinique Casablanca</Text>
+                        <Text style={{fontWeight:'bold'}}> Clinique Casablanca</Text>
                         
 
                         </View>

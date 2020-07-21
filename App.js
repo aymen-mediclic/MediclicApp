@@ -163,7 +163,8 @@ export default class App extends React.Component {
             },
             headerTitleAlign: 'center',
             headerTitleStyle: {
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize:18
             }
           }} />
           <Stack.Screen name="Prendre un rendez-vous" component={RDV} options={{
@@ -206,7 +207,7 @@ export default class App extends React.Component {
               fontWeight: 'bold'
             }
           }} />
-          <Stack.Screen name="Type de consultation" component={TypeC} options={{
+          <Stack.Screen name="Type de rendez-vous" component={TypeC} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',
@@ -214,7 +215,8 @@ export default class App extends React.Component {
             },
             headerTitleAlign: 'center',
             headerTitleStyle: {
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize:18
             }
           }} />
           <Stack.Screen name="Choisisser la ville" component={VilleC} options={{

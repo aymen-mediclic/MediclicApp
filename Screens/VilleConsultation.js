@@ -32,6 +32,7 @@ export default class VilleC extends React.Component {
             'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api',
           useOnPlatform: 'web',
         }} // this in only required for use on the web. See https://git.io/JflFv more for details. // variable styles can t find error
+        enablePoweredByContainer={false}
         styles={{
           textInputContainer: {
             backgroundColor: 'rgba(0,0,0,0)',

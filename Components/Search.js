@@ -20,7 +20,7 @@ class Search extends React.Component{
                 <Text style={styles.text}>Trouvez votre Medecin!</Text>
                 <TextInput style={styles.text_input} onChangeText={(text)=> this.searchTextInputChanged(text)} placeholder='Médecin,Centre...' />
                 <View style={styles.btn_ctr}>
-                    <TouchableOpacity style={styles.btn} onPress={()=>NavigationService.navigate('Type de consultation')}  >
+                    <TouchableOpacity style={styles.btn} onPress={()=>NavigationService.navigate('Type de rendez-vous')}  >
                     <Text style={styles.btn_txt}>Rechercher</Text>
                     <MaterialIcons name='search'size={20} />
                     </TouchableOpacity>

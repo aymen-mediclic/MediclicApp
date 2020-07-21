@@ -37,7 +37,7 @@ class HomeScreen extends React.Component {
     console.log(this.props.data.langue)
     console.log('==============================')
     function getImageFromApi (name) {
-      return 'http://51.91.249.185:8069' + name
+      return url2 + name
     }
     return (
       <ScrollView >
@@ -220,21 +220,21 @@ class GalerieScreen extends React.Component {
   
   render() {
     function getImageFromApi (name) {
-      return 'http://51.91.249.185:8069' + name
+      return url2 + name
     }
 
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',backgroundColor:'white' }}>
         <Swiper showsButtons={true}>
         <View style={styles.slide1}>
-        {
+        {/*
             (this.props.data && this.props.data.galerie )?
                
                <Image style={{margin: 5,alignSelf:'center',height:350,width:300}} source={{ uri:getImageFromApi( this.props.data.galerie[0].image ) }} />
             :
             <></>
           
-          }
+          */}
         
         </View>
         </Swiper>
@@ -285,7 +285,7 @@ export default class GProfMed extends React.Component {
   Id = this.props.route.params.id;
   componentDidMount(Id) {
     fetch(url1)
-    return fetch(url2+'/api/profil_profe?medecin_id=12')
+    return fetch(url2+'/api/profil_profe?medecin_id='+this.props.route.params.id)
 
       .then((response) => response.json())
       .then((res) => {

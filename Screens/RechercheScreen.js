@@ -8,6 +8,7 @@ import Filter from '../Components/Filter'
 import { Header, Button, Segment, Content } from 'native-base';
 import ShortCut from '../Components/ShortCut'
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import { url1, url2 } from '../Navigation/GlobalUrl'
 class RechercheScreen extends React.Component {
 
   constructor(props) {
@@ -106,8 +107,8 @@ class RechercheScreen extends React.Component {
     }
 
 
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-    return fetch('http://51.91.249.185:8069/api/search' +
+    fetch(url1)
+    return fetch(url2+'/api/search' +
       '?filtres= 1' +
       '&dispo_date=' + selectedValue5 +
       '&medecin_name=' + this.state.datafiltre.medecin_name +
@@ -159,8 +160,8 @@ class RechercheScreen extends React.Component {
     let lngde = lng;
     let latde = lat;
 
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-    return fetch('http://51.91.249.185:8069/api/search' +
+    fetch(url1)
+    return fetch(url2+'/api/search' +
       '?filtres= 1' +
       '&dispo_date=' + selectedValue5 +
       '&medecin_name=' + this.state.datafiltre.medecin_name +
@@ -209,8 +210,8 @@ class RechercheScreen extends React.Component {
     let selectedValue5 = 0;
 
 
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-    return fetch('http://51.91.249.185:8069/api/search' +
+    fetch(url1)
+    return fetch(url2+'/api/search' +
       '?filtres= 1' +
       '&dispo_date=' + selectedValue5 +
       '&medecin_name=' + name +
@@ -260,8 +261,8 @@ class RechercheScreen extends React.Component {
     let selectedValue5 = 0;
 
 
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-    return fetch('http://51.91.249.185:8069/api/search' +
+    fetch(url1)
+    return fetch(url2+'/api/search' +
       '?filtres= 1' +
       '&dispo_date=' + selectedValue5 +
       '&medecin_name=' + this.state.datafiltre.centre_name +
@@ -318,8 +319,8 @@ class RechercheScreen extends React.Component {
         console.log("teste",this.state.cmp2)
         console.log("test",this.state.cmp3)
 
-    fetch('http://51.91.249.185:8002/web/login?db=test')
-    return fetch('http://51.91.249.185:8002/api/search' +
+    fetch(url1)
+    return fetch(url2+'/api/search' +
       '?filtres= 1' +
       '&dispo_date=' + selectedValue5 +
       '&medecin_name=' + this.state.datafiltre.medecin_name +

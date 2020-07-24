@@ -3,6 +3,7 @@ import { TouchableOpacity, Text, View, StyleSheet, Button, TextInput, Picker, Ke
 import * as NavigationService from '../Navigation/NavigationService';
 import SearchVille from './SearchVille';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { MaterialIcons } from '@expo/vector-icons'
 import { url1, url2 } from '../Navigation/GlobalUrl';
@@ -40,14 +41,14 @@ export default class ShortCut extends React.Component {
     }*/
     functionThree() {
         this.props.modalClose()
-        NavigationService.navigate('changer de ville', {
+        NavigationService.navigate('Choisir une ville', {
             dataFilter1: (loc, lat, lng) => this.props.dataFilter1(loc, lat, lng)
         })
 
     }
     functionfour() {
         this.props.modalClose()
-        NavigationService.navigate('changer de médecin',{spe:this.state.selectedValue3,serv:this.state.selectedValue4,tag:this.props.data.tag_id,
+        NavigationService.navigate('Choisir un professionnel',{spe:this.state.selectedValue3,serv:this.state.selectedValue4,tag:this.props.data.tag_id,
             ctr:this.props.data.centre_searche_id,
             dataFilter2: (name,id) => this.props.dataFilter2(name,id)
         })
@@ -55,7 +56,7 @@ export default class ShortCut extends React.Component {
     }
     functionfive() {
         this.props.modalClose()
-        NavigationService.navigate('changer de centre',{spe:this.state.selectedValue3,serv:this.state.selectedValue4,tag:this.props.data.tag_id,
+        NavigationService.navigate('Choisir un centre',{spe:this.state.selectedValue3,serv:this.state.selectedValue4,tag:this.props.data.tag_id,
             mdc:this.props.data.medecin_searche_id,
             dataFilter3: (name,id) => this.props.dataFilter3(name,id)
         })
@@ -113,11 +114,17 @@ export default class ShortCut extends React.Component {
         return (
 
             <KeyboardAvoidingView style={[styles.ctr]}>
-                <KeyboardAvoidingView style={{ flexDirection: 'row', margin: 15 }}>
+                <View style={styles.filtrer} >
+                    <View style={{ flex:3,marginLeft:110}}>
+                        <Text style={{ fontSize: 22, color: 'white'}}> Filtrer</Text>
+                    </View>
+                    <TouchableOpacity style={{ flex:1,alignItems:"flex-end",height:30,justifyContent:'center'}} onPress={() =>  this.props.modalClose()}>
+                        <Fontisto color='white' size={16} name={'close-a'} style={{justifyContent:'center'}} />
+                    </TouchableOpacity>
                     
-                    <Text style={{ fontSize: 18, color: 'white', marginLeft: 10 }}> Nouvelle recherche</Text>
-                </KeyboardAvoidingView>
+                </View>
                 <View style={styles.Picker_View} >
+                <Fontisto color='#1E79C5' size={20} name={'doctor'} />
                 <Picker
                     mode='dropdown'
                     selectedValue={this.state.selectedValue}
@@ -131,6 +138,7 @@ export default class ShortCut extends React.Component {
                 
                 </View>
                 <View style={styles.Picker_View} >
+                <Fontisto color='#1E79C5' size={20} name={'doctor'} />
                 <Picker
                     mode='dropdown'
                     selectedValue={this.state.selectedValue2}
@@ -143,6 +151,7 @@ export default class ShortCut extends React.Component {
                 </Picker>
                 </View>
                 <View style={styles.Picker_View} >
+                <Fontisto color='#1E79C5' size={20} name={'doctor'} />
                 <Picker
                     //mode='dropdown'
                     selectedValue={this.state.selectedValue3}
@@ -155,6 +164,7 @@ export default class ShortCut extends React.Component {
                 </Picker>
                 </View>
                 <View style={styles.Picker_View} >
+                <Fontisto color='#1E79C5' size={20} name={'doctor'} />
                 <Picker
                     mode='dropdown'
                     selectedValue={this.state.selectedValue4}
@@ -167,6 +177,7 @@ export default class ShortCut extends React.Component {
                 </Picker>
                 </View>
                 <View style={styles.Picker_View} >
+                <Fontisto color='#1E79C5' size={20} name={'doctor'} />
                 <Picker
                     mode='dropdown'
                     selectedValue={this.state.selectedValue5}
@@ -185,7 +196,7 @@ export default class ShortCut extends React.Component {
                     ? <Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}>
                         {this.props.data.medecin_name}
                         </Text>
-                    :<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}>Médecin</Text>
+                    :<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}>Professionnel</Text>
                     }
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.Search} onPress={() => this.functionfive()}>
@@ -196,14 +207,11 @@ export default class ShortCut extends React.Component {
                     }
                     </TouchableOpacity>
                 <TouchableOpacity style={styles.Search} onPress={() => this.functionThree()}>
-                    <FontAwesome5 color='#1E79C5' size={20} name={'city'} />
+                    <Entypo color='#1E79C5' size={20} name={'location'} />
                     {this.props.data.location
                     ?<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}> {this.props.data.location} </Text>
                     :<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}> Location </Text>
                     }
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.close} onPress={() =>  this.props.modalClose()}>
-                    <Text style={{color:'white',textAlign:'center'}}> ANNULER </Text>
                     </TouchableOpacity>
                     
 
@@ -217,22 +225,34 @@ const styles = StyleSheet.create({
     ctr: {
         flex: 1,
         backgroundColor: '#1E79C5',
-        marginBottom:120,
+        marginBottom:80,
         marginHorizontal:20,
-        marginTop:40,
+        marginTop:95,
     },
     Picker_View: { 
         backgroundColor:'white',
         width:300,
         height:35,
-        justifyContent:'center',
+        //justifyContent:'center',
+        alignItems:"center",
         borderRadius:5,
         alignSelf:'center',
         margin:5,
-        //flexDirection:'row'
+        flexDirection:'row',
+        padding: 5,
+        shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0,
+        },
+        elevation: 5,
     },
     Picker: { 
         color: '#1E79C5',
+        width:270,
+        marginLeft:8
     },
     Search: {
         backgroundColor: 'white', height: 35, width: 300, alignSelf: 'center', borderRadius: 5,
@@ -246,6 +266,17 @@ const styles = StyleSheet.create({
         alignSelf:'flex-end',
         marginRight:12,
         marginTop:5
+    },
+    filtrer: {
+        flexDirection: 'row', margin: 15,alignItems:'center',
+        shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0,
+        },
+        elevation: 5,
     }
 }
 )

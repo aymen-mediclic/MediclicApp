@@ -45,12 +45,12 @@ class RechercheScreen extends React.Component {
         datafiltre:res,
         refreshing: false,
       })
-      console.log("****************");
+     /* console.log("****************");
       //console.log(res.medecin[0].obj);
       console.log("medecin",this.state.datafiltre.cmp_from_medecin_calendar)
       console.log("centre",this.state.datafiltre.cmp_from_centre_calendar)
       console.log("smart",this.state.datafiltre.cmp_from_smart_service)
-      console.log("****************");
+      console.log("****************");*/
     })
   }
 
@@ -58,7 +58,7 @@ class RechercheScreen extends React.Component {
     if (this.state.isLoading) {
       //Loading View while data is loading
       return (
-        <View style={{ flex: 1, paddingTop: 20 }}>
+        <View style={{ flex: 1, marginTop:15,marginBottom:10 }}>
           <ActivityIndicator />
         </View>
       );
@@ -81,7 +81,7 @@ class RechercheScreen extends React.Component {
 
     this.setState({
       modalOpen: false,
-
+      isLoading: true,
     })
 
     let selectedValue = this.state.datafiltre.type_calendrier;
@@ -138,7 +138,7 @@ class RechercheScreen extends React.Component {
 
 
         this.setState({
-
+          isLoading: false,
           dataSource: res.medecin,
           datafiltre: res
         })
@@ -302,9 +302,9 @@ class RechercheScreen extends React.Component {
 
   }
   loadMoreData = () => {
-    this.setState({
+    /*this.setState({
       isLoading:true
-    })
+    })*/
     let selectedValue = this.state.datafiltre.type_calendrier;
     let selectedValue2 = this.state.datafiltre.type_rdv;
     let selectedValue3 = this.state.datafiltre.speciality_param;
@@ -354,14 +354,14 @@ class RechercheScreen extends React.Component {
         cmp2:res.cmp_from_centre_calendar,
         cmp3:res.cmp_from_smart_service,
         pag:true,
-        isLoading:false
+        //isLoading:false
           //datafiltre: da.concat(res),
         })
-        console.log("cmp")
-
+        console.log(this.state.datafiltre,"222222")
+        /*
         console.log("medecin",this.state.cmp1)
         console.log("centre",this.state.cmp2)
-        console.log("smart",this.state.cmp3)
+        console.log("smart",this.state.cmp3)*/
        
       }).done()
 
@@ -371,22 +371,21 @@ class RechercheScreen extends React.Component {
 
   render() {
     let A = this.props.route.params.choice;
-    console.log(A, '126566')
+    
     return (
       <View style={styles.main_container}>
-        {this.displayLoading()}
+        
         <Modal visible={this.state.modalOpen} animationType='slide' transparent={true} >
           <ShortCut data={this.state.datafiltre} dataFilter={this.dataFilter} dataFilter1={this.dataFilter1} dataFilter2={this.dataFilter2} dataFilter3={this.dataFilter3} modalClose={this.CloseModal} />
         </Modal>
-        <Segment style={{ backgroundColor: 'white',height:40,borderWidth:1,
-    borderColor:'black'}}>
+        <Segment style={{ backgroundColor: '#1E79C5',height:40}}>
         <TouchableOpacity style={styles.filter_btn} onPress={() => this.setState({ modalOpen: true })} >
-        <Fontisto color='#2c3e50' size={16} name={'equalizer'} />
+        <Fontisto color='white' size={16} name={'equalizer'} />
           
             <Text style={styles.fabIcon}>FILTRER</Text>
           </TouchableOpacity>
         </Segment>
-
+        {this.displayLoading()}
 
 
         {/*<TouchableOpacity delayPressIn={100} onPress={() => alert('FAB clicked')} style={styles.fab}>
@@ -421,22 +420,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ecf0f1',
   },
-  fab: {
-    position: 'absolute',
-    width: 120,
-    height: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    //right: 20, 
-    bottom: 20,
-    backgroundColor: '#ecf0f1',
-    borderRadius: 5,
-    elevation: 8
-  },
   fabIcon: {
     fontSize: 15,
-    color: '#2c3e50',
+    color: 'white',
     marginLeft:5
   },
   filter_btn:{
@@ -444,7 +430,7 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     alignSelf:'center',
     borderWidth:1,
-    borderColor:'black',
+    borderColor:'white',
     width:100,
     padding:5
   } 

@@ -71,7 +71,7 @@ export default class DateC extends React.Component {
 
         return (
             <View>
-                <Text style={styles.txt}>Choisissez la date de consultation</Text>
+                
                 <Accordion dataArray={dataArray}  renderContent={this._renderContent} />
             </View>
 

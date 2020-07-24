@@ -29,8 +29,11 @@ class PlanScreen extends React.Component {
   render(){
     return (
       
-      <tab.Navigator swipeEnabled={false}>
-          <tab.Screen name="Recherche" component={RechercheScreen} />
+      <tab.Navigator swipeEnabled={false} tabBarOptions={{
+        activeTintColor: '#1E79C5',
+        inactiveTintColor: 'grey'
+      }}>
+          <tab.Screen name="Résultats" component={RechercheScreen} />
           <tab.Screen name="Plan" component={PlanScreen}/> 
       </tab.Navigator>
       

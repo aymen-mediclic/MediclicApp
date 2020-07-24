@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, TextInput, Button, Text, FlatList, Image, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TextInput,SectionList, Text, FlatList, Image, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { getFilmsFromApiWithSearchedText } from '../Navigation/WelcomeStack'
 import Sugg from '../Components/Sugg';
 import { SearchBar } from 'react-native-elements';
@@ -14,7 +14,7 @@ export default class Search extends React.Component {
     this.searchedText = "",// Initialisation de notre donnée searchedText en dehors du state
     this.state = {
       loading: false,
-      data: []
+      data: [],
     }
   }
 
@@ -58,7 +58,7 @@ export default class Search extends React.Component {
     if (this.state.loading) {
       //Loading View while data is loading
       return (
-        <View style={{ flex: 1, paddingTop: 20, marginBottom: 15 }}>
+        <View style={{ flex: 1, paddingTop: 20 }}>
           <ActivityIndicator />
         </View>
       );
@@ -80,7 +80,7 @@ export default class Search extends React.Component {
           value={this.searchedText}
           //lightTheme='true'
           inputContainerStyle={{ backgroundColor:'white' }}
-          inputStyle={{ fontSize: 14 }}
+          inputStyle={{ fontSize: 15 }}
           containerStyle={styles.textinput}
           placeholderTextColor='#bdc3c7'
         />
@@ -89,14 +89,17 @@ export default class Search extends React.Component {
           <FlatList
             data={this.state.data.sort((a, b) => a.type === 'spécialité' ? -1 : 1)}
             keyExtractor={item => { return item.id }}
-            renderItem={({ item }) => <TouchableOpacity onPress={() =>NavigationService.navigate('Choisisser la ville',{lien: item.lien, choix: c}) }> 
+            renderItem={({ item }) => 
+              <TouchableOpacity onPress={() =>NavigationService.navigate('Où ?',{lien: item.lien, choix: c}) }> 
               {item.type == 'spécialité' && (
+                
                 <Highlighter
                   highlightStyle={{ backgroundColor: '#FFC617' }}
                   searchWords={[this.searchedText]}
                   textToHighlight={item.name}
                   style={{paddingLeft:10,color: '#2c3e50',height:42,backgroundColor: 'white'}}
                 />
+                
               )}
               {item.type == 'Tag' && (
                 <Highlighter
@@ -138,7 +141,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   textinput: {
-    padding:1,marginTop:5,backgroundColor:'white',borderBottomColor:'white',borderTopColor:'white' 
+    padding:1,marginTop:5,backgroundColor:'white',borderBottomColor:'white',borderTopColor:'white',marginLeft: 3,
+    marginRight: 3,
+    shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0,
+        },
+        elevation: 3, 
   }
 })
 

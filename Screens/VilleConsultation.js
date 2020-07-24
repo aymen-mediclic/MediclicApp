@@ -12,7 +12,7 @@ export default class VilleC extends React.Component {
     return (
       <View style={{flex:1}}>
       <GooglePlacesAutocomplete
-      placeholder='Rechercher'
+      placeholder='Où ?(adresse,ville...)'
         query={{
           key: GOOGLE_PLACES_API_KEY,
           language: 'fr', // language of the results
@@ -24,7 +24,7 @@ export default class VilleC extends React.Component {
           }}
         onPress={(data, details = null) => {console.log(details.geometry.location.lat);
           console.log(data.description);
-          NavigationService.navigate('Médecin',{screen:'Recherche',params:{lien: this.props.route.params.lien, choice: this.props.route.params.choix,lat:details.geometry.location.lat,lng:details.geometry.location.lng,loc:data.description}})
+          NavigationService.navigate('Résultat',{screen:'Résultats',params:{lien: this.props.route.params.lien, choice: this.props.route.params.choix,lat:details.geometry.location.lat,lng:details.geometry.location.lng,loc:data.description}})
         }}
         onFail={(error) => console.error(error)}
         requestUrl={{
@@ -40,11 +40,21 @@ export default class VilleC extends React.Component {
             borderBottomWidth: 0,
           },
           textInput: {
-            marginLeft: 0,
-            marginRight: 0,
+            borderRadius:0,
+            marginLeft: 3,
+            marginRight: 3,
             height: 38,
             color: '#5d5d5d',
             fontSize: 16,
+            paddingLeft:20,
+            shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0,
+        },
+        elevation: 3,
           },
           
           predefinedPlacesDescription: {
@@ -56,33 +66,3 @@ export default class VilleC extends React.Component {
     );
 }
 }
-
-/*
-export default class VilleC extends React.Component {
-    constructor(props) {
-        super(props);
-       
-      }
-    render() {
-        
-        
-        return (
-<View style={{flex:1}}>
-<PlacesInput
-                    googleApiKey={'AIzaSyA4qngbP1rO_kRLSg__RhqrT29Kst_yHXg'}
-                    placeHolder={"Choisir la ville "}
-                    language={"en-US"}
-                    queryCountries={['ma']}
-                    onSelect={place => {
-                      //NavigationService.navigate('Médecin',{screen:'Recherche',params:{lien: this.props.route.params.lien}}) 
-                      NavigationService.navigate('Médecin',{screen:'Recherche',params:{lien: this.props.route.params.lien, choice: this.props.route.params.choix}}) 
-                      //NavigationService.navigate('Médecin')
-                        //this.props.goToPoint(get(place, 'result.geometry.location.lat'), get(place, 'result.geometry.location.lng'))
-                    }}
-                    //iconResult={<Ionicons name="md-pin" size={25} style={styles.placeIcon}/>}
-                />
-                
-    </View>
-        );
-}
-}*/

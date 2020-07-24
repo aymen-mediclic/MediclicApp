@@ -79,7 +79,7 @@ export default class SearchMed extends React.Component {
     return (
       <View style={styles.main_container}>
         <SearchBar
-          placeholder='Médecin...'
+          placeholder='Professionnel...'
           onChangeText={(text) => this._searchTextInputChanged(text)}
           value={this.searchedText}
           lightTheme='true'

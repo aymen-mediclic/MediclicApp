@@ -8,7 +8,7 @@ import ConnectionScreen from './Screens/ConnectionScreen';
 import MedProfilScreen from './Screens/MedProfilScreen';
 
 import WebViewScreen from "./Screens/WebViewScreen"
-
+import Fontisto from 'react-native-vector-icons/Fontisto';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer,useNavigation } from '@react-navigation/native';
 import { navigationRef } from './Navigation/NavigationService';
@@ -42,6 +42,7 @@ import SearchVille from './Components/SearchVille';
 import SearchCtr from './Components/SearchCentre';
 import MdpOub from './Screens/MdpOub';
 import InscriptionProf from './Screens/InscriptionProf';
+import HeaderRes from './Components/HeaderRes';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -103,7 +104,7 @@ export default class App extends React.Component {
                 </TouchableOpacity>,
             }
             } />
-          <Stack.Screen name="Médecin" component={ListMed} options={{
+          <Stack.Screen name="Résultat" component={ListMed} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',
@@ -111,8 +112,14 @@ export default class App extends React.Component {
             },
             headerTitleAlign: 'center',
             headerTitleStyle: {
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize:18
             },
+            headerTitle: ()=> <HeaderRes/>,
+            headerRight: () =>
+                <TouchableOpacity style={{ marginRight: 5 }} onPress={() => NavigationService.navigate('Mediclic')} >
+                  <Fontisto color='white' size={20} name={'home'} style={{margin:5}} />
+                </TouchableOpacity>,
           }} />
           <Stack.Screen name="Se connecter" component={ConnectionScreen} options={{
             headerTintColor: '#fff',
@@ -219,7 +226,7 @@ export default class App extends React.Component {
               fontSize:18
             }
           }} />
-          <Stack.Screen name="Choisisser la ville" component={VilleC} options={{
+          <Stack.Screen name="Où ?" component={VilleC} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',
@@ -227,7 +234,8 @@ export default class App extends React.Component {
             },
             headerTitleAlign: 'center',
             headerTitleStyle: {
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize:18
             }
           }} />
           <Stack.Screen name="Choisisser la ville:" component={VilleC1} options={{
@@ -302,7 +310,7 @@ export default class App extends React.Component {
              },
             headerTitle: ()=> <Pheader/>
           }} />
-           <Stack.Screen name="changer de médecin" component={SearchMed} options={{
+           <Stack.Screen name="Choisir un professionnel" component={SearchMed} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',
@@ -310,10 +318,11 @@ export default class App extends React.Component {
             },
             headerTitleAlign: 'center',
             headerTitleStyle: {
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize:18
             },
           }} />
-          <Stack.Screen name="changer de centre" component={SearchCtr} options={{
+          <Stack.Screen name="Choisir un centre" component={SearchCtr} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',
@@ -321,10 +330,11 @@ export default class App extends React.Component {
             },
             headerTitleAlign: 'center',
             headerTitleStyle: {
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize:18
             },
           }} />
-          <Stack.Screen name="changer de ville" component={SearchVille} options={{
+          <Stack.Screen name="Choisir une ville" component={SearchVille} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',
@@ -332,7 +342,8 @@ export default class App extends React.Component {
             },
             headerTitleAlign: 'center',
             headerTitleStyle: {
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize:18
             },
           }} />
           <Stack.Screen name="Mot de passe oublié?" component={MdpOub} options={{

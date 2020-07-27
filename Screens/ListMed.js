@@ -12,6 +12,10 @@ const tab = createMaterialTopTabNavigator();
 
 class PlanScreen extends React.Component {
     render(){
+      console.log("****************");
+      //console.log(res.medecin[0].obj);
+      //console.log(">>>><<",this.props.route.params.myId)
+      console.log("****************");
       return (
         <View style={styles.container}>
            <MapR/>

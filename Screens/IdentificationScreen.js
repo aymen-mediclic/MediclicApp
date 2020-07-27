@@ -167,7 +167,6 @@ class Identification extends React.Component {
     console.log(this.props.userInfo, "!!!!!!!!!!!!!!!!!!!!!!!!!!")
     return (
       <View>
-        <Text style={{ fontSize: 18, fontWeight: 'bold', alignSelf: 'center', color: '#2f3542' }}>Confirmation de votre rendez-vous</Text>
         <View >
         {(this.props.userInfo)?
                   <>

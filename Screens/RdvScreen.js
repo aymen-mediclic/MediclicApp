@@ -132,7 +132,7 @@ class RDV extends React.Component {
           </ProgressStep>
           <ProgressStep label="Confirmation" previousBtnText="Précédent" finishBtnText='Confirmer' onSubmit={ this.Confirmation } >
             <View style={{ alignItems: 'center' }}>
-              <Text>Confirmez votre rendez-vous</Text>
+              <Text>Félicitation!</Text>
             </View>
           </ProgressStep>
         </ProgressSteps>

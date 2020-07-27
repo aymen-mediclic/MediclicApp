@@ -79,6 +79,7 @@ class MedItem extends React.Component {
                                 {/*<Image style={styles.img} source={{ uri:getImageFromApi( Med.obj.image ) }} />*/}
                                 <View style={{ flexDirection: 'column', flex: 1 }}>
                                     <Text style={styles.txt}>{Med.obj.name} </Text>
+                                    <Text style={{ color: '#1E79C5', fontWeight: "bold",alignSelf:'flex-end',marginLeft:5 }}>{Med.distance} </Text>
                                     {
                                         (Med.obj.specialite) ?
                                             <Text style={{ color: '#FFC617' }}>{Med.obj.specialite} </Text>
@@ -101,7 +102,7 @@ class MedItem extends React.Component {
                                             :
                                             <></>
                                     }
-                                    <Text style={{ color: '#1E79C5', fontWeight: "bold" }}>{Med.distance} </Text>
+                                    
 
                                 </View>
                             </TouchableOpacity>

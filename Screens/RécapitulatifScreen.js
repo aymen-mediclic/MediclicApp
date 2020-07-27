@@ -16,29 +16,29 @@ class Recap extends React.Component {
         <View style={styles.container}>
        
              <View style={styles.ctr1} >
-                <Text style={styles.title} > Informations sur le rendez-vous:</Text>
+                <Text style={styles.title} > Informations sur le rendez-vous :</Text>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Type du RDV: </Text>
+                <Text style={styles.txt}> Type du RDV : </Text>
                 <Text style={styles.txt1}> C</Text>
                 </View>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Medecin: </Text>
+                <Text style={styles.txt}> Medecin : </Text>
                 <Text style={styles.txt1}> {this.props.Name}</Text>
                 </View>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Adresse:</Text>
+                <Text style={styles.txt}> Adresse :</Text>
                 <Text style={styles.txt1}> Casablanca </Text>
                 </View>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Adresse domicile:</Text>
+                <Text style={styles.txt}> Adresse 2 :</Text>
                 <Text style={styles.txt1}> Maison </Text>
                 </View>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Date:</Text>
+                <Text style={styles.txt}> Date :</Text>
                 <Text style={styles.txt1}> {moment(text).format("h:mm a")}</Text>
                 </View>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Heure:</Text>
+                <Text style={styles.txt}> Heure :</Text>
                 <Text style={styles.txt1}> {moment(text).format("DD-MM-YYYY")}</Text>
                 </View>
                 
@@ -48,19 +48,19 @@ class Recap extends React.Component {
                 {(this.props.userInfo)?
                   <>
                   <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                  <Text style={styles.txt}> Nom:</Text>
+                  <Text style={styles.txt}> Nom :</Text>
                   <Text style={styles.txt1}> {this.props.userInfo.nom}</Text>
                   </View>
                   <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                  <Text style={styles.txt}> Prenom:</Text>
+                  <Text style={styles.txt}> Prenom :</Text>
                   <Text style={styles.txt1}> {this.props.userInfo.prenom}</Text>
                   </View>
                   <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                  <Text style={styles.txt}> Téléphone::</Text>
+                  <Text style={styles.txt}> Téléphone :</Text>
                   <Text style={styles.txt1}> 0622102874</Text>
                   </View>
                   <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                  <Text style={styles.txt}> E-mail:</Text>
+                  <Text style={styles.txt}> E-mail :</Text>
                   <Text style={styles.txt1}> asmaa@odoo.com</Text>
                   </View>
                     

@@ -91,7 +91,7 @@ export default class ImagePickerExample extends React.Component {
         value={this.state.value}
       >
         <View style={{ marginTop: 20, backgroundColor: 'white', paddingBottom: 200 }}>
-          <Text style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>Vous prenez un rendez-vous pour:</Text>
+          <Text style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>Validez un rendez-vous :</Text>
           <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 15 }}>
             <View style={{ marginRight: 30 }}>
               <Text>Pour vous</Text>

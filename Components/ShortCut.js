@@ -90,14 +90,14 @@ export default class ShortCut extends React.Component {
 
             .then((response) => response.json())
             .then((res) => {
-                console.log("repooooonse")
-                console.log(res)
+               // console.log("repooooonse")
+                //console.log(res)
             })
             .done();
     }
     render() {
-        console.log("gggg")
-        console.log(this.props.data.cmp_from_medecin_calendar)
+        //console.log("gggg")
+        //console.log(this.props.data.cmp_from_medecin_calendar)
         let da = [];
         var count = Object.keys(this.props.data.speciality).length;
         for (var i = 0; i < count; i++) {

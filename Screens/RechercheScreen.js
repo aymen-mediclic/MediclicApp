@@ -45,12 +45,11 @@ class RechercheScreen extends React.Component {
         datafiltre:res,
         refreshing: false,
       })
-     /* console.log("****************");
+     console.log("****************");
       //console.log(res.medecin[0].obj);
-      console.log("medecin",this.state.datafiltre.cmp_from_medecin_calendar)
-      console.log("centre",this.state.datafiltre.cmp_from_centre_calendar)
-      console.log("smart",this.state.datafiltre.cmp_from_smart_service)
-      console.log("****************");*/
+      console.log(">>>><<",this.state.dataSource[0].obj.name)
+      console.log("****************");
+      //this.props.navigation.setParams({myId: this.state.dataSource[0].obj.name })
     })
   }
 

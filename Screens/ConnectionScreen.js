@@ -87,20 +87,8 @@ class ConnectionScreen extends React.Component {
         //changes here
         if (res.user_context) {
           if (res.etat[0] == 'patient') {
-          // console.log("user login now -------------------")
-          // await AsyncStorage.setItem('user', JSON.stringify(res));
-          // let uid=res.uid;
-          // console.log("uid here!!!")
-          //alert("ss")
-          // console.log(uid)
-          // console.log(res.etat[1])
-          //this.props.navigation.replace('WebViewScreen');
           console.log("user login now -------------------")
           await AsyncStorage.setItem('user', JSON.stringify(res));
-          let uid=res.uid;
-          console.log("uid here!!!")
-          console.log(uid)
-          console.log(res.etat[1])
           this.props.navigation.replace('Mon Profil:');
           }
           else{

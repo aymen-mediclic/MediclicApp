@@ -1,194 +1,77 @@
 //onPress={this.Autho}
 import React from 'react';
-import { View, Text, Button, StyleSheet, TextInput, AsyncStorage, KeyboardAvoidingView } from 'react-native'
+import { View, Text, StyleSheet, TextInput, AsyncStorage, KeyboardAvoidingView,TouchableOpacity } from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
 import MyComponent from '../Components/RadioButton';
-const axios = require('axios').default;
+import { Button,Input } from 'react-native-elements';
+import { url1, url2 } from '../Navigation/GlobalUrl';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 class Identification extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       login: '',
       password: '',
-      
+      val: 'a',
+      icon: "eye-slash",
+      pass: true,
     }
   }
-  
-
-  got=()=>{
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-     fetch('http://51.91.249.185:8069/api/update_profil', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/javascript, */*; q=0.01',
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-      },
-      body: JSON.stringify({
-        uid:"85",
-        adresse: "aymentka ",
-        Num_CIN: "bg2222",
-        nom:"aymane",
-        prenom:"aymane",
-        date_nais:"06/07/1993",
-        civilite:"homme",
-        Num_mut:"20555",
-        ville:"casa"
-      })
-    })
-
-      .then((response) => response.json())
-      .then((res) => {
-        console.log("repooooonse")
-        console.log(res)
-        console.log("*********success***********")
-        
-        
-      })
-      .done();
-  }
-  pot=()=>{
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-     fetch('http://51.91.249.185:8069/api/ajout_proche', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/javascript, */*; q=0.01',
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-      },
-      body: JSON.stringify({
-        uid:"85",
-        nom:"aymane",
-        prenom:"aymane",
-        
-        email: "aymentka@gmail.com ",
-        tel:"0607199344",
-      })
-    })
-
-      .then((response) => response.json())
-      .then((res) => {
-        console.log("repooooonse")
-        console.log(res)
-        console.log("*********success***********")
-        
-        
-      })
-      .done();
-  }
-  
-  sot=()=>{
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-     fetch('http://51.91.249.185:8069/api/update_proche', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/javascript, */*; q=0.01',
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-      },
-      body: JSON.stringify({
-        uid:"85",
-        uid_p:"118",
-        adresse: "aymentka ",
-        Num_CIN: "bg2222",
-        nom:"aymane",
-        prenom:"aymane",
-        date_nais:"06/07/1993",
-        civilite:"homme",
-        Num_mut:"20555",
-        ville:"casa",
-        
-      })
-    })
-
-      .then((response) => response.json())
-      .then((res) => {
-        console.log("repooooonse")
-        console.log(res)
-        console.log("*********success***********")
-        
-        
-      })
-      .done();
-  }
-  rot=()=>{
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-     fetch('http://51.91.249.185:8069/api/delete_rdv', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/javascript, */*; q=0.01',
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-      },
-      body: JSON.stringify({
-        uid:"85",
-        'mode':'supprimer_rdv',
-        'rdv': '339',
-
-        
-      })
-    })
-
-      .then((response) => response.json())
-      .then((res) => {
-        console.log("repooooonse")
-        console.log(res)
-        console.log("*********success***********")
-        
-        
-      })
-      .done();
-  }
-  prot=()=>{
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-     fetch('http://51.91.249.185:8069/api/delete_rdv', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/javascript, */*; q=0.01',
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-      },
-      body: JSON.stringify({
-        uid:"85",
-        proche:'118',
-        'mode':'supprimer_rdv_proche',
-        'rdv': '262',
-
-        
-      })
-    })
-
-      .then((response) => response.json())
-      .then((res) => {
-        console.log("repooooonse")
-        console.log(res)
-        console.log("*********success***********")
-        
-        
-      })
-      .done();
-  }
+  _changeIcon() {
+    this.setState(prevState => ({
+        icon: prevState.icon === 'eye' ? 'eye-slash' : 'eye',
+        pass: !prevState.pass
+    }));
+}
   render() {
-    console.log(this.props.userInfo, "!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    console.log(this.props.userInfo, "!!!!!voila!!!!!!!!!!!!!!!!!!!!!")
     return (
       <View>
         <View >
-        {(this.props.userInfo)?
+        {(this.state.val== 'a'&& !this.props.userInfo )?
                   <>
               <View style={styles.med_ctr}>
-              <Text style={styles.text}>J'ai deja un compte Mediclic</Text>
+              
               <TextInput style={styles.text_input} placeholder='Nom de compte'
+                autoCapitalize = 'none'
                 onChangeText={(login) => this.setState({ login })}
                 value={this.state.username}
               />
-              <TextInput style={styles.text_input} placeholder='Mot de passe'
+              <View style={styles.text_input}>
+              <TextInput  placeholder='Mot de passe'
+                style={{ flex: 1, width: '75%' }}
+                secureTextEntry={this.state.pass}
+                autoCapitalize = 'none'
                 onChangeText={(password) => this.setState({ password })}
                 value={this.state.password}
               />
-              <Button color='#FFC617' title='Se connecter' onPress={this.Autho} />
-              <Text style={{ margin: 10 }}>Mot de passe oublié? </Text>
-              <Button color='' title='Inscrivez-vous' onPress={this.got} />
+              <FontAwesome color={'grey'} size={18} style={{ margin: 5,width:'10%' }} name={this.state.icon} onPress={() => this._changeIcon()} />
+              </View>
+              
+              <Button buttonStyle={{width:250,height:30,margin:20}} color='#FFC617' title='Valider' onPress={this.Autho} />
+              <View style={{ margin:20 }}>
+                <TouchableOpacity style={styles.btn} onPress={()=> {this.setState({val:'b'});console.log('b',this.state.val);this.props.AbleNext()}}>
+                  <Text style={{fontWeight:'bold',alignSelf:'center',color:'#1E79C5'}}>Mot de passe oublié?</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.btn}>
+                  <Text style={{fontWeight:'bold',alignSelf:'center',color:'#1E79C5'}}>Créer un compte</Text>
+                </TouchableOpacity>
+              
+              </View>
+              
             </View>
             </>
                   :
                   <></> 
         }
-            <MyComponent />
+        {(this.props.userInfo|| this.state.val== 'b')?
+        <>
+            <MyComponent AbleNext={this.props.AbleNext} />
+            </>
+                  :
+                  <></> 
+        }
         </View>
       </View>
     );
@@ -196,24 +79,56 @@ class Identification extends React.Component {
 
   Autho = () => {
     console.log(this.state)
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-    fetch('http://51.91.249.185:8069/api/auth/token?login=' + this.state.login + '&password=' + this.state.password + '&db=new_installation')
+    fetch(url1)
+    fetch(url2+'/api/auth/token?login=' + this.state.login + '&password=' + this.state.password + '&db=test')
 
       .then((response) => response.json())
-      .then((res) => {
+      .then(async (res) => {
         console.log("repooooonse")
         console.log(res)
         console.log("*********success***********")
-
-        if ("user_context" in res) {
-          AsyncStorage.setItem('user', res.user);
-          alert('connection réussie')
+        
+        if (res.user_context) {
+        if (res.etat[0] == 'patient') {
+          console.log("user login now -------------------")
+          await AsyncStorage.setItem('user', JSON.stringify(res));
+          let uid=res.uid;
+          console.log("uid here!!!")
+          console.log(uid)
+          console.log(res.etat[1])
           this.setState({val:'b'})
+          this.props.AbleNext()
+          fetch(url1)
+  return fetch(url2+'/api/profil?uid='+uid+'&get_profil')
+            .then((response) => response.json())
+            .then(async(res) => {
+                console.log("repooooonse")
+                console.log(res)
+                
+                await AsyncStorage.setItem("userInfo",JSON.stringify(res))
+                this.props.onFocusFunction()
+            })
+            .done();
+          }
+          else{
+            alert("ss")
+            //this.props.navigation.replace('WebViewScreen');
+          }
         }
         else {
           alert("Erreur d'authentification");
           console.log(res);
         }
+        /*if ("user_context" in res) {
+          AsyncStorage.setItem('user', res.user);
+          alert('connection réussie')
+          this.setState({val:'b'})
+          this.props.AbleNext()
+        }
+        else {
+          alert("Erreur d'authentification");
+          console.log(res);
+        }*/
       })
       .done();
   }
@@ -278,13 +193,22 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     backgroundColor: 'white',
     marginBottom: 15,
+    flexDirection:'row'
   },
   text: {
-    fontSize: 15,
+    fontSize: 12,
     //fontWeight:'bold',
     color: '#57606f',
     marginBottom: 20,
     alignSelf: 'center'
+  },
+  btn: {
+    margin:5,
+    width:250,
+    height:30,
+    borderWidth:1,
+    borderColor:'#1E79C5',
+    borderRadius:5
   },
 });
 export default Identification

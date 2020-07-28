@@ -1,6 +1,6 @@
 // tel patient generer+ update
 import * as React from 'react';
-import { View, Picker, TextInput, Modal, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Picker, TextInput, Modal, StyleSheet, TouchableOpacity, ScrollView,AsyncStorage } from 'react-native';
 import { RadioButton, Text } from 'react-native-paper';
 import { url2, url1 } from '../Navigation/GlobalUrl';
 
@@ -19,21 +19,23 @@ export default class ImagePickerExample extends React.Component {
     
   };
   componentDidMount() {
+    //let uid =  AsyncStorage.getItem(uid);
+    //console.log('111',uid)
     fetch(url1)
     return fetch(url2+'/api/profil?uid=26&get_proche')
       .then((response) => response.json())
       .then((res) => {
-        console.log("!!!test proches")
+        /*console.log("!!!test proches")
         console.log(res.proches[2][0].nom)
         console.log("!!!!!!!!!")
-        console.log(res.proches.length)
+        console.log(res.proches.length)*/
         let da = [];
         var count = Object.keys(res.proches).length;
         for (var i = 0; i < count; i++) {
           //console.log(res.proches[i][0].nom) // I need to add 
           da.push(res.proches[i][0].nom); // Create your array of data
         }
-
+        this.props.AbleNext()
 
         this.setState({
           data: da
@@ -44,11 +46,10 @@ export default class ImagePickerExample extends React.Component {
       .done();
   }
   
-
   render() {
     let { value } = this.state;
-    console.log("!!!!!!!!!")
-    console.log(this.state.data);
+    //console.log("!!!!!!!!!")
+    //console.log(this.state.data);
     const update = () => {
 
 
@@ -63,7 +64,7 @@ export default class ImagePickerExample extends React.Component {
       })
 
 
-      console.log(bodyData, "-------------------")
+     // console.log(bodyData, "-------------------")
 
       fetch(url1)
       fetch(url2+'/api/ajout_proche', {
@@ -91,7 +92,7 @@ export default class ImagePickerExample extends React.Component {
         value={this.state.value}
       >
         <View style={{ marginTop: 20, backgroundColor: 'white', paddingBottom: 200 }}>
-          <Text style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>Validez un rendez-vous :</Text>
+          <Text style={{ fontSize: 16, alignSelf: 'center'}}>Vous prenez un rendez-vous pour :</Text>
           <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 15 }}>
             <View style={{ marginRight: 30 }}>
               <Text>Pour vous</Text>
@@ -105,14 +106,16 @@ export default class ImagePickerExample extends React.Component {
           <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 15 }}>
             {value == 'second' && (
               <View>
+                <View style={{borderBottomColor:'grey',borderBottomWidth:1}}>
               <Picker
                 selectedValue={this.state.selectedValue}
-                style={{ height: 100, width: 200 }}
+                style={{ height: 30, width: 250 }}
                 onValueChange={(itemValue, itemIndex) => this.setState({selectedValue:itemValue})} >
                 {this.state.data.map((item, index) =>
                   <Picker.Item label={item} value={index} key={index} />
                 )}
               </Picker>
+              </View>
               <Modal
               animationType="slide"
               transparent={true}
@@ -123,14 +126,9 @@ export default class ImagePickerExample extends React.Component {
               <View style={styles.modalView}>
 
 
-                <TouchableOpacity
-                  style={{ backgroundColor: "#2196F3" }}
-                  onPress={() => {
-                    this.setState({ modalVisible: false });
-                  }}
-                >
-                  <Text style={styles.textStyle}>Fermer</Text>
-                </TouchableOpacity>
+                
+                  <Text style={{alignSelf:'center',fontSize:20,color:'#1E79C5',height:30,marginBottom:20}}>Ajouter un proche</Text>
+                
                 <ScrollView>
                   <Text style={styles.text}>Nom:</Text>
                   <TextInput
@@ -163,13 +161,23 @@ export default class ImagePickerExample extends React.Component {
                     onChangeText={(tele) => { this.setState({tel:tele}) }}
 
                   />
+                  <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                   <TouchableOpacity
-                    style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                    style={{ ...styles.openButton, backgroundColor: "#f0ad4e" }}
+                    onPress={() => {
+                      this.setState({ modalVisible: false });
+                    }}
+                  >
+                    <Text style={styles.textStyle}>Annuler</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{ ...styles.openButton, backgroundColor: "#1E79C5" }}
                     onPress={() => update()}
                   >
                     <Text style={styles.textStyle}>Ajouter</Text>
                   </TouchableOpacity>
-
+                  
+                  </View>
                 </ScrollView>
               </View>
 
@@ -178,7 +186,7 @@ export default class ImagePickerExample extends React.Component {
               onPress={() => {
                 this.setState({ modalVisible: true });
               }}>
-              <Text style={{ color: 'white', fontSize: 15 }}> Ajouter un proche</Text>
+              <Text style={{ color: 'white', fontSize: 16,alignSelf:'center' }}> Ajouter un proche</Text>
             </TouchableOpacity>
               </View>
               
@@ -236,21 +244,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   btn: {
-    borderRadius: 8,
-    backgroundColor: 'orange',
+    borderRadius: 5,
+    backgroundColor:'#1E79C5',
     color: 'white',
-    width: 200,
+    width: 250,
     height: 30,
     alignSelf: 'flex-end',
     marginRight: 10,
     marginBottom: 10,
     marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center'
   },
 
   modalView: {
-    //margin: 5,
+    marginTop: 60,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 10,
@@ -290,12 +296,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingLeft: 10,
     backgroundColor: 'white',
-    marginBottom: 15,
+    marginBottom: 10,
   },
   text: {
-
-    
-    marginLeft: 10,
+    margin: 10,
     fontWeight: 'bold',
     fontSize: 16,
     color: '#2c3e50'

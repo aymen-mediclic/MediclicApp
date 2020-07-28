@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, AsyncStorage } from 'react-native'
+import { View, Text, Image, StyleSheet, AsyncStorage } from 'react-native'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import moment from 'moment';
 import Recap from './RécapitulatifScreen';
@@ -11,7 +11,8 @@ import { url1, url2 } from '../Navigation/GlobalUrl';
 class RDV extends React.Component {
 
   state = {
-    userInfo: false
+    userInfo: false,
+    nxt:true
   }
 
   onFocusFunction = () => {
@@ -29,9 +30,9 @@ class RDV extends React.Component {
   }
 
 
-  // componentWillUnmount () {
-  //   this.focusListener.remove()
-  // }
+  AbleNext = () => {
+    this.setState({ nxt: false })
+  }
 
 
   getUser = async () => {
@@ -113,26 +114,27 @@ class RDV extends React.Component {
     let name = this.props.route.params.name;
     
     let service_salle = this.props.route.params.service_salle; 
-    console.log(text)
-    console.log(name)
+    //console.log(text)
+    //console.log(name)
     //console.log(name1)
     
     return (
       <View style={styles.container}>
 
-        <ProgressSteps>
-          <ProgressStep label="Identification " nextBtnText="Suivant" >
+        <ProgressSteps >
+          <ProgressStep label="Identification " nextBtnText="Suivant" nextBtnDisabled={this.state.nxt} >
 
-            <Identification />
+            <Identification AbleNext={this.AbleNext} userInfo={this.state.userInfo} onFocusFunction={this.onFocusFunction} />
 
           </ProgressStep>
 
-          <ProgressStep label="Récapitulatif" nextBtnText="Suivant" previousBtnText="Précédent" >
+          <ProgressStep label="Récapitulatif" nextBtnText="Confirmer" previousBtnText="Précédent" onNext={this.Confirmation} >
             <Recap Name={name} text={text} userInfo={this.state.userInfo} />
           </ProgressStep>
-          <ProgressStep label="Confirmation" previousBtnText="Précédent" finishBtnText='Confirmer' onSubmit={ this.Confirmation } >
+          <ProgressStep label="Confirmation" previousBtnText="Précédent" finishBtnText='Confirmer' onSubmit={ this.Confirmation } nextBtnDisabled={true} previousBtnDisabled={true} >
             <View style={{ alignItems: 'center' }}>
-              <Text>Félicitation!</Text>
+              <Text style={{ fontSize: 16 }}>Félicitations, votre rendez-vous est confirmé !</Text>
+              <Image style={styles.img} source={require('../assets/C.png')} />
             </View>
           </ProgressStep>
         </ProgressSteps>

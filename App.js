@@ -174,14 +174,17 @@ export default class App extends React.Component {
               fontSize:18
             }
           }} />
-          <Stack.Screen name="Prendre un rendez-vous" component={RDV} options={{
+          <Stack.Screen name="Validez votre rendez-vous" component={RDV} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',
               height: 80,
             },
+            headerTitleAlign: 'center',
+            headerLeft: null,
             headerTitleStyle: {
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize:18
             }
           }} />
           <Stack.Screen name="Inscription Professionel" component={InscriptionProf} options={{

@@ -16,7 +16,7 @@ export default class ImagePickerExample extends React.Component {
     prenom:"",
     mail:"",
     tel:"",
-    
+    Adress2:""
   };
   componentDidMount() {
     //let uid =  AsyncStorage.getItem(uid);
@@ -25,15 +25,16 @@ export default class ImagePickerExample extends React.Component {
     return fetch(url2+'/api/profil?uid=26&get_proche')
       .then((response) => response.json())
       .then((res) => {
-        /*console.log("!!!test proches")
-        console.log(res.proches[2][0].nom)
+        //console.log("!!!test proches",res)
+        /*console.log(res.proches[2][0].nom)
         console.log("!!!!!!!!!")
         console.log(res.proches.length)*/
         let da = [];
         var count = Object.keys(res.proches).length;
         for (var i = 0; i < count; i++) {
           //console.log(res.proches[i][0].nom) // I need to add 
-          da.push(res.proches[i][0].nom); // Create your array of data
+          //da.push(res.proches[i][0].nom); // Create your array of data
+          da.push(res.proches[i][0]);
         }
         this.props.AbleNext()
 
@@ -48,7 +49,7 @@ export default class ImagePickerExample extends React.Component {
   
   render() {
     let { value } = this.state;
-    //console.log("!!!!!!!!!")
+    console.log("nooum",this.state.selectedValue)
     //console.log(this.state.data);
     const update = () => {
 
@@ -103,6 +104,14 @@ export default class ImagePickerExample extends React.Component {
               <RadioButton value="second" />
             </View>
           </View>
+          {/*<View>
+                <Text style={{marginLeft:20}}>Adresse 2</Text>
+              <TextInput
+                    style={styles.text_input}
+                    placeholder="Adresse 2"
+                    onChangeText={(Adress2) => this.setState({Adress2}) }
+                  />
+              </View>*/}
           <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 15 }}>
             {value == 'second' && (
               <View>
@@ -112,7 +121,7 @@ export default class ImagePickerExample extends React.Component {
                 style={{ height: 30, width: 250 }}
                 onValueChange={(itemValue, itemIndex) => this.setState({selectedValue:itemValue})} >
                 {this.state.data.map((item, index) =>
-                  <Picker.Item label={item} value={index} key={index} />
+                  <Picker.Item label={item.nom} value={index} key={index} />
                 )}
               </Picker>
               </View>
@@ -195,7 +204,7 @@ export default class ImagePickerExample extends React.Component {
           </View>
 
         </View>
-
+              
       </RadioButton.Group>
     );
   }
@@ -276,7 +285,8 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2,
     width: 150,
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
+    marginTop:10
   },
   textStyle: {
     color: "white",

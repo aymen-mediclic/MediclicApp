@@ -24,7 +24,6 @@ class MedItem extends React.Component {
                             } */
     componentDidMount() {
         const input = this.props.Med.days;
-
         const group = input.reduce((acc, item) => {
             let date = moment(item.date_start).format('MM/DD/YYYY');
 
@@ -49,6 +48,7 @@ class MedItem extends React.Component {
 
     render() {
         const Med = this.props.Med
+        console.log('2',this.props.dataFilter.type_rdv)
         /*console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         for (let i = 0; i < (Med.lieux_color_ref.length); i++) {
             console.log(i)
@@ -129,6 +129,8 @@ class MedItem extends React.Component {
                                                     <TouchableOpacity style={[styles.txt_slt, { marginHorizontal: 2 }]} onPress={() => NavigationService.navigate('Validez votre rendez-vous',
                                                         {
                                                             name: Med.obj.name,
+                                                            adresse:this.props.dataFilter.location,
+                                                            type_rdv:this.props.dataFilter.type_rdv,
                                                             namo: day.name,
                                                             text: day.date_start,
                                                             text1: day.date_end,

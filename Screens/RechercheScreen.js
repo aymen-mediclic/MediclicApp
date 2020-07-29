@@ -394,7 +394,7 @@ class RechercheScreen extends React.Component {
         <FlatList
           data={this.state.dataSource}
           keyExtractor={item => { return item.id }}
-          renderItem={({ item }) => <MedItem Med={item} />}
+          renderItem={({ item }) => <MedItem Med={item} dataFilter={this.state.datafiltre} />}
           refreshing={this.state.refreshing}
           onRefresh={this.handleRefresh} 
           onEndReachedThreshold={0.1}

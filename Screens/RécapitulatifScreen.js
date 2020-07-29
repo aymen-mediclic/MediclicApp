@@ -19,26 +19,52 @@ class Recap extends React.Component {
                 <Text style={styles.title} > Informations sur le rendez-vous :</Text>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
                 <Text style={styles.txt}> Type du RDV : </Text>
-                <Text style={styles.txt1}> C</Text>
+                <Text style={styles.txt1}> {this.props.type_rdv} </Text>
                 </View>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Medecin : </Text>
+                <Text style={styles.txt}> RDV avec : </Text>
                 <Text style={styles.txt1}> {this.props.Name}</Text>
                 </View>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
                 <Text style={styles.txt}> Adresse :</Text>
-                <Text style={styles.txt1}> Casablanca </Text>
+                <Text style={styles.txt1}> {this.props.adresse} </Text>
                 </View>
+                {(this.props.type_rdv =='D')?
+                  <>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
                 <Text style={styles.txt}> Adresse 2 :</Text>
                 <Text style={styles.txt1}> Maison </Text>
                 </View>
+                </>
+                  :
+                  <></> 
+                }
+                {(this.props.service_name)?
+                  <>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Date :</Text>
+                <Text style={styles.txt}> Service :</Text>
+                <Text style={styles.txt1}> {this.props.service_name} </Text>
+                </View>
+                </>
+                  :
+                  <></> 
+                }
+                {(this.props.service_salle)?
+                  <>
+                <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
+                <Text style={styles.txt}> Salle :</Text>
+                <Text style={styles.txt1}>{this.props.service_salle}</Text>
+                </View>
+                </>
+                  :
+                  <></> 
+                }
+                <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
+                <Text style={styles.txt}> Heure :</Text>
                 <Text style={styles.txt1}> {moment(text).format("h:mm a")}</Text>
                 </View>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Heure :</Text>
+                <Text style={styles.txt}> Date :</Text>
                 <Text style={styles.txt1}> {moment(text).format("DD-MM-YYYY")}</Text>
                 </View>
                 

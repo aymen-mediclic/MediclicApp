@@ -29,11 +29,12 @@ class Identification extends React.Component {
     return (
       <View>
         <View >
-        {(this.state.val== 'a'&& !this.props.userInfo )?
+        {(this.state.val== 'a'&& !this.props.userInfo)?
                   <>
               <View style={styles.med_ctr}>
               
-              <TextInput style={styles.text_input} placeholder='Nom de compte'
+              <TextInput style={styles.text_input} placeholder='Email'
+                keyboardType='email-address'
                 autoCapitalize = 'none'
                 onChangeText={(login) => this.setState({ login })}
                 value={this.state.username}

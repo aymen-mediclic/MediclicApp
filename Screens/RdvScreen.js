@@ -121,7 +121,7 @@ class RDV extends React.Component {
     return (
       <View style={styles.container}>
 
-        <ProgressSteps >
+        <ProgressSteps completedProgressBarColor='#1E79C5' completedLabelColor='#1E79C5' completedStepIconColor='#1E79C5' activeStepIconBorderColor='#f0ad4e' activeLabelColor='#f0ad4e' activeStepNumColor='#f0ad4e' >
           <ProgressStep label="Identification " nextBtnText="Suivant" nextBtnDisabled={this.state.nxt} >
 
             <Identification AbleNext={this.AbleNext} userInfo={this.state.userInfo} onFocusFunction={this.onFocusFunction} />
@@ -129,7 +129,7 @@ class RDV extends React.Component {
           </ProgressStep>
 
           <ProgressStep label="Récapitulatif" nextBtnText="Confirmer" previousBtnText="Précédent" onNext={this.Confirmation} >
-            <Recap Name={name} text={text} userInfo={this.state.userInfo} />
+            <Recap Name={name} text={text} userInfo={this.state.userInfo} adresse={this.props.route.params.adresse} type_rdv={this.props.route.params.type_rdv} service_name={this.props.route.params.service_name} service_salle={this.props.route.params.service_salle} />
           </ProgressStep>
           <ProgressStep label="Confirmation" previousBtnText="Précédent" finishBtnText='Confirmer' onSubmit={ this.Confirmation } nextBtnDisabled={true} previousBtnDisabled={true} >
             <View style={{ alignItems: 'center' }}>

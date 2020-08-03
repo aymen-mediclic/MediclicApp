@@ -33,7 +33,7 @@ class Recap extends React.Component {
                   <>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
                 <Text style={styles.txt}> Adresse 2 :</Text>
-                <Text style={styles.txt1}> Maison </Text>
+                <Text style={styles.txt1}> {this.props.adress2} </Text>
                 </View>
                 </>
                   :
@@ -83,11 +83,11 @@ class Recap extends React.Component {
                   </View>
                   <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
                   <Text style={styles.txt}> Téléphone :</Text>
-                  
+                  <Text style={styles.txt1}> {this.props.userInfo.tel}</Text>
                   </View>
                   <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
                   <Text style={styles.txt}> E-mail :</Text>
-                  
+                  <Text style={styles.txt1}> {this.props.userInfo.email}</Text>
                   </View>
                     
                   </>

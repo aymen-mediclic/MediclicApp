@@ -16,7 +16,11 @@ class Identification extends React.Component {
       val: 'a',
       icon: "eye-slash",
       pass: true,
+      Adress2:''
     }
+  }
+  componentDidMount() {
+    this.props.AbleNext(true)
   }
   _changeIcon() {
     this.setState(prevState => ({
@@ -27,9 +31,9 @@ class Identification extends React.Component {
   render() {
     console.log(this.props.userInfo, "!!!!!voila!!!!!!!!!!!!!!!!!!!!!")
     return (
-      <View>
+      <KeyboardAvoidingView behavior='padding'>
         <View >
-        {(this.state.val== 'a'&& !this.props.userInfo)?
+        {( !this.props.userInfo)?
                   <>
               <View style={styles.med_ctr}>
               
@@ -66,15 +70,31 @@ class Identification extends React.Component {
                   :
                   <></> 
         }
-        {(this.props.userInfo|| this.state.val== 'b')?
+         {(this.props.type_rdv=='D' && this.state.val!=='b')?
         <>
-            <MyComponent AbleNext={this.props.AbleNext} />
+            <KeyboardAvoidingView behavior='padding' style={styles.adr_view}>
+                <Text style={{margin:15,fontWeight:'bold'}}>Adresse 2</Text>
+              <TextInput
+                    style={styles.input_view}
+                    autoCapitalize='none'
+                    placeholder="Appartement, suite, l'unité, batiment, étage, etc"
+                    onChangeText={(Adress2) => this.setState({Adress2}) }
+                  />
+                  <Button buttonStyle={{width:250,height:30,margin:20}} color='#FFC617' title='Valider' onPress={this.kaka}  />
+              </KeyboardAvoidingView>
+            </>
+                  :
+                  <></> 
+      }
+        {(this.props.userInfo && this.props.type_rdv!=='D' || this.state.val=='b')?
+        <>
+            <MyComponent AbleNext={this.props.AbleNext} getUser={this.props.getUser} />
             </>
                   :
                   <></> 
         }
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 
@@ -135,17 +155,9 @@ class Identification extends React.Component {
   }
   kaka = () => {
     
-    fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-    fetch('51.91.249.185:8069/api/profil_medecin?uid=ra9m&get_general' )
-
-      .then((response) => response.json())
-      .then((res) => {
-        console.log("repooooonse")
-        console.log(res)
-        console.log("*********success***********")
-        
-      })
-      .done();
+    this.setState({val:'b'})
+    console.log('456454564564564564',this.state.Adress2);
+    this.props.getAdress2(this.state.Adress2);
   }
 
 }
@@ -210,6 +222,17 @@ const styles = StyleSheet.create({
     borderWidth:1,
     borderColor:'#1E79C5',
     borderRadius:5
+  },
+  adr_view: {
+    alignSelf:'center',
+    marginTop:40,
+  },
+  input_view: {
+    borderBottomWidth:1,
+    borderColor:'grey',
+    borderRadius:5,
+    padding:3,
+    width:'100%'
   },
 });
 export default Identification

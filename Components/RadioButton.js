@@ -36,8 +36,8 @@ export default class ImagePickerExample extends React.Component {
           //da.push(res.proches[i][0].nom); // Create your array of data
           da.push(res.proches[i][0]);
         }
-        this.props.AbleNext()
-
+        
+        this.props.AbleNext(false)
         this.setState({
           data: da
         })
@@ -46,10 +46,16 @@ export default class ImagePickerExample extends React.Component {
       })
       .done();
   }
-  
+  getProcheInfo = async (itemValue,itemIndex) => {
+    this.setState({ selectedValue: itemValue });
+    await AsyncStorage.removeItem("userInfo");
+    await AsyncStorage.setItem("userInfo", JSON.stringify(this.state.data[itemIndex]));
+    console.log("qfsfgdstf",JSON.stringify(this.state.data[itemIndex]))
+    this.props.getUser();
+  }
   render() {
     let { value } = this.state;
-    console.log("nooum",this.state.selectedValue)
+    //console.log("nooum",this.state.selectedValue)
     //console.log(this.state.data);
     const update = () => {
 
@@ -119,7 +125,9 @@ export default class ImagePickerExample extends React.Component {
               <Picker
                 selectedValue={this.state.selectedValue}
                 style={{ height: 30, width: 250 }}
-                onValueChange={(itemValue, itemIndex) => this.setState({selectedValue:itemValue})} >
+                onValueChange={(itemValue, itemIndex) => {
+                  this.getProcheInfo(itemValue,itemIndex);
+                }} >
                 {this.state.data.map((item, index) =>
                   <Picker.Item label={item.nom} value={index} key={index} />
                 )}
@@ -202,7 +210,6 @@ export default class ImagePickerExample extends React.Component {
             )}
             
           </View>
-
         </View>
               
       </RadioButton.Group>

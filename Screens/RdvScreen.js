@@ -12,7 +12,11 @@ class RDV extends React.Component {
 
   state = {
     userInfo: false,
-    nxt:true
+    nxt:true,
+    adress2:''
+  }
+  getAdress2=(val)=>{
+    this.setState({adress2:val})
   }
 
   onFocusFunction = () => {
@@ -30,8 +34,8 @@ class RDV extends React.Component {
   }
 
 
-  AbleNext = () => {
-    this.setState({ nxt: false })
+  AbleNext = (val) => {
+    this.setState({ nxt: val })
   }
 
 
@@ -124,12 +128,12 @@ class RDV extends React.Component {
         <ProgressSteps completedProgressBarColor='#1E79C5' completedLabelColor='#1E79C5' completedStepIconColor='#1E79C5' activeStepIconBorderColor='#f0ad4e' activeLabelColor='#f0ad4e' activeStepNumColor='#f0ad4e' >
           <ProgressStep label="Identification " nextBtnText="Suivant" nextBtnDisabled={this.state.nxt} >
 
-            <Identification AbleNext={this.AbleNext} userInfo={this.state.userInfo} onFocusFunction={this.onFocusFunction} />
+            <Identification AbleNext={this.AbleNext} userInfo={this.state.userInfo} getUser={this.getUser} type_rdv={this.props.route.params.type_rdv} getAdress2={this.getAdress2} />
 
           </ProgressStep>
 
           <ProgressStep label="Récapitulatif" nextBtnText="Confirmer" previousBtnText="Précédent" onNext={this.Confirmation} >
-            <Recap Name={name} text={text} userInfo={this.state.userInfo} adresse={this.props.route.params.adresse} type_rdv={this.props.route.params.type_rdv} service_name={this.props.route.params.service_name} service_salle={this.props.route.params.service_salle} />
+            <Recap Name={name} text={text} userInfo={this.state.userInfo} adresse={this.props.route.params.adresse} type_rdv={this.props.route.params.type_rdv} service_name={this.props.route.params.service_name} service_salle={this.props.route.params.service_salle} adress2={this.state.adress2} onFocusFunction={this.onFocusFunction} />
           </ProgressStep>
           <ProgressStep label="Confirmation" previousBtnText="Précédent" finishBtnText='Confirmer' onSubmit={ this.Confirmation } nextBtnDisabled={true} previousBtnDisabled={true} >
             <View style={{ alignItems: 'center' }}>

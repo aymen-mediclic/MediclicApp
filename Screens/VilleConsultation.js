@@ -12,7 +12,7 @@ export default class VilleC extends React.Component {
     return (
       <View style={{flex:1}}>
       <GooglePlacesAutocomplete
-      placeholder='Où ?(adresse,ville...)'
+      placeholder='Où ? (adresse,ville...)'
         query={{
           key: GOOGLE_PLACES_API_KEY,
           language: 'fr', // language of the results

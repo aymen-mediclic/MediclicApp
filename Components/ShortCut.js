@@ -131,8 +131,8 @@ export default class ShortCut extends React.Component {
                     style={styles.Picker}
                     onValueChange={(itemValue, itemIndex) => { this.functionOne(itemValue, "type_calendrier"); }}
                 >
-                    <Picker.Item label="Consultation ou Service" value='all' />
-                    <Picker.Item label="Consultation" value='professionel' />
+                    <Picker.Item label="Séance ou Service" value='all' />
+                    <Picker.Item label="Séance" value='professionel' />
                     <Picker.Item label="Service" value='service' />
                 </Picker>
                 

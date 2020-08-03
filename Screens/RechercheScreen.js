@@ -131,10 +131,10 @@ class RechercheScreen extends React.Component {
 
       .then((response) => response.json())
       .then((res) => {
-        console.log("repooooonse")
+        console.log(">>>><<<<<<<<<<<<<")
 
         console.log(res)
-
+        console.log("><>>>>>>>")
 
         this.setState({
           isLoading: false,

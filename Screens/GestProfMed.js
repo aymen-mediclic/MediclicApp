@@ -32,13 +32,15 @@ class HomeScreen extends React.Component {
   }
 
   render() {
-    
+    if(this.props.data.lieux!= null) {  
     console.log('==============================')
-    console.log(this.props.data.langue)
+    //console.log(this.props.data.lieux[0])
     console.log('==============================')
+    }
     function getImageFromApi (name) {
       return url2 + name
     }
+  
     return (
       <ScrollView >
         <View style={styles.ctr1}>
@@ -47,6 +49,7 @@ class HomeScreen extends React.Component {
 
           <Text style={styles.txt_name}>{this.props.data.name}</Text>
           <Text style={styles.txt_spe}>{this.props.data.speciality}</Text>
+          <Text style={{fontSize:18,fontWeight:'bold',color:'#7f8c8d',margin:5}}>Présentation :</Text>
           <Text style={styles.txt_spe}>{this.props.data.presentation}</Text>
       
           { /*{
@@ -159,7 +162,7 @@ class SettingsScreen extends React.Component {
     return (
       <View style={{backgroundColor:'white',flex:1 }}>
         <Text style={{fontSize:20,fontWeight:'bold',alignSelf:'center',margin:5}}>Formation(s) et parcours</Text>
-        <Text style={{fontSize:16,color:'#7f8c8d',margin:10}}>Formation(s):</Text>
+        <Text style={{fontSize:16,color:'#1E79C5',margin:10}}>Formation(s):</Text>
         
           
           {
@@ -180,7 +183,7 @@ class SettingsScreen extends React.Component {
             <></>
           }
             
-        <Text style={{fontSize:16,color:'#7f8c8d',margin:10}}>Parcours:</Text>
+        <Text style={{fontSize:16,color:'#1E79C5',margin:10}}>Parcours:</Text>
         {
             (this.props.data && this.props.data.formation)?
               this.props.data.formation.map((lng, key)=>{ 
@@ -200,7 +203,7 @@ class SettingsScreen extends React.Component {
           }
         
         
-        <Text style={{fontSize:16,color:'#7f8c8d',margin:10}}>Langue(s) parlée(s) :</Text>
+        <Text style={{fontSize:16,color:'#1E79C5',margin:10}}>Langue(s) parlée(s) :</Text>
         <View style={{ flexDirection: 'column',margin:10 }}>
         {
             (this.props.data.langue)?
@@ -289,8 +292,8 @@ export default class GProfMed extends React.Component {
 
       .then((response) => response.json())
       .then((res) => {
-        console.log("repooooonse")
-        console.log(res)
+        //console.log("repooooonse")
+        //console.log(res)
         this.setState({
           isLoading: false,
           data: res
@@ -312,7 +315,7 @@ export default class GProfMed extends React.Component {
   }
   render() {
     const Id = this.props.route.params.id;
-    console.log(Id,'white***********************')
+    //console.log(Id,'white***********************')
     return (
 
       <Tab.Navigator tabBarOptions={{
@@ -342,11 +345,10 @@ const styles = StyleSheet.create({
   ctr1: {
     flex: 1,
     alignItems: 'center',
-    //justifyContent:'center',
-    //width: '97%',
-    height: 350,
+    padding:15,
     backgroundColor: 'white',
-    margin: 10
+    margin: 10,
+    borderRadius:3
   },
   mapStyle: {
     width: '90%',
@@ -360,8 +362,8 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   txt_spe: {
-
-    
+    fontSize: 17,
+    color:'#95a5a6'
   },
   slide1: {
     flex: 1,

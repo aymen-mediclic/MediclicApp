@@ -3,11 +3,13 @@ import * as React from 'react';
 import { View, Picker, TextInput, Modal, StyleSheet, TouchableOpacity, ScrollView,AsyncStorage } from 'react-native';
 import { RadioButton, Text } from 'react-native-paper';
 import { url2, url1 } from '../Navigation/GlobalUrl';
-
+import { Button,Input } from 'react-native-elements';
 
 
 export default class ImagePickerExample extends React.Component {
-  state = {
+  constructor(props) {
+    super(props)
+  this.state = {
     value: 'first',
     selectedValue: '',
     data: [],
@@ -17,7 +19,7 @@ export default class ImagePickerExample extends React.Component {
     mail:"",
     tel:"",
     Adress2:""
-  };
+  };}
   componentDidMount() {
     //let uid =  AsyncStorage.getItem(uid);
     //console.log('111',uid)
@@ -48,7 +50,7 @@ export default class ImagePickerExample extends React.Component {
   }
   getProcheInfo = async (itemValue,itemIndex) => {
     this.setState({ selectedValue: itemValue });
-    await AsyncStorage.removeItem("userInfo");
+    //await AsyncStorage.removeItem("userInfo");
     await AsyncStorage.setItem("userInfo", JSON.stringify(this.state.data[itemIndex]));
     console.log("qfsfgdstf",JSON.stringify(this.state.data[itemIndex]))
     this.props.getUser();

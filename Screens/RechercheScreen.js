@@ -19,10 +19,11 @@ class RechercheScreen extends React.Component {
       datafiltre: [],
       modalOpen: false,
       refreshing: false,
-      cmp1:"",
-      cmp2:"",
-      cmp3:"",
-      pag:false,
+      cmp1: "",
+      cmp2: "",
+      cmp3: "",
+      pag: false,
+      finres: false
     }
   }
 
@@ -32,22 +33,22 @@ class RechercheScreen extends React.Component {
 
   _Request = () => {
     //this.setState({ isLoading: true })
-    fetchLien(this.props.route.params.lien, this.props.route.params.choice,this.props.route.params.lng,this.props.route.params.lat,this.props.route.params.loc
+    fetchLien(this.props.route.params.lien, this.props.route.params.choice, this.props.route.params.lng, this.props.route.params.lat, this.props.route.params.loc
     ).then((res) => {
 
-     
+
       //console.log(res[1].obj.name);
       //let date=moment(res[1].days[0].date_start).format('YYYY-MM-DD');
       //console.log(date)
       this.setState({
         isLoading: false,
         dataSource: res.medecin,
-        datafiltre:res,
+        datafiltre: res,
         refreshing: false,
       })
-     console.log("****************");
+      console.log("****************");
       //console.log(res.medecin[0].obj);
-      console.log(">>>><<",this.state.dataSource[0].obj.name)
+      console.log(">>>><<", this.state.dataSource[0].obj.name)
       console.log("****************");
       //this.props.navigation.setParams({myId: this.state.dataSource[0].obj.name })
     })
@@ -57,7 +58,7 @@ class RechercheScreen extends React.Component {
     if (this.state.isLoading) {
       //Loading View while data is loading
       return (
-        <View style={{ flex: 1, marginTop:15,marginBottom:10 }}>
+        <View style={{ flex: 1, marginTop: 15, marginBottom: 10 }}>
           <ActivityIndicator />
         </View>
       );
@@ -107,7 +108,7 @@ class RechercheScreen extends React.Component {
 
 
     fetch(url1)
-    return fetch(url2+'/api/search' +
+    return fetch(url2 + '/api/search' +
       '?filtres= 1' +
       '&dispo_date=' + selectedValue5 +
       '&medecin_name=' + this.state.datafiltre.medecin_name +
@@ -160,7 +161,7 @@ class RechercheScreen extends React.Component {
     let latde = lat;
 
     fetch(url1)
-    return fetch(url2+'/api/search' +
+    return fetch(url2 + '/api/search' +
       '?filtres= 1' +
       '&dispo_date=' + selectedValue5 +
       '&medecin_name=' + this.state.datafiltre.medecin_name +
@@ -210,7 +211,7 @@ class RechercheScreen extends React.Component {
 
 
     fetch(url1)
-    return fetch(url2+'/api/search' +
+    return fetch(url2 + '/api/search' +
       '?filtres= 1' +
       '&dispo_date=' + selectedValue5 +
       '&medecin_name=' + name +
@@ -261,7 +262,7 @@ class RechercheScreen extends React.Component {
 
 
     fetch(url1)
-    return fetch(url2+'/api/search' +
+    return fetch(url2 + '/api/search' +
       '?filtres= 1' +
       '&dispo_date=' + selectedValue5 +
       '&medecin_name=' + this.state.datafiltre.centre_name +
@@ -309,17 +310,17 @@ class RechercheScreen extends React.Component {
     let selectedValue3 = this.state.datafiltre.speciality_param;
     let selectedValue4 = this.state.datafiltre.service_param;
     let selectedValue5 = 0;
-    if(this.state.pag==false){
-      this.state.cmp1=this.state.datafiltre.cmp_from_medecin_calendar
-      this.state.cmp2=this.state.datafiltre.cmp_from_centre_calendar
-      this.state.cmp3=this.state.datafiltre.cmp_from_smart_service
+    if (this.state.pag == false) {
+      this.state.cmp1 = this.state.datafiltre.cmp_from_medecin_calendar
+      this.state.cmp2 = this.state.datafiltre.cmp_from_centre_calendar
+      this.state.cmp3 = this.state.datafiltre.cmp_from_smart_service
     }
-    console.log("test",this.state.cmp1)
-        console.log("teste",this.state.cmp2)
-        console.log("test",this.state.cmp3)
+    console.log("test", this.state.cmp1)
+    console.log("teste", this.state.cmp2)
+    console.log("test", this.state.cmp3)
 
     fetch(url1)
-    return fetch(url2+'/api/search' +
+    return fetch(url2 + '/api/search' +
       '?filtres= 1' +
       '&dispo_date=' + selectedValue5 +
       '&medecin_name=' + this.state.datafiltre.medecin_name +
@@ -343,25 +344,30 @@ class RechercheScreen extends React.Component {
 
       .then((response) => response.json())
       .then((res) => {
-        
-        
-        let d=this.state.dataSource;
-        let da=this.state.datafiltre;
-        this.setState({
-          dataSource: d.concat(res.medecin),
-          cmp1:res.cmp_from_medecin_calendar,
-        cmp2:res.cmp_from_centre_calendar,
-        cmp3:res.cmp_from_smart_service,
-        pag:true,
-        //isLoading:false
-          //datafiltre: da.concat(res),
-        })
-        console.log(this.state.datafiltre,"222222")
+
+        if (res.medecin.length) {
+          let d = this.state.dataSource;
+          let da = this.state.datafiltre;
+          this.setState({
+            dataSource: d.concat(res.medecin),
+            cmp1: res.cmp_from_medecin_calendar,
+            cmp2: res.cmp_from_centre_calendar,
+            cmp3: res.cmp_from_smart_service,
+            pag: true,
+            //isLoading:false
+            //datafiltre: da.concat(res),
+          })
+          console.log(res.medecin, "222222")
+        } else {
+          console.log(res.medecin, "haha")
+          this.setState({ finres: true })
+        }
+
         /*
         console.log("medecin",this.state.cmp1)
         console.log("centre",this.state.cmp2)
         console.log("smart",this.state.cmp3)*/
-       
+
       }).done()
 
 
@@ -370,17 +376,17 @@ class RechercheScreen extends React.Component {
 
   render() {
     let A = this.props.route.params.choice;
-    
+
     return (
       <View style={styles.main_container}>
-        
+
         <Modal visible={this.state.modalOpen} animationType='slide' transparent={true} >
           <ShortCut data={this.state.datafiltre} dataFilter={this.dataFilter} dataFilter1={this.dataFilter1} dataFilter2={this.dataFilter2} dataFilter3={this.dataFilter3} modalClose={this.CloseModal} />
         </Modal>
-        <Segment style={{ backgroundColor: '#1E79C5',height:40}}>
-        <TouchableOpacity style={styles.filter_btn} onPress={() => this.setState({ modalOpen: true })} >
-        <Fontisto color='white' size={16} name={'equalizer'} />
-          
+        <Segment style={{ backgroundColor: '#1E79C5', height: 40 }}>
+          <TouchableOpacity style={styles.filter_btn} onPress={() => this.setState({ modalOpen: true })} >
+            <Fontisto color='white' size={16} name={'equalizer'} />
+
             <Text style={styles.fabIcon}>FILTRER</Text>
           </TouchableOpacity>
         </Segment>
@@ -394,20 +400,23 @@ class RechercheScreen extends React.Component {
         <FlatList
           data={this.state.dataSource}
           keyExtractor={item => { return item.id }}
-          renderItem={({ item }) => <MedItem Med={item} dataFilter={this.state.datafiltre} />}
+          renderItem={({ item }) => <MedItem Med={item} dataFilter={this.state.datafiltre} finres={this.state.finres} />}
           refreshing={this.state.refreshing}
-          onRefresh={this.handleRefresh} 
-          onEndReachedThreshold={0.1}
-          onEndReached={()=>{
+          onRefresh={this.handleRefresh}
+          onEndReachedThreshold={1}
+          onEndReached={() => {
             console.log("onEndReached");
             this.loadMoreData();
-           }
-          
-          //this.loadMoreData();
           }
-          />
-          
- 
+          }
+          ListFooterComponent={() => this.state.finres == true &&
+            <Text style={styles.txt_fin}> Fin de résultats! </Text>
+          }
+        />
+
+        <View>
+
+        </View>
       </View>
     );
   }
@@ -422,17 +431,24 @@ const styles = StyleSheet.create({
   fabIcon: {
     fontSize: 15,
     color: 'white',
-    marginLeft:5
+    marginLeft: 5
   },
-  filter_btn:{
-    marginHorizontal:5,
-    flexDirection:'row',
-    alignSelf:'center',
-    borderWidth:1,
-    borderColor:'white',
-    width:100,
-    padding:5
-  } 
+  filter_btn: {
+    marginHorizontal: 5,
+    flexDirection: 'row',
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: 'white',
+    width: 100,
+    padding: 5
+  },
+  txt_fin: {
+    margin: 10,
+    fontSize: 18,
+    color: '#34495e',
+    alignSelf: 'center',
+    fontWeight: 'bold'
+  }
 });
 
 export default RechercheScreen

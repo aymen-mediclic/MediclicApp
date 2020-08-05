@@ -43,6 +43,8 @@ import SearchCtr from './Components/SearchCentre';
 import MdpOub from './Screens/MdpOub';
 import InscriptionProf from './Screens/InscriptionProf';
 import HeaderRes from './Components/HeaderRes';
+import Adresse2 from './Components/Adresse2';
+import HeaderMc from './Components/HeaderMC';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -99,7 +101,7 @@ export default class App extends React.Component {
                   {/*<FontAwesomeIcon icon='user' />*/}
                 </TouchableOpacity>,
               headerLeft: () =>
-                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => NavigationService.navigate('Inscription Professionel')} >
+                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => NavigationService.navigate('Seconde adresse')} >
                   <MaterialIcons name='menu' size={28} color={'white'} />
                 </TouchableOpacity>,
             }
@@ -264,7 +266,7 @@ export default class App extends React.Component {
             }
           }} />
          
-          <Stack.Screen name="Mon Profil" component={GProfMed} options={{
+          <Stack.Screen name="Mon Profil" component={GProfMed} options={({ route }) =>({
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',
@@ -274,9 +276,9 @@ export default class App extends React.Component {
             headerTitleStyle: {
               fontWeight: 'bold'
             },
-            
+            headerTitle: ()=> <HeaderMc id={route.params.id} name={route.params.name} specialite={route.params.specialite} />
             //title:() =>{<Image style={{ height: 60, width: 100 }} source={require('./assets/Title.jpg')} />} 
-          }} />
+          })} />
 
           <Stack.Screen name="WebViewScreen" component={WebViewScreen} options={{
             headerTintColor: '#fff',
@@ -350,6 +352,18 @@ export default class App extends React.Component {
             },
           }} />
           <Stack.Screen name="Mot de passe oublié?" component={MdpOub} options={{
+            headerTintColor: '#fff',
+            headerStyle: {
+              backgroundColor: '#1E79C5',
+              height: 80,
+            },
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              fontSize:18
+            },
+          }} />
+          <Stack.Screen name="Seconde adresse" component={Adresse2} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',

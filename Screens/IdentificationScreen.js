@@ -70,7 +70,7 @@ class Identification extends React.Component {
                   :
                   <></> 
         }
-         {(this.props.type_rdv=='D' && this.state.val!=='b')?
+         {/*(this.props.type_rdv=='D' && this.state.val!=='b')?
         <>
             <KeyboardAvoidingView behavior='padding' style={styles.adr_view}>
                 <Text style={{margin:15,fontWeight:'bold'}}>Adresse 2</Text>
@@ -85,8 +85,8 @@ class Identification extends React.Component {
             </>
                   :
                   <></> 
-      }
-        {(this.props.userInfo && this.props.type_rdv!=='D' || this.state.val=='b')?
+      */}
+        {(this.props.userInfo)?
         <>
             <MyComponent AbleNext={this.props.AbleNext} getUser={this.props.getUser} />
             </>
@@ -127,7 +127,7 @@ class Identification extends React.Component {
                 console.log(res)
                 
                 await AsyncStorage.setItem("userInfo",JSON.stringify(res))
-                this.props.onFocusFunction()
+                this.props.getUser()
             })
             .done();
           }

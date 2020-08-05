@@ -1,22 +1,23 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, AsyncStorage } from 'react-native'
+import { View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity } from 'react-native'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import moment from 'moment';
 import Recap from './RécapitulatifScreen';
 import MyComponent from '../Components/RadioButton';
 import Identification from './IdentificationScreen';
 import { url1, url2 } from '../Navigation/GlobalUrl';
+import { Button, Input } from 'react-native-elements';
 
-    
 class RDV extends React.Component {
 
   state = {
     userInfo: false,
-    nxt:true,
-    adress2:''
+    nxt: true,
+    adress2: '',
+    nbr:0
   }
-  getAdress2=(val)=>{
-    this.setState({adress2:val})
+  getAdress2 = () => {
+    this.setState({ adress2: this.props.route.params.adresse2 })
   }
 
   onFocusFunction = () => {
@@ -40,6 +41,17 @@ class RDV extends React.Component {
 
 
   getUser = async () => {
+    fetch(url1)
+    fetch(url2 + '/api/profil?uid=26&get_profil')
+      .then((response) => response.json())
+      .then(async (res) => {
+        console.log("12")
+        console.log(res)
+
+        await AsyncStorage.setItem("userInfo", JSON.stringify(res))
+
+      })
+      .done();
     let userInfo = await AsyncStorage.getItem("userInfo");
     if (userInfo) {
       userInfo = JSON.parse(userInfo);
@@ -48,20 +60,20 @@ class RDV extends React.Component {
     }
   }
   Confirmation = (name1 = this.props.route.params.namo,
-    
+
     text = this.props.route.params.text,
-     text1 = this.props.route.params.text1,
-     doctor = this.props.route.params.doctor,
-     duration = this.props.route.params.duration,
-     partner_id = this.props.route.params.partner_id,
-     context = this.props.route.params.context,
-     praticien = this.props.route.params.praticien,
-     service_id = this.props.route.params.service_id,
-     service_name = this.props.route.params.service_name,
-     service_salle = this.props.route.params.service_salle,
-     adresse_rdv = this.props.route.params.adresse_rdv) => {
+    text1 = this.props.route.params.text1,
+    doctor = this.props.route.params.doctor,
+    duration = this.props.route.params.duration,
+    partner_id = this.props.route.params.partner_id,
+    context = this.props.route.params.context,
+    praticien = this.props.route.params.praticien,
+    service_id = this.props.route.params.service_id,
+    service_name = this.props.route.params.service_name,
+    service_salle = this.props.route.params.service_salle,
+    adresse_rdv = this.props.route.params.adresse_rdv) => {
     fetch(url1)
-    fetch(url2+'/api/create_event', {
+    fetch(url2 + '/api/create_event', {
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/javascript, */*; q=0.01',
@@ -82,10 +94,10 @@ class RDV extends React.Component {
         'type': "1",
         'patient_proche': "0",
         'adresse_rdv': adresse_rdv,
-        "service_id":service_id,
+        "service_id": service_id,
         'service_name': service_name,
         'service_salle': service_salle,
-        
+
 
         'type_cons': "C",
         'location': "131 anfa. Casablanca",
@@ -100,7 +112,7 @@ class RDV extends React.Component {
 
       .then((response) => response.json())
       .then((res) => {
-        
+
         console.log("repooooonse")
         console.log(res)
         console.log("*********success***********")
@@ -109,33 +121,36 @@ class RDV extends React.Component {
       })
       .done();
   }
-  
-  
+
+
 
 
   render() {
     let text = this.props.route.params.text;
     let name = this.props.route.params.name;
-    
-    let service_salle = this.props.route.params.service_salle; 
+
+    let service_salle = this.props.route.params.service_salle;
     //console.log(text)
     //console.log(name)
     //console.log(name1)
-    
+    const buttonTextStyle = {
+      color: '#393939'
+  };
     return (
       <View style={styles.container}>
 
-        <ProgressSteps completedProgressBarColor='#1E79C5' completedLabelColor='#1E79C5' completedStepIconColor='#1E79C5' activeStepIconBorderColor='#f0ad4e' activeLabelColor='#f0ad4e' activeStepNumColor='#f0ad4e' >
-          <ProgressStep label="Identification " nextBtnText="Suivant" nextBtnDisabled={this.state.nxt} >
-
+        <ProgressSteps activeStep= {this.state.nbr} completedProgressBarColor='#1E79C5' completedLabelColor='#1E79C5' completedStepIconColor='#1E79C5' activeStepIconBorderColor='#f0ad4e' activeLabelColor='#f0ad4e' activeStepNumColor='#f0ad4e' >
+          <ProgressStep label="Identification " nextBtnText="Suivant" nextBtnDisabled={this.state.nxt} previousBtnText="Précédent" previousBtnDisabled={false} >
             <Identification AbleNext={this.AbleNext} userInfo={this.state.userInfo} getUser={this.getUser} type_rdv={this.props.route.params.type_rdv} getAdress2={this.getAdress2} />
+            
+
 
           </ProgressStep>
 
           <ProgressStep label="Récapitulatif" nextBtnText="Confirmer" previousBtnText="Précédent" onNext={this.Confirmation} >
-            <Recap Name={name} text={text} userInfo={this.state.userInfo} adresse={this.props.route.params.adresse} type_rdv={this.props.route.params.type_rdv} service_name={this.props.route.params.service_name} service_salle={this.props.route.params.service_salle} adress2={this.state.adress2} onFocusFunction={this.onFocusFunction} />
+            <Recap Name={name} text={text} userInfo={this.state.userInfo} adresse={this.props.route.params.adresse} type_rdv={this.props.route.params.type_rdv} service_name={this.props.route.params.service_name} service_salle={this.props.route.params.service_salle} adress2={this.props.route.params.adresse2} onFocusFunction={this.onFocusFunction} />
           </ProgressStep>
-          <ProgressStep label="Confirmation" previousBtnText="Précédent" finishBtnText='Confirmer' onSubmit={ this.Confirmation } nextBtnDisabled={true} previousBtnDisabled={true} >
+          <ProgressStep label="Confirmation" previousBtnText="Précédent" finishBtnText='Confirmer' onSubmit={this.Confirmation} nextBtnDisabled={true} previousBtnDisabled={true} >
             <View style={{ alignItems: 'center' }}>
               <Text style={{ fontSize: 16 }}>Félicitations, votre rendez-vous est confirmé !</Text>
               <Image style={styles.img} source={require('../assets/C.png')} />
@@ -146,7 +161,7 @@ class RDV extends React.Component {
 
     );
   }
-  
+
 
 }
 const styles = StyleSheet.create({
@@ -161,7 +176,7 @@ const styles = StyleSheet.create({
     /*alignItems: 'center',
     justifyContent: 'center',*/
     backgroundColor: '#ecf0f1',
-  }
+  },
 
 });
 export default RDV

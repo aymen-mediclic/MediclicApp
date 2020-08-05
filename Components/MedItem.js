@@ -71,7 +71,7 @@ class MedItem extends React.Component {
                         (this.props.Med.obj) ?
                             <TouchableOpacity style={{ flexDirection: 'row', flex: 1 }} onPress={() => {
 
-                                NavigationService.navigate('Mon Profil', { id: Med.obj.id })
+                                NavigationService.navigate('Mon Profil', { id: Med.obj.id, name:Med.obj.name,specialite:Med.obj.specialite })
 
 
                             }}>
@@ -126,7 +126,7 @@ class MedItem extends React.Component {
                                             item[1].map((day, i) => {
                                                 //show only 3 times
                                                 return (i < 3) ?
-                                                <TouchableOpacity style={[styles.txt_slt, { marginHorizontal: 2 }]} onPress={() => NavigationService.navigate('Validez votre rendez-vous',
+                                                <TouchableOpacity style={[styles.txt_slt, { marginHorizontal: 2 }]} onPress={() =>{ this.props.dataFilter.type_rdv=='D' ? NavigationService.navigate('Seconde adresse',
                                                 {
                                                     name: Med.obj.name,
                                                     adresse:this.props.dataFilter.location,
@@ -143,7 +143,25 @@ class MedItem extends React.Component {
                                                     service_name: day.service_name,
                                                     service_salle: day.service_salle,
                                                     adresse_rdv: day.adresse_rdv
-                                                })}>
+                                                })
+                                                :NavigationService.navigate('Validez votre rendez-vous',
+                                                {
+                                                    name: Med.obj.name,
+                                                    adresse:this.props.dataFilter.location,
+                                                    type_rdv:this.props.dataFilter.type_rdv,
+                                                    namo: day.name,
+                                                    text: day.date_start,
+                                                    text1: day.date_end,
+                                                    doctor: day.doctor,
+                                                    duration: day.duration,
+                                                    partner_id: day.partner_id,
+                                                    context: day.context,
+                                                    praticien: day.praticien,
+                                                    service_id: day.service_id,
+                                                    service_name: day.service_name,
+                                                    service_salle: day.service_salle,
+                                                    adresse_rdv: day.adresse_rdv
+                                                })}}>
                                                 <Text style={styles.txt_t}>{moment(day.date_start).format("h:mm ")}</Text>
                                             </TouchableOpacity>
                                                     :
@@ -176,7 +194,7 @@ class MedItem extends React.Component {
                             marginTop: 10, backgroundColor: '#FFC617', height: 25, width: 100, borderRadius: 5, filtrer: {
                                 flexDirection: 'row', margin: 15, alignItems: 'center'
                             }
-                        }} onPress={() => NavigationService.navigate('Date de rendez-vous', {"Med": this.state.data})}>
+                        }} onPress={() => NavigationService.navigate('Date de rendez-vous', {"Med": this.state.data, location:this.props.dataFilter.location,type_rdv:this.props.dataFilter.type_rdv, Name:Med.obj.name})}>
                             <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'white', }}> Voir plus</Text>
                         </TouchableOpacity>
                     </View>

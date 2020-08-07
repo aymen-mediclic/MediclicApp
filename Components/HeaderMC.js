@@ -4,14 +4,11 @@ import { View, Text,  StyleSheet,Image} from 'react-native'
 
 export default class HeaderMc extends React.Component {
     render() {
-    console.log('!!!!')
-    console.log(this.props.id)
-    console.log('!!!!')
     return (
         <View style={{flexDirection:'row'}}>
             
-            <Image style={{height:65,width:65,borderRadius:65/2}} source={require('../assets/1.jpg')} />
-            <View style={{margin:7}}>
+            <Image style={{height:65,width:65,borderRadius:65/2 }} source={require('../assets/1.jpg')} />
+            <View style={{ marginLeft:20,margin:8}}>
             <Text style={{color:'white',fontSize:17,alignSelf:'center'}}>{this.props.name}</Text>
         <Text style={{color:'#FFC617',fontSize:15,alignSelf:'center'}}>{this.props.specialite}</Text>
             </View>

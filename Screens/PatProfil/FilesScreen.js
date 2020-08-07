@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'; 
+import { url1, url2 } from '../../Navigation/GlobalUrl';
 
 
 export default function FScreen({ navigation }) {
     const [Data, setData] = useState([])
     useEffect(() => {
-        fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-        return fetch('http://51.91.249.185:8069/api/profil?uid=85&get_file')
+        fetch(url1)
+        return fetch(url2+'/api/profil?uid=26&get_file')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")

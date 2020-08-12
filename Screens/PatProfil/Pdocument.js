@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'; 
+import { url2, url1 } from '../../Navigation/GlobalUrl';
 
 
 export default function FprocheScreen({ navigation }) {
     const [Data, setData] = useState([])
     useEffect(() => {
-        fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-        return fetch('http://51.91.249.185:8069/api/profil_proche?uid=85&get_file&proche=118')
+        fetch(url1)
+        return fetch(url2+'/api/profil_proche?uid=85&get_file&proche=118')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")

@@ -9,10 +9,6 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import { View, TextInput, Button, StyleSheet, Text, AsyncStorage, Image, ScrollView, ActivityIndicator, Modal, TouchableHighlight, TouchableOpacity } from 'react-native'
-import FScreen from './PatProfil/FilesScreen';
-import MrdvScreen from './PatProfil/MrdvScreen';
-import MprofilScreen from './PatProfil/MprofilScreen';
-import MprochesScreen from './PatProfil/MprocheScreen';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -21,12 +17,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import * as NavigationService from '../Navigation/NavigationService';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import Swiper from 'react-native-swiper'
-import  { url1, url2 } from '../Navigation/GlobalUrl'
+import { url1, url2 } from '../Navigation/GlobalUrl'
 import _ from "lodash";
 
 
 const Drawer = createDrawerNavigator();
-
+const jour = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -36,15 +32,17 @@ class HomeScreen extends React.Component {
   }
 
   render() {
+    var result = [];
     if (this.props.data.lieux != null) {
       console.log('==============================')
       console.log(this.props.data.lieux)
-      console.log('==============================')
+
+      // console.log('==============================')
     }
     function getImageFromApi(name) {
       return url2 + name
     }
-    
+
     return (
       <ScrollView >
         <View style={styles.ctr1}>
@@ -64,104 +62,164 @@ class HomeScreen extends React.Component {
           
           }*/}
         </View>
-        
-          
-            <View>
-              <Text style={{ fontSize: 20, alignSelf: 'center', margin: 5, fontWeight: 'bold' }}>Contact(s)</Text>
-              <Swiper style={{ backgroundColor:"orange"}} showsButtons={true} buttonWrapperStyle={{bottom: undefined, left: undefined, top:0}} paginationStyle={{bottom: undefined, left: undefined, top:30, right:"47%"}} >
-              {
-                (this.props.data && this.props.data.lieux) ?
-                
-                  <View>
-                    <Text style={{ fontSize: 18, alignSelf: 'center', color: 'grey', margin: 5 }}>Lieu : 1</Text>
-                    <Text style={{ fontSize: 15, fontWeight: 'bold', alignSelf: 'center', margin: 15 }}>Type de consultation: {this.props.data.lieux[0].type} </Text>
 
+
+        <View style={styles.ctr2} >
+          <Text style={{ fontSize: 20, alignSelf: 'center', margin: 5, fontWeight: 'bold' }}>Contact(s)</Text>
+          <Swiper showsButtons={true} buttonWrapperStyle={{ alignItems: 'flex-start' }} paginationStyle={{ bottom: undefined, left: undefined, top: 40, right: "47%" }} >
+            {
+              (this.props.data && this.props.data.lieux) ?
+                this.props.data.lieux.map((item, ney) => {
+                  if (item.horaires.length > 0) {
+                    jour.map(function (jour) {
+                      let daysInArray = item.horaires.filter(function (a) {
+                        return jour == a.jour
+                      })
+                      // console.log(daysInArray);
+                      if (daysInArray.length) {
+                        let time = [];
+                        daysInArray.map(function (item, i) {
+                          for (let key in item) {
+                            if (daysInArray[0].hasOwnProperty(key) && key != "jour") {
+                              time.push(item[key])
+                            }
+                          }
+                        })
+                        result.push({
+                          "jour": jour,
+                          "heure": time
+                        })
+                      } else {
+                        result.push({
+                          "jour": jour,
+                          "heure": []
+                        })
+                      }
+                    })
+                  }
+
+
+                  return <View>
+                    <View style={{ flexDirection: 'row', alignSelf: 'center' }} >
+                      <Text style={{ fontSize: 20, alignSelf: 'center', color: 'grey', margin: 5 }}>Lieux : </Text>
+                      <Text style={styles.nmbr}>{ney + 1}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignSelf: 'center' }} >
+                      <Text style={{ fontSize: 15, fontWeight: 'bold', alignSelf: 'center', marginTop: 25, marginBottom: 25 }}>Type de consultation:</Text>
+                      <Text style={{ fontSize: 15, alignSelf: 'center', marginTop: 25, marginBottom: 25 }}> {item.type}</Text>
+                    </View>
 
                     <MapView style={styles.mapStyle}
 
                       initialRegion={{
-                        latitude: this.props.data.lieux[0].lat,
-                        longitude: this.props.data.lieux[0].lng,
+                        latitude: item.lat,
+                        longitude: item.lng,
                         latitudeDelta: 0.0022,
                         longitudeDelta: 0.0021,
                       }}
-                    ><Marker coordinate={{ latitude: this.props.data.lieux[0].lat, longitude: this.props.data.lieux[0].lng }} image={require('../assets/map_marker.png')} title="DR D" />
+                    ><Marker coordinate={{ latitude: item.lat, longitude: item.lng }} image={require('../assets/map_marker.png')} title="DR D" />
                     </MapView>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 5 }} >
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 15,paddingVertical:15 }} >
 
                       <View>
                         <Fontisto name="map-marker-alt" color="#1E79C5" size={22} style={{ alignSelf: 'center' }} />
                         <Text style={{ fontWeight: 'bold' }}>Adresse</Text>
-                        
+
                       </View>
 
                       <View>
                         <Feather name="headphones" color="#1E79C5" size={22} style={{ alignSelf: 'center' }} />
                         <Text style={{ fontWeight: 'bold' }}>Téléphone (1)</Text>
-                        <Text style={{ alignSelf:'center' }}>{this.props.data.lieux[0].tel1}</Text>
+                        <Text style={{ alignSelf: 'center' }}>{item.tel1}</Text>
                       </View>
 
                       <View>
                         <Fontisto name="email" color="#1E79C5" size={22} style={{ alignSelf: 'center' }} />
                         <Text style={{ fontWeight: 'bold' }}>Site Web</Text>
-                        <Text style={{ alignSelf:'center' }}>{this.props.data.lieux[0].site_web}</Text>
+                        <Text style={{ alignSelf: 'center' }}>{item.site_web}</Text>
                       </View>
 
 
                     </View>
 
-                    <View style={{ flexDirection: 'row',margin:5 }} >
-                      <View style={{marginRight:25 }}>
+                    <View style={{ flexDirection: 'row',alignSelf:'center' }} >
+                      <View style={{ marginRight: 25 }}>
                         <Feather name="headphones" color="#1E79C5" size={22} style={{ alignSelf: 'center' }} />
                         <Text style={{ fontWeight: 'bold' }}>Téléphone (2)</Text>
-                        <Text style={{ alignSelf:'center' }}>{this.props.data.lieux[0].tel2}</Text>
+                        <Text style={{ alignSelf: 'center' }}>{item.tel2}</Text>
                       </View>
                       <View>
                         <AntDesign name="car" color="#1E79C5" size={22} style={{ alignSelf: 'center' }} />
                         <Text style={{ fontWeight: 'bold' }}>Moyen de transport</Text>
-                        <Text style={{ alignSelf:'center' }}>{this.props.data.lieux[0].moyen_transport}</Text>
+                        <Text style={{ alignSelf: 'center' }}>{item.moyen_transport}</Text>
                       </View>
                     </View>
                     <View>
-                       <Text style={styles.txt_name}>Horaires d'ouverture</Text>
+                      <Text style={styles.txt_name}>Horaires d'ouverture</Text>
+
                       {
-                        (this.props.data.lieux[0].horaires) ?
-                        this.props.data.lieux[0].horaires.map((lng, ney) => {
-                            return <View style={{ flexDirection: 'row' }}>
-                              <View >
-                                <Text>{lng.jour}</Text>
+
+
+                        (item.horaires.length > 0 &&
+                          <View style={{ flexDirection: "row", paddingVertical: 20, borderTopWidth: 1, borderBottomWidth: 1, justifyContent: 'center', alignItems: 'center',height:30 }}>
+                            <View style={{ flex: 1 / 2, justifyContent: 'center', alignItems: 'center',marginLeft:10 }}>
+                              <Text style={{fontWeight:'bold'}}>Jour</Text>
+                            </View>
+                            <View style={{ flex: 1,marginLeft:100,justifyContent: 'center', alignItems: 'center' }}>
+                              <Text style={{fontWeight:'bold'}}>Heure</Text>
+                            </View>
+                          </View>
+                        )
+
+                      }
+
+
+                      {
+
+
+                        (item.horaires.length > 0) ?
+
+
+                          result.map((lng, ney) => {
+                            return <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1 }}>
+                              <View style={{ flex: 1 / 2, alignItems: 'center' }}>
+                                <Text style={{fontWeight:'bold',color:'#95a5a6'}}>{lng.jour}</Text>
                               </View>
-                              <View style={{ flexDirection: 'column', flex: 1, backgroundColor: '#bdc3c7', margin: 5 }}>
-                                <Text  style={{ margin: 5 }}>{lng.heure1}</Text>
-                                <Text  style={{ margin: 5 }}>{lng.heure2}</Text>
+                              <View style={{ flex: 1, margin: 5,marginLeft:10,flexDirection:'row' }}>
+                                {
+                                  lng.heure.length > 0 ?
+                                    lng.heure.map((time, key) => <Text key={key} style={{ margin: 5 }}>{time}</Text>
+                                  )
+                                    :
+                                    <Text>  </Text>
+                                }
+
                               </View>
                             </View>
-              
+
                           })
                           :
-                          <></>
+                          <Text style={styles.txt_fin}> Non Renseigné </Text>
                       }
                     </View>
                   </View>
-                  
-                  :
-                  <></>
+                })
+                :
+                <></>
 
-              }
-              <View>
-                <Text>VVVVV</Text>
-              </View>
+            }
 
-              </Swiper>
 
-            </View>
-      
+          </Swiper>
 
-          
+        </View>
 
 
 
-        
+
+
+
+
       </ScrollView>
     );
 
@@ -177,7 +235,7 @@ class SettingsScreen extends React.Component {
 
 
         {
-          (this.props.data && this.props.data.education) ?
+          (this.props.data.length > 0 && this.props.data.education.length > 0) ?
             this.props.data.education.map((lng, key) => {
               return <View style={{ flexDirection: 'row' }}>
                 <View style={{ flexDirection: 'column', flex: 1, backgroundColor: '#bdc3c7', margin: 5 }}>
@@ -190,13 +248,13 @@ class SettingsScreen extends React.Component {
               </View>
 
             })
-            :
-            <></>
+            : <Text> Non Renseigné </Text>
+
         }
 
         <Text style={{ fontSize: 16, color: '#1E79C5', margin: 10 }}>Parcours:</Text>
         {
-          (this.props.data && this.props.data.formation) ?
+          (this.props.data.length > 0 && this.props.data.formation.length > 0) ?
             this.props.data.formation.map((lng, key) => {
               return <View style={{ flexDirection: 'row' }}>
                 <View style={{ flexDirection: 'column', flex: 1, backgroundColor: '#bdc3c7', margin: 5 }}>
@@ -209,20 +267,18 @@ class SettingsScreen extends React.Component {
               </View>
 
             })
-            :
-            <></>
+            : <Text> Non Renseigné </Text>
         }
 
 
         <Text style={{ fontSize: 16, color: '#1E79C5', margin: 10 }}>Langue(s) parlée(s) :</Text>
         <View style={{ flexDirection: 'column', margin: 10 }}>
           {
-            (this.props.data.langue) ?
+            (this.props.data.length > 0 && this.props.data.langue.length > 0) ?
               this.props.data.langue.map((lng, key) => {
                 return <Text key={key} style={styles.txt_spe}>{lng.langue}</Text>
               })
-              :
-              <></>
+              : <Text> Non Renseigné </Text>
           }
         </View>
       </View>
@@ -240,15 +296,15 @@ class GalerieScreen extends React.Component {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
         <Swiper showsButtons={true}>
-          <View style={styles.slide1}>
-            {/*
-            (this.props.data && this.props.data.galerie )?
-               
-               <Image style={{margin: 5,alignSelf:'center',height:350,width:300}} source={{ uri:getImageFromApi( this.props.data.galerie[0].image ) }} />
-            :
-            <></>
-          
-          */}
+          <View style={styles.ctr2}>
+            {
+              (this.props.data.length > 0 && this.props.data.galerie.length > 0) ?
+
+                <Image style={{ margin: 5, alignSelf: 'center', height: 350, width: 300 }} source={{ uri: getImageFromApi(this.props.data.galerie[0].image) }} />
+                :
+                <></>
+
+            }
 
           </View>
         </Swiper>
@@ -263,21 +319,19 @@ class CScreen extends React.Component {
       <View style={{ backgroundColor: 'white', flex: 1 }}>
         <Text style={{ fontSize: 20, fontWeight: 'bold', alignSelf: 'center', margin: 5 }}>Actes et tarifs :</Text>
         {
-          (this.props.data && this.props.data.tarif) ?
+          (this.props.data.length > 0 && this.props.data.tarif.length > 0) ?
             this.props.data.tarif.map((lng, key) => {
               return <Text key={key} style={{ fontSize: 16, color: '#7f8c8d', margin: 10 }}>{lng.type}: {lng.prix}</Text>
             })
-            :
-            <></>
+            : <Text style={styles.txt_fin}>Non Renseigné</Text>
         }
         <Text style={{ fontSize: 20, fontWeight: 'bold', alignSelf: 'center', margin: 5 }}>Moyen(s) de paiement accepté(s) :</Text>
         {
-          (this.props.data && this.props.data.paiement) ?
+          (this.props.data.length > 0 && this.props.data.paiement.length > 0) ?
             this.props.data.paiement.map((lng, key) => {
               return <Text key={key} style={{ fontSize: 16, color: '#7f8c8d', margin: 10 }}>{lng.mode}</Text>
             })
-            :
-            <></>
+            : <Text style={styles.txt_fin}>Non Renseigné</Text>
         }
       </View>
     );
@@ -413,15 +467,32 @@ const styles = StyleSheet.create({
     },
     elevation: 5,
   },
+  ctr2: {
+    flex: 1,
+    padding:3,
+    height: 1150,
+    paddingBottom: 25,
+    backgroundColor: 'white',
+    margin: 10,
+    borderRadius: 3,
+    shadowColor: "grey",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0,
+    },
+    elevation: 5,
+  },
   mapStyle: {
     width: 280,
     height: 250,
     alignSelf: 'center',
     margin: 5,
-    
+
   },
   txt_name: {
-    margin: 5,
+    margin: 15,
     fontWeight: 'bold',
     fontSize: 18,
     alignSelf: 'center'
@@ -457,4 +528,25 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5
   },
+  nmbr: {
+    fontSize: 18, textAlign: 'center', color: 'white', margin: 5,
+    fontWeight: 'bold', backgroundColor: '#1E79C5',
+    height: 25, width: 25,
+    borderRadius: 3,
+    shadowColor: "grey",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0,
+    },
+    elevation: 5,
+  },
+  txt_fin: {
+    margin: 10,
+    fontSize: 16,
+    color: '#34495e',
+    alignSelf: 'center',
+    fontWeight: 'bold'
+  }
 })

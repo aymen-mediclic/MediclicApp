@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image, Modal, TouchableOpacity } from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
-import Calendar from './Calendar';
-import { Button } from 'native-base';
+import { Badge } from 'react-native-paper';
 import moment from 'moment';
 import DateC from '../Screens/DateConsultation';
 import { url2 } from '../Navigation/GlobalUrl';
+import MC from 'react-native-vector-icons/MaterialCommunityIcons'
 class MedItem extends React.Component {
     constructor(props) {
         super(props);
@@ -79,7 +79,11 @@ class MedItem extends React.Component {
                                 {/*<Image style={styles.img} source={{ uri:getImageFromApi( Med.obj.image ) }} />*/}
                                 <View style={{ flexDirection: 'column', flex: 1 }}>
                                     <Text style={styles.txt}>{Med.obj.name} </Text>
-                                    <Text style={{ color: '#1E79C5', fontWeight: "bold",alignSelf:'flex-end',marginLeft:5 }}>{Med.distance} </Text>
+                                    <View style={{flexDirection:'row',alignSelf:'flex-end',margin:3}}>
+                                        <MC name="map-marker-outline" color="#1E79C5" size={20} />
+                                        <Text style={{ color: '#1E79C5', fontWeight: "bold"}}>{Med.distance}</Text>
+                                    </View>
+                                    
                                     {
                                         (Med.obj.specialite) ?
                                             <Text style={{ color: '#FFC617' }}>{Med.obj.specialite} </Text>
@@ -92,12 +96,20 @@ class MedItem extends React.Component {
                                             :
                                             <></>
                                     }
+                                     {
+                                        (Med.obj.service_display) ?
+                                        <Text style={{ color: '#FFC617' }}>{Med.service_display}</Text>
+                                            :
+                                            <></>
+                                    }
 
-                                    <Text style={{ color: '#FFC617' }}>{Med.service_display}</Text>
                                     {
                                         (Med.lieux_color_ref) ?
                                             Med.lieux_color_ref.map((lng, key) => {
-                                                return <Text key={key}>{lng.lieu}</Text>
+                                                return <View style={{flexDirection:'row'}}>
+                                                <Badge size={12} style={{backgroundColor:lng.color,marginRight:5}} />
+                                                <Text key={key}>{lng.lieu}</Text>
+                                                </View>
                                             })
                                             :
                                             <></>

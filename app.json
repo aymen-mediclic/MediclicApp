@@ -19,7 +19,8 @@
     },
     "android": {
       "package": "com.mediclic.Mediclic",
-      "versionCode": 1
+      "versionCode": 1,
+      "softwareKeyboardLayoutMode": "pan"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

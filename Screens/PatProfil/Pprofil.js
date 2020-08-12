@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Modal, _ScrollView } from 'react-native'
 import DatePicker from 'react-native-datepicker';
 import { RadioButton } from 'react-native-paper';
+import { url1, url2 } from '../../Navigation/GlobalUrl';
 export default function Pprofil({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [Data, setData] = useState([]);
@@ -16,8 +17,8 @@ export default function Pprofil({ navigation }) {
     const [ville, setVille] = useState("")
 
     useEffect(() => {
-        fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-        return fetch('http://51.91.249.185:8069/api/profil_proche?uid=85&get_profil&proche=120')
+        fetch(url1)
+        return fetch(url2+'/api/profil_proche?uid=26&get_profil&proche=120')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")
@@ -32,7 +33,7 @@ export default function Pprofil({ navigation }) {
 
 
         let bodyData = JSON.stringify({
-            uid: "85",
+            uid: "26",
             uid_p:"120",
             adresse: adresse,
             Num_CIN: cin,

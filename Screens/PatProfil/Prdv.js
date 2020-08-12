@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity, Modal,Alert } from 'react-native'
 import { ActionSheet } from "native-base";
+import { url2, url1 } from '../../Navigation/GlobalUrl';
 //import * as NavigationService from '../Navigation/NavigationService';
 var BUTTONS = [ { text: "Supprimer", icon: "trash",iconColor:"#e74c3c" }, { text: "Annuler" }];
 var DESTRUCTIVE_INDEX = 2;
@@ -9,8 +10,8 @@ export default function Prdv({ navigation }) {
     const [Data, setData] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     useEffect(() => {
-        fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-        return fetch('http://51.91.249.185:8069/api/profil_proche?uid=85&get_rdv&proche=118')
+        fetch(url2)
+        return fetch(url1+'/api/profil_proche?uid=26&get_rdv&proche=118')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ScrollView, View, Text, TextInput, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity, Modal } from 'react-native'
 //import { navigate } from '../../Navigation/NavigationService';
 import * as NavigationService from '../../Navigation/NavigationService';
+import { url1,url2 } from '../../Navigation/GlobalUrl';
 
 
 export default function MprochesScreen({ navigation }) {
@@ -16,8 +17,8 @@ export default function MprochesScreen({ navigation }) {
 
 
     useEffect(() => {
-        fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-        return fetch('http://51.91.249.185:8069/api/profil?uid=85&get_proche')
+        fetch(url1)
+        return fetch(url2+'/api/profil?uid=26&get_proche')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")
@@ -32,7 +33,7 @@ export default function MprochesScreen({ navigation }) {
 
 
         let bodyData = JSON.stringify({
-            uid: "85",
+            uid: "26",
             nom:nom,
             prenom:prenom,
             

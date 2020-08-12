@@ -21,40 +21,45 @@ class ConnectionScreen extends React.Component {
   
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.med_ctr}>
-         
-
-          <Input inputStyle={styles.txt_input_u} placeholder='Nom de compte' placeholderTextColor="white"
+      <View
+      style={styles.container}
+      >
+        <KeyboardAvoidingView style={styles.med_ctr} behavior="padding">
+         <Text style={{margin:15,fontSize:15,fontWeight:'bold',color:'black'}}>J'ai déja un compte Mediclic</Text>
+          <Input inputStyle={styles.txt_input_u} placeholder='Adresse email' placeholderTextColor="#95a5a6"
             onChangeText={(login) => this.setState({ login })}
             value={this.state.username}
             autoCapitalize = 'none'
             leftIcon={<Icon
               name='user'
               size={16}
-              color='white'
+              color='#95a5a6'
             />}
           />
-          <Input inputStyle={styles.txt_input_p} placeholder='Mot de passe' placeholderTextColor="white"
+          <Input inputStyle={styles.txt_input_p} placeholder='Mot de passe' placeholderTextColor="#95a5a6"
             onChangeText={(password) => this.setState({ password })}
             value={this.state.password}
             autoCapitalize = 'none'
-            leftIcon={{ type: 'font-awesome', name: 'lock', color: 'white' ,size:17}}
-            rightIcon={{ type: 'feather', name: 'eye-off', color: 'white',size:17 }}
+            leftIcon={{ type: 'font-awesome', name: 'lock', color: '#95a5a6' ,size:17}}
+            rightIcon={{ type: 'feather', name: 'eye-off', color: '#95a5a6',size:17 }}
           />
           <TouchableOpacity style={styles.btn} onPress= {this.Autho} >
-            <Text style={{ color: '#FFC617', textAlign: 'center', fontSize: 18, marginTop: 5 }}> SE CONNECTER</Text>
+            <Text style={{ color: 'black', alignSelf: 'center', fontSize: 15,fontWeight:'bold' ,marginTop: 5 }}>CONNEXION</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ borderBottomWidth:1,borderBottomColor:'white' }}>
-          <Text style={{ color: 'white', fontWeight: 'bold' }}>MOT DE PASSE OUBLIE? </Text>
+          <TouchableOpacity style={{ borderBottomWidth:1,borderBottomColor:'black' }}>
+          <Text style={{ color: 'black', fontWeight: 'bold',margin:5,fontSize:12 }}>MOT DE PASSE OUBLIE ? </Text>
           </TouchableOpacity>
           
-          <TouchableOpacity style={styles.btn} onPress={() => ActionSheet.show(
+          
+        </KeyboardAvoidingView>
+              <View style={styles.med_ctr1} >
+              <Text style={{margin:15,fontSize:15,fontWeight:'bold',color:'black'}}>Nouveau sur Mediclic ?</Text>
+              <TouchableOpacity style={styles.btn1} onPress={() => ActionSheet.show(
             {
               options: BUTTONS,
               cancelButtonIndex: CANCEL_INDEX,
               destructiveButtonIndex: DESTRUCTIVE_INDEX,
-              //title: "Testing ActionSheet"
+              title: "Je veux créer un compte"
             },
             buttonIndex => {
               if (BUTTONS[buttonIndex] != 'Annuler') {
@@ -62,13 +67,12 @@ class ConnectionScreen extends React.Component {
               }
             }
           )}>
-            <Text style={{ color: '#FFC617', textAlign: 'center', fontSize: 18, marginTop: 5 }}> Vous n'avez pas de compte?</Text>
+            <Text style={{ color: '#FFC617', textAlign: 'center', fontSize: 15,fontWeight:'bold' }}> Je veux créer un compte</Text>
           </TouchableOpacity>
-        </View>
-
-
-
-      </View>
+              </View>
+          
+              </View>
+     
 
 
     );
@@ -165,19 +169,46 @@ class ConnectionScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1E79C5',
+    //backgroundColor: '#1E79C5',
     alignItems: 'center',
-    //justifyContent: 'space-around'
+    //justifyContent: 'center'
 
   },
   med_ctr: {
-    flex: 1,
-    height: '40%',
-    width: '90%',
+    padding:5,
+    height: '60%',
+    width: '80%',
     alignItems: 'center',
-    justifyContent: 'center',
-    //backgroundColor:'grey',
-    marginTop:10
+    //justifyContent: 'center',
+    backgroundColor:'white',
+    marginTop:25,
+    borderRadius:4,
+    shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0,
+        },
+        elevation: 5,
+  },
+  med_ctr1: {
+    padding:5,
+    height: '20%',
+    width: '80%',
+    alignItems: 'center',
+    //justifyContent: 'center',
+    backgroundColor:'white',
+    marginTop:30,
+    borderRadius:4,
+    shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0,
+        },
+        elevation: 5,
   },
   pat_ctr: {
     backgroundColor: 'white',
@@ -190,15 +221,16 @@ const styles = StyleSheet.create({
   },
   txt_input_u: {
     marginBottom: 10,
-    fontSize: 15,
-    color: 'white',
+    fontSize: 14,
+    color: 'black',
     paddingLeft: 15,
   },
   txt_input_p: {
     marginBottom: 10,
-    fontSize: 15,
-    color: 'white',
-    paddingLeft: 15
+    fontSize: 14,
+    color: 'black',
+    paddingLeft: 15,
+    borderBottomColor:'orange'
   },
   text: {
     fontSize: 22,
@@ -208,11 +240,16 @@ const styles = StyleSheet.create({
   btn: {
     marginTop: 40,
     borderColor: '#FFC617',
+    backgroundColor:'#FFC617',
     borderWidth: 1,
     width: '90%',
-    height: '8%',
-    color: 'white',
-    marginBottom: 30
+    height:35,
+    marginBottom: 30,
+    borderRadius:4,
+  },
+  btn1: {
+    width: '90%',
+    height:35,
   },
   pat: {
     backgroundColor: '#FFC617',

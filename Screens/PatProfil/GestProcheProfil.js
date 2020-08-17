@@ -4,7 +4,9 @@ import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, ScrollView
 import FprocheScreen from './Pdocument';
 import Prdv from './Prdv';
 import Pprofil from './Pprofil';
-
+import Feather from 'react-native-vector-icons/Feather';
+import EntypoI from 'react-native-vector-icons/Entypo'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
 
@@ -19,9 +21,9 @@ export default function GProcheProfil() {
     return (
 
         <Drawer.Navigator initialRouteName="Home">
-            <Drawer.Screen name="Mon profil" component={Pprofil} />
-            <Drawer.Screen name="Mes RDV" component={Prdv} />
-            <Drawer.Screen name="Mes documents" component={FprocheScreen} />
+            <Drawer.Screen name="Mon profil" component={Pprofil} options={{ drawerLabel: 'Mon profil', drawerIcon: ({ focused, color, size }) => (<Feather color={color} size={20} name={'user'} />) }} />
+            <Drawer.Screen name="Mes RDV" component={Prdv} options={{ drawerIcon: ({ focused, color, size }) => (<Feather color={color} size={20} name={'calendar'} />) }} />
+            <Drawer.Screen name="Mes documents" component={FprocheScreen} options={{ drawerIcon: ({ focused, color, size }) => (<EntypoI color={color} size={20} name={'text-document'} />) }} />
             
 
         </Drawer.Navigator>

@@ -1,4 +1,4 @@
-import React from 'react'
+/*import React from 'react'
 import { View, Text, Button, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
 export default class Sugg extends React.Component {
@@ -23,4 +23,4 @@ export default class Sugg extends React.Component {
             
         )
     }
-}
+}*/

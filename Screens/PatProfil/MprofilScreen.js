@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { View, TextInput, Button, StyleSheet, Text, Alert, TouchableOpacity, ScrollView, AsyncStorage, checkedIcon, Modal, FlatList } from 'react-native'
-import DatePicker from 'react-native-datepicker';
+import { View, TextInput, Button, StyleSheet, Text, Alert, TouchableOpacity, ScrollView, AsyncStorage, checkedIcon, Modal,ActivityIndicator} from 'react-native'
+import {DatePicker} from 'native-base';
 import { RadioButton } from 'react-native-paper';
 import moment from 'moment';
 import 'moment/locale/fr'
 import * as NavigationService from '../../Navigation/NavigationService';
 import { url1, url2 } from '../../Navigation/GlobalUrl';
 moment.locale('fr')
-export default function Mprofil({ navigation,route }) {
+export default function Mprofil(navigation,route,props ) {
     const [modalVisible, setModalVisible] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [Data, setData] = useState([]);
-   //const { uid} = route.params;
-    //console.log(uid)
+   //const { id} = route.params;
+    //console.log(id)
     // MODIFIED
 
     const [nom, setNom] = useState("")
@@ -34,6 +35,7 @@ export default function Mprofil({ navigation,route }) {
                 
                 AsyncStorage.setItem("userInfo",JSON.stringify(res))
                 setData(res)
+                setLoading(false)
             })
             .done();
     }, []);
@@ -105,8 +107,20 @@ export default function Mprofil({ navigation,route }) {
             NavigationService.navigate('Mediclic')
           
     }
+    let displayLoading=() => {
+        if (loading) {
+          //Loading View while data is loading
+          return (
+            <View style={{ flex: 1, alignItems:'center', justifyContent:'center' }}>
+              <ActivityIndicator size="large" color="#1E79C5" />
+              
+            </View>
+          );
+        }
+      }
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }} >
+            {displayLoading()}
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -117,14 +131,7 @@ export default function Mprofil({ navigation,route }) {
                 <View style={styles.modalView}>
 
 
-                    <TouchableOpacity
-                        style={{ borderRadius:5,height:20, backgroundColor: "#2196F3" }}
-                        onPress={() => {
-                            setModalVisible(!modalVisible);
-                        }}
-                    >
-                        <Text style={styles.textStyle}>Fermer</Text>
-                    </TouchableOpacity>
+                    
                     <ScrollView>
                         <RadioButton.Group
                             onValueChange={civility => setCivility( civility)}
@@ -144,14 +151,14 @@ export default function Mprofil({ navigation,route }) {
                             </View>
                         </RadioButton.Group>
 
-                        <Text style={styles.text}>Nom:</Text>
+                        <Text style={styles.text}>Nom :</Text>
                         <TextInput
                             style={styles.text_input}
                             placeholder="nom"
                             onChangeText={(nom) => { setNom(nom) }}
                         />
 
-                        <Text style={styles.text}>Prénom:</Text>
+                        <Text style={styles.text}>Prénom :</Text>
                         <TextInput
                             style={styles.text_input}
                             placeholder="Prénom"
@@ -160,12 +167,12 @@ export default function Mprofil({ navigation,route }) {
 
                        
 
-                        <Text style={styles.text}>Date de naissance:</Text>
+                        <Text style={styles.text}>Date de naissance :</Text>
                         <DatePicker
                             style={{ width: 200 }}
                             date={niassance} //initial date from state
                             mode="date" //The enum of date, datetime and time
-                            //locale="fr"
+                            locale={"fr"}
                             placeholder="selectionner une date"
                             format="DD-MM-YYYY"
                             minDate="01-01-1940"
@@ -214,26 +221,37 @@ export default function Mprofil({ navigation,route }) {
                             placeholder="Ville "
                             onChangeText={(ville) => setVille(ville)}
                         />
-
+                        <View style={{flexDirection:'row',justifyContent:"flex-end",justifyContent:"space-between"}}>
                         <TouchableOpacity
-                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                        style={{  ...styles.openButton, backgroundColor: "#1E79C5",width:150 }}
+                        onPress={() => {
+                            setModalVisible(!modalVisible);
+                        }}
+                    >
+                        <Text style={styles.textStyle}>Fermer</Text>
+                    </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{ ...styles.openButton, backgroundColor: "#1E79C5",width:150 }}
                             onPress={() => update()}
                         >
                             <Text style={styles.textStyle}>Modifier</Text>
                         </TouchableOpacity>
+                        </View>
                     </ScrollView>
                 </View>
 
             </Modal>
-            
+            { Data.length !=0  && (
+                <View>
             <TouchableOpacity style={styles.btn}
                 onPress={() => {
                     setModalVisible(true);
                 }}>
                 <Text style={{ color: 'white', fontSize: 15 }}>Modifier mon profil </Text>
             </TouchableOpacity>
-            <View >
-
+            
+            <View style={styles.ctr} >
+                
 
                 <View style={styles.main_container}>
                     <Text style={styles.text}>Nom:</Text>
@@ -275,9 +293,10 @@ export default function Mprofil({ navigation,route }) {
 
                 </View>
 
-
+               
             </View>
-
+            </View>
+            )}
         </View>
     );
 }
@@ -287,8 +306,28 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         marginTop: 10,
         justifyContent: "space-between",
-        paddingRight: 10
+        paddingRight: 10,
     },
+    ctr: {
+        
+        padding:7,
+        height: '88%',
+        width: '90%',
+        alignSelf: 'center',
+        //justifyContent: 'center',
+        backgroundColor:'white',
+        marginTop:5,
+        marginBottom:5,
+        borderRadius:4,
+        shadowColor: "grey",
+            shadowOpacity: 0.8,
+            shadowRadius: 2,
+            shadowOffset: {
+                height: 1,
+                width: 0,
+            },
+            elevation: 5,
+      },
     text: {
         marginLeft: 10,
         fontWeight: 'bold',
@@ -329,10 +368,10 @@ const styles = StyleSheet.create({
     //marginTop: 10
     // },
     modalView: {
-        //margin: 5,
+        margin: 10,
         backgroundColor: "white",
         borderRadius: 20,
-        padding: 10,
+        padding: 2,
         //alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {

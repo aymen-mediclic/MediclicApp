@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
+import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableOpacity,ActivityIndicator } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'; 
 import { url1, url2 } from '../../Navigation/GlobalUrl';
 
 
 export default function FScreen({ navigation }) {
     const [Data, setData] = useState([])
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         fetch(url1)
         return fetch(url2+'/api/profil?uid=26&get_file')
@@ -14,6 +15,7 @@ export default function FScreen({ navigation }) {
                 console.log("repooooonse")
                 console.log(res)
                 setData(res);
+                setLoading(false)
             })
             .done();
     }, []);
@@ -21,31 +23,31 @@ export default function FScreen({ navigation }) {
     function Item({ item }) {
         return (
             <View style={styles.item}>
-                <View style={{ flexDirection: "row" }}>
-                    <Text style={styles.title}>ajouter par: </Text>
-                    <Text style={styles.title}>{item.ajouter_par}</Text>
+                <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
+                    <Text style={styles.title}>Ajouté Par : </Text>
+                    <Text style={styles.title1}>{item.ajouter_par}</Text>
                 </View>
-                <View style={{ flexDirection: "row" }}>
-                    <Text style={styles.title}>categorie: </Text>
-                    <Text style={styles.title}>{item.categorie}</Text>
+                <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
+                    <Text style={styles.title}>Catégorie : </Text>
+                    <Text style={styles.title1}>{item.categorie}</Text>
                 </View>
-                <View style={{ flexDirection: "row" }}>
-                    <Text style={styles.title}>creer le: </Text>
-                    <Text style={styles.title}>{item.create_date}</Text>
+                <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
+                    <Text style={styles.title}>Créer le : </Text>
+                    <Text style={styles.title1}>{item.create_date}</Text>
                 </View>
-                <View style={{ flexDirection: "row" }}>
-                    <Text style={styles.title}>rdv avec: </Text>
-                    <Text style={styles.title}>{item.rdv_avec}</Text>
+                <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
+                    <Text style={styles.title}>RDV avec : </Text>
+                    <Text style={styles.title1}>{item.rdv_avec}</Text>
                 </View>
-                <View style={{ flexDirection: "row" }}>
-                    <Text style={styles.title}>date du rdv: </Text>
-                    <Text style={styles.title}>{item.dtae_rdv}</Text>
+                <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
+                    <Text style={styles.title}>Date du RDV : </Text>
+                    <Text style={styles.title1}>{item.dtae_rdv}</Text>
                 </View>
-                <TouchableOpacity style={{flexDirection:'row',alignSelf:'flex-end',margin:5}}>
-                    <Text>
-                        Pièce jointe
+                <TouchableOpacity style={{flexDirection:'row',alignSelf:'flex-end',margin:15}}>
+                    <Text style={{marginRight:10,fontWeight:'bold',color:'#1E79C5'}}>
+                        Pièces jointes
                     </Text>
-                <FontAwesome name="download" size={24} color="black" />
+                <FontAwesome name="download" size={24} color="#1E79C5" />
                 </TouchableOpacity>
                 
             </View>
@@ -62,11 +64,22 @@ export default function FScreen({ navigation }) {
 
 
     console.log(Data, "<><><><><><><><")
+    let displayLoading=() => {
+        if (loading) {
+          //Loading View while data is loading
+          return (
+            <View style={{ flex: 1, alignItems:'center', justifyContent:'center' }}>
+              <ActivityIndicator size="large" color="#1E79C5" />
+              
+            </View>
+          );
+        }
+      }
 
     return (
 
 
-        <View  >
+        <View style={{ flex: 1, justifyContent:'center' }} >
 
 
             {
@@ -78,7 +91,7 @@ export default function FScreen({ navigation }) {
                         keyExtractor={item => item[0].id.toString()}
                     />
                     :
-                    <Text style={{alignItems:'center',justifyContent:'center'}}>Veuillez patientez svp</Text>
+                    displayLoading()
             }
 
         </View >
@@ -99,5 +112,6 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 14,
+        fontWeight: 'bold'
     },
 });

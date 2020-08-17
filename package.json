@@ -74,6 +74,7 @@
     "react-native-tab-view": "^2.13.0",
     "react-native-table-component": "^1.2.1",
     "react-native-timetable": "^1.0.4",
+    "react-native-tooltip": "^5.2.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-web": "~0.11.7",
     "react-native-webview": "^10.3.1",

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity, Modal, Alert } from 'react-native'
+import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity, Modal, Alert, ActivityIndicator } from 'react-native'
 import { ActionSheet } from "native-base";
 import Dialog from "react-native-dialog";
 import { url1, url2 } from '../../Navigation/GlobalUrl';
@@ -12,7 +12,7 @@ export default function MrdvScreen({ navigation }) {
     const [Data, setData] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [Dial, setDial] = useState(false);
-    
+    const [loading, setLoading] = useState(true);
       
     useEffect(() => {
         fetch(url1)
@@ -22,6 +22,7 @@ export default function MrdvScreen({ navigation }) {
                 console.log("repooooonse")
                 console.log(res)
                 setData(res)
+                setLoading(false)
             })
             .done();
     }, []);
@@ -130,15 +131,19 @@ export default function MrdvScreen({ navigation }) {
                 </Modal>
 
                 <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-                    <Text style={styles.title}>Rdv avec: </Text>
+                    <Text style={styles.title}>RDV avec : </Text>
                     <Text style={styles.title1}>{item.profess}</Text>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-                    <Text style={styles.title}>Date du RDV: </Text>
+                    <Text style={styles.title}>Date du RDV : </Text>
                     <Text style={styles.title1}>{item.date_rdv}</Text>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-                    <Text style={styles.title}>Statut: </Text>
+                    <Text style={styles.title}>Statut : </Text>
+                    <Text style={styles.title1}>{item.statut}</Text>
+                </View>
+                <View style={{ flexDirection: "row", justifyContent: 'space-between',marginBottom:7 }}>
+                    <Text style={styles.title}>	Adressé par : </Text>
                     <Text style={styles.title1}>{item.statut}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -163,7 +168,7 @@ export default function MrdvScreen({ navigation }) {
                                 
                                 Alert.alert(  
                                     'Supprimer',  
-                                    'Vous êtes sur que vous voulez supprimer ce rdv?',  
+                                    'Etes-vous sûr(e) de vouloir supprimer ce RDV?',  
                                     [  
                                         {  
                                             text: 'Annuler',  
@@ -186,10 +191,21 @@ export default function MrdvScreen({ navigation }) {
     }
 
     console.log(Data, "<><><><><><><><")
+    let displayLoading=() => {
+        if (loading) {
+          //Loading View while data is loading
+          return (
+            <View style={{ flex: 1, alignItems:'center', justifyContent:'center' }}>
+              <ActivityIndicator size="large" color="#1E79C5" />
+              
+            </View>
+          );
+        }
+      }
     return (
         
         
-        <View>
+        <View style={{ flex: 1, justifyContent:'center' }} >
             {
                 (Data.rdvs)
                     ?
@@ -200,7 +216,8 @@ export default function MrdvScreen({ navigation }) {
                         extraData={Data}
                     />
                     :
-                    <Text style={{ alignItems: 'center', justifyContent: 'center' }}>Veuillez patienter Svp</Text>
+                    displayLoading()
+                    
             }
 
         </View>

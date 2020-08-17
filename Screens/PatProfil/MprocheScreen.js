@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, View, Text, TextInput, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity, Modal } from 'react-native'
+import { ScrollView, View, Text, TextInput, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity, Modal,ActivityIndicator } from 'react-native'
 //import { navigate } from '../../Navigation/NavigationService';
 import * as NavigationService from '../../Navigation/NavigationService';
 import { url1,url2 } from '../../Navigation/GlobalUrl';
@@ -13,7 +13,7 @@ export default function MprochesScreen({ navigation }) {
     const [prenom, setPreNom] = useState("")
     const [mail, setMail] = useState("")
     const [tel, setTel] = useState("")
-
+    const [loading, setLoading] = useState(true);
 
 
     useEffect(() => {
@@ -24,6 +24,7 @@ export default function MprochesScreen({ navigation }) {
                 console.log("repooooonse")
                 console.log(res)
                 setData(res)
+                setLoading(false)
             })
             .done();
     }, []);
@@ -87,6 +88,17 @@ export default function MprochesScreen({ navigation }) {
         );
     }
     console.log(Data, "<><><><><><><><")
+    let displayLoading=() => {
+        if (loading) {
+          //Loading View while data is loading
+          return (
+            <View style={{ flex: 1, alignItems:'center', justifyContent:'center' }}>
+              <ActivityIndicator size="large" color="#1E79C5" />
+              
+            </View>
+          );
+        }
+      }
     return (
         <View style={styles.container}>
             <Modal
@@ -99,46 +111,50 @@ export default function MprochesScreen({ navigation }) {
                 <View style={styles.modalView}>
 
 
-                    <TouchableOpacity
-                        style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                    
+                    <ScrollView>
+                    <Text style={styles.text}>Nom :</Text>
+                        <TextInput
+                            style={styles.text_input}
+                            placeholder="nom"
+                            onChangeText={(nom) => { setNom(nom) }}
+                        />
+                        <Text style={styles.text}>Prénom :</Text>
+                        <TextInput
+                            style={styles.text_input}
+                            placeholder="nom"
+                            onChangeText={(prenom) => { setPreNom(prenom) }}
+                        />
+                        <Text style={styles.text}>Adresse e-mail :</Text>
+                        <TextInput
+                            style={styles.text_input}
+                            placeholder="nom"
+                            onChangeText={(mail) => { setMail(mail) }}
+                        />
+                        <Text style={styles.text}>Téléphone :</Text>
+                        <TextInput
+                            style={styles.text_input}
+                            placeholder="nom"
+                            onChangeText={(tel) => { setTel(tel) }}
+                        />
+                        <View style={{flexDirection:'row',justifyContent:"flex-end",justifyContent:"space-between"}}>
+                        <TouchableOpacity
+                        style={{ ...styles.openButton, backgroundColor: "#1E79C5" }}
                         onPress={() => {
                             setModalVisible(!modalVisible);
                         }}
                     >
                         <Text style={styles.textStyle}>Fermer</Text>
                     </TouchableOpacity>
-                    <ScrollView>
-                    <Text style={styles.text}>Nom:</Text>
-                        <TextInput
-                            style={styles.text_input}
-                            placeholder="nom"
-                            onChangeText={(nom) => { setNom(nom) }}
-                        />
-                        <Text style={styles.text}>Prénom:</Text>
-                        <TextInput
-                            style={styles.text_input}
-                            placeholder="nom"
-                            onChangeText={(prenom) => { setPreNom(prenom) }}
-                        />
-                        <Text style={styles.text}>Adresse e-mail:</Text>
-                        <TextInput
-                            style={styles.text_input}
-                            placeholder="nom"
-                            onChangeText={(mail) => { setMail(mail) }}
-                        />
-                        <Text style={styles.text}>Téléphone:</Text>
-                        <TextInput
-                            style={styles.text_input}
-                            placeholder="nom"
-                            onChangeText={(tel) => { setTel(tel) }}
-                        />
                         <TouchableOpacity
-                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                            style={{ ...styles.openButton, backgroundColor: "#1E79C5" }}
                             onPress={() => update()}
                         >
                             <Text style={styles.textStyle}>Ajouter</Text>
                         </TouchableOpacity>
+                        </View>
                     </ScrollView>
+                    
                 </View>
 
             </Modal>
@@ -161,7 +177,7 @@ export default function MprochesScreen({ navigation }) {
                             keyExtractor={item => item[0].id.toString()}
                         />
                         :
-                        <Text style={{ alignItems: 'center', justifyContent: 'center' }}>Veuillez patienter Svp</Text>
+                        displayLoading()
                 }
 
             
@@ -171,7 +187,7 @@ export default function MprochesScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
+        justifyContent:'center'
     },
     item: {
         backgroundColor: 'white',
@@ -219,7 +235,7 @@ const styles = StyleSheet.create({
     },
 
     modalView: {
-        //margin: 5,
+        marginTop: 95,
         backgroundColor: "white",
         borderRadius: 20,
         padding: 10,

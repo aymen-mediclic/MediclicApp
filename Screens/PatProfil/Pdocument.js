@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
+import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableOpacity,ActivityIndicator } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'; 
 import { url2, url1 } from '../../Navigation/GlobalUrl';
 
 
 export default function FprocheScreen({ navigation }) {
     const [Data, setData] = useState([])
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         fetch(url1)
         return fetch(url2+'/api/profil_proche?uid=85&get_file&proche=118')
@@ -14,6 +15,7 @@ export default function FprocheScreen({ navigation }) {
                 console.log("repooooonse")
                 console.log(res)
                 setData(res);
+                setLoading(false)
             })
             .done();
     }, []);
@@ -62,11 +64,22 @@ export default function FprocheScreen({ navigation }) {
 
 
     console.log(Data, "<><><><><><><><")
+    let displayLoading=() => {
+        if (loading) {
+          //Loading View while data is loading
+          return (
+            <View style={{ flex: 1, alignItems:'center', justifyContent:'center' }}>
+              <ActivityIndicator size="large" color="#1E79C5" />
+              
+            </View>
+          );
+        }
+      }
 
     return (
 
 
-        <View  >
+        <View style={{ flex: 1, justifyContent:'center' }} >
 
 
             {
@@ -78,7 +91,7 @@ export default function FprocheScreen({ navigation }) {
                         keyExtractor={item => item[0].id.toString()}
                     />
                     :
-                    <Text style={{alignItems:'center'}}>No Data is Available</Text>
+                    displayLoading()
             }
 
         </View >

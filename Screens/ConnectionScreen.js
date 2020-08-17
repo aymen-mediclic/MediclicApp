@@ -8,6 +8,7 @@ import { url1, url2 } from '../Navigation/GlobalUrl';
 var BUTTONS = ["Patient", "Professionnel", "Centre", "Annuler"];
 var DESTRUCTIVE_INDEX = 3;
 var CANCEL_INDEX = 4;
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // {this.Autho}
 class ConnectionScreen extends React.Component {
   constructor(props) {
@@ -15,9 +16,16 @@ class ConnectionScreen extends React.Component {
     this.state = {
       login: '',
       password: '',
-
+      icon: "eye-slash",
+      pass: true,
     }
   }
+  _changeIcon() {
+    this.setState(prevState => ({
+        icon: prevState.icon === 'eye' ? 'eye-slash' : 'eye',
+        pass: !prevState.pass
+    }));
+}
   
   render() {
     return (
@@ -30,6 +38,7 @@ class ConnectionScreen extends React.Component {
             onChangeText={(login) => this.setState({ login })}
             value={this.state.username}
             autoCapitalize = 'none'
+            keyboardType='email-address'
             leftIcon={<Icon
               name='user'
               size={16}
@@ -40,14 +49,16 @@ class ConnectionScreen extends React.Component {
             onChangeText={(password) => this.setState({ password })}
             value={this.state.password}
             autoCapitalize = 'none'
+            secureTextEntry={this.state.pass}
             leftIcon={{ type: 'font-awesome', name: 'lock', color: '#95a5a6' ,size:17}}
-            rightIcon={{ type: 'feather', name: 'eye-off', color: '#95a5a6',size:17 }}
+            rightIcon={ 
+            <FontAwesome color='#95a5a6' size={16}  name={this.state.icon} onPress={() => this._changeIcon()} />}
           />
           <TouchableOpacity style={styles.btn} onPress= {this.Autho} >
             <Text style={{ color: 'black', alignSelf: 'center', fontSize: 15,fontWeight:'bold' ,marginTop: 5 }}>CONNEXION</Text>
           </TouchableOpacity>
           <TouchableOpacity style={{ borderBottomWidth:1,borderBottomColor:'black' }}>
-          <Text style={{ color: 'black', fontWeight: 'bold',margin:5,fontSize:12 }}>MOT DE PASSE OUBLIE ? </Text>
+          <Text style={{ color: 'black', fontWeight: 'bold',margin:5,fontSize:12 }}>MOT DE PASSE OUBLIÉ ? </Text>
           </TouchableOpacity>
           
           
@@ -59,11 +70,13 @@ class ConnectionScreen extends React.Component {
               options: BUTTONS,
               cancelButtonIndex: CANCEL_INDEX,
               destructiveButtonIndex: DESTRUCTIVE_INDEX,
-              title: "Je veux créer un compte"
+              title: "Je veux créer un compte",
             },
             buttonIndex => {
-              if (BUTTONS[buttonIndex] != 'Annuler') {
+              if (buttonIndex == 0) {
                 this.setState({ clicked: NavigationService.navigate('Inscription') });
+              } else if(buttonIndex == 1){
+                this.setState({ clicked: NavigationService.navigate('Inscription Professionel') });
               }
             }
           )}>
@@ -88,16 +101,19 @@ class ConnectionScreen extends React.Component {
         console.log("repooooonse")
         console.log(res)
         console.log("*********success***********")
+        console.log(res.uid)
+        console.log("*********laloli**********")
         //changes here
         if (res.user_context) {
           if (res.etat[0] == 'patient') {
           console.log("user login now -------------------")
           await AsyncStorage.setItem('user', JSON.stringify(res));
-          this.props.navigation.replace('Mon Profil:');
+          await AsyncStorage.setItem('uid', JSON.stringify(res.uid));
+          this.props.navigation.replace('Mon Profil:',{id: res.uid});
           }
           else{
             alert("ss")
-            this.props.navigation.replace('WebViewScreen');
+            this.props.navigation.replace('WebViewScreen',{id: res.uid});
           }
           
         }

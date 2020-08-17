@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Modal, _ScrollView } from 'react-native'
+import { View, TextInput, ActivityIndicator, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Modal, _ScrollView } from 'react-native'
 import DatePicker from 'react-native-datepicker';
 import { RadioButton } from 'react-native-paper';
 import { url1, url2 } from '../../Navigation/GlobalUrl';
@@ -15,7 +15,7 @@ export default function Pprofil({ navigation }) {
     const [mutuelle, setMutuelle] = useState("")
     const [adresse, setAdresse] = useState("")
     const [ville, setVille] = useState("")
-
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         fetch(url1)
         return fetch(url2+'/api/profil_proche?uid=26&get_profil&proche=120')
@@ -24,6 +24,7 @@ export default function Pprofil({ navigation }) {
                 console.log("repooooonse")
                 console.log(res)
                 setData(res)
+                setLoading(false)
             })
             .done();
     }, []);
@@ -82,9 +83,20 @@ export default function Pprofil({ navigation }) {
             })
             .done();
     }
-
+    let displayLoading=() => {
+        if (loading) {
+          //Loading View while data is loading
+          return (
+            <View style={{ flex: 1, alignItems:'center', justifyContent:'center' }}>
+              <ActivityIndicator size="large" color="#1E79C5" />
+              
+            </View>
+          );
+        }
+      }
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }} >
+            {displayLoading()}
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -94,14 +106,7 @@ export default function Pprofil({ navigation }) {
                 }}>
                 <View style={styles.modalView}>
 
-                <TouchableOpacity
-                        style={{ borderRadius:5,height:20, backgroundColor: "#2196F3" }}
-                        onPress={() => {
-                            setModalVisible(!modalVisible);
-                        }}
-                    >
-                        <Text style={styles.textStyle}>Fermer</Text>
-                    </TouchableOpacity>
+                
                     <ScrollView>
                         <RadioButton.Group
                             onValueChange={civility => setCivility( civility)}
@@ -190,17 +195,28 @@ export default function Pprofil({ navigation }) {
                             placeholder="Ville "
                             onChangeText={(ville) => setVille(ville)}
                         />
-
+                    <View style={{flexDirection:'row',justifyContent:"flex-end",justifyContent:"space-between"}}>
+                    <TouchableOpacity
+                        style={{ ...styles.openButton, backgroundColor: "#1E79C5" }}
+                        onPress={() => {
+                            setModalVisible(!modalVisible);
+                        }}
+                    >
+                        <Text style={styles.textStyle}>Fermer</Text>
+                    </TouchableOpacity>
                         <TouchableOpacity
-                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                            style={{ ...styles.openButton, backgroundColor: "#1E79C5" }}
                             onPress={() => update()}
                         >
                             <Text style={styles.textStyle}>Modifier</Text>
                         </TouchableOpacity>
+                        </View>
                     </ScrollView>
                 </View>
 
             </Modal>
+            { Data.length !=0  && (
+                <View>
             <TouchableOpacity style={styles.btn}
                 onPress={() => {
                     setModalVisible(true);
@@ -209,7 +225,7 @@ export default function Pprofil({ navigation }) {
             </TouchableOpacity>
             <View >
 
-
+<View style={styles.ctr} >
 <View style={styles.main_container}>
     <Text style={styles.text}>Nom:</Text>
     <Text style={styles.text1}>{Data.nom}</Text>
@@ -250,10 +266,12 @@ export default function Pprofil({ navigation }) {
 
 </View>
 
-
+</View>
 </View>
           
         </View>
+         )}
+         </View>
         
     );
 }
@@ -265,6 +283,26 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         paddingRight: 10
     },
+    ctr: {
+        
+        padding:7,
+        height: '92%',
+        width: '90%',
+        alignSelf: 'center',
+        //justifyContent: 'center',
+        backgroundColor:'white',
+        marginTop:5,
+        marginBottom:5,
+        borderRadius:4,
+        shadowColor: "grey",
+            shadowOpacity: 0.8,
+            shadowRadius: 2,
+            shadowOffset: {
+                height: 1,
+                width: 0,
+            },
+            elevation: 5,
+      },
     text: {
         marginLeft: 10,
         fontWeight: 'bold',
@@ -305,7 +343,7 @@ const styles = StyleSheet.create({
         //marginTop: 10
     },
     modalView: {
-        //margin: 5,
+        marginTop: 95,
         backgroundColor: "white",
         borderRadius: 20,
         padding: 10,

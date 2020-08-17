@@ -10,11 +10,10 @@ import MedProfilScreen from './Screens/MedProfilScreen';
 import WebViewScreen from "./Screens/WebViewScreen"
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer,useNavigation } from '@react-navigation/native';
+import { NavigationContainer,useNavigation,DrawerActions } from '@react-navigation/native';
 import { navigationRef } from './Navigation/NavigationService';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity, Text, Modal, View } from 'react-native';
-import { DrawerActions } from '@react-navigation/native';
 import Calendar from './Components/Calendar';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -45,6 +44,7 @@ import InscriptionProf from './Screens/InscriptionProf';
 import HeaderRes from './Components/HeaderRes';
 import Adresse2 from './Components/Adresse2';
 import HeaderMc from './Components/HeaderMC';
+import HeaderPat from './Screens/PatProfil/HeaderPat';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -66,24 +66,18 @@ export default class App extends React.Component {
     }
   }
   
+  
   render() {
   //  console.log(this.state.isUser, "----------------------")
+  const { navigation } = this.props;
     return (
       <Root>
       <NavigationContainer ref={navigationRef}>
-        <Modal visible={this.state.modalOpen} animationType='slide' transparent={true}  >
-          
-          <View style={{ flexDirection: 'row', backgroundColor: '#1E79C5',marginTop:15 }}>
-            <MaterialIcons color='white' name='close' size={20} onPress={() => this.setState({ modalOpen: false })} />
-            <Text style={{ fontSize: 16, color: 'white' }}> Nouvelle recherche</Text>
-          </View>
-          <ShortCut />
-         
-        </Modal>
+        
 
         <Stack.Navigator >
           <Stack.Screen name="Mediclic" component={AppDraw}
-            options={{
+            options={({ navigation }) =>({
               headerTintColor: '#fff',
               headerStyle: {
                 backgroundColor: '#1E79C5',
@@ -101,11 +95,11 @@ export default class App extends React.Component {
                   {/*<FontAwesomeIcon icon='user' />*/}
                 </TouchableOpacity>,
               headerLeft: () =>
-                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => NavigationService.navigate('Seconde adresse')} >
+                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => navigation.openDrawer() }>
                   <MaterialIcons name='menu' size={28} color={'white'} />
                 </TouchableOpacity>,
             }
-            } />
+             )}/>
           <Stack.Screen name="Résultat" component={ListMed} options={{
             headerTintColor: '#fff',
             headerStyle: {
@@ -293,7 +287,7 @@ export default class App extends React.Component {
             headerTitleAlign: 'center',
           }} />
 
-          <Stack.Screen name="Mon Profil:" component={GProfPatient} options={{
+          <Stack.Screen name="Mon Profil:" component={GProfPatient} options={({ route,navigation }) =>({
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',
@@ -303,7 +297,12 @@ export default class App extends React.Component {
             headerTitleStyle: {
               fontWeight: 'bold'
             },
-          }} />
+            //headerTitle: ()=> <HeaderPat/>,
+            headerLeft: () =>
+                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => navigation.openDrawer() } >
+                  <MaterialIcons name='menu' size={28} color={'white'} />
+                </TouchableOpacity>,
+          })} />
            <Stack.Screen name="Proche Profil:" component={GProcheProfil} options={{
              headerTintColor: '#fff',
              headerStyle: {
@@ -315,6 +314,8 @@ export default class App extends React.Component {
                fontWeight: 'bold'
              },
             headerTitle: ()=> <Pheader/>
+            
+            
           }} />
            <Stack.Screen name="Choisir un professionnel" component={SearchMed} options={{
             headerTintColor: '#fff',
@@ -386,12 +387,11 @@ export default class App extends React.Component {
 }
 
 
-const AppDraw = () =>
+const AppDraw = ( {navigation}) =>
 
   <Drawer.Navigator>
     <Drawer.Screen name="Accueil" component={AccueilScreen} />
     <Drawer.Screen name="A propos" component={AboutScreen} />
-    {/*<Drawer.Screen name="Liste" component={ListMed} />*/}
   </Drawer.Navigator>
 
 

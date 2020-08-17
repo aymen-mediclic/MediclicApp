@@ -54,7 +54,7 @@ export default function GProfPatient() {
     return (
 
         <Drawer.Navigator initialRouteName="Home" drawerContent={props => <CustomDrawerContent {...props} />} >
-            <Drawer.Screen name="Mon profil" component={MprofilScreen} options={{ drawerLabel: 'Profil', drawerIcon: ({ focused, color, size }) => (<Feather color={color} size={20} name={'user'} />) }} />
+            <Drawer.Screen name="Mon profil" component={MprofilScreen} options={{ drawerLabel: 'Mon Profil', drawerIcon: ({ focused, color, size }) => (<Feather color={color} size={20} name={'user'} />) }} />
             <Drawer.Screen name="Mes RDV" component={MrdvScreen} options={{ drawerIcon: ({ focused, color, size }) => (<Feather color={color} size={20} name={'calendar'} />) }} />
             <Drawer.Screen name="Mes documents" component={FScreen} options={{ drawerIcon: ({ focused, color, size }) => (<EntypoI color={color} size={20} name={'text-document'} />) }} />
             <Drawer.Screen name="Mes proches" component={MprochesScreen} options={{ drawerIcon: ({ focused, color, size }) => (<Ionicons color={color} size={22} name={'ios-people'} />) }} />

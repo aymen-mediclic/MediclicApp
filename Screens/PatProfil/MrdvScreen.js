@@ -130,21 +130,25 @@ export default function MrdvScreen({ navigation }) {
                     </View>
                 </Modal>
 
-                <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-                    <Text style={styles.title}>RDV avec : </Text>
-                    <Text style={styles.title1}>{item.profess}</Text>
+                <View style={{ flexDirection: "row", justifyContent: 'space-between'}}>
+                    <Text style={{...styles.title,flex:3}}>RDV avec</Text>
+                    <Text style={{...styles.title,flex:1}}>:</Text>
+                    <Text style={{...styles.title1,flex:3}}>{item.profess}</Text>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-                    <Text style={styles.title}>Date du RDV : </Text>
-                    <Text style={styles.title1}>{item.date_rdv}</Text>
+                    <Text style={{...styles.title,flex:3}}>Date du RDV</Text>
+                    <Text style={{...styles.title,flex:1}}>:</Text>
+                    <Text style={{...styles.title1,flex:3}}>{item.date_rdv}</Text>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-                    <Text style={styles.title}>Statut : </Text>
-                    <Text style={styles.title1}>{item.statut}</Text>
+                    <Text style={{...styles.title,flex:3}}>Statut</Text>
+                    <Text style={{...styles.title,flex:1}}>:</Text>
+                    <Text style={{...styles.title1,flex:3}}>{item.statut}</Text>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: 'space-between',marginBottom:7 }}>
-                    <Text style={styles.title}>	Adressé par : </Text>
-                    <Text style={styles.title1}>{item.statut}</Text>
+                    <Text style={{...styles.title,flex:3}}>Adressé par</Text>
+                    <Text style={{...styles.title,flex:1}}>:</Text>
+                    <Text style={{...styles.title1,flex:3}}>{item.name}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <TouchableHighlight
@@ -168,7 +172,7 @@ export default function MrdvScreen({ navigation }) {
                                 
                                 Alert.alert(  
                                     'Supprimer',  
-                                    'Etes-vous sûr(e) de vouloir supprimer ce RDV?',  
+                                    'Etes-vous sûr(e) de vouloir supprimer ce RDV ?',  
                                     [  
                                         {  
                                             text: 'Annuler',  
@@ -231,7 +235,7 @@ const styles = StyleSheet.create({
     },
     item: {
         backgroundColor: 'white',
-        padding: 20,
+        padding: 10,
         marginVertical: 8,
         marginHorizontal: 16,
     },

@@ -3,7 +3,7 @@ import { View, Text,  StyleSheet,Image,AsyncStorage} from 'react-native'
 
 
 export default class HeaderPat extends React.Component {
-  componentDidMount= async()=>{
+  /*componentDidMount= async()=>{
     let uid = await AsyncStorage.getItem("user");
                 console.log("22")
                 console.log(uid)
@@ -19,7 +19,7 @@ export default class HeaderPat extends React.Component {
                 setLoading(false)
             })
             .done();
-}
+}*/
   
   render() {
     return (
@@ -27,7 +27,7 @@ export default class HeaderPat extends React.Component {
             
             
             <View style={{ marginLeft:20,margin:8}}>
-            <Text style={{color:'white',fontSize:17,alignSelf:'center'}}>{userInfo.nom}</Text>
+            <Text style={{color:'white',fontSize:17,alignSelf:'center'}}>ASMAA kh</Text>
             
             </View>
             

@@ -24,24 +24,29 @@ export default function FScreen({ navigation }) {
         return (
             <View style={styles.item}>
                 <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
-                    <Text style={styles.title}>Ajouté Par : </Text>
-                    <Text style={styles.title1}>{item.ajouter_par}</Text>
+                    <Text style={{...styles.title,flex:3}}>Ajouté Par</Text>
+                    <Text style={{...styles.title,flex:1}}>:</Text>
+                    <Text style={{...styles.title1,flex:3}}>{item.ajouter_par}</Text>
                 </View>
                 <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
-                    <Text style={styles.title}>Catégorie : </Text>
-                    <Text style={styles.title1}>{item.categorie}</Text>
+                    <Text style={{...styles.title,flex:3}}>Catégorie</Text>
+                    <Text style={{...styles.title,flex:1}}>:</Text>
+                    <Text style={{...styles.title1,flex:3}}>{item.categorie}</Text>
                 </View>
                 <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
-                    <Text style={styles.title}>Créer le : </Text>
-                    <Text style={styles.title1}>{item.create_date}</Text>
+                    <Text style={{...styles.title,flex:3}}>Créer le</Text>
+                    <Text style={{...styles.title,flex:1}}>:</Text>
+                    <Text style={{...styles.title1,flex:3}}>{item.create_date}</Text>
                 </View>
                 <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
-                    <Text style={styles.title}>RDV avec : </Text>
-                    <Text style={styles.title1}>{item.rdv_avec}</Text>
+                    <Text style={{...styles.title,flex:3}}>RDV avec</Text>
+                    <Text style={{...styles.title,flex:1}}>:</Text>
+                    <Text style={{...styles.title1,flex:3}}>{item.rdv_avec}</Text>
                 </View>
                 <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
-                    <Text style={styles.title}>Date du RDV : </Text>
-                    <Text style={styles.title1}>{item.dtae_rdv}</Text>
+                    <Text style={{...styles.title,flex:3}}>Date du RDV</Text>
+                    <Text style={{...styles.title,flex:1}}>:</Text>
+                    <Text style={{...styles.title1,flex:3}}>{item.dtae_rdv}</Text>
                 </View>
                 <TouchableOpacity style={{flexDirection:'row',alignSelf:'flex-end',margin:15}}>
                     <Text style={{marginRight:10,fontWeight:'bold',color:'#1E79C5'}}>

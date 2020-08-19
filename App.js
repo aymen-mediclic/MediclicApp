@@ -95,7 +95,7 @@ export default class App extends React.Component {
                   {/*<FontAwesomeIcon icon='user' />*/}
                 </TouchableOpacity>,
               headerLeft: () =>
-                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => navigation.openDrawer() }>
+                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => navigation.dispatch(DrawerActions.toggleDrawer()) }>
                   <MaterialIcons name='menu' size={28} color={'white'} />
                 </TouchableOpacity>,
             }
@@ -297,13 +297,13 @@ export default class App extends React.Component {
             headerTitleStyle: {
               fontWeight: 'bold'
             },
-            //headerTitle: ()=> <HeaderPat/>,
-            headerLeft: () =>
-                <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => navigation.openDrawer() } >
-                  <MaterialIcons name='menu' size={28} color={'white'} />
+            headerTitle: ()=> <HeaderPat/>,
+            headerRight: () =>
+                <TouchableOpacity style={{ marginRight: 5 }} onPress={() => navigation.dispatch(DrawerActions.toggleDrawer()) } >
+                  <MaterialIcons name='menu' size={25} color={'white'} />
                 </TouchableOpacity>,
           })} />
-           <Stack.Screen name="Proche Profil:" component={GProcheProfil} options={{
+           <Stack.Screen name="Proche Profil:" component={GProcheProfil} options={({ route,navigation }) =>({
              headerTintColor: '#fff',
              headerStyle: {
                backgroundColor: '#1E79C5',
@@ -313,10 +313,13 @@ export default class App extends React.Component {
              headerTitleStyle: {
                fontWeight: 'bold'
              },
-            headerTitle: ()=> <Pheader/>
-            
-            
-          }} />
+            headerTitle: ()=> <Pheader/>,
+            headerRight: () =>
+                <TouchableOpacity style={{ marginRight: 5 }} onPress={() => navigation.dispatch(DrawerActions.toggleDrawer()) } >
+                  <MaterialIcons name='menu' size={25} color={'white'} />
+                </TouchableOpacity>
+           })}
+           />
            <Stack.Screen name="Choisir un professionnel" component={SearchMed} options={{
             headerTintColor: '#fff',
             headerStyle: {

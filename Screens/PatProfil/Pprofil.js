@@ -217,12 +217,16 @@ export default function Pprofil({ navigation }) {
             </Modal>
             { Data.length !=0  && (
                 <View>
+            <View style={{flexDirection:'row',alignSelf:'flex-end',alignItems:'center',justifyContent:'center',margin:5,marginRight:15}}>
+                    <Text style={{ color: 'orange', fontSize: 17,fontWeight:'bold',marginRight:5 }}>Modifier mon profil </Text>
             <TouchableOpacity style={styles.btn}
                 onPress={() => {
                     setModalVisible(true);
                 }}>
-                <Text style={{ color: 'white', fontSize: 15 }}> Modifier mon profil</Text>
+                
+                <Text style={{ color: 'white', fontSize: 25,alignSelf:'center' }}>+</Text>
             </TouchableOpacity>
+            </View>
             <View >
 
 <View style={styles.ctr} >
@@ -313,17 +317,25 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     btn: {
-        borderRadius: 8,
+        borderRadius: 30/2,
         backgroundColor: 'orange',
         color: 'white',
-        width: 200,
+        width: 30,
         height: 30,
         alignSelf: 'flex-end',
-        marginRight: 10,
-        marginBottom: 10,
-        marginTop: 10,
+        //marginRight: 10,
+        //marginBottom: 10,
+        //marginTop: 10,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        shadowColor: "grey",
+            shadowOpacity: 0.8,
+            shadowRadius: 2,
+            shadowOffset: {
+                height: 1,
+                width: 0,
+            },
+            elevation: 5,
     },
     text_input: {
         alignSelf: 'center',

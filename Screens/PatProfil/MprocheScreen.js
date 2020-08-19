@@ -158,14 +158,18 @@ export default function MprochesScreen({ navigation }) {
                 </View>
 
             </Modal>
-            <TouchableOpacity style={styles.btn}
+            
+                    <View style={{flexDirection:'row',alignSelf:'flex-end',alignItems:'center',justifyContent:'center',margin:5,marginRight:15}}>
+                    <Text style={{ color: 'orange', fontSize: 17,fontWeight:'bold',marginRight:5 }}>Ajouter un proche</Text>
+            <TouchableOpacity style={styles.btn1}
                 onPress={() => {
                     setModalVisible(true);
                 }}>
-                <Text style={{ color: 'white', fontSize: 15 }}> Ajouter un proche</Text>
+                
+                <Text style={{ color: 'white', fontSize: 25,alignSelf:'center' }}>+</Text>
             </TouchableOpacity>
-            
-
+            </View>
+                
 
                 {
                     (Data.proches)
@@ -283,5 +287,26 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#2c3e50'
     },
+    btn1: {
+        borderRadius: 30/2,
+        backgroundColor: 'orange',
+        color: 'white',
+        width: 30,
+        height: 30,
+        alignSelf: 'flex-end',
+        //marginRight: 10,
+        //marginBottom: 10,
+        //marginTop: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: "grey",
+            shadowOpacity: 0.8,
+            shadowRadius: 2,
+            shadowOffset: {
+                height: 1,
+                width: 0,
+            },
+            elevation: 5,
+    }
 });
 

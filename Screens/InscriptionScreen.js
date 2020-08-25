@@ -138,7 +138,7 @@ export default class InscriptionProf extends React.Component {
         return (
             <ScrollView contentContainerStyle={styles.main_container}>
 
-                <RadioButton.Group
+             {/*   <RadioButton.Group
                     onValueChange={value => this.setState({ value })}
                     value={this.state.value}
                 >
@@ -153,7 +153,7 @@ export default class InscriptionProf extends React.Component {
                             <RadioButton value="femme" />
                         </View>
                     </View>
-                </RadioButton.Group>
+             </RadioButton.Group>*/}
 
 
                 <Text style={styles.text}>Nom (de naissance)</Text>
@@ -192,7 +192,7 @@ export default class InscriptionProf extends React.Component {
                         Veuillez renseigner votre Prénom.
                     </Text>
                 ) : null}
-                <Text style={styles.text}>Je suis Majeur</Text>
+                {/*<Text style={styles.text}>Je suis Majeur</Text>
                 <CheckBox
                 style={{ flex: 1, padding: 10 }}
                 onClick={() => {
@@ -202,7 +202,7 @@ export default class InscriptionProf extends React.Component {
                 }}
                 isChecked={this.state.isChecked}
                 rightText={"Oui"}
-              />
+            />
                 <Text style={styles.text}>N°Téléphone</Text>
                 <TextInput style={[styles.text_input, { borderColor: this.state.color2 }]}
                     placeholder='N°Téléphone'
@@ -217,7 +217,7 @@ export default class InscriptionProf extends React.Component {
                             this.setState({ tel, ErrorStatus2: false, color2: '#7f8c8d' });
                         }
                     }}
-                />
+                />*/}
                 {this.state.ErrorStatus2 == false ? (
                     <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
                         Veuillez renseigner un numéro de téléphone portable valide. Ce numéro doit contenir 10 chiffres et commencer par 06 ou 07.

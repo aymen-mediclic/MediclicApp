@@ -74,7 +74,7 @@ class ConnectionScreen extends React.Component {
             },
             buttonIndex => {
               if (buttonIndex == 0) {
-                this.setState({ clicked: NavigationService.navigate('Inscription') });
+                this.setState({ clicked: NavigationService.navigate("Formulaire d'inscription") });
               } else if(buttonIndex == 1){
                 this.setState({ clicked: NavigationService.navigate('Inscription Professionel') });
               }

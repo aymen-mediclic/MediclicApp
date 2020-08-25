@@ -14,7 +14,14 @@ export default function MprochesScreen({ navigation }) {
     const [mail, setMail] = useState("")
     const [tel, setTel] = useState("")
     const [loading, setLoading] = useState(true);
-
+    const [Error,setError] = useState(true)
+    const [color,setColor] = useState('#dfe4ea')
+    const [Error1,setError1] = useState(true)
+    const [color1,setColor1] = useState('#dfe4ea')
+    const [Error2,setError2] = useState(true)
+    const [color2,setColor2] = useState('#dfe4ea')
+    const [Error3,setError3] = useState(true)
+    const [color3,setColor3] = useState('#dfe4ea')
 
     useEffect(() => {
         fetch(url1)
@@ -66,6 +73,34 @@ export default function MprochesScreen({ navigation }) {
             })
             .done();
     }
+    const checkError=()=> {
+        if(nom == ''){
+           setError(false), setColor('red')
+        }/* else if(nom != '')
+        {  setError(true),setColor('#2ecc71')}*/
+        
+        else if(prenom == ''){
+            setError1(false), setColor1('red') ,setError(true),setColor('#2ecc71')
+        }else if(mail == ''){
+            setError2(false), setColor2('red'),setError1(true),setColor1('#2ecc71')
+        }
+        else if( tel == ''){
+            setError3(false), setColor3('red'),setError2(true),setColor2('#2ecc71')
+        }
+        /*else if(adresse== ''){
+            setError4(false), setColor4('red'),setError3(true),setColor3('#2ecc71')
+        }
+        else if(ville == ''){
+            setError5(false), setColor5('red'),setError4(true),setColor4('#2ecc71')
+        }*/
+        else{
+            setModalVisible(!modalVisible);
+            /*update()*/
+            
+        }
+        
+
+    }
     function Item({ item }) {
         return (
             
@@ -115,28 +150,48 @@ export default function MprochesScreen({ navigation }) {
                     <ScrollView>
                     <Text style={styles.text}>Nom :</Text>
                         <TextInput
-                            style={styles.text_input}
+                            style={{...styles.text_input,borderColor:color}}
                             placeholder="nom"
                             onChangeText={(nom) => { setNom(nom) }}
                         />
+                        {Error == false ? (
+                            <Text style={{color:'red',marginLeft:20}} >
+                                 Veuillez renseigner votre nom.
+                            </Text>
+                             ) : null}
                         <Text style={styles.text}>Prénom :</Text>
                         <TextInput
-                            style={styles.text_input}
+                            style={{...styles.text_input,borderColor:color1}}
                             placeholder="nom"
                             onChangeText={(prenom) => { setPreNom(prenom) }}
                         />
+                        {Error1 == false ? (
+                            <Text style={{color:'red',marginLeft:20}} >
+                                 Veuillez renseigner votre Prénom .
+                            </Text>
+                             ) : null}
                         <Text style={styles.text}>Adresse e-mail :</Text>
                         <TextInput
-                            style={styles.text_input}
+                            style={{...styles.text_input,borderColor:color2}}
                             placeholder="nom"
                             onChangeText={(mail) => { setMail(mail) }}
                         />
+                        {Error2 == false ? (
+                            <Text style={{color:'red',marginLeft:20}} >
+                                 Veuillez renseigner votre adresse mail .
+                            </Text>
+                             ) : null}
                         <Text style={styles.text}>Téléphone :</Text>
                         <TextInput
-                            style={styles.text_input}
+                            style={{...styles.text_input,borderColor:color3}}
                             placeholder="nom"
                             onChangeText={(tel) => { setTel(tel) }}
                         />
+                        {Error3 == false ? (
+                            <Text style={{color:'red',marginLeft:20}} >
+                                 Veuillez renseigner votre téléphone .
+                            </Text>
+                             ) : null}
                         <View style={{flexDirection:'row',justifyContent:"flex-end",justifyContent:"space-between"}}>
                         <TouchableOpacity
                         style={{ ...styles.openButton, backgroundColor: "#1E79C5" }}
@@ -148,7 +203,7 @@ export default function MprochesScreen({ navigation }) {
                     </TouchableOpacity>
                         <TouchableOpacity
                             style={{ ...styles.openButton, backgroundColor: "#1E79C5" }}
-                            onPress={() => update()}
+                            onPress={() => checkError()}
                         >
                             <Text style={styles.textStyle}>Ajouter</Text>
                         </TouchableOpacity>

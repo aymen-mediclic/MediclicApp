@@ -194,7 +194,7 @@ export default class App extends React.Component {
               fontWeight: 'bold'
             }
           }} />
-          <Stack.Screen name="Inscription" component={Inscription} options={{
+          <Stack.Screen name="Formulaire d'inscription" component={Inscription} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',

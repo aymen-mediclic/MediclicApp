@@ -75,7 +75,7 @@ export default class Search extends React.Component {
     return (
       <View style={styles.main_container}>
         <SearchBar
-          placeholder='Médecin,établissement,spécialité....'
+          placeholder='Professionels,Spécialités,Services,Centres'
           onChangeText={(text) => this._searchTextInputChanged(text)}
           value={this.searchedText}
           //lightTheme='true'

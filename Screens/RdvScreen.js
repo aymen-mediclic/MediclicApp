@@ -7,7 +7,9 @@ import MyComponent from '../Components/RadioButton';
 import Identification from './IdentificationScreen';
 import { url1, url2 } from '../Navigation/GlobalUrl';
 import { Button, Input } from 'react-native-elements';
-
+import EntypoI from 'react-native-vector-icons/AntDesign'
+import * as NavigationService from '../Navigation/NavigationService';
+import Conf from './Confirmation';
 class RDV extends React.Component {
 
   state = {
@@ -150,11 +152,8 @@ class RDV extends React.Component {
           <ProgressStep label="Récapitulatif" nextBtnText="Confirmer" previousBtnText="Précédent" onNext={this.Confirmation} >
             <Recap Name={name} text={text} userInfo={this.state.userInfo} adresse={this.props.route.params.adresse} type_rdv={this.props.route.params.type_rdv} service_name={this.props.route.params.service_name} service_salle={this.props.route.params.service_salle} adress2={this.props.route.params.adresse2} onFocusFunction={this.onFocusFunction} />
           </ProgressStep>
-          <ProgressStep label="Confirmation" previousBtnText="Précédent" finishBtnText='Confirmer' onSubmit={this.Confirmation} nextBtnDisabled={true} previousBtnDisabled={true} >
-            <View style={{ alignItems: 'center' }}>
-              <Text style={{ fontSize: 16 }}>Félicitations, votre rendez-vous est confirmé !</Text>
-              <Image style={styles.img} source={require('../assets/C.png')} />
-            </View>
+          <ProgressStep label="Confirmation" previousBtnText="Précédent" finishBtnText='Confirmer' /*onSubmit={this.Confirmation}*/ nextBtnDisabled={true} previousBtnDisabled={true}  >
+            <Conf/>
           </ProgressStep>
         </ProgressSteps>
       </View>

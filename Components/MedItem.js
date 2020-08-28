@@ -79,10 +79,7 @@ class MedItem extends React.Component {
                                 {/*<Image style={styles.img} source={{ uri:getImageFromApi( Med.obj.image ) }} />*/}
                                 <View style={{ flexDirection: 'column', flex: 1 }}>
                                     <Text style={styles.txt}>{Med.obj.name} </Text>
-                                    <View style={{flexDirection:'row',alignSelf:'flex-end',margin:3}}>
-                                        <MC name="map-marker-outline" color="#1E79C5" size={20} />
-                                        <Text style={{ color: '#1E79C5', fontWeight: "bold"}}>{Med.distance}</Text>
-                                    </View>
+                                    
                                     
                                     {
                                         (Med.obj.specialite) ?
@@ -90,6 +87,7 @@ class MedItem extends React.Component {
                                             :
                                             <></>
                                     }
+                                   
                                     {
                                         (Med.obj.adress_obj) ?
                                             <Text style={{ color: '#FFC617' }}>{Med.obj.adress_obj} </Text>
@@ -114,7 +112,10 @@ class MedItem extends React.Component {
                                             :
                                             <></>
                                     }
-                                    
+                                     <View style={{alignSelf:'flex-end',margin:3,marginRight:10}}>
+                                        <MC name="map-marker-outline" color="#1E79C5" size={20} style={{alignSelf:'center'}} />
+                                        <Text style={{ color: '#1E79C5', fontWeight: "bold",alignSelf:'center'}}>{Med.distance}</Text>
+                                    </View>
 
                                 </View>
                             </TouchableOpacity>
@@ -138,7 +139,7 @@ class MedItem extends React.Component {
                                             item[1].map((day, i) => {
                                                 //show only 3 times
                                                 return (i < 3) ?
-                                                <TouchableOpacity style={[styles.txt_slt, { marginHorizontal: 2 }]} onPress={() =>{ this.props.dataFilter.type_rdv=='D' ? NavigationService.navigate('Seconde adresse',
+                                                <TouchableOpacity style={[styles.txt_slt,{ marginHorizontal: 2,backgroundColor:day.color }]} onPress={() =>{ this.props.dataFilter.type_rdv=='D' ? NavigationService.navigate('Seconde adresse',
                                                 {
                                                     name: Med.obj.name,
                                                     adresse:this.props.dataFilter.location,
@@ -286,7 +287,7 @@ const styles = StyleSheet.create({
     },
     txt_slt: {
         textAlign: 'center',
-        backgroundColor: '#2ecc71',
+        //backgroundColor: '#2ecc71',
         width: 70,
         color: 'white',
         marginBottom: 2,

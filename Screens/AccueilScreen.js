@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ActivityIndicator, ImageBackground, Text, ScrollView } from 'react-native'
+import { View, StyleSheet, ActivityIndicator, ImageBackground, Text, ScrollView,TouchableOpacity } from 'react-native'
 import * as Font from 'expo-font';
 import Search from '../Components/Search'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -11,6 +11,7 @@ class AccueilScreen extends React.Component {
 
         <ImageBackground source={require('../assets/bgd1.jpg')} style={styles.image}>
           <Search />
+         
         </ImageBackground>
 
 

@@ -149,7 +149,7 @@ export default function Pprofil({ navigation }) {
     <TextInput
         style={{...styles.text_input,borderColor:color}}
         placeholder="nom"
-        value={Data.nom}
+        value={nom}
         onChangeText={(nom) => setNom(nom) }/>
         
         
@@ -311,19 +311,21 @@ export default function Pprofil({ navigation }) {
 
 <View style={styles.ctr} >
 <View style={{flexDirection:'row',marginLeft:10,marginTop:10}}>
-                    <Text style={{fontWeight:'bold'}}>Pourcentage de remplissage : </Text>
+                    <Text style={{fontWeight:'bold'}}>Votre profil est complet à : </Text>
                     <Text> {Data.pourcentage}%</Text>
                     </View>
-                        <Tooltip containerStyle={{flex:1}} width={220} backgroundColor={'orange'} popover={<View>
-                        <Text style={{fontWeight:'bold',fontSize:16}}>les champs à remplir :</Text>
+                        <Tooltip  containerStyle={{flex:1}}  height={160} width={220} backgroundColor={'orange'} popover={<View>
+                        <Text style={{fontWeight:'bold',fontSize:16}}>Champs à renseigner :</Text>
                         {
                             Data.champs.map((lng, ney) => {
-                               return <Text>- {lng}</Text> 
+                               return <Text>-  {lng}</Text> 
                             })
                         }
                         </View>}>
                         <Progress.Bar progress={(Data.pourcentage)*0.01} width={200} style={{margin:10}} />
                     </Tooltip>
+                    </View>
+                    <View style={styles.ctr} >
                     <View style={styles.main_container}>
                     <Text style={{...styles.text,flex:3}}>Nom</Text>
                     <Text style={{...styles.text,flex:1}}>:</Text>

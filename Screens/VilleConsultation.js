@@ -5,13 +5,15 @@ import PlacesInput from 'react-native-places-input';
 import { View,TextInput,ScrollView,Text,StyleSheet } from 'react-native';
 import { GoogleAutoComplete } from 'react-native-google-autocomplete';
 import * as NavigationService from '../Navigation/NavigationService';
+import EntypoI from 'react-native-vector-icons/Entypo'
 
 const GOOGLE_PLACES_API_KEY = 'AIzaSyBwO4e9kDezyKMJBTIsEmGrLveDXzB1kuE'; //run
 export default class VilleC extends React.Component {
   render() {
     return (
-      <View style={{flex:1}}>
+      <View style={{flex:1, backgroundColor:'white'}}>
       <GooglePlacesAutocomplete
+      //placeholder='Où ? (adresse,ville...)'
       placeholder='Où ? (adresse,ville...)'
         query={{
           key: GOOGLE_PLACES_API_KEY,
@@ -19,6 +21,21 @@ export default class VilleC extends React.Component {
           components: 'country:ma',
         }}
         fetchDetails = {true}
+        autoFocus={true}
+        currentLocation={true}
+        currentLocationLabel="Autour de moi"
+        /*renderRow={(row) =>
+          row.isCurrentLocation ? (
+            <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+              <EntypoI color={'grey'} size={20} name={'direction'} />
+              <Text style={{ color: 'black', marginLeft: 10 }}>
+                {row.description}
+              </Text>
+            </View>
+          ) : (
+            <Text></Text>
+          )
+        }*/
         GooglePlacesDetailsQuery	= {{
             fields: ['geometry']
           }}

@@ -196,12 +196,14 @@ export default class App extends React.Component {
           }} />
           <Stack.Screen name="Formulaire d'inscription" component={Inscription} options={{
             headerTintColor: '#fff',
+            headerTitleAlign: 'center',
             headerStyle: {
               backgroundColor: '#1E79C5',
               height: 80,
             },
             headerTitleStyle: {
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize:18
             }
           }} />
           <Stack.Screen name="Date de rendez-vous" component={DateC} options={{

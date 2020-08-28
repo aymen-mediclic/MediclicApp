@@ -2,6 +2,7 @@ import React from 'react'
 import {View,TextInput,TouchableOpacity,StyleSheet,Text,KeyboardAvoidingView} from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
 import{MaterialIcons} from '@expo/vector-icons'
+import EntypoI from 'react-native-vector-icons/AntDesign'
 class Search extends React.Component{
     constructor(props){
         super(props)
@@ -24,6 +25,7 @@ class Search extends React.Component{
                     <Text style={styles.btn_txt}>Rechercher</Text>
                     <MaterialIcons name='search'size={20} />
                     </TouchableOpacity>
+                    
                 </View>
              </KeyboardAvoidingView>
             

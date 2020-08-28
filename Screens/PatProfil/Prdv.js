@@ -11,7 +11,7 @@ export default function Prdv({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
     useEffect(() => {
         fetch(url2)
-        return fetch(url1+'/api/profil_proche?uid=26&get_rdv&proche=118')
+        return fetch(url1+'/api/profil_proche?uid=26&get_rdv&proche=5')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")

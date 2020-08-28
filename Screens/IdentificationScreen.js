@@ -54,10 +54,10 @@ class Identification extends React.Component {
               <FontAwesome color={'grey'} size={18} style={{ margin: 5,width:'10%' }} name={this.state.icon} onPress={() => this._changeIcon()} />
               </View>
               
-              <Button buttonStyle={{width:250,height:30,margin:20}} color='#FFC617' title='Valider' onPress={this.Autho} />
+              <Button buttonStyle={{width:250,height:30,margin:20}} color='#FFC617' title="S'Identifier" onPress={this.Autho} />
               <View style={{ margin:20 }}>
                 <TouchableOpacity style={styles.btn} onPress={()=> {this.setState({val:'b'});console.log('b',this.state.val);this.props.AbleNext()}}>
-                  <Text style={{fontWeight:'bold',alignSelf:'center',color:'#1E79C5'}}>Mot de passe oublié?</Text>
+                  <Text style={{fontWeight:'bold',alignSelf:'center',color:'#1E79C5'}}>Mot de passe oublié ?</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.btn}>
                   <Text style={{fontWeight:'bold',alignSelf:'center',color:'#1E79C5'}}>Créer un compte</Text>
@@ -221,7 +221,8 @@ const styles = StyleSheet.create({
     height:30,
     borderWidth:1,
     borderColor:'#1E79C5',
-    borderRadius:5
+    borderRadius:5,
+    justifyContent:'center'
   },
   adr_view: {
     alignSelf:'center',

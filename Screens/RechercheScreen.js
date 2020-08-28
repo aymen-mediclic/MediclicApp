@@ -1,6 +1,6 @@
 ////////////lM39oul/////////////////////////
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, RefreshControl, Modal, TouchableOpacity, TouchableHighlight, ActivityIndicator, KeyboardAvoidingView } from 'react-native'
+import { View, Text, StyleSheet, FlatList, RefreshControl, TouchableOpacity, TouchableHighlight, ActivityIndicator, KeyboardAvoidingView } from 'react-native'
 import MedItem from '../Components/MedItem'
 import { fetchLien } from '../Navigation/WelcomeStack'
 import { MaterialIcons } from '@expo/vector-icons'
@@ -9,6 +9,7 @@ import { Header, Button, Segment, Content } from 'native-base';
 import ShortCut from '../Components/ShortCut'
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { url1, url2 } from '../Navigation/GlobalUrl'
+import Modal from 'react-native-modal';
 class RechercheScreen extends React.Component {
 
   constructor(props) {
@@ -380,10 +381,11 @@ class RechercheScreen extends React.Component {
     return (
       <View style={styles.main_container}>
 
-        <Modal visible={this.state.modalOpen} animationType='slide' transparent={true} >
+        <Modal visible={this.state.modalOpen}  animationIn="slideInLeft"
+        animationOut="slideOutRight" transparent={true} >
           <ShortCut data={this.state.datafiltre} dataFilter={this.dataFilter} dataFilter1={this.dataFilter1} dataFilter2={this.dataFilter2} dataFilter3={this.dataFilter3} modalClose={this.CloseModal} />
         </Modal>
-        <Segment style={{ backgroundColor: '#1E79C5', height: 40 }}>
+        <Segment style={{ justifyContent:'flex-start',backgroundColor: '#1E79C5', height: 40 }}>
           <TouchableOpacity style={styles.filter_btn} onPress={() => this.setState({ modalOpen: true })} >
             <Fontisto color='white' size={16} name={'equalizer'} />
 

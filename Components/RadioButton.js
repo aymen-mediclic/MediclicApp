@@ -103,13 +103,13 @@ export default class ImagePickerExample extends React.Component {
         <View style={{ marginTop: 20, backgroundColor: 'white', paddingBottom: 200 }}>
           <Text style={{ fontSize: 16, alignSelf: 'center'}}>Vous prenez un rendez-vous pour :</Text>
           <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 15 }}>
-            <View style={{ marginRight: 30 }}>
-              <Text>Pour vous</Text>
-              <RadioButton value="first" />
+            <View style={{ marginRight: 30,alignItems:'center' }}>
+              <Text>Vous</Text>
+              <RadioButton color='#1E79C5' value="first" />
             </View>
-            <View>
-              <Text>Pour un Proche</Text>
-              <RadioButton value="second" />
+            <View style={{alignItems:'center'}}>
+              <Text>Un Proche</Text>
+              <RadioButton color='#1E79C5' value="second" />
             </View>
           </View>
           {/*<View>
@@ -149,14 +149,14 @@ export default class ImagePickerExample extends React.Component {
                   <Text style={{alignSelf:'center',fontSize:20,color:'#1E79C5',height:30,marginBottom:20}}>Ajouter un proche</Text>
                 
                 <ScrollView>
-                  <Text style={styles.text}>Nom:</Text>
+                  <Text style={styles.text}>Nom :</Text>
                   <TextInput
                     style={styles.text_input}
                     placeholder="nom"
                     value={this.state.nom}
                     onChangeText={(name) => this.setState({nom:name}) }
                   />
-                  <Text style={styles.text}>Prénom:</Text>
+                  <Text style={styles.text}>Prénom :</Text>
                   <TextInput
                     style={styles.text_input}
                     value={this.state.prenom}
@@ -164,7 +164,7 @@ export default class ImagePickerExample extends React.Component {
                     onChangeText={(prename) => { this.setState({prenom:prename}) }}
 
                   />
-                  <Text style={styles.text}>Adresse e-mail:</Text>
+                  <Text style={styles.text}>Adresse e-mail :</Text>
                   <TextInput
                     style={styles.text_input}
                     placeholder="e-mail:"
@@ -172,7 +172,7 @@ export default class ImagePickerExample extends React.Component {
                     onChangeText={(maili) => { this.setState({mail:maili}) }}
 
                   />
-                  <Text style={styles.text}>Téléphone:</Text>
+                  <Text style={styles.text}>Téléphone :</Text>
                   <TextInput
                     style={styles.text_input}
                     placeholder="Téléphone:"

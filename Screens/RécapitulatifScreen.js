@@ -18,22 +18,26 @@ class Recap extends React.Component {
              <View style={styles.ctr1} >
                 <Text style={styles.title} > Informations sur le rendez-vous :</Text>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Type du RDV : </Text>
-                <Text style={styles.txt1}> {this.props.type_rdv} </Text>
+                <Text style={{ ...styles.txt, flex: 3 }}>Type du RDV</Text>
+                <Text style={{ ...styles.txt, flex: 1 }}>:</Text>
+                <Text style={{ ...styles.txt1, flex: 3 }}>{this.props.type_rdv}</Text>
                 </View>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> RDV avec : </Text>
-                <Text style={styles.txt1}> {this.props.Name}</Text>
+                <Text style={{ ...styles.txt, flex: 3 }}>RDV avec</Text>
+                <Text style={{ ...styles.txt, flex: 1 }}>:</Text>
+                <Text style={{ ...styles.txt1, flex: 3 }}>{this.props.Name}</Text>
                 </View>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Adresse :</Text>
-                <Text style={styles.txt1}> {this.props.adresse} </Text>
+                <Text style={{ ...styles.txt, flex: 3 }}>Adresse</Text>
+                <Text style={{ ...styles.txt, flex: 1 }}>:</Text>
+                <Text style={{ ...styles.txt1, flex: 3 }}>{this.props.adresse}</Text>
                 </View>
                 {(this.props.type_rdv =='D')?
                   <>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Adresse 2 :</Text>
-                <Text style={styles.txt1}> {this.props.adress2} </Text>
+                <Text style={{ ...styles.txt, flex: 3 }}>Adresse 2</Text>
+                <Text style={{ ...styles.txt, flex: 1 }}>:</Text>
+                <Text style={{ ...styles.txt1, flex: 3 }}>{this.props.adress2}</Text>
                 </View>
                 </>
                   :
@@ -42,8 +46,9 @@ class Recap extends React.Component {
                 {(this.props.service_name)?
                   <>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Service :</Text>
-                <Text style={styles.txt1}> {this.props.service_name} </Text>
+                <Text style={{ ...styles.txt, flex: 3 }}>Service</Text>
+                <Text style={{ ...styles.txt, flex: 1 }}>:</Text>
+                <Text style={{ ...styles.txt1, flex: 3 }}>{this.props.service_name}</Text>
                 </View>
                 </>
                   :
@@ -52,42 +57,49 @@ class Recap extends React.Component {
                 {(this.props.service_salle)?
                   <>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Salle :</Text>
-                <Text style={styles.txt1}>{this.props.service_salle}</Text>
+                <Text style={{ ...styles.txt, flex: 3 }}>Salle</Text>
+                <Text style={{ ...styles.txt, flex: 1 }}>:</Text>
+                <Text style={{ ...styles.txt1, flex: 3 }}>{this.props.service_salle}</Text>
                 </View>
                 </>
                   :
                   <></> 
                 }
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Heure :</Text>
-                <Text style={styles.txt1}> {moment(text).format("h:mm a")}</Text>
+                <Text style={{ ...styles.txt, flex: 3 }}>Heure</Text>
+                <Text style={{ ...styles.txt, flex: 1 }}>:</Text>
+                <Text style={{ ...styles.txt1, flex: 3 }}>{moment(text).format("h:mm a")}</Text>
                 </View>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                <Text style={styles.txt}> Date :</Text>
-                <Text style={styles.txt1}> {moment(text).format("DD-MM-YYYY")}</Text>
+                <Text style={{ ...styles.txt, flex: 3 }}>Date</Text>
+                <Text style={{ ...styles.txt, flex: 1 }}>:</Text>
+                <Text style={{ ...styles.txt1, flex: 3 }}>{moment(text).format("DD-MM-YYYY")}</Text>
                 </View>
                 
              </View>
              <View style={styles.ctr2} > 
-                <Text style={styles.title}> Informations sur le patient:</Text>
+                <Text style={styles.title}> Informations sur vous :</Text>
                 {(this.props.userInfo)?
                   <>
                   <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                  <Text style={styles.txt}> Nom :</Text>
-                  <Text style={styles.txt1}> {this.props.userInfo.nom}</Text>
+                  <Text style={{ ...styles.txt, flex: 3 }}>Nom</Text>
+                <Text style={{ ...styles.txt, flex: 1 }}>:</Text>
+                <Text style={{ ...styles.txt1, flex: 3 }}>{this.props.userInfo.nom}</Text>
                   </View>
                   <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                  <Text style={styles.txt}> Prenom :</Text>
-                  <Text style={styles.txt1}> {this.props.userInfo.prenom}</Text>
+                  <Text style={{ ...styles.txt, flex: 3 }}>Prénom</Text>
+                <Text style={{ ...styles.txt, flex: 1 }}>:</Text>
+                <Text style={{ ...styles.txt1, flex: 3 }}>{this.props.userInfo.prenom}</Text>
                   </View>
                   <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                  <Text style={styles.txt}> Téléphone :</Text>
-                  <Text style={styles.txt1}> {this.props.userInfo.tel}</Text>
+                  <Text style={{ ...styles.txt, flex: 3 }}>Téléphone</Text>
+                <Text style={{ ...styles.txt, flex: 1 }}>:</Text>
+                <Text style={{ ...styles.txt1, flex: 3 }}>{this.props.userInfo.tel}</Text>
                   </View>
                   <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
-                  <Text style={styles.txt}> E-mail :</Text>
-                  <Text style={styles.txt1}> {this.props.userInfo.email}</Text>
+                  <Text style={{ ...styles.txt, flex: 3 }}>E-mail</Text>
+                <Text style={{ ...styles.txt, flex: 1 }}>:</Text>
+                <Text style={{ ...styles.txt1, flex: 3 }}>{this.props.userInfo.email}</Text>
                   </View>
                     
                   </>
@@ -114,19 +126,43 @@ const styles = StyleSheet.create({
   ctr1 : {
     marginTop:5,
     marginBottom:5,
-    //backgroundColor:'grey',
-    width:'80%'
+    padding:3,
+    paddingLeft:10,
+    width:'80%',
+    borderRadius: 4,
+        shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+                        height: 1,
+            width: 0,
+        },
+        elevation: 5,
   },
   ctr2 : {
     marginBottom:5,
+    marginTop:10,
     //backgroundColor:'grey',
-    width:'80%'
+    width:'80%',
+    padding:3,
+    paddingLeft:10,
+    width:'80%',
+    borderRadius: 4,
+        shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+                        height: 1,
+            width: 0,
+        },
+        elevation: 5,
   },
   title : {
     fontSize:19,
     color:'#34495e',
     marginBottom:8,
-    textAlign:'center'
+    textAlign:'center',
+    fontWeight:'bold'
   },
   txt : {
     fontSize:15,

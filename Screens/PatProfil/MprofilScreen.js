@@ -17,15 +17,15 @@ export default function Mprofil(navigation, route, props) {
     //console.log(id)
     // MODIFIED
 
-    const [nom, setNom] = useState("")
-    const [preNom, setPreNom] = useState("")
     const [civility, setCivility] = useState("")
     const [niassance, setNiassance] = useState("")
-    const [cin, setCin] = useState("")
-    const [mutuelle, setMutuelle] = useState("")
-    const [adresse, setAdresse] = useState("")
-    const [ville, setVille] = useState("")
-    const [tel, setTel] = useState("")
+    const [nom, setNom] = useState(Data.nom)                 //osama somy
+    const [cin, setCin] = useState(Data.cin) //osama somy
+    const [preNom, setPreNom] = useState(Data.prenom) //osama somy
+    const [mutuelle, setMutuelle] = useState(Data.mutuelle) //osama somy
+    const [adresse, setAdresse] = useState(Data.adress) //osama somy
+    const [ville, setVille] = useState(Data.ville) //osama somy
+    const [tel, setTel] = useState(Data.tel) //osama somy
     const [Error, setError] = useState(true)
     const [color, setColor] = useState('#dfe4ea')
     const [Error1, setError1] = useState(true)
@@ -49,8 +49,15 @@ export default function Mprofil(navigation, route, props) {
                 console.log(res)
 
                 AsyncStorage.setItem("userInfo", JSON.stringify(res))
-                setData(res)
-                setLoading(false)
+                setData(res)              // OSAMA SOMY
+                setNom(res.nom) // OSAMA SOMY
+                setCin(res.cin) // OSAMA SOMY
+                setPreNom(res.prenom) // OSAMA SOMY
+                setMutuelle(res.mutuelle) // OSAMA SOMY
+                setAdresse(res.adress) // OSAMA SOMY
+                setVille(res.ville) // OSAMA SOMY
+                setTel(res.tel) // OSAMA SOMY
+                setLoading(false) // OSAMA SOMY
             })
             .done();
     }, []);
@@ -88,27 +95,33 @@ export default function Mprofil(navigation, route, props) {
 
 
                 console.log("*********success***********")
-                /*if(adresse!=''){
-                    setData({adress: adresse})
-                }else if(cin!=''){
-                    setData({cin: cin})
-                } if(preNom.length!=0){
-                    setData({prenom: preNom})
-                }/*else if(preNom!=''){
-                    setData({ prenom: preNom})
-                }else if(niassance!=''){
-                    setData({date_naissance: niassance})
-                }else if(civility!=''){
-                    setData({civilite: civility})
-                }else if(mutuelle!=''){
-                    setData({mutuelle: mutuelle})
-                }else if(ville!=''){
-                    setData({ville: ville})
-                }else if(tel!=''){
-                    setData({tel: tel})
-                }*/
-                //setData({Num_mut: "20555"});
-                setModalVisible(false)
+                console.log("repooooonse")
+                console.log("==========OSAMA=========")
+                console.log(res)
+                let _data = {...Data}
+                
+                _data.adresse   = adresse,
+                _data.Num_CIN   = cin,
+                _data.nom       = nom,
+                _data.prenom    = preNom,
+                _data.date_nais = niassance,
+                _data.civilite  = civility,
+                _data.Num_mut   = mutuelle,
+                _data.ville     = ville,
+                _data.tel       = tel
+                
+                setData(_data)
+
+                console.log("*********success***********")
+                
+                Alert.alert(  
+                    'Votre modification a été enregistrée avec succès.',  
+                    '',  
+                    [  
+                         
+                        {text: 'Ok', onPress:()=> setModalVisible(false)}]  
+                );  
+               
             })
             .done();
     }
@@ -130,7 +143,7 @@ export default function Mprofil(navigation, route, props) {
 
         else if (preNom == '') {
             setError1(false), setColor1('red'), setError(true), setColor('#2ecc71')
-        }else if(tel == ''){
+        }else if(tel == '' || Error2==false){
             setError2(false), setColor2('red'),setError1(true),setColor1('#2ecc71')
         }
         else {
@@ -140,6 +153,7 @@ export default function Mprofil(navigation, route, props) {
 
 
     }
+    let t=/^((06)|(07))[0-9]{8}$/;
     return (
         <ScrollView contentContainerStyle={{ backgroundColor: 'white' }} >
             {displayLoading()}
@@ -160,7 +174,7 @@ export default function Mprofil(navigation, route, props) {
                             value={civility}
                         >
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={styles.text}>Civilité:</Text>
+                                <Text style={styles.text}>Civilité :</Text>
 
                                 <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 30, marginLeft: 10 }}>
                                     <RadioButton value="femme" />
@@ -179,7 +193,7 @@ export default function Mprofil(navigation, route, props) {
                         <TextInput
                             style={{ ...styles.text_input, borderColor: color }}
                             placeholder="nom"
-                            //value={Data.nom}
+                            value={nom}
                             onChangeText={(nom) => setNom(nom)} />
 
 
@@ -194,7 +208,7 @@ export default function Mprofil(navigation, route, props) {
                         <TextInput
                             style={{ ...styles.text_input, borderColor: color1 }}
                             placeholder="Prénom"
-                            //value={Data.prenom}
+                            value= {preNom}
                             onChangeText={(preNom) =>
                                 setPreNom(preNom)
 
@@ -210,19 +224,27 @@ export default function Mprofil(navigation, route, props) {
                         <TextInput
                             style={{ ...styles.text_input, borderColor: color2}}
                             placeholder="N° de téléphone"
-                             //value={Data.tel}
-                            onChangeText={(tel) =>setTel(tel)}
+                            keyboardType='numeric'
+                            value={tel}
+                            onChangeText={(tel) =>  {
+                                if (tel.trim() != 0 &&  tel.match(t)) {
+                                setTel(tel), setError2(true) ,setColor2('#2ecc71')
+                                   
+                                } else {
+                                    setTel(tel), setError2(false) ,setColor2('#7f8c8d')
+                                   
+                                }}}
                         />
                         {Error2 == false ? (
                             <Text style={{ color: 'red', marginLeft: 20 }} >
-                                Veuillez renseigner votre téléphone .
+                                Veuillez renseigner un numéro de téléphone portable valide. Ce numéro doit contenir 10 chiffres et commencer par 06 ou 07.
                             </Text>
                         ) : null}
 
                         <Text style={styles.text}>Date de naissance :</Text>
                         <DatePicker
                             style={{ width: "90%", alignSelf: 'center' }}
-                            date={Data.naissance} //initial date from state
+                            date={niassance} //initial date from state
                             mode="date" //The enum of date, datetime and time
                             locale='es'
                             //placeholder="Sélectionner une date"
@@ -278,9 +300,9 @@ export default function Mprofil(navigation, route, props) {
 
                         <Text style={styles.text}>N° CIN :</Text>
                         <TextInput
-                            style={{ ...styles.text_input, borderColor: color2 }}
+                            style={{ ...styles.text_input, borderColor: color3 }}
                             placeholder="N° CIN"
-                            //value={Data.cin}
+                            value={cin}
                             onChangeText={(cin) => setCin(cin)}
                         />
                         
@@ -289,7 +311,7 @@ export default function Mprofil(navigation, route, props) {
                         <TextInput
                             style={{ ...styles.text_input, borderColor: color3 }}
                             placeholder="N° Mutuelle"
-                            //value={Data.mutuelle}
+                            value={mutuelle}
                             onChangeText={(mutuelle) => 
                                     setMutuelle(mutuelle)}
                         />
@@ -298,7 +320,7 @@ export default function Mprofil(navigation, route, props) {
                         <TextInput
                             style={{ ...styles.text_input, borderColor: color4 }}
                             placeholder="Adresse"
-                            //value={Data.adress}
+                            value={adresse}
                             onChangeText={(adresse) => 
                                     setAdresse(adresse)}
                         />
@@ -307,7 +329,7 @@ export default function Mprofil(navigation, route, props) {
                         <TextInput
                             style={{ ...styles.text_input, borderColor: color5 }}
                             placeholder="Ville "
-                            //value={Data.ville}
+                            value={ville}
                             onChangeText={(ville) =>
                                     setVille(ville)}
                         />
@@ -352,17 +374,17 @@ export default function Mprofil(navigation, route, props) {
                     <View style={styles.ctr} >
 
                         <View style={{ flexDirection: 'row', marginLeft: 15, marginTop: 10, }}>
-                            <Text style={{ fontWeight: 'bold' }}>Pourcentage de remplissage : </Text>
+                            <Text style={{ fontWeight: 'bold' }}>Votre profil est complet à : </Text>
                             <Text> {Data.pourcentage}%</Text>
                         </View>
                         <Tooltip height={70} width={200} backgroundColor={'orange'} popover={<View>
-                            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>les champs à remplir :</Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 16 }}> Champs à renseigner :</Text>
                             {Data.champs.length > 0 ?
                             Data.champs.map((lng, ney) => {
                                return <Text>- {lng}</Text> 
                             }) 
                             :
-                            <Text> Aucun </Text>
+                            <Text>- Aucun </Text>
                         }
                        
                         </View>}>

@@ -156,7 +156,7 @@ export default class InscriptionProf extends React.Component {
              </RadioButton.Group>*/}
 
 
-                <Text style={styles.text}>Nom (de naissance)</Text>
+                <Text style={{...styles.text,marginTop:15}}>Nom (de naissance)</Text>
                 <TextInput style={[styles.text_input, { borderColor: this.state.color }]}
                     placeholder='Nom'
                     autoCapitalize = 'none'
@@ -202,7 +202,7 @@ export default class InscriptionProf extends React.Component {
                 }}
                 isChecked={this.state.isChecked}
                 rightText={"Oui"}
-            />
+            />*/}
                 <Text style={styles.text}>N°Téléphone</Text>
                 <TextInput style={[styles.text_input, { borderColor: this.state.color2 }]}
                     placeholder='N°Téléphone'
@@ -217,7 +217,7 @@ export default class InscriptionProf extends React.Component {
                             this.setState({ tel, ErrorStatus2: false, color2: '#7f8c8d' });
                         }
                     }}
-                />*/}
+                />
                 {this.state.ErrorStatus2 == false ? (
                     <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
                         Veuillez renseigner un numéro de téléphone portable valide. Ce numéro doit contenir 10 chiffres et commencer par 06 ou 07.

@@ -4,6 +4,7 @@ import * as NavigationService from '../Navigation/NavigationService';
 import SearchVille from './SearchVille';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Entypo from 'react-native-vector-icons/Entypo';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { MaterialIcons } from '@expo/vector-icons'
 import { url1, url2 } from '../Navigation/GlobalUrl';
@@ -138,7 +139,7 @@ export default class ShortCut extends React.Component {
                 
                 </View>
                 <View style={styles.Picker_View} >
-                <Fontisto color='#1E79C5' size={20} name={'doctor'} />
+                <Fontisto color='#1E79C5' size={20} name={'search'} />
                 <Picker
                     mode='dropdown'
                     selectedValue={this.state.selectedValue2}
@@ -151,7 +152,7 @@ export default class ShortCut extends React.Component {
                 </Picker>
                 </View>
                 <View style={styles.Picker_View} >
-                <Fontisto color='#1E79C5' size={20} name={'doctor'} />
+                <FontAwesome5 color='#1E79C5' size={20} name={'users'} />
                 <Picker
                     //mode='dropdown'
                     selectedValue={this.state.selectedValue3}
@@ -164,7 +165,7 @@ export default class ShortCut extends React.Component {
                 </Picker>
                 </View>
                 <View style={styles.Picker_View} >
-                <Fontisto color='#1E79C5' size={20} name={'doctor'} />
+                <FontAwesome color='#1E79C5' size={20} name={'gears'} />
                 <Picker
                     mode='dropdown'
                     selectedValue={this.state.selectedValue4}
@@ -177,7 +178,7 @@ export default class ShortCut extends React.Component {
                 </Picker>
                 </View>
                 <View style={styles.Picker_View} >
-                <Fontisto color='#1E79C5' size={20} name={'doctor'} />
+                <Entypo color='#1E79C5' size={20} name={'add-user'} />
                 <Picker
                     mode='dropdown'
                     selectedValue={this.state.selectedValue5}
@@ -225,9 +226,10 @@ const styles = StyleSheet.create({
     ctr: {
         flex: 1,
         backgroundColor: '#1E79C5',
-        marginBottom:80,
-        marginHorizontal:20,
-        marginTop:95,
+       // marginBottom:80,
+        //marginHorizontal:20,
+        //marginTop:95,
+        marginRight:40
     },
     Picker_View: { 
         backgroundColor:'white',
@@ -237,7 +239,7 @@ const styles = StyleSheet.create({
         alignItems:"center",
         borderRadius:5,
         alignSelf:'center',
-        margin:5,
+        margin:15,
         flexDirection:'row',
         padding: 5,
         shadowColor: "grey",
@@ -256,7 +258,15 @@ const styles = StyleSheet.create({
     },
     Search: {
         backgroundColor: 'white', height: 35, width: 300, alignSelf: 'center', borderRadius: 5,
-        flexDirection: 'row', padding: 5, margin:5
+        flexDirection: 'row', padding: 5, margin:15,
+        shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0,
+        },
+        elevation: 5,
 
     },
     close: {

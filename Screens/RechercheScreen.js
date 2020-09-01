@@ -381,8 +381,12 @@ class RechercheScreen extends React.Component {
     return (
       <View style={styles.main_container}>
 
-        <Modal visible={this.state.modalOpen}  animationIn="slideInLeft"
-        animationOut="slideOutRight" transparent={true} >
+<Modal 
+          isVisible    = {this.state.modalOpen}
+          animationIn  = "slideInLeft"
+          animationOut = "slideOutLeft"
+          style        = {{margin: 0}}
+        >
           <ShortCut data={this.state.datafiltre} dataFilter={this.dataFilter} dataFilter1={this.dataFilter1} dataFilter2={this.dataFilter2} dataFilter3={this.dataFilter3} modalClose={this.CloseModal} />
         </Modal>
         <Segment style={{ justifyContent:'flex-start',backgroundColor: '#1E79C5', height: 40 }}>

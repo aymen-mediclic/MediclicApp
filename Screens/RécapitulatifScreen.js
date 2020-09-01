@@ -1,11 +1,22 @@
 import React from 'react';
-import {View,Text,Button,StyleSheet, AsyncStorage} from 'react-native'
+import {View,Text,Button,StyleSheet, AsyncStorage,TouchableOpacity} from 'react-native'
 import moment from 'moment';
+import Adresse2 from '../Components/Adresse2';
+import Modal from 'react-native-modal';
 // import { useNavigation } from '@react-navigation/native';
 
 class Recap extends React.Component {
-
-  
+  constructor(props) {
+    super(props)
+    this.state = {
+      modalOpen1: false,
+      adress2:''
+    }
+  }
+   Adresse2=(txt) => {
+    this.setState({adress2:txt})
+    this.setState({ modalOpen1: false })
+   }
 
 
   render(){
@@ -14,6 +25,15 @@ class Recap extends React.Component {
     const text =this.props.text
     return (
         <View style={styles.container}>
+          <Modal
+                                                            isVisible={this.state.modalOpen1}
+                                                            animationIn="slideInLeft"
+                                                            animationOut="slideOutLeft"
+                                                            style={{ margin: 0 }}
+                                                            transparent={true}
+                                                        >
+                                                        <Adresse2 adress2={this.Adresse2}/>
+                                                        </Modal>
        
              <View style={styles.ctr1} >
                 <Text style={styles.title} > Informations sur le rendez-vous :</Text>
@@ -37,7 +57,11 @@ class Recap extends React.Component {
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
                 <Text style={{ ...styles.txt, flex: 3 }}>Adresse 2</Text>
                 <Text style={{ ...styles.txt, flex: 1 }}>:</Text>
-                <Text style={{ ...styles.txt1, flex: 3 }}>{this.props.adress2}</Text>
+                <Text style={{ ...styles.txt1, flex: 3 }}>{this.state.adress2}</Text>
+                <TouchableOpacity style={styles.btn} onPress={()=>this.setState({ modalOpen1: true })} >
+            <Text style={{ color: 'white', alignSelf: 'center', fontSize: 15, fontWeight: 'bold', marginTop: 5 }}>Adr 2</Text>
+          </TouchableOpacity>
+                
                 </View>
                 </>
                   :
@@ -174,6 +198,23 @@ const styles = StyleSheet.create({
     fontSize:15,
     //fontWeight:'bold'
     
+  },
+  btn: {
+    marginRight:20,
+    borderColor: '#1E79C5',
+    backgroundColor: '#1E79C5',
+    borderWidth: 1,
+    height: 35,
+    borderRadius: 4,
+    width:50,
+    shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0,
+        },
+        elevation: 5,
   },
  
 });

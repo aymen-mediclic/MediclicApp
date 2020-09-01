@@ -1,8 +1,9 @@
 import React from 'react'
-import { ScrollView, View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native'
+import { ScrollView, View, Text, Button, StyleSheet, TouchableOpacity,Modal } from 'react-native'
 import { Container, Header, Content,Icon, Accordion, Item } from "native-base";
 import * as NavigationService from '../Navigation/NavigationService';
 import moment from 'moment';
+import Infirmier from '../Components/InfirmierModal';
 const dataArray = [
     { title: "lun 27/07" },
     { title: "mar 28/07" }
@@ -14,6 +15,11 @@ export default class DateC extends React.Component {
       
     constructor(props) {
         super(props);
+        this.state = {
+            
+            modalOpen1: false,
+            
+        }
     }
     _renderContent(item) {
         return (
@@ -67,6 +73,9 @@ export default class DateC extends React.Component {
         </View>
         )
     }
+    CloseModal = () => {
+        this.setState({ modalOpen1: false })
+      }
 
     render() {
         const Name= this.props.route.params.Name
@@ -77,17 +86,26 @@ export default class DateC extends React.Component {
            console.log("=========================`")
         return (
             <View>
+                <Modal 
+          visible    = {this.state.modalOpen1}
+          animationIn  = "slideInLeft"
+          animationOut = "slideOutLeft"
+          style        = {{margin: 0}}
+          transparent={true}
+        >   
+          <Infirmier  modalClose={this.CloseModal}/>
+        </Modal>
                 <Accordion 
                     dataArray={this.props.route.params.Med} 
                     renderContent={(item)=><View style ={{flexDirection: 'row', flexWrap: "wrap", justifyContent: 'center'}}>
                     {
                         item[1].map((day, i) => {
                         //show only 3 times
-                            return(<TouchableOpacity style={styles.btn} onPress={()=> {type_rdv=='D' ? NavigationService.navigate('Seconde adresse',
+                            return(<TouchableOpacity style={styles.btn} onPress={()=> {type_rdv=='D' ? this.setState({ modalOpen1: true })/*NavigationService.navigate('Seconde adresse',
                             {
-                                name:Name,
-                                adresse:adresse,
-                                type_rdv:type_rdv,
+                                name: Med.obj.name,
+                                adresse:this.props.dataFilter.location,
+                                type_rdv:this.props.dataFilter.type_rdv,
                                 namo: day.name,
                                 text: day.date_start,
                                 text1: day.date_end,
@@ -100,7 +118,7 @@ export default class DateC extends React.Component {
                                 service_name: day.service_name,
                                 service_salle: day.service_salle,
                                 adresse_rdv: day.adresse_rdv
-                            })
+                            })*/
                                 
                                : NavigationService.navigate('Validez votre rendez-vous',
                                                     {

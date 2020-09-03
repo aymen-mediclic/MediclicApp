@@ -16,7 +16,7 @@ export default function MrdvScreen({ navigation }) {
       
     useEffect(() => {
         fetch(url1)
-        return fetch(url2+'/api/profil?uid=26&get_rdv')
+        return fetch(url2+'/api/profil?uid=126&get_rdv')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")

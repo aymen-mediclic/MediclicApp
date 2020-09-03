@@ -27,7 +27,7 @@ export default class ShortCut extends React.Component {
         this.setState({ selectedValue2: itemValue })
         //console.log('voila',this.state.selectedValue2)
         if (itemValue == 'D') {
-            this.props.modalClose()
+            this.props.modalClose();
             NavigationService.navigate('Choisisser votre position')
         }
         else {
@@ -214,7 +214,14 @@ export default class ShortCut extends React.Component {
                     :<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}> Location </Text>
                     }
                     </TouchableOpacity>
-                    
+                    {this.state.selectedValue2=='D'?
+            <TouchableOpacity style={styles.btn1} onPress={() => {this.props.modalClose();NavigationService.navigate('Choisisser votre position')}} >
+            
+            <Text style={styles.fabIcon}>Modifier l'adresse du rdv</Text>
+          </TouchableOpacity>
+          :
+          <></>
+          }                    
 
 
             </KeyboardAvoidingView>
@@ -253,7 +260,7 @@ const styles = StyleSheet.create({
     },
     Picker: { 
         color: '#1E79C5',
-        width:270,
+        width:"90%",
         marginLeft:8
     },
     Search: {
@@ -287,7 +294,32 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 5,
-    }
+    },
+    btn1: {
+        marginHorizontal: 5,
+        flexDirection: 'row',
+        alignSelf: 'center',
+        alignItems:'center',
+        justifyContent:'center',
+        width:"90%",
+        padding: 5,
+        height:30,
+        backgroundColor:'#27ae60',
+        shadowColor: "grey",
+            shadowOpacity: 0.8,
+            shadowRadius: 2,
+            shadowOffset: {
+                height: 1,
+                width: 0,
+            },
+            elevation: 5,
+      },
+      fabIcon: {
+        fontSize: 15,
+        color: 'white',
+        marginLeft: 5,
+        textAlign:'center'
+      },
 }
 )
 

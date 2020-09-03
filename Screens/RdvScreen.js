@@ -16,7 +16,8 @@ class RDV extends React.Component {
     userInfo: false,
     nxt: true,
     adress2: '',
-    nbr:0
+    nbr:0,
+    infirmier_id:this.props.route.params.infirmier_id
   }
   getAdress2 = () => {
     this.setState({ adress2: this.props.route.params.adresse2 })
@@ -59,6 +60,7 @@ class RDV extends React.Component {
       userInfo = JSON.parse(userInfo);
       this.setState({ userInfo });
       console.log(userInfo, "------------- Aymane TEST ------------------")
+      console.log(this.state.infirmier_id, "------------- TEST ------------------")
     }
   }
   Confirmation = (name1 = this.props.route.params.namo,
@@ -75,14 +77,14 @@ class RDV extends React.Component {
     service_salle = this.props.route.params.service_salle,
     adresse_rdv = this.props.route.params.adresse_rdv) => {
     fetch(url1)
-    fetch(url2 + '/api/create_event', {
+    fetch(url2 + '/mediclic/create_event', {
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/javascript, */*; q=0.01',
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
       },
       body: JSON.stringify({
-        uid: "26",
+        'uid': "126",
         'name': name1,
         'date_start': text,
         'date_end': text1,
@@ -90,7 +92,7 @@ class RDV extends React.Component {
 
         'duration': duration,
         'partner_id': partner_id,
-        'is_visio': '0',
+        
         'context_mediclic': context,
         'praticien': praticien,
         'type': "1",
@@ -100,24 +102,24 @@ class RDV extends React.Component {
         'service_name': service_name,
         'service_salle': service_salle,
 
-
-        'type_cons': "C",
-        'location': "131 anfa. Casablanca",
+        'is_visio': '0',
+        'type_cons':this.props.route.params.type_rdv,
+        'location': this.props.route.params.adresse,
         'adresse_2': "0",
         'responsable': "1",
-
-
-
-
+        'infirmier_id':'0',
+        'mode_rdv' : 'patient',
+        'adresse_2_infirmier':'kouka',
+        'adresse_1_infirmier':'yo'
       })
     })
 
       .then((response) => response.json())
       .then((res) => {
 
-        console.log("repooooonse")
+        console.log("confirmation")
         console.log(res)
-        console.log("*********success***********")
+        console.log("*********mation***********")
 
 
       })
@@ -169,7 +171,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     //justifyContent: 'center',
     //alignItems: 'center',
-
+    padding:0
   },
   text: {
     /*alignItems: 'center',

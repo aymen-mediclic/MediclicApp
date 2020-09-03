@@ -10,7 +10,7 @@ export default class Conf extends React.Component {
         // Start counting when the page is loaded
         this.timeoutHandle = setTimeout(()=>{
             NavigationService.navigate('Mediclic')
-        }, 5000);
+        }, 25000);
    }
    componentWillUnmount(){
     clearTimeout(this.timeoutHandle); // This is just necessary in the case that the screen is closed before the timeout fires, otherwise it would cause a memory leak that would trigger the transition regardless, breaking the user experience.

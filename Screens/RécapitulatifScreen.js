@@ -92,7 +92,7 @@ class Recap extends React.Component {
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
                 <Text style={{ ...styles.txt, flex: 3 }}>Heure</Text>
                 <Text style={{ ...styles.txt, flex: 1 }}>:</Text>
-                <Text style={{ ...styles.txt1, flex: 3 }}>{moment(text).format("h:mm a")}</Text>
+                <Text style={{ ...styles.txt1, flex: 3 }}>{moment(text).format("h:mm ")}</Text>
                 </View>
                 <View style={{flexDirection:'row',marginVertical:3,justifyContent:'space-between'}}>
                 <Text style={{ ...styles.txt, flex: 3 }}>Date</Text>

@@ -10,6 +10,7 @@ import ShortCut from '../Components/ShortCut'
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { url1, url2 } from '../Navigation/GlobalUrl'
 import Modal from 'react-native-modal';
+import * as NavigationService from '../Navigation/NavigationService';
 class RechercheScreen extends React.Component {
 
   constructor(props) {
@@ -389,12 +390,13 @@ class RechercheScreen extends React.Component {
         >
           <ShortCut data={this.state.datafiltre} dataFilter={this.dataFilter} dataFilter1={this.dataFilter1} dataFilter2={this.dataFilter2} dataFilter3={this.dataFilter3} modalClose={this.CloseModal} />
         </Modal>
-        <Segment style={{ justifyContent:'flex-start',backgroundColor: '#1E79C5', height: 40 }}>
+        <Segment style={{ justifyContent:'space-between',backgroundColor: '#1E79C5', height: 40 }}>
           <TouchableOpacity style={styles.filter_btn} onPress={() => this.setState({ modalOpen: true })} >
             <Fontisto color='white' size={16} name={'equalizer'} />
-
             <Text style={styles.fabIcon}>FILTRER</Text>
+            
           </TouchableOpacity>
+          
         </Segment>
         {this.displayLoading()}
 
@@ -440,14 +442,25 @@ const styles = StyleSheet.create({
     marginLeft: 5
   },
   filter_btn: {
+    backgroundColor: '#1E79C5',
     marginHorizontal: 5,
     flexDirection: 'row',
     alignSelf: 'center',
     borderWidth: 1,
     borderColor: 'white',
     width: 100,
-    padding: 5
+    padding: 5,
+    height:30,
+    shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0,
+        },
+        elevation: 5,
   },
+  
   txt_fin: {
     margin: 10,
     fontSize: 18,

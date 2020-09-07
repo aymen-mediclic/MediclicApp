@@ -5,15 +5,21 @@ import Dialog from "react-native-dialog";
 import { url1, url2 } from '../../Navigation/GlobalUrl';
 
 //import * as NavigationService from '../Navigation/NavigationService';
-var BUTTONS = [ { text: "Supprimer", icon: "trash",iconColor:"#e74c3c" },  { text: "Annuler" }];
+var BUTTONS = [ { text: "Documents", icon: "document",iconColor:"#16a085" },{ text: "Annuler", icon: "trash",iconColor:"#e74c3c" },{ text: "Fermer", icon: "close",iconColor:"black" }];
 var DESTRUCTIVE_INDEX = 2;
 var CANCEL_INDEX = 1;
 export default function MrdvScreen({ navigation }) {
     const [Data, setData] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
-    const [Dial, setDial] = useState(false);
-    const [loading, setLoading] = useState(true);
-      
+    const [Dial, setDial] = useState('');
+    const [loading, setLoading] = useState('');
+    const[profess,setProfess]=useState('');
+    const[date_rdv,setDaterdv]=useState('');
+    const[statut,setStatut]=useState('');
+    const[service,setService]=useState('');
+    const[adress_rdv,setAdress]=useState('');
+    const[create_rdv,setCreaterdv]=useState('');
+    const[salle,setSalle]=useState('');
     useEffect(() => {
         fetch(url1)
         return fetch(url2+'/api/profil?uid=126&get_rdv')
@@ -56,80 +62,7 @@ export default function MrdvScreen({ navigation }) {
     function Item({ item }) {
         return (
             <View style={styles.item}>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert("Modal has been closed.");
-                    }}
-                >
-                    <View style={styles.centeredView}>
-                        <TouchableHighlight
-                            style={{ backgroundColor: "#2196F3" }}
-                            onPress={() => {
-                                setModalVisible(!modalVisible);
-                            }}
-                        >
-
-                            <Text style={styles.textStyle}>Fermer details</Text>
-                        </TouchableHighlight>
-                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-                            <Text style={styles.title}>Rdv avec: </Text>
-                            <Text style={styles.title1}>{item.profess}</Text>
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-                            <Text style={styles.title}>Date du RDV: </Text>
-                            <Text style={styles.title1}>{item.date_rdv}</Text>
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-                            <Text style={styles.title}>Statut: </Text>
-                            <Text style={styles.title1}>{item.statut}</Text>
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-                            <Text style={styles.title}>Service: </Text>
-                            <Text style={styles.title1}>{item.service}</Text>
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-                            <Text style={styles.title}>Adresse du RDV: </Text>
-                            <Text style={styles.title1}>{item.adress_rdv}</Text>
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-                            <Text style={styles.title}>Date de création: </Text>
-                            <Text style={styles.title1}>{item.create_rdv}</Text>
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-                            <Text style={styles.title}>Salle: </Text>
-                            <Text style={styles.title1}>{item.salle}</Text>
-                        </View>
-                        <View style={{ flexDirection: "column", marginVertical: 200 }}>
-                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
-
-                                <TouchableHighlight
-                                    style={{ backgroundColor: '#e67e22', width: 90, borderRadius: 5 }}
-
-                                >
-                                    <Text style={styles.textStyle}>Ajouter pdf</Text>
-                                </TouchableHighlight>
-                            </View>
-                            <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                                <TouchableHighlight
-                                    style={{ backgroundColor: 'red', width: 90, borderRadius: 5 }}
-
-                                >
-                                    <Text style={styles.textStyle}> Supprimer</Text>
-                                </TouchableHighlight>
-                                <TouchableHighlight
-                                    style={{ backgroundColor: '#e67e22', width: 100, borderRadius: 5 }}
-
-                                >
-                                    <Text style={styles.textStyle}>téléconsultation</Text>
-                                </TouchableHighlight>
-                            </View>
-                        </View>
-                    </View>
-                </Modal>
-
+                
                 <View style={{ flexDirection: "row", justifyContent: 'space-between'}}>
                     <Text style={{...styles.title,flex:3}}>RDV avec</Text>
                     <Text style={{...styles.title,flex:1}}>:</Text>
@@ -152,9 +85,16 @@ export default function MrdvScreen({ navigation }) {
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <TouchableHighlight
-                        style={{ backgroundColor: '#3498db', width: 90, borderRadius: 5 }}
+                        style={{ backgroundColor: '#3498db', width: 90, borderRadius: 5,justifyContent:'center' }}
                         onPress={() => {
                             setModalVisible(true);
+                            setProfess(item.profess);
+                            setDaterdv(item.date_rdv);
+                            setStatut(item.statut);
+                            setService(item.service);
+                            setAdress(item.adress_rdv);
+                            setCreaterdv(item.create_rdv);
+                            setSalle(item.salle);
                         }}
                     >
                         <Text style={styles.textStyle}>Détails</Text>
@@ -168,11 +108,11 @@ export default function MrdvScreen({ navigation }) {
                             //title: "Testing ActionSheet"
                         },
                         buttonIndex => {
-                            if (buttonIndex === 0) {
+                            if (buttonIndex === 1) {
                                 
                                 Alert.alert(  
-                                    'Supprimer',  
-                                    'Etes-vous sûr(e) de vouloir supprimer ce RDV ?',  
+                                    'Annuler',  
+                                    'Etes-vous sûr(e) de vouloir annuler ce RDV ?',  
                                     [  
                                         {  
                                             text: 'Annuler',  
@@ -210,6 +150,55 @@ export default function MrdvScreen({ navigation }) {
         
         
         <View style={{ flex: 1, justifyContent:'center' }} >
+            <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                    }}
+                >
+                    <View style={styles.centeredView}>
+                        <TouchableHighlight
+                            style={{ backgroundColor: "#2196F3" }}
+                            onPress={() => {
+                                setModalVisible(!modalVisible);
+                            }}
+                        >
+
+                            <Text style={styles.textStyle}>Fermer details</Text>
+                        </TouchableHighlight>
+                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
+                            <Text style={styles.title}>Rdv avec: </Text>
+                            <Text style={styles.title1}>{profess}</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
+                            <Text style={styles.title}>Date du RDV: </Text>
+                            <Text style={styles.title1}>{date_rdv}</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
+                            <Text style={styles.title}>Statut: </Text>
+                            <Text style={styles.title1}>{statut}</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
+                            <Text style={styles.title}>Service: </Text>
+                            <Text style={styles.title1}>{service}</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
+                            <Text style={styles.title}>Adresse du RDV: </Text>
+                            <Text style={styles.title1}>{adress_rdv}</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
+                            <Text style={styles.title}>Date de création: </Text>
+                            <Text style={styles.title1}>{create_rdv}</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
+                            <Text style={styles.title}>Salle: </Text>
+                            <Text style={styles.title1}>{salle}</Text>
+                        </View>
+                        
+                    </View>
+                </Modal>
             {
                 (Data.rdvs)
                     ?
@@ -235,7 +224,7 @@ const styles = StyleSheet.create({
     },
     item: {
         backgroundColor: 'white',
-        padding: 10,
+        padding: 15,
         marginVertical: 8,
         marginHorizontal: 16,
     },

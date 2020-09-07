@@ -35,16 +35,7 @@ function CustomDrawerContent(props) {
 
                     NavigationService.navigate('Mediclic')
                 }} />
-                <DrawerItem
-              icon={({ focused, color, size }) => <Feather color={color} size={20} name={'user'} />}
-              labelStyle={{ color: 'black' }}
-              label="Mon profil professionel" onPress={async () => {
-                  
-
-
-
-                  NavigationService.navigate('Mon Profil')
-              }} />
+                
 
         </DrawerContentScrollView>
     );

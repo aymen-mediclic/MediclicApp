@@ -60,8 +60,8 @@ class RechercheScreen extends React.Component {
     if (this.state.isLoading) {
       //Loading View while data is loading
       return (
-        <View style={{ flex: 1, marginTop: 15, marginBottom: 10 }}>
-          <ActivityIndicator />
+        <View style={{ flex: 1,alignItems:'center',justifyContent:'center' }}>
+          <ActivityIndicator  size="large" color="#1E79C5" />
         </View>
       );
     }

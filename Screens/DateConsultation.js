@@ -134,7 +134,7 @@ export default class DateC extends React.Component {
                     {
                         item[1].map((day, i) => {
                         //show only 3 times
-                            return(<TouchableOpacity style={[styles.btn,{ backgroundColor: day.color }]} onPress={()=> {type_rdv=='V' ? this.setState({ modalOpen1: true,
+                            return(<TouchableOpacity style={[styles.btn,{ backgroundColor: day.color }]} onPress={()=> {type_rdv=='V'&& day.assistant!=false ? this.setState({ modalOpen1: true,
                             
                                 name:Name,
                                 adresse:adresse,

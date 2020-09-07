@@ -1,14 +1,14 @@
+////////////lM39oul/////////////////////////
 import React from 'react'
-import { View, TextInput, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Picker, KeyboardAvoidingView,Alert } from 'react-native'
+import { View, TextInput, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Picker, KeyboardAvoidingView,Alert, CheckBox } from 'react-native'
 import { Formik } from 'formik';
 import { RadioButton } from 'react-native-paper';
-//import { CheckBox } from 'native-base';
-import CheckBox from 'react-native-check-box'
+//import CheckBox from 'react-native-check-box'
 import { Button } from 'react-native-elements';
 import { Item, Input, Icon, Label } from 'native-base';
 import { url1, url2 } from '../Navigation/GlobalUrl';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-export default class InscriptionProf extends React.Component {
+export default class InscriptionRdv extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,76 +32,7 @@ export default class InscriptionProf extends React.Component {
             password: true,password2: true
         };
     }
-    componentDidMount() {
-        fetch(url1)
-        return fetch(url2 + '/api/get_speciality')
-            .then((response) => response.json())
-            .then((res) => {
-                this.setState({
-                    data: res
-                })
-                console.log("repooooonse")
-                console.log(this.state.data[0].id)
-                console.log("*********success***********")
-
-
-            })
-            .done();
-    }
-    sot = () => {
-        fetch(url1)
-        fetch(url2 + '/create_profes', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json, text/javascript, */*; q=0.01',
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-            },
-            body: JSON.stringify({
-                'tel': this.state.tel,
-                'nom': this.state.Nom,
-                'prenom': this.state.Prénom,
-                'login': this.state.mail,
-                'password': this.state.Mdp,
-                'civilite': this.state.value,
-                'confirm_password': this.state.Mdp_c,
-                'spe': this.state.selectedValue,
-                'formule_abonnement': this.state.chkbox
-
-            })
-        })
-
-            .then((response) => response.json())
-            .then((res) => {
-                console.log("repooooonse")
-                console.log(res)
-                console.log("*********success***********")
-                this.setState({
-                    d1: res
-                })
-                if(this.state.d1.error){
-                    Alert.alert(
-                        "Désolé!",
-                        this.state.d1.error,
-                        [
-                          
-                          { text: "OK", onPress: () => console.log("OK Pressed") }
-                        ],
-                        { cancelable: false }
-                      );}
-                    else if(this.state.d1.msg){
-                        Alert.alert(
-                            "Félicitation!",
-                            'Votre compte a été créer avec succès',
-                            [
-                              
-                              { text: "OK", onPress: () => console.log("OK Pressed") }
-                            ],
-                            { cancelable: false }
-                          );
-                    }
-            })
-            .done();
-    }
+    
     function=()=> {
         if(this.state.Nom == ''){
             this.setState({ErrorStatus:false, color:'red',ercolor:'red'})
@@ -116,11 +47,11 @@ export default class InscriptionProf extends React.Component {
         else if(this.state.Mdp == ''|| this.state.ErrorStatus4==false ){
             this.setState({ErrorStatus4:false, color4:'red',ercolor:'red'})
         }
-        else if(this.state.Mdp_c == ''|| this.state.Mdp_c!=this.state.Mdp ){
+       /* else if(this.state.Mdp_c == ''|| this.state.Mdp_c!=this.state.Mdp ){
             this.setState({ErrorStatus5:false, color5:'red',ercolor:'red'})
-        }
+        }*/
         else{
-            this.sot()
+            this.pot()
             
         }
         
@@ -136,13 +67,14 @@ export default class InscriptionProf extends React.Component {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
             },
             body: JSON.stringify({
-                'tel': '0622222253',
-                'nom': 'aymaner',
-                'prenom': 'aymane',
-                'login': 'aymane612182@odoo.com',
-                'password': 'aymane',
-                'civilite': 'homme',
-                'confirm_password': 'aymane',
+                'tel': this.state.tel,
+                'nom': this.state.Nom,
+                'prenom': this.state.Prénom,
+                'login': this.state.mail,
+                'password': this.state.Mdp,
+                //'civilite': this.state.value,
+                //'confirm_password': this.state.Mdp_c,
+                
 
             })
         })
@@ -152,7 +84,30 @@ export default class InscriptionProf extends React.Component {
                 console.log("repooooonse")
                 console.log(res)
                 console.log("*********success***********")
-
+                this.setState({
+                  d1: res
+              })
+              if(this.state.d1.error){
+                  Alert.alert(
+                      "Désolé!",
+                      this.state.d1.error,
+                      [
+                        
+                        { text: "OK", onPress: () => console.log("OK Pressed") }
+                      ],
+                      { cancelable: false }
+                    );}
+                  else if(this.state.d1.msg){
+                      Alert.alert(
+                          "Félicitation!",
+                          'Votre compte a été créer avec succès',
+                          [
+                            
+                            { text: "OK", onPress: () => console.log("OK Pressed") }
+                          ],
+                          { cancelable: false }
+                        );
+                  }
 
             })
             .done();
@@ -181,9 +136,10 @@ export default class InscriptionProf extends React.Component {
         let t=/^((06)|(07))[0-9]{8}$/;
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return (
-            <ScrollView contentContainerStyle={styles.main_container}>
+            <View>
+            <View style={styles.main_container}>
 
-                <RadioButton.Group
+             {/*   <RadioButton.Group
                     onValueChange={value => this.setState({ value })}
                     value={this.state.value}
                 >
@@ -198,10 +154,10 @@ export default class InscriptionProf extends React.Component {
                             <RadioButton value="femme" />
                         </View>
                     </View>
-                </RadioButton.Group>
+             </RadioButton.Group>*/}
 
-
-                <Text style={styles.text}>Nom (de naissance)</Text>
+                <KeyboardAvoidingView  behavior="padding">
+                <Text style={{...styles.text,marginTop:15}}>Nom de naissance</Text>
                 <TextInput style={[styles.text_input, { borderColor: this.state.color }]}
                     placeholder='Nom'
                     autoCapitalize = 'none'
@@ -218,7 +174,7 @@ export default class InscriptionProf extends React.Component {
                         Veuillez renseigner votre nom.
                     </Text>
                 ) : null}
-
+                </KeyboardAvoidingView>
                 <Text style={styles.text}>Prénom</Text>
                 <TextInput style={[styles.text_input, { borderColor: this.state.color1 }]}
                     placeholder='Prénom'
@@ -237,19 +193,18 @@ export default class InscriptionProf extends React.Component {
                         Veuillez renseigner votre Prénom.
                     </Text>
                 ) : null}
-                <Text style={styles.text}>Spécialité</Text>
-                <View style={styles.Picker_view} >
-                    <Picker
-                        //mode='dropdown'
-                        selectedValue={this.state.selectedValue}
-                        onValueChange={(itemValue, itemIndex) => this.setState({ selectedValue: itemValue })}
-                    >
-                        {da.map((item, index) =>
-                            <Picker.Item label={item.name} value={item.id} key={index} />
-                        )}
-                    </Picker>
-                </View>
-                <Text style={styles.text}>Téléphone portable</Text>
+                {/*<Text style={styles.text}>Je suis Majeur</Text>
+                <CheckBox
+                style={{ flex: 1, padding: 10 }}
+                onClick={() => {
+                  this.setState({
+                    isChecked: !this.state.isChecked
+                  })
+                }}
+                isChecked={this.state.isChecked}
+                rightText={"Oui"}
+            />*/}
+                <Text style={styles.text}>N°Téléphone</Text>
                 <TextInput style={[styles.text_input, { borderColor: this.state.color2 }]}
                     placeholder='N°Téléphone'
                     autoCapitalize = 'none'
@@ -289,6 +244,7 @@ export default class InscriptionProf extends React.Component {
                         Veuillez renseigner un email valide. Exemple : info@gmail.com.
                     </Text>
                 ) : null}
+                <KeyboardAvoidingView  behavior="padding">
                 <Text style={styles.text}>Mot de passe</Text>
                 <View style={[styles.text_input_mail, { borderColor: this.state.color4 }]} >
                     <TextInput style={{ flex: 1, width: '75%' }}  secureTextEntry={this.state.password} 
@@ -304,12 +260,13 @@ export default class InscriptionProf extends React.Component {
                     />
                     <FontAwesome color={'black'} size={18} style={{ margin: 5,width:'10%' }} name={this.state.icon} onPress={() => this._changeIcon()} />
                 </View>
+                </KeyboardAvoidingView>
                 {this.state.ErrorStatus4 == false ? (
                     <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
                         Veuillez renseigner un mot de passe valide. Ce mot doit contenir au moins un chiffre et une lettre majuscule et minuscule, et au moins 8 caractères ou plus.
                     </Text>
                 ) : null}
-                <Text style={styles.text}>Confirmer mot de passe</Text>
+               {/* <Text style={styles.text}>Confirmer mot de passe</Text>
                 <View style={[styles.text_input_mail, { borderColor: this.state.color5 }]} >
                     <TextInput style={{ flex: 1, width: '75%' }}  secureTextEntry={this.state.password2} 
                     placeholder='Mot de passe'
@@ -334,13 +291,21 @@ export default class InscriptionProf extends React.Component {
                     }}
                     isChecked={this.state.isChecked}
                     rightText={"J'accepte les conditions d'utilisation de la plateforme"}
-                />
+                />*/}
+                <View style={{flexDirection:'row',marginTop:5,marginBottom:10,marginLeft: 10,}}>
+        <CheckBox
+          value={this.state.chkbox}
+          onValueChange={chkbox => this.setState({ chkbox })}
+          style={{alignSelf: "center"}}
+        />
+        <Text style={{flex:1,textDecorationLine: 'underline'}}>J'accepte les conditions d'utilisation de la plateforme</Text>
+      </View>
 
                 <Button onPress={this.function} title="Validation" buttonStyle={styles.btn} titleStyle={{ textAlign: 'center' }} />
 
-            </ScrollView>
+            </View>
             
-
+            </View>    
 
 
 
@@ -358,13 +323,12 @@ const styles = StyleSheet.create({
     },
     text: {
         marginTop: 5,
-        marginLeft: '5%',
+        marginLeft: 10,
         fontWeight: 'bold',
-        fontSize: 15,
+        fontSize: 15
     },
     text_input: {
-        //marginLeft: 10,
-        alignSelf:'center',
+        marginLeft: 10,
         //marginRight: 5,
         height: 30,
         width: '90%',
@@ -385,8 +349,7 @@ const styles = StyleSheet.create({
     },
     text_input_mail: {
         flexDirection: 'row',
-        //marginLeft:'5%',
-        alignSelf:'center',
+        marginLeft: 10,
         //marginRight: 5,
         height: 30,
         width: '90%',
@@ -424,7 +387,7 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 3,
-        marginLeft:'5%',
+        marginLeft: 10,
         marginVertical: 10
     },
     btn: {

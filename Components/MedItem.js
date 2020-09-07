@@ -31,7 +31,8 @@ class MedItem extends React.Component {
             service_id: "",
             service_name: "",
             service_salle: "",
-            adresse_rdv: ""
+            adresse_rdv: "",
+            assistant:""
         }
     }
 
@@ -173,7 +174,8 @@ class MedItem extends React.Component {
                             service_id={this.state.service_id}
                             service_name={this.state.service_name}
                             service_salle={this.state.service_salle}
-                            adresse_rdv={this.state.adresse_rdv} />
+                            adresse_rdv={this.state.adresse_rdv}
+                            assistant={this.state.assistant} />
                     </Modal>
 
                     <Text style={{ textAlign: 'center', marginBottom: 5, fontSize: 16 }}> Prochaines disponibilités:</Text>
@@ -192,7 +194,7 @@ class MedItem extends React.Component {
                                                 return (i < 3) ?
 
                                                     <TouchableOpacity style={[styles.txt_slt, { marginHorizontal: 2, backgroundColor: day.color }]} onPress={() => {
-                                                        this.props.dataFilter.type_rdv == 'V' ? this.setState({
+                                                        this.props.dataFilter.type_rdv == 'V' && day.assistant!=false ? this.setState({
                                                             modalOpen1: true,
                                                             name: Med.obj.name,
                                                             adresse: this.props.dataFilter.location,
@@ -208,7 +210,8 @@ class MedItem extends React.Component {
                                                             service_id: day.service_id,
                                                             service_name: day.service_name,
                                                             service_salle: day.service_salle,
-                                                            adresse_rdv: day.adresse_rdv
+                                                            adresse_rdv: day.adresse_rdv,
+                                                            assistant:day.assistant,
                                                         })
                                                             : NavigationService.navigate('Validez votre rendez-vous',
                                                                 {
@@ -230,7 +233,6 @@ class MedItem extends React.Component {
                                                                 })
                                                     }}>
                                                         <Text style={styles.txt_t}>{moment(day.date_start).format("h:mm ")}</Text>
-
                                                     </TouchableOpacity>
                                                     :
                                                     <></>

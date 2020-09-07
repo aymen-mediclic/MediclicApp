@@ -22,7 +22,7 @@ import SearchScreen from './Screens/SearchBarScreen';
 import RDV from './Screens/RdvScreen';
 import CentreProfilScreen from './Screens/CentreProfilScreen';
 import Inscription from './Screens/InscriptionScreen';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import En from 'react-native-vector-icons/Entypo';
 import DateC from './Screens/DateConsultation';
 import TypeC from './Components/TypeC';
 import VilleC from './Screens/VilleConsultation';
@@ -88,10 +88,11 @@ export default class App extends React.Component {
                 textAlign: 'center',
               },
               headerTitleAlign: 'center',
+              headerTitle: ()=> <HeaderRes/>,
               headerRight: () =>
                 <TouchableOpacity style={{ padding: 10 }} onPress={this._loadInitialState} 
                 >
-                  <Icon name='user' size={20} color={'white'} />
+                  <En name='user' size={22} color={'white'} />
                   {/*<FontAwesomeIcon icon='user' />*/}
                 </TouchableOpacity>,
               headerLeft: () =>

@@ -6,6 +6,10 @@ import MyComponent from '../Components/RadioButton';
 import { Button,Input } from 'react-native-elements';
 import { url1, url2 } from '../Navigation/GlobalUrl';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import InscriptionProf from './InscriptionScreen';
+import InscriptionRdv from './InscriptionRdv';
+
 
 class Identification extends React.Component {
   constructor(props) {
@@ -33,7 +37,7 @@ class Identification extends React.Component {
     return (
       <KeyboardAvoidingView behavior='padding'>
         <View >
-        {( !this.props.userInfo)?
+        {( !this.props.userInfo && this.state.val=='a')?
                   <>
               <View style={styles.med_ctr}>
               
@@ -59,7 +63,7 @@ class Identification extends React.Component {
                 <TouchableOpacity style={styles.btn} onPress={()=> {this.setState({val:'b'});console.log('b',this.state.val);this.props.AbleNext()}}>
                   <Text style={{fontWeight:'bold',alignSelf:'center',color:'#1E79C5'}}>Mot de passe oublié ?</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.btn}>
+                <TouchableOpacity style={styles.btn}  onPress={()=> this.setState({val:'b'})} >
                   <Text style={{fontWeight:'bold',alignSelf:'center',color:'#1E79C5'}}>Créer un compte</Text>
                 </TouchableOpacity>
               
@@ -70,22 +74,13 @@ class Identification extends React.Component {
                   :
                   <></> 
         }
-         {/*(this.props.type_rdv=='D' && this.state.val!=='b')?
-        <>
-            <KeyboardAvoidingView behavior='padding' style={styles.adr_view}>
-                <Text style={{margin:15,fontWeight:'bold'}}>Adresse 2</Text>
-              <TextInput
-                    style={styles.input_view}
-                    autoCapitalize='none'
-                    placeholder="Appartement, suite, l'unité, batiment, étage, etc"
-                    onChangeText={(Adress2) => this.setState({Adress2}) }
-                  />
-                  <Button buttonStyle={{width:250,height:30,margin:20}} color='#FFC617' title='Valider' onPress={this.kaka}  />
-              </KeyboardAvoidingView>
-            </>
+         {/*!this.props.userInfo && this.state.val=='b'?
+        <>*/}
+            
+            {/*</>
                   :
                   <></> 
-      */}
+      }*/}
         {(this.props.userInfo)?
         <>
             <MyComponent AbleNext={this.props.AbleNext} getUser={this.props.getUser} />
@@ -93,6 +88,7 @@ class Identification extends React.Component {
                   :
                   <></> 
         }
+        
         </View>
       </KeyboardAvoidingView>
     );

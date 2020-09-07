@@ -9,15 +9,16 @@ export default function Pprofil({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [Data, setData] = useState([]);
 
-    const [nom, setNom] = useState("")
-    const [preNom, setPreNom] = useState("")
     const [civility, setCivility] = useState("")
     const [niassance, setNiassance] = useState("")
-    const [cin, setCin] = useState("")
-    const [mutuelle, setMutuelle] = useState("")
-    const [adresse, setAdresse] = useState("")
-    const [ville, setVille] = useState("")
-    const [tel, setTel] = useState("")
+    const [nom, setNom] = useState(Data.nom)                 
+    const [cin, setCin] = useState(Data.cin) 
+    const [preNom, setPreNom] = useState(Data.prenom)
+    const [mutuelle, setMutuelle] = useState(Data.mutuelle) 
+    const [nmutuelle, setNmutuelle] = useState(Data.nom_mutuelle)
+    const [adresse, setAdresse] = useState(Data.adress) 
+    const [ville, setVille] = useState(Data.ville) 
+    const [tel, setTel] = useState(Data.tel) 
     const [loading, setLoading] = useState(true);
     const [Error,setError] = useState(true)
     const [color,setColor] = useState('#dfe4ea')
@@ -33,13 +34,24 @@ export default function Pprofil({ navigation }) {
     const [color5,setColor5] = useState('#dfe4ea')
     useEffect(() => {
         fetch(url1)
-        return fetch(url2+'/api/profil_proche?uid=26&get_profil&proche=5')
+        return fetch(url2+'/api/profil_proche?uid=26&get_profil&proche=74')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")
                 console.log(res)
                 setData(res)
                 setLoading(false)
+                setNom(res.nom) // OSAMA SOMY
+                setCin(res.cin) // OSAMA SOMY
+                setPreNom(res.prenom) // OSAMA SOMY
+                setMutuelle(res.mutuelle) // OSAMA SOMY
+                setNmutuelle(res.nom_mutuelle) 
+                setAdresse(res.adress) // OSAMA SOMY
+                setVille(res.ville) // OSAMA SOMY
+                setNiassance(res.date_naissance)
+                setTel(res.tel) // OSAMA SOMY
+                // setCivility(res.civilite) // UNCOMMENT THIS LINE AFTER FIX
+                
             })
             .done();
     }, []);
@@ -50,23 +62,24 @@ export default function Pprofil({ navigation }) {
 
         let bodyData = JSON.stringify({
             uid: "26",
-            uid_p:"120",
+            uid_p:"74",
             adresse: adresse,
             Num_CIN: cin,
             nom: nom,
             prenom: preNom,
-            date_nais: niassance,
+            date_naissance: niassance,
             civilite: civility,
             Num_mut: mutuelle,
+            Nom_mutuelle:nmutuelle,
             ville: ville,
-            tel:tel
+            tel: tel
         })
 
 
         console.log(bodyData, "-------------------")
 
-        fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-        fetch('http://51.91.249.185:8069/api/update_proche', {
+        fetch(url1)
+        fetch(url2+'/api/update_proche', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/javascript, */*; q=0.01',
@@ -78,40 +91,58 @@ export default function Pprofil({ navigation }) {
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")
+                console.log("==========AMA=========")
                 console.log(res)
+                let _data = {...Data}
+                
+                _data.adresse   = adresse,
+                _data.Num_CIN   = cin,
+                _data.nom       = nom,
+                _data.prenom    = preNom,
+                _data.date_naissance = niassance,
+                _data.civilite  = civility,
+                _data.Num_mut   = mutuelle,
+                _data.mut   = nmutuelle,
+                _data.ville     = ville,
+                _data.tel       = tel
+                
+                setData(_data)
+
                 console.log("*********success***********")
-
-                setData({
-
-                    adress: adresse,
-                    cin: cin,
-                    nom: nom,
-                    prenom: preNom,
-                    date_naissance: niassance,
-                    civilite: civility,
-                    mutuelle: mutuelle,
-                    Num_mut: "20555",
-                    ville: ville,
-                    tel:tel
-
-                });
                 setModalVisible(false)
             })
             .done();
     }
-    let displayLoading=() => {
+    let displayLoading = () => {
         if (loading) {
-          //Loading View while data is loading
-          return (
-            <View style={{ flex: 1, alignItems:'center', justifyContent:'center' }}>
-              <ActivityIndicator size="large" color="#1E79C5" />
-              
-            </View>
-          );
+            //Loading View while data is loading
+            return (
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <ActivityIndicator size="large" color="#1E79C5" />
+
+                </View>
+            );
         }
-      }
+    }
+    const checkError = () => {
+        if (nom == '') {
+            setError(false), setColor('red')
+        }
+
+        else if (preNom == '') {
+            setError1(false), setColor1('red'), setError(true), setColor('#2ecc71')
+        }else if(tel == ''){
+            setError2(false), setColor2('red'),setError1(true),setColor1('#2ecc71')
+        }
+        else {
+            update()
+
+        }
+
+
+    }
     return (
-        <ScrollView contentContainerStyle={{  backgroundColor: 'white' }} >
+        <ScrollView contentContainerStyle={{ backgroundColor: 'white' }} >
             {displayLoading()}
             <Modal
                 animationType="slide"
@@ -122,273 +153,298 @@ export default function Pprofil({ navigation }) {
                 }}>
                 <View style={styles.modalView}>
 
-<Text style={styles.head}>Modifier le profil</Text>
+                    <Text style={styles.head}>Modifier le profil</Text>
 
-<ScrollView>
-    <RadioButton.Group
-        onValueChange={civility => setCivility(civility)}
-        value={civility}
-    >
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={styles.text}>Civilité:</Text>
+                    <ScrollView>
+                        <RadioButton.Group
+                            onValueChange={civility => setCivility(civility)}
+                            value={civility}
+                        >
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Text style={styles.text}>Civilité:</Text>
 
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 30, marginLeft: 10 }}>
-                <RadioButton value="Femme" />
-                <Text style={{ fontSize: 16 }} >Madame</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 30, marginLeft: 10 }}>
+                                    <RadioButton value="Madame" />
+                                    <Text style={{ fontSize: 16 }} >Madame</Text>
 
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 30, marginLeft: 10 }}>
-                <RadioButton value="Monsieur" />
-                <Text style={{ fontSize: 16 }} >Monsieur</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 30, marginLeft: 10 }}>
+                                    <RadioButton value="Monsieur" />
+                                    <Text style={{ fontSize: 16 }} >Monsieur</Text>
 
-            </View>
-        </View>
-    </RadioButton.Group>
+                                </View>
+                            </View>
+                        </RadioButton.Group>
 
-    <Text style={styles.text}>Nom :</Text>
-    <TextInput
-        style={{...styles.text_input,borderColor:color}}
-        placeholder="nom"
-        value={nom}
-        onChangeText={(nom) => setNom(nom) }/>
-        
-        
-    
-     
-
-    <Text style={styles.text}>Prénom :</Text>
-    <TextInput
-        style={{...styles.text_input,borderColor:color1}}
-        placeholder="Prénom"
-        value={Data.preNom}
-        onChangeText={(preNom) => 
-            setPreNom(preNom)
-        
-           }
-    />
-
-    
-
-    <Text style={styles.text}>Date de naissance :</Text>
-    <DatePicker
-        style={{width:"90%",alignSelf:'center'}}
-        date={Data.naissance} //initial date from state
-        mode="date" //The enum of date, datetime and time
-        locale='es'
-        //placeholder="Sélectionner une date"
-        format="DD-MM-YYYY"
-        minDate="01-01-1940"
-        maxDate="01-01-2019"
-        confirmBtnText="Confirmer"
-        cancelBtnText="Annuler"
-        showIcon={false}
-        customStyles={{
-            dateInput: {
-                //borderWidth: 0,
+                        <Text style={styles.text}>Nom (de naissance) :</Text>
+                        <TextInput
+                            style={{ ...styles.text_input, borderColor: color }}
+                            placeholder="nom"
+                            value={nom} //osama somy
+                            onChangeText={(nom) => setNom(nom)} />
 
 
-                alignSelf: 'center',
-                height: 30,
-                width: "90%",
-                borderColor: '#dfe4ea',
-                borderWidth: 1,
-                borderRadius: 5,
-                paddingLeft: 10,
-                backgroundColor: 'white',
-                marginBottom: 15,
-                shadowColor: "grey",
-                shadowOpacity: 0.8,
-                shadowRadius: 2,
-                shadowOffset: {
-                    height: 1,
-                    width: 0,
-                },
-                elevation: 5,
-            }
-            ,
-            dateText: {
-                fontSize: 14,
-                alignSelf: 'flex-start',
-            }
-        }}
-        /*customStyles={{
-            dateIcon: {
-                position: 'absolute',
-                left: 0,
-                top: 4,
-                marginLeft: 0
-            },
-            dateInput: {
-                marginLeft: 36
-            }
-        }}*/
-        onDateChange={(niassance) => { setNiassance(niassance) }}
-    />
+
+                        {Error == false ? (
+                            <Text style={{ color: 'red', marginLeft: 20 }} >
+                                Veuillez renseigner votre nom.
+                            </Text>
+                        ) : null}
+
+                        <Text style={styles.text}>Prénom :</Text>
+                        <TextInput
+                            style={{ ...styles.text_input, borderColor: color1 }}
+                            placeholder="Prénom"
+                            value={preNom} //osama somy
+                            onChangeText={(preNom) =>
+                                setPreNom(preNom)
+
+                            }
+                        />
+
+                        {Error1 == false ? (
+                            <Text style={{ color: 'red', marginLeft: 20 }} >
+                                Veuillez renseigner votre Prénom .
+                            </Text>
+                        ) : null}
+                        <Text style={styles.text}>N° Téléphone portable :</Text>
+                        <TextInput
+                            style={{ ...styles.text_input, borderColor: color2}}
+                            placeholder="N° de téléphone"
+                             value={tel} //osama somy
+                            onChangeText={(tel) =>setTel(tel)}
+                        />
+                        {Error2 == false ? (
+                            <Text style={{ color: 'red', marginLeft: 20 }} >
+                                Veuillez renseigner votre téléphone .
+                            </Text>
+                        ) : null}
+
+                        <Text style={styles.text}>Date de naissance :</Text>
+                        <DatePicker
+                            style={{ width: "90%", alignSelf: 'center' }}
+                            date={niassance} //initial date from state
+                            mode="date" //The enum of date, datetime and time
+                            locale='es'
+                            //placeholder="Sélectionner une date"
+                            format="DD-MM-YYYY"
+                            minDate="01-01-1940"
+                            maxDate="01-01-2019"
+                            confirmBtnText="Confirmer"
+                            cancelBtnText="Annuler"
+                            showIcon={false}
+                            customStyles={{
+                                dateInput: {
+                                    //borderWidth: 0,
 
 
-    <Text style={styles.text}>N° CIN :</Text>
-    <TextInput
-        style={{...styles.text_input,borderColor:color2}}
-        placeholder="N° CIN"
-        value={Data.cin}
-        onChangeText={(cin) => 
-            setCin(cin)}
-        
-            
-    />
-    
+                                    alignSelf: 'center',
+                                    height: 30,
+                                    width: "90%",
+                                    borderColor: '#dfe4ea',
+                                    borderWidth: 1,
+                                    borderRadius: 5,
+                                    paddingLeft: 10,
+                                    backgroundColor: 'white',
+                                    marginBottom: 15,
+                                    shadowColor: "grey",
+                                    shadowOpacity: 0.8,
+                                    shadowRadius: 2,
+                                    shadowOffset: {
+                                        height: 1,
+                                        width: 0,
+                                    },
+                                    elevation: 5,
+                                }
+                                ,
+                                dateText: {
+                                    fontSize: 14,
+                                    alignSelf: 'flex-start',
+                                }
+                            }}
+                            /*customStyles={{
+                                dateIcon: {
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: 4,
+                                    marginLeft: 0
+                                },
+                                dateInput: {
+                                    marginLeft: 36
+                                }
+                            }}*/
+                            onDateChange={(niassance) => { setNiassance(niassance) }}
+                        />
 
-    <Text style={styles.text}>N° Mutuelle :</Text>
-    <TextInput
-        style={{...styles.text_input,borderColor:color3}}
-        placeholder="N° Mutuelle"
-        value={Data.mutuelle}
-        onChangeText={(mutuelle) => 
-            setMutuelle(mutuelle)}
-    />
-    
-    <Text style={styles.text}>Adresse :</Text>
-    <TextInput
-        style={{...styles.text_input,borderColor:color4}}
-        placeholder="Adresse"
-        value={Data.adress}
-        onChangeText={(adresse) => 
-            setAdresse(adresse)}
-    />
-    
 
-    <Text style={styles.text}>Ville :</Text>
-    <TextInput
-        style={{...styles.text_input,borderColor:color5}}
-        placeholder="Ville "
-        value={Data.ville}
-        onChangeText={(ville) =>
-            setVille(ville)}
-    />
-    
-          
-     <Text style={styles.text}>N° Téléphone : :</Text>
-    <TextInput
-        style={{...styles.text_input,borderColor:color5,marginBottom:30}}
-        placeholder="Ville "
-       // value={Data.tel}
-        onChangeText={(tel) => 
-            setTel(tel)}
-    />
-</ScrollView>
-<View style={{ flexDirection: 'row', justifyContent: "flex-end", justifyContent: "space-between", backgroundColor: '#ecf0f1' }}>
-    <TouchableOpacity
-        style={{ ...styles.openButton, backgroundColor: "#1E79C5", width: 150, height: 30, margin: 5, justifyContent: 'center' }}
-        onPress={() => {
-            setModalVisible(!modalVisible);
-        }}
-    >
-        <Text style={styles.textStyle}>Fermer</Text>
-    </TouchableOpacity>
-    <TouchableOpacity
-        style={{ ...styles.openButton, backgroundColor: "#1E79C5", width: 150, height: 30, margin: 5, justifyContent: 'center' }}
-        onPress={() => checkError()}
-    >
-        <Text style={styles.textStyle}>Modifier</Text>
-    </TouchableOpacity>
-</View>
-</View>
+                        <Text style={styles.text}>N° CIN :</Text>
+                        <TextInput
+                            style={{ ...styles.text_input, borderColor: color2 }}
+                            placeholder="N° CIN"
+                            value={cin} //osama somy
+                            onChangeText={(cin) => setCin(cin)}
+                        />
+                        
+                        <Text style={styles.text}>Mutuelle :</Text>
+                        <TextInput
+                            style={{ ...styles.text_input, borderColor: color3 }}
+                            placeholder="Mutuelle"
+                            value={nmutuelle}
+                            onChangeText={(nmutuelle) => 
+                                    setNmutuelle(nmutuelle)}
+                        />
+                       <Text style={styles.text}>N° Mutuelle :</Text>
+                        <TextInput
+                            style={{ ...styles.text_input, borderColor: color3 }}
+                            placeholder="N° Mutuelle"
+                            value={mutuelle}
+                            onChangeText={(mutuelle) => 
+                                    setMutuelle(mutuelle)}
+                        />
+                        
+                        <Text style={styles.text}>Adresse :</Text>
+                        <TextInput
+                            style={{ ...styles.text_input, borderColor: color4 }}
+                            placeholder="Adresse"
+                            value={adresse} //osama somy
+                            onChangeText={(adresse) => 
+                                    setAdresse(adresse)}
+                        />
+
+                        <Text style={styles.text}>Ville :</Text>
+                        <TextInput
+                            style={{ ...styles.text_input, borderColor: color5 }}
+                            placeholder="Ville "
+                            value={ville} //osama somy
+                            onChangeText={(ville) =>
+                                    setVille(ville)}
+                        />
+                        
+
+                        
+                    </ScrollView>
+                    <View style={{ flexDirection: 'row', justifyContent: "flex-end", justifyContent: "space-between", backgroundColor: '#ecf0f1' }}>
+                        <TouchableOpacity
+                            style={{ ...styles.openButton, backgroundColor: "#1E79C5", width: 150, height: 30, margin: 5, justifyContent: 'center' }}
+                            onPress={() => {
+                                setModalVisible(!modalVisible);
+                            }}
+                        >
+                            <Text style={styles.textStyle}>Fermer</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{ ...styles.openButton, backgroundColor: "#1E79C5", width: 150, height: 30, margin: 5, justifyContent: 'center' }}
+                            onPress={() => checkError()}
+                        >
+                            <Text style={styles.textStyle}>Modifier</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
 
             </Modal>
-            { Data.length !=0  && (
+            {Data.length != 0 && (
                 <View>
-            <View style={{flexDirection:'row',alignSelf:'flex-end',alignItems:'center',justifyContent:'center',margin:5,marginRight:15}}>
-                    <Text style={{ color: 'orange', fontSize: 17,fontWeight:'bold',marginRight:5 }}>Modifier mon profil </Text>
-            <TouchableOpacity style={styles.btn}
-                onPress={() => {
-                    setModalVisible(true);
-                }}>
-                
-                <Text style={{ color: 'white', fontSize: 25,alignSelf:'center' }}>+</Text>
-            </TouchableOpacity>
-            </View>
-            <View >
+                    <View style={{ flexDirection: 'row', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', margin: 5, marginRight: 15, marginTop: 15 }}>
+                        <Text style={{ color: 'orange', fontSize: 17, fontWeight: 'bold', marginRight: 5 }}>Modifier mon profil </Text>
+                        <TouchableOpacity style={styles.btn}
+                            onPress={() => {
+                                setModalVisible(true);
+                            }}>
 
-<View style={styles.ctr} >
-<View style={{flexDirection:'row',marginLeft:10,marginTop:10}}>
-                    <Text style={{fontWeight:'bold'}}>Votre profil est complet à : </Text>
-                    <Text> {Data.pourcentage}%</Text>
+                            <Text style={{ color: 'white', fontSize: 25, alignSelf: 'center' }}>+</Text>
+                        </TouchableOpacity>
                     </View>
-                        <Tooltip  containerStyle={{flex:1}}  height={160} width={220} backgroundColor={'orange'} popover={<View>
-                        <Text style={{fontWeight:'bold',fontSize:16}}>Champs à renseigner :</Text>
-                        {
-                            Data.champs.map((lng, ney) => {
-                               return <Text>-  {lng}</Text> 
-                            })
-                        }
-                        </View>}>
-                        <Progress.Bar progress={(Data.pourcentage)*0.01} width={200} style={{margin:10}} />
-                    </Tooltip>
-                    </View>
+
+
+
                     <View style={styles.ctr} >
-                    <View style={styles.main_container}>
-                    <Text style={{...styles.text,flex:3}}>Nom</Text>
-                    <Text style={{...styles.text,flex:1}}>:</Text>
-                    <Text style={{...styles.text1,flex:3}}>{Data.nom}</Text>
-                     </View>
-                     <View style={styles.main_container}>
-                    <Text style={{...styles.text,flex:3}}>Prénom</Text>
-                    <Text style={{...styles.text,flex:1}}>:</Text>
-                    <Text style={{...styles.text1,flex:3}}>{Data.prenom}</Text>
-                     </View>
-                     <View style={styles.main_container}>
-                    <Text style={{...styles.text,flex:3}}>Civilité</Text>
-                    <Text style={{...styles.text,flex:1}}>:</Text>
-                    <Text style={{...styles.text1,flex:3}}>{Data.civilite}</Text>
-                     </View>
-                     <View style={styles.main_container}>
-                    <Text style={{...styles.text,flex:3}}>Date de naissance</Text>
-                    <Text style={{...styles.text,flex:1}}>:</Text>
-                    <Text style={{...styles.text1,flex:3}}>{Data.date_naissance}</Text>
-                     </View>
-                     <View style={styles.main_container}>
-                    <Text style={{...styles.text,flex:3}}>N° CIN</Text>
-                    <Text style={{...styles.text,flex:1}}>:</Text>
-                    <Text style={{...styles.text1,flex:3}}>{Data.cin}</Text>
-                     </View>
-                        
-                        <View style={styles.main_container}>
-                            <Text style={{...styles.text,flex:3}}>N° Mutuelle</Text>
-                            <Text style={{...styles.text,flex:1}}>:</Text>
-                            <Text style={{...styles.text1,flex:3}}> {Data.mutuelle}</Text>
 
+                        <View style={{ flexDirection: 'row', marginLeft: 15, marginTop: 10, }}>
+                            <Text style={{ fontWeight: 'bold' }}>Pourcentage de remplissage : </Text>
+                            <Text> {Data.pourcentage}%</Text>
                         </View>
-                        <View style={styles.main_container}>
-                            <Text style={{...styles.text,flex:3}}>Adresse</Text>
-                            <Text style={{...styles.text,flex:1}}>:</Text>
-                            <Text style={{...styles.text1,flex:3}}> {Data.adress}</Text>
-
+                        <Tooltip height={70} width={200} backgroundColor={'orange'} popover={<View>
+                            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>les champs à remplir :</Text>
+                            {Data.champs.length > 0 ?
+                            Data.champs.map((lng, ney) => {
+                               return <Text>- {lng}</Text> 
+                            }) 
+                            :
+                            <Text> Aucun </Text>
+                        }
+                       
+                        </View>}>
+                        <Progress.Bar progress={(Data.pourcentage)*0.01} width={225} style={{marginLeft:15,margin:15}} />
+                    </Tooltip>
                         </View>
-                        <View style={styles.main_container}>
-                            <Text style={{...styles.text,flex:3}}>Ville</Text>
-                            <Text style={{...styles.text,flex:1}}>:</Text>
-                            <Text style={{...styles.text1,flex:3}}> {Data.ville}</Text>
+                            <View style={styles.ctr} >
+                                <View style={styles.main_container}>
+                                    <Text style={{ ...styles.text, flex: 3 }}>Nom (de naissance)</Text>
+                                    <Text style={{ ...styles.text, flex: 1 }}>:</Text>
+                                    <Text style={{ ...styles.text1, flex: 3 }}>{Data.nom}</Text>
+                                </View>
+                                <View style={styles.main_container}>
+                                    <Text style={{ ...styles.text, flex: 3 }}>Prénom</Text>
+                                    <Text style={{ ...styles.text, flex: 1 }}>:</Text>
+                                    <Text style={{ ...styles.text1, flex: 3 }}>{Data.prenom}</Text>
+                                </View>
+                                <View style={styles.main_container}>
+                                    <Text style={{ ...styles.text, flex: 3 }}>Civilité</Text>
+                                    <Text style={{ ...styles.text, flex: 1 }}>:</Text>
+                                    <Text style={{ ...styles.text1, flex: 3 }}>{Data.civilite}</Text>
+                                </View>
+                                <View style={styles.main_container}>
+                                    <Text style={{ ...styles.text, flex: 3 }}>Date de naissance</Text>
+                                    <Text style={{ ...styles.text, flex: 1 }}>:</Text>
+                                    <Text style={{ ...styles.text1, flex: 3 }}>{Data.date_naissance}</Text>
+                                </View>
+                                <View style={styles.main_container}>
+                                    <Text style={{ ...styles.text, flex: 3 }}>N° CIN</Text>
+                                    <Text style={{ ...styles.text, flex: 1 }}>:</Text>
+                                    <Text style={{ ...styles.text1, flex: 3 }}>{Data.cin}</Text>
+                                </View>
+                                <View style={styles.main_container}>
+                                    <Text style={{ ...styles.text, flex: 3 }}>Mutuelle</Text>
+                                    <Text style={{ ...styles.text, flex: 1 }}>:</Text>
+                                    <Text style={{ ...styles.text1, flex: 3 }}> {Data.nmutuelle}</Text>
 
-                        </View>
-                        <View style={styles.main_container}>
-                            <Text style={{...styles.text,flex:3}}>N° Téléphone</Text>
-                            <Text style={{...styles.text,flex:1}}>:</Text>
-                            <Text style={{...styles.text1,flex:3}}> {Data.tel}</Text>
+                                </View>
 
-                        </View>
-                        <View style={styles.main_container}>
-                            <Text style={{...styles.text,flex:3}}>E-mail</Text>
-                            <Text style={{...styles.text,flex:1}}>:</Text>
-                            <Text style={{...styles.text1,flex:3}}> {Data.email}</Text>
+                                <View style={styles.main_container}>
+                                    <Text style={{ ...styles.text, flex: 3 }}>N° Mutuelle</Text>
+                                    <Text style={{ ...styles.text, flex: 1 }}>:</Text>
+                                    <Text style={{ ...styles.text1, flex: 3 }}> {Data.mutuelle}</Text>
 
-                        </View>
+                                </View>
+                                <View style={styles.main_container}>
+                                    <Text style={{ ...styles.text, flex: 3 }}>Adresse</Text>
+                                    <Text style={{ ...styles.text, flex: 1 }}>:</Text>
+                                    <Text style={{ ...styles.text1, flex: 3 }}> {Data.adress}</Text>
 
-</View>
-</View>
-          
-        </View>
-         )}
-         </ScrollView>
+                                </View>
+                                <View style={styles.main_container}>
+                                    <Text style={{ ...styles.text, flex: 3 }}>Ville</Text>
+                                    <Text style={{ ...styles.text, flex: 1 }}>:</Text>
+                                    <Text style={{ ...styles.text1, flex: 3 }}> {Data.ville}</Text>
+
+                                </View>
+                                <View style={styles.main_container}>
+                                    <Text style={{ ...styles.text, flex: 3 }}>N° Téléphone</Text>
+                                    <Text style={{ ...styles.text, flex: 1 }}>:</Text>
+                                    <Text style={{ ...styles.text1, flex: 3 }}> {Data.tel}</Text>
+
+                                </View>
+                                <View style={styles.main_container}>
+                                    <Text style={{ ...styles.text, flex: 3 }}>E-mail</Text>
+                                    <Text style={{ ...styles.text, flex: 1 }}>:</Text>
+                                    <Text style={{ ...styles.text1, flex: 3 }}> {Data.email}</Text>
+
+                                </View>
+
+                            </View>
+                </View>
+            )}
+        </ScrollView>
         
     );
 }
@@ -423,6 +479,7 @@ const styles = StyleSheet.create({
     text: {
         margin: 5,
         marginLeft: 20,
+        marginHorizontal:10,
         fontWeight: 'bold',
         fontSize: 16,
         color: '#2c3e50'
@@ -507,8 +564,9 @@ const styles = StyleSheet.create({
     head: {
         fontSize: 18, fontWeight: 'bold', alignSelf: 'center',
         paddingTop: 5,
-        textAlign: 'center', margin: 10, backgroundColor: '#ecf0f1',
-        width: '100%', height: 40, marginTop: 0
+        textAlign: 'center', margin: 10, backgroundColor: '#1E79C5',
+        width: '100%', height: 40, marginTop: 0,
+        color:'white'
     }
 
 })

@@ -60,7 +60,7 @@ class RDV extends React.Component {
       userInfo = JSON.parse(userInfo);
       this.setState({ userInfo });
       console.log(userInfo, "------------- Aymane TEST ------------------")
-      console.log(this.state.infirmier_id, "------------- TEST ------------------")
+      //console.log(this.state.infirmier_id, "------------- TEST ------------------")
     }
   }
   Confirmation = (name1 = this.props.route.params.namo,
@@ -102,7 +102,7 @@ class RDV extends React.Component {
         'service_name': service_name,
         'service_salle': service_salle,
 
-        'is_visio': '0',
+        'is_visio': '1',
         'type_cons':this.props.route.params.type_rdv,
         'location': this.props.route.params.adresse,
         'adresse_2': "0",
@@ -110,7 +110,8 @@ class RDV extends React.Component {
         'infirmier_id':'0',
         'mode_rdv' : 'patient',
         'adresse_2_infirmier':'kouka',
-        'adresse_1_infirmier':'yo'
+        'adresse_1_infirmier':'yo',
+        'etat_infirmier':'non',
       })
     })
 

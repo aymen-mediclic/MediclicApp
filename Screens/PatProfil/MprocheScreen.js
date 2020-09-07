@@ -148,21 +148,21 @@ export default function MprochesScreen({ navigation }) {
 
                     
                     <ScrollView>
-                    <Text style={styles.text}>Nom :</Text>
+                    <Text style={styles.text}>Nom (naissance) :</Text>
                         <TextInput
                             style={{...styles.text_input,borderColor:color}}
-                            placeholder="nom"
+                            placeholder="Nom"
                             onChangeText={(nom) => { setNom(nom) }}
                         />
                         {Error == false ? (
                             <Text style={{color:'red',marginLeft:20}} >
-                                 Veuillez renseigner votre nom.
+                                 Veuillez renseigner votre Nom.
                             </Text>
                              ) : null}
                         <Text style={styles.text}>Prénom :</Text>
                         <TextInput
                             style={{...styles.text_input,borderColor:color1}}
-                            placeholder="nom"
+                            placeholder="Prénom"
                             onChangeText={(prenom) => { setPreNom(prenom) }}
                         />
                         {Error1 == false ? (
@@ -174,6 +174,7 @@ export default function MprochesScreen({ navigation }) {
                         <TextInput
                             style={{...styles.text_input,borderColor:color2}}
                             placeholder="nom"
+                            value='asmaa@a.com'
                             onChangeText={(mail) => { setMail(mail) }}
                         />
                         {Error2 == false ? (
@@ -181,10 +182,11 @@ export default function MprochesScreen({ navigation }) {
                                  Veuillez renseigner votre adresse mail .
                             </Text>
                              ) : null}
-                        <Text style={styles.text}>Téléphone :</Text>
+                        <Text style={styles.text}>N° Téléphone portable :</Text>
                         <TextInput
                             style={{...styles.text_input,borderColor:color3}}
                             placeholder="nom"
+                            value='0785858582'
                             onChangeText={(tel) => { setTel(tel) }}
                         />
                         {Error3 == false ? (
@@ -335,9 +337,10 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         backgroundColor: 'white',
         marginBottom: 15,
+        marginTop: 10,
     },
     text: {
-        marginLeft: 10,
+        margin: 10,
         fontWeight: 'bold',
         fontSize: 16,
         color: '#2c3e50'

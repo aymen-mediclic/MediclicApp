@@ -149,7 +149,7 @@ export default class ImagePickerExample extends React.Component {
                   <Text style={{alignSelf:'center',fontSize:20,color:'#1E79C5',height:30,marginBottom:20}}>Ajouter un proche</Text>
                 
                 <ScrollView>
-                  <Text style={styles.text}>Nom :</Text>
+                  <Text style={styles.text}>Nom (de naissance) :</Text>
                   <TextInput
                     style={styles.text_input}
                     placeholder="nom"
@@ -172,7 +172,7 @@ export default class ImagePickerExample extends React.Component {
                     onChangeText={(maili) => { this.setState({mail:maili}) }}
 
                   />
-                  <Text style={styles.text}>Téléphone :</Text>
+                  <Text style={styles.text}>N° Téléphone portable :</Text>
                   <TextInput
                     style={styles.text_input}
                     placeholder="Téléphone:"
@@ -319,6 +319,7 @@ const styles = StyleSheet.create({
   },
   text: {
     margin: 10,
+    marginVertical:20,
     fontWeight: 'bold',
     fontSize: 16,
     color: '#2c3e50'

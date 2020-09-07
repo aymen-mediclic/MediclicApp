@@ -11,17 +11,18 @@ export default class Search extends React.Component {
 
   constructor(props) {
     super(props)
-    this.searchedText = "",// Initialisation de notre donnée searchedText en dehors du state
+   // this.searchedText = "",// Initialisation de notre donnée searchedText en dehors du state
     this.state = {
       loading: false,
       data: [],
+      searchedText : "",
     }
   }
 
   loadFilms() {
-    if (this.searchedText.trim() != 0) { // Seulement si le texte recherché n'est pas vide
+    if (this.state.searchedText.trim() != 0) { // Seulement si le texte recherché n'est pas vide
       this.setState({ loading: true })
-      getFilmsFromApiWithSearchedText(this.searchedText)
+      getFilmsFromApiWithSearchedText(this.state.searchedText)
 
         .then(response => {
           console.log('*************************')
@@ -39,7 +40,7 @@ export default class Search extends React.Component {
   }
 
   _searchTextInputChanged(text) {
-    this.searchedText= text 
+    this.setState({searchedText: text}) 
     this.loadFilms();
   }
   renderSeparator = () => {
@@ -77,7 +78,7 @@ export default class Search extends React.Component {
         <SearchBar
           placeholder='Professionels,Spécialités,Services,Centres'
           onChangeText={(text) => this._searchTextInputChanged(text)}
-          value={this.searchedText}
+          value={this.state.searchedText}
           //lightTheme='true'
           inputContainerStyle={{ backgroundColor:'white' }}
           inputStyle={{ fontSize: 15 }}
@@ -85,7 +86,7 @@ export default class Search extends React.Component {
           placeholderTextColor='#bdc3c7'
         />
         {this.displayLoading()}
-        {this.searchedText.trim() != 0 && (
+        {this.state.searchedText.trim() != 0 && (
           <FlatList
             data={this.state.data.sort((a, b) => a.type === 'spécialité' ? -1 : 1)}
             keyExtractor={item => { return item.id }}
@@ -95,7 +96,7 @@ export default class Search extends React.Component {
                 
                 <Highlighter
                   highlightStyle={{ backgroundColor: '#FFC617' }}
-                  searchWords={[this.searchedText]}
+                  searchWords={[this.state.searchedText]}
                   textToHighlight={item.name}
                   style={{paddingLeft:10,color: '#2c3e50',height:42,backgroundColor: 'white'}}
                 />
@@ -104,7 +105,7 @@ export default class Search extends React.Component {
               {item.type == 'Tag' && (
                 <Highlighter
                 highlightStyle={{ backgroundColor: '#FFC617' }}
-                searchWords={[this.searchedText]}
+                searchWords={[this.state.searchedText]}
                 textToHighlight={item.name}
                 style={{paddingLeft:10,color: '#2c3e50',height:42,backgroundColor: 'white'}}
               />

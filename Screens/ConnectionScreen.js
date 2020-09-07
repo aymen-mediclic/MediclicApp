@@ -162,7 +162,7 @@ class ConnectionScreen extends React.Component {
 
         }
         else {
-          alert("Erreur d'authentification");
+          alert("Mauvais nom d'utilisateur ou mot de passe");
           console.log(res);
         }
       })

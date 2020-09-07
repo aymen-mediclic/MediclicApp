@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, Text, View, StyleSheet, Button, TextInput, Picker, KeyboardAvoidingView } from 'react-native'
+import { TouchableOpacity, Text, View, StyleSheet,ActivityIndicator,ScrollView,Image } from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
 import SearchVille from './SearchVille';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -14,7 +14,8 @@ export default class Infirmier extends React.Component {
 
         this.state = {
            id:'',
-           data:[]
+           data:[],
+           isLoading: true,
         }
     }
     componentDidMount() {
@@ -24,7 +25,10 @@ export default class Infirmier extends React.Component {
             .then((res) => {
                 console.log("69420")
                 console.log(res.infirmiers)
-                this.setState({id:res.infirmiers[0].id,name:res.infirmiers[0].name,data:res.infirmiers})
+                this.setState({id:res.infirmiers[0].id,name:res.infirmiers[0].name
+                    ,data:res.infirmiers,
+                    isLoading: false,
+                })
                 
             })
             .done();
@@ -50,24 +54,42 @@ export default class Infirmier extends React.Component {
                 infirmier_id:this.state.id
             })
     }
+    displayLoading() {
+        if (this.state.isLoading) {
+          //Loading View while data is loading
+          return (
+            <View style={{ flex: 1, marginTop: 15, marginBottom: 10 }}>
+              <ActivityIndicator size="large" color="#1E79C5" />
+            </View>
+          );
+        }
+      }
+     
       render() {
+        function getImageFromApi(name) {
+            return url2+'/web/image?model=oeh.medical.physician&id='+ name+'&field=image'
+        }
+       
         console.log("nnn",this.state.id)
         return (
             <View style={styles.ctr}>
-                 <Text style={{color:'white',fontSize:20,backgroundColor:'#1E79C5',textAlign:'center',marginBottom:30,height:40}}>Assistants</Text>
+                 <Text style={{color:'white',fontSize:16,backgroundColor:'#1E79C5',textAlign:'center',height:60,paddingTop:8}}>{this.props.assistant} à domicile</Text>
                 
-                
+                 <Text style={{fontSize:15,textAlign:'center',margin:7}}>Ce professionnel exige un(e) {this.props.assistant} à domicile pour l'assister lors de ce rendez-vous en vidéo.
+                 Veuillez choisir un(e) {this.props.assistant} parmi cette liste :</Text>
+                 {this.displayLoading()}
                 {
                                         (this.state.data) ?
                                         this.state.data.map((lng, key) => {
-                                                return <View style={{flexDirection:'row',margin:7,justifyContent:'space-between'}}>
+                                                return <ScrollView contentContainerStyle={{flexDirection:'row',margin:10,justifyContent:'space-between',padding:3}}>
                                                 <TouchableOpacity style={{}} onPress={() => {this.props.modalClose();this.Redirection()}}>
-                                                <Text style={{fontSize:17}}>{lng.name}</Text>
+                                                <Image style={styles.img} source={{ uri:getImageFromApi( this.state.id ) }} />
+                                                <Text style={{fontSize:15}}>{lng.name}</Text>
                                                 </TouchableOpacity>
-                                                <TouchableOpacity style={{alignSelf:'flex-end'}} onPress={() => {NavigationService.navigate('Mon Profil', { id: this.state.id,name: this.state.name}),this.props.modalClose();}}>
-                                                <Text style={{color:'blue'}}>Voir profil</Text>
+                                                <TouchableOpacity style={styles.prf} onPress={() => {NavigationService.navigate('Mon Profil', { id: this.state.id,name: this.state.name}),this.props.modalClose();}}>
+                                                <Text style={{color:'white',alignSelf:'center'}}>Voir profil</Text>
                                                 </TouchableOpacity>
-                                                </View>
+                                                </ScrollView>
                                             })
                                             :
                                             <></>
@@ -84,8 +106,21 @@ const styles = StyleSheet.create({
         marginBottom:'30%',
         marginHorizontal:'5%',
         marginTop:'1%',
+        borderRadius:3
         //alignItems:'center',
         //justifyContent:'center',
-        //padding:10
+        //padding:5
+    },
+    prf: {
+        alignSelf:'flex-end',height:20,width:'25%',backgroundColor:'orange',
+        borderRadius:3,
+        shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0,
+        },
+        elevation: 3,
     }
 })

@@ -1,9 +1,9 @@
 ////////////lM39oul/////////////////////////
 import React from 'react'
-import { View, TextInput, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Picker, KeyboardAvoidingView,Alert } from 'react-native'
+import { View, TextInput, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Picker, KeyboardAvoidingView,Alert, CheckBox } from 'react-native'
 import { Formik } from 'formik';
 import { RadioButton } from 'react-native-paper';
-import CheckBox from 'react-native-check-box'
+//import CheckBox from 'react-native-check-box'
 import { Button } from 'react-native-elements';
 import { Item, Input, Icon, Label } from 'native-base';
 import { url1, url2 } from '../Navigation/GlobalUrl';
@@ -47,9 +47,9 @@ export default class InscriptionProf extends React.Component {
         else if(this.state.Mdp == ''|| this.state.ErrorStatus4==false ){
             this.setState({ErrorStatus4:false, color4:'red',ercolor:'red'})
         }
-        else if(this.state.Mdp_c == ''|| this.state.Mdp_c!=this.state.Mdp ){
+       /* else if(this.state.Mdp_c == ''|| this.state.Mdp_c!=this.state.Mdp ){
             this.setState({ErrorStatus5:false, color5:'red',ercolor:'red'})
-        }
+        }*/
         else{
             this.pot()
             
@@ -72,8 +72,8 @@ export default class InscriptionProf extends React.Component {
                 'prenom': this.state.Prénom,
                 'login': this.state.mail,
                 'password': this.state.Mdp,
-                'civilite': this.state.value,
-                'confirm_password': this.state.Mdp_c,
+                //'civilite': this.state.value,
+                //'confirm_password': this.state.Mdp_c,
                 
 
             })
@@ -136,7 +136,8 @@ export default class InscriptionProf extends React.Component {
         let t=/^((06)|(07))[0-9]{8}$/;
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return (
-            <ScrollView contentContainerStyle={styles.main_container}>
+            
+            <ScrollView style={styles.main_container}>
 
              {/*   <RadioButton.Group
                     onValueChange={value => this.setState({ value })}
@@ -155,7 +156,7 @@ export default class InscriptionProf extends React.Component {
                     </View>
              </RadioButton.Group>*/}
 
-
+                
                 <Text style={{...styles.text,marginTop:15}}>Nom (de naissance)</Text>
                 <TextInput style={[styles.text_input, { borderColor: this.state.color }]}
                     placeholder='Nom'
@@ -173,7 +174,7 @@ export default class InscriptionProf extends React.Component {
                         Veuillez renseigner votre nom.
                     </Text>
                 ) : null}
-
+                
                 <Text style={styles.text}>Prénom</Text>
                 <TextInput style={[styles.text_input, { borderColor: this.state.color1 }]}
                     placeholder='Prénom'
@@ -203,7 +204,7 @@ export default class InscriptionProf extends React.Component {
                 isChecked={this.state.isChecked}
                 rightText={"Oui"}
             />*/}
-                <Text style={styles.text}>N°Téléphone</Text>
+                <Text style={styles.text}>Téléphone portable</Text>
                 <TextInput style={[styles.text_input, { borderColor: this.state.color2 }]}
                     placeholder='N°Téléphone'
                     autoCapitalize = 'none'
@@ -243,13 +244,14 @@ export default class InscriptionProf extends React.Component {
                         Veuillez renseigner un email valide. Exemple : info@gmail.com.
                     </Text>
                 ) : null}
+                
                 <Text style={styles.text}>Mot de passe</Text>
                 <View style={[styles.text_input_mail, { borderColor: this.state.color4 }]} >
                     <TextInput style={{ flex: 1, width: '75%' }}  secureTextEntry={this.state.password} 
                     placeholder='Mot de passe'
                     autoCapitalize = 'none'
                     onChangeText={(Mdp) => {
-                        if (Mdp.trim() != 0 && Mdp.match(pass)) {
+                        if (Mdp.trim() != 0 ) {
                             this.setState({ Mdp, ErrorStatus4: true, color4: '#2ecc71' });
                         } else {
                             this.setState({ Mdp, ErrorStatus4: false, color4: '#7f8c8d' });
@@ -258,12 +260,13 @@ export default class InscriptionProf extends React.Component {
                     />
                     <FontAwesome color={'black'} size={18} style={{ margin: 5,width:'10%' }} name={this.state.icon} onPress={() => this._changeIcon()} />
                 </View>
+                
                 {this.state.ErrorStatus4 == false ? (
                     <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
                         Veuillez renseigner un mot de passe valide. Ce mot doit contenir au moins un chiffre et une lettre majuscule et minuscule, et au moins 8 caractères ou plus.
                     </Text>
                 ) : null}
-                <Text style={styles.text}>Confirmer mot de passe</Text>
+               {/* <Text style={styles.text}>Confirmer mot de passe</Text>
                 <View style={[styles.text_input_mail, { borderColor: this.state.color5 }]} >
                     <TextInput style={{ flex: 1, width: '75%' }}  secureTextEntry={this.state.password2} 
                     placeholder='Mot de passe'
@@ -288,13 +291,21 @@ export default class InscriptionProf extends React.Component {
                     }}
                     isChecked={this.state.isChecked}
                     rightText={"J'accepte les conditions d'utilisation de la plateforme"}
-                />
+                />*/}
+                <View style={{flexDirection:'row',marginTop:5,marginBottom:10,marginLeft: 10,}}>
+        <CheckBox
+          value={this.state.chkbox}
+          onValueChange={chkbox => this.setState({ chkbox })}
+          style={{alignSelf: "center"}}
+        />
+        <Text style={{flex:1,textDecorationLine: 'underline'}}>J'accepte les conditions d'utilisation de la plateforme</Text>
+      </View>
 
                 <Button onPress={this.function} title="Validation" buttonStyle={styles.btn} titleStyle={{ textAlign: 'center' }} />
 
             </ScrollView>
             
-
+            
 
 
 
@@ -312,12 +323,12 @@ const styles = StyleSheet.create({
     },
     text: {
         marginTop: 5,
-        marginLeft: 10,
+        marginLeft:'5%',
         fontWeight: 'bold',
         fontSize: 15
     },
     text_input: {
-        marginLeft: 10,
+        marginLeft:'5%',
         //marginRight: 5,
         height: 30,
         width: '90%',
@@ -338,7 +349,7 @@ const styles = StyleSheet.create({
     },
     text_input_mail: {
         flexDirection: 'row',
-        marginLeft: 10,
+        marginLeft:'5%',
         //marginRight: 5,
         height: 30,
         width: '90%',

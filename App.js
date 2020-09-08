@@ -45,6 +45,7 @@ import HeaderRes from './Components/HeaderRes';
 import Adresse2 from './Components/Adresse2';
 import HeaderMc from './Components/HeaderMC';
 import HeaderPat from './Screens/PatProfil/HeaderPat';
+import InfirmierL from './Components/InfirmierListe';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -372,6 +373,18 @@ export default class App extends React.Component {
             },
           }} />
           <Stack.Screen name="Seconde adresse" component={Adresse2} options={{
+            headerTintColor: '#fff',
+            headerStyle: {
+              backgroundColor: '#1E79C5',
+              height: 80,
+            },
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              fontSize:18
+            },
+          }} />
+          <Stack.Screen name="Choix Assistant" component={InfirmierL} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',

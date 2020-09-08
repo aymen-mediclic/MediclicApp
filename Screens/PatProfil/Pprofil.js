@@ -429,7 +429,7 @@ export default function Pprofil({ navigation }) {
 
                                 </View>
                                 <View style={styles.main_container}>
-                                    <Text style={{ ...styles.text, flex: 3 }}>N° Téléphone</Text>
+                                    <Text style={{ ...styles.text, flex: 3 }}>N° Téléphone portable</Text>
                                     <Text style={{ ...styles.text, flex: 1 }}>:</Text>
                                     <Text style={{ ...styles.text1, flex: 3 }}> {Data.tel}</Text>
 

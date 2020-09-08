@@ -50,7 +50,7 @@ class RechercheScreen extends React.Component {
       })
       console.log("****************");
       //console.log(res.medecin[0].obj);
-      console.log(">>>><<", this.state.dataSource[0].obj.name)
+      console.log(">>>><<", this.state.dataSource[0].obj)
       console.log("****************");
       //this.props.navigation.setParams({myId: this.state.dataSource[0].obj.name })
     })

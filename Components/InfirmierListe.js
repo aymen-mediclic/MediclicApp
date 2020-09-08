@@ -7,8 +7,9 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { MaterialIcons } from '@expo/vector-icons'
 import { url1, url2 } from '../Navigation/GlobalUrl';
+import MapContainer from '../Screens/ChangePosition';
 
-export default class Infirmier extends React.Component {
+export default class InfirmierL extends React.Component {
     constructor(props) {
         super(props);
 
@@ -18,9 +19,9 @@ export default class Infirmier extends React.Component {
            isLoading: true,
         }
     }
-    componentDidMount() {
+   /* componentDidMount() {
         fetch(url1)
-        return fetch(url2+'/rdv/auto')/*+lat lng assitant-8speciality-8id */
+        return fetch(url2+'/rdv/auto')
             .then((response) => response.json())
             .then((res) => {
                 console.log("69420")
@@ -32,7 +33,7 @@ export default class Infirmier extends React.Component {
                 
             })
             .done();
-      }
+      }*/
       Redirection = () => {
         NavigationService.navigate('Validez votre rendez-vous',
             {
@@ -77,7 +78,7 @@ export default class Infirmier extends React.Component {
                 
                  <Text style={{fontSize:15,textAlign:'center',margin:7}}>Ce professionnel exige un(e) {this.props.assistant} à domicile pour l'assister lors de ce rendez-vous en vidéo.
                  Veuillez choisir un(e) {this.props.assistant} parmi cette liste :</Text>
-                 {this.displayLoading()}
+                 {/*this.displayLoading()*/}
                 {
                                         (this.state.data) ?
                                         this.state.data.map((lng, key) => {
@@ -94,7 +95,7 @@ export default class Infirmier extends React.Component {
                                             :
                                             <></>
                                     }
-                
+                <MapContainer/>
             </View>
         )
 }
@@ -103,10 +104,10 @@ const styles = StyleSheet.create({
     ctr: {
         flex: 1,
         backgroundColor: '#fff',
-        marginBottom:'30%',
-        marginHorizontal:'5%',
-        marginTop:'1%',
-        borderRadius:3
+        //marginBottom:'30%',
+        //marginHorizontal:'5%',
+        //marginTop:'1%',
+        //borderRadius:3
         //alignItems:'center',
         //justifyContent:'center',
         //padding:5

@@ -63,7 +63,7 @@ export default function Mprofil(navigation, route, props) {
                 setVille(res.ville) // 
                 setNiassance(res.date_naissance)
                 setTel(res.tel) // 
-                // setCivility(res.civilite) // 
+                setCivility(res.civilite) // 
                 setLoading(false) // 
                 
             })
@@ -235,8 +235,8 @@ export default function Mprofil(navigation, route, props) {
                             style={{ width: "90%", alignSelf: 'center' }}
                             date={niassance} //initial date from state
                             mode="date" //The enum of date, datetime and time
-                            locale='es'
-                            //placeholder="Sélectionner une date"
+                            locale='fr'
+                            placeholder="Sélectionner une date"
                             format="DD-MM-YYYY"
                             minDate="01-01-1940"
                             maxDate="01-01-2019"

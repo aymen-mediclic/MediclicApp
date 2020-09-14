@@ -1,6 +1,6 @@
 ////////////lM39oul/////////////////////////
 import React from 'react'
-import { View, TextInput, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Picker, KeyboardAvoidingView,Alert, CheckBox } from 'react-native'
+import { View, TextInput, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Picker, KeyboardAvoidingView, Alert, CheckBox, Image } from 'react-native'
 import { Formik } from 'formik';
 import { RadioButton } from 'react-native-paper';
 //import CheckBox from 'react-native-check-box'
@@ -8,6 +8,9 @@ import { Button } from 'react-native-elements';
 import { Item, Input, Icon, Label } from 'native-base';
 import { url1, url2 } from '../Navigation/GlobalUrl';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Modal from 'react-native-modal'
+import Ant from 'react-native-vector-icons/AntDesign';
+import * as NavigationService from '../Navigation/NavigationService';
 export default class InscriptionProf extends React.Component {
     constructor(props) {
         super(props);
@@ -22,39 +25,85 @@ export default class InscriptionProf extends React.Component {
             Mdp_c: '',
             selectedValue: '',
             data: [],
-            d1:[],
+            d1: [],
             ErrorStatus: true, ErrorStatus1: true, ErrorStatus2: true,
             ErrorStatus3: true, ErrorStatus4: true, ErrorStatus5: true,
             color: 'grey', color1: 'grey', color2: 'grey',
             color3: 'grey', color4: 'grey', color5: 'grey',
-            ercolor:'#7f8c8d',
-            icon: "eye-slash",icon2: "eye-slash",
-            password: true,password2: true
+            ercolor: '#e74c3c',
+            icon: "eye-slash", icon2: "eye-slash",
+            password: true, password2: true,
+            modalOpen: false
         };
     }
-    
-    function=()=> {
-        if(this.state.Nom == ''){
-            this.setState({ErrorStatus:false, color:'red',ercolor:'red'})
-        }else if(this.state.Prénom == ''){
-            this.setState({ErrorStatus1:false, color1:'red',ercolor:'red'})
-        }else if(this.state.tel == ''|| this.state.ErrorStatus2==false ){
-            this.setState({ErrorStatus2:false, color2:'red',ercolor:'red'})
+
+    function = () => {
+        if (this.state.Nom == '' && this.state.Prénom == '' && this.state.tel == '' && this.state.mail == '' && this.state.Mdp == '' || this.state.chkbox == '') {
+            this.setState({ ErrorStatus: false, color: '#e74c3c', ercolor: '#e74c3c' })
+            this.setState({ ErrorStatus1: false, color1: '#e74c3c', ercolor: '#e74c3c' })
+            this.setState({ ErrorStatus2: false, color2: '#e74c3c', ercolor: '#e74c3c' })
+            this.setState({ ErrorStatus3: false, color3: '#e74c3c', ercolor: '#e74c3c' })
+            this.setState({ ErrorStatus4: false, color4: '#e74c3c', ercolor: '#e74c3c' })
+            this.setState({ ErrorStatus5: false, color5: '#e74c3c', ercolor: '#e74c3c' })
+        } else if (this.state.Nom == '') {
+
+            this.setState({ ErrorStatus: false, color: '#e74c3c', ercolor: '#e74c3c' })
+            /*this.setState({ErrorStatus1:false, color1:'#e74c3c',ercolor:'#e74c3c'})
+            this.setState({ErrorStatus2:false, color2:'#e74c3c',ercolor:'#e74c3c'})
+            this.setState({ErrorStatus3:false, color3:'#e74c3c',ercolor:'#e74c3c'})
+            this.setState({ErrorStatus4:false, color4:'#e74c3c',ercolor:'#e74c3c'})
+            this.setState({ErrorStatus5:false, color5:'#e74c3c',ercolor:'#e74c3c'})*/
+        } else if (this.state.Prénom == '') {
+
+            //this.setState({ErrorStatus:false, color:'#e74c3c',ercolor:'#e74c3c'})
+            this.setState({ ErrorStatus1: false, color1: '#e74c3c', ercolor: '#e74c3c' })
+            /*this.setState({ErrorStatus2:false, color2:'#e74c3c',ercolor:'#e74c3c'})
+            this.setState({ErrorStatus3:false, color3:'#e74c3c',ercolor:'#e74c3c'})
+            this.setState({ErrorStatus4:false, color4:'#e74c3c',ercolor:'#e74c3c'})
+            this.setState({ErrorStatus5:false, color5:'#e74c3c',ercolor:'#e74c3c'})*/
+        } else if (this.state.tel == '' || this.state.ErrorStatus2 == false) {
+
+            //this.setState({ErrorStatus:false, color:'#e74c3c',ercolor:'#e74c3c'})
+            // this.setState({ErrorStatus1:false, color1:'#e74c3c',ercolor:'#e74c3c'})
+            this.setState({ ErrorStatus2: false, color2: '#e74c3c', ercolor: '#e74c3c' })
+            /*this.setState({ErrorStatus3:false, color3:'#e74c3c',ercolor:'#e74c3c'})
+            this.setState({ErrorStatus4:false, color4:'#e74c3c',ercolor:'#e74c3c'})
+            this.setState({ErrorStatus5:false, color5:'#e74c3c',ercolor:'#e74c3c'})*/
         }
-        else if(this.state.mail == ''|| this.state.ErrorStatus3==false ){
-            this.setState({ErrorStatus3:false, color3:'red',ercolor:'red'})
+        else if (this.state.mail == '' || this.state.ErrorStatus3 == false) {
+
+            //this.setState({ErrorStatus:false, color:'#e74c3c',ercolor:'#e74c3c'})
+            //this.setState({ErrorStatus1:false, color1:'#e74c3c',ercolor:'#e74c3c'})
+            //this.setState({ErrorStatus2:false, color2:'#e74c3c',ercolor:'#e74c3c'})
+            this.setState({ ErrorStatus3: false, color3: '#e74c3c', ercolor: '#e74c3c' })
+            /* this.setState({ErrorStatus4:false, color4:'#e74c3c',ercolor:'#e74c3c'})
+             this.setState({ErrorStatus5:false, color5:'#e74c3c',ercolor:'#e74c3c'})*/
         }
-        else if(this.state.Mdp == ''|| this.state.ErrorStatus4==false ){
-            this.setState({ErrorStatus4:false, color4:'red',ercolor:'red'})
+        else if (this.state.Mdp == '' || this.state.ErrorStatus4 == false) {
+
+            /* this.setState({ErrorStatus:false, color:'#e74c3c',ercolor:'#e74c3c'})
+             //this.setState({ErrorStatus1:false, color1:'#e74c3c',ercolor:'#e74c3c'})
+             //this.setState({ErrorStatus2:false, color2:'#e74c3c',ercolor:'#e74c3c'})
+             //this.setState({ErrorStatus3:false, color3:'#e74c3c',ercolor:'#e74c3c'})*/
+            this.setState({ ErrorStatus4: false, color4: '#e74c3c', ercolor: '#e74c3c' })
+            //this.setState({ErrorStatus5:false, color5:'#e74c3c',ercolor:'#e74c3c'})
+        } else if (this.state.chkbox == '') {
+
+            /* this.setState({ErrorStatus:false, color:'#e74c3c',ercolor:'#e74c3c'})
+             //this.setState({ErrorStatus1:false, color1:'#e74c3c',ercolor:'#e74c3c'})
+             //this.setState({ErrorStatus2:false, color2:'#e74c3c',ercolor:'#e74c3c'})
+             //this.setState({ErrorStatus3:false, color3:'#e74c3c',ercolor:'#e74c3c'})*/
+            //this.setState({ErrorStatus4:false, color4:'#e74c3c',ercolor:'#e74c3c'})
+            this.setState({ ErrorStatus5: false, color5: '#e74c3c', ercolor: '#e74c3c' })
         }
-       /* else if(this.state.Mdp_c == ''|| this.state.Mdp_c!=this.state.Mdp ){
-            this.setState({ErrorStatus5:false, color5:'red',ercolor:'red'})
-        }*/
-        else{
+        /* else if(this.state.Mdp_c == ''|| this.state.Mdp_c!=this.state.Mdp ){
+             this.setState({ErrorStatus5:false, color5:'#e74c3c',ercolor:'#e74c3c'})
+         }*/
+        else {
             this.pot()
-            
+
         }
-        
+
 
     }
 
@@ -74,7 +123,7 @@ export default class InscriptionProf extends React.Component {
                 'password': this.state.Mdp,
                 //'civilite': this.state.value,
                 //'confirm_password': this.state.Mdp_c,
-                
+
 
             })
         })
@@ -85,29 +134,30 @@ export default class InscriptionProf extends React.Component {
                 console.log(res)
                 console.log("*********success***********")
                 this.setState({
-                  d1: res
-              })
-              if(this.state.d1.error){
-                  Alert.alert(
-                      "Désolé!",
-                      this.state.d1.error,
-                      [
-                        
-                        { text: "OK", onPress: () => console.log("OK Pressed") }
-                      ],
-                      { cancelable: false }
-                    );}
-                  else if(this.state.d1.msg){
-                      Alert.alert(
-                          "Félicitation!",
-                          'Votre compte a été créer avec succès',
-                          [
-                            
+                    d1: res
+                })
+                if (this.state.d1.error) {
+                    Alert.alert(
+                        "Désolé!",
+                        this.state.d1.error,
+                        [
+
                             { text: "OK", onPress: () => console.log("OK Pressed") }
-                          ],
-                          { cancelable: false }
-                        );
-                  }
+                        ],
+                        { cancelable: false }
+                    );
+                }
+                else if (this.state.d1.msg) {
+                    Alert.alert(
+                        "Félicitations !",
+                        'Votre compte a été créé avec succès',
+                        [
+
+                            { text: "OK", onPress: () => console.log("OK Pressed") }
+                        ],
+                        { cancelable: false }
+                    );
+                }
 
             })
             .done();
@@ -132,14 +182,14 @@ export default class InscriptionProf extends React.Component {
             //console.log(res.proches[i][0].nom) // I need to add 
             da.push(this.state.data[i]); // Create your array of data
         }
-        let pass =/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.*\s).{8,}$/;
-        let t=/^((06)|(07))[0-9]{8}$/;
+        let pass = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.*\s).{8,}$/;
+        let t = /^((06)|(07))[0-9]{8}$/;
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return (
-            
+
             <ScrollView style={styles.main_container}>
 
-             {/*   <RadioButton.Group
+                {/*   <RadioButton.Group
                     onValueChange={value => this.setState({ value })}
                     value={this.state.value}
                 >
@@ -155,41 +205,62 @@ export default class InscriptionProf extends React.Component {
                         </View>
                     </View>
              </RadioButton.Group>*/}
+                <Modal isVisible={this.state.modalOpen} animationType='slide' transparent={true}  >
 
-                
-                <Text style={{...styles.text,marginTop:15}}>Nom (de naissance)</Text>
+                    <View style={styles.modal}>
+                        <View style={{ flex: 1, backgroundColor: '#47caa2', alignItems: 'center', justifyContent: 'center' }}  >
+
+
+                            <Ant color='white' size={50} name={'checkcircleo'} />
+
+
+                        </View>
+                        <View style={{ flex: 2, alignItems: 'center' }} >
+                            <Text style={{ fontSize: 25, fontWeight: 'bold', margin: 15, color: '#747d8c' }}>Félicitations !</Text>
+                            <Text style={{ marginTop: 30, fontSize: 16, textAlign: "center" }}>Un e-mail a été envoyé à votre adresse <Text style={{ textDecorationLine: 'underline', color: '#3498db' }}>{this.state.mail}</Text>.</Text>
+                            <Text style={{ marginHorizontal:5, fontSize: 16, textAlign: "center" }}>Suivez les instructions pour confirmer votre inscription .</Text>
+                            <TouchableOpacity style={{ flexDirection: 'row',justifyContent: 'center', alignItems: 'center', height: 35, width: 200, borderRadius: 5, backgroundColor: '#1E79C5',marginBottom:'5%',marginTop:'20%' }} onPress={() => NavigationService.navigate('Mediclic')} >
+                                <Text style={{ color: 'white', alignSelf: 'center', fontSize: 16, margin: 7 }}>Retour à l'accueil</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                    </View>
+
+                </Modal>
+
+                <Text style={{ ...styles.text, marginTop: 15 }}>Nom (de naissance)</Text>
                 <TextInput style={[styles.text_input, { borderColor: this.state.color }]}
-                    placeholder='Nom'
-                    autoCapitalize = 'none'
+                    placeholder='Nom (de naissance)'
+                    autoCapitalize='none'
                     onChangeText={(Nom) => {
                         if (Nom.trim() != 0) {
                             this.setState({ Nom, ErrorStatus: true, color: '#2ecc71' });
                         } else {
-                            this.setState({ Nom, ErrorStatus: false, color: '#7f8c8d' });
+                            this.setState({ Nom, ErrorStatus: false, color: '#e74c3c' });
                         }
                     }}
                 />
                 {this.state.ErrorStatus == false ? (
-                    <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
-                        Veuillez renseigner votre nom.
+                    <Text style={[styles.errorMessage, { color: this.state.ercolor }]}>
+                        Veuillez renseigner votre Nom (de naissance).
                     </Text>
                 ) : null}
-                
+
                 <Text style={styles.text}>Prénom</Text>
                 <TextInput style={[styles.text_input, { borderColor: this.state.color1 }]}
                     placeholder='Prénom'
-                    autoCapitalize = 'none'
+                    autoCapitalize='none'
                     onChangeText={(Prénom) => {
                         if (Prénom.trim() != 0) {
                             this.setState({ Prénom, ErrorStatus1: true, color1: '#2ecc71' });
                         } else {
-                            this.setState({ Prénom, ErrorStatus1: false, color1: '#7f8c8d' });
+                            this.setState({ Prénom, ErrorStatus1: false, color1: '#e74c3c' });
                         }
                     }}
 
                 />
                 {this.state.ErrorStatus1 == false ? (
-                    <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
+                    <Text style={[styles.errorMessage, { color: this.state.ercolor }]}>
                         Veuillez renseigner votre Prénom.
                     </Text>
                 ) : null}
@@ -204,69 +275,69 @@ export default class InscriptionProf extends React.Component {
                 isChecked={this.state.isChecked}
                 rightText={"Oui"}
             />*/}
-                <Text style={styles.text}>Téléphone portable</Text>
+                <Text style={styles.text}>N°Téléphone</Text>
                 <TextInput style={[styles.text_input, { borderColor: this.state.color2 }]}
                     placeholder='N°Téléphone'
-                    autoCapitalize = 'none'
+                    autoCapitalize='none'
                     keyboardType='numeric'
                     onChangeText={(tel) => this.setState({ tel })}
                     onChangeText={(tel) => {
-                        if (tel.trim() != 0 &&  tel.match(t)) {
+                        if (tel.trim() != 0 && tel.match(t)) {
                             this.setState({ tel, ErrorStatus2: true, color2: '#2ecc71' });
                             console.log(this.state.tel.length)
                         } else {
-                            this.setState({ tel, ErrorStatus2: false, color2: '#7f8c8d' });
+                            this.setState({ tel, ErrorStatus2: false, color2: '#e74c3c' });
                         }
                     }}
                 />
                 {this.state.ErrorStatus2 == false ? (
-                    <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
-                        Veuillez renseigner un numéro de téléphone portable valide. Ce numéro doit contenir 10 chiffres et commencer par 06 ou 07.
+                    <Text style={[styles.errorMessage, { color: this.state.ercolor }]}>
+                        Veuillez renseigner un numéro de téléphone valide. Ce numéro doit contenir 10 chiffres et commencer par 06 ou 07.
                     </Text>
                 ) : null}
-                <Text style={styles.text}>Email</Text>
+                <Text style={styles.text}>Adresse e-mail</Text>
                 <TextInput style={[styles.text_input, { borderColor: this.state.color3 }]}
-                    placeholder='Email'
-                    autoCapitalize = 'none'
+                    placeholder='Adresse e-mail'
+                    autoCapitalize='none'
                     keyboardType='email-address'
                     onChangeText={(mail) => this.setState({ mail })}
                     onChangeText={(mail) => {
                         if (mail.trim() != 0 && mail.match(re)) {
                             this.setState({ mail, ErrorStatus3: true, color3: '#2ecc71' });
                         } else {
-                            this.setState({ mail, ErrorStatus3: false, color3: '#7f8c8d' });
+                            this.setState({ mail, ErrorStatus3: false, color3: '#e74c3c' });
                         }
                     }}
                 />
 
                 {this.state.ErrorStatus3 == false ? (
-                    <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
-                        Veuillez renseigner un email valide. Exemple : info@gmail.com.
+                    <Text style={[styles.errorMessage, { color: this.state.ercolor }]}>
+                        Veuillez renseigner une adresse e-mail valide. Exemple : info@gmail.com.
                     </Text>
                 ) : null}
-                
+
                 <Text style={styles.text}>Mot de passe</Text>
                 <View style={[styles.text_input_mail, { borderColor: this.state.color4 }]} >
-                    <TextInput style={{ flex: 1, width: '75%' }}  secureTextEntry={this.state.password} 
-                    placeholder='Mot de passe'
-                    autoCapitalize = 'none'
-                    onChangeText={(Mdp) => {
-                        if (Mdp.trim() != 0 ) {
-                            this.setState({ Mdp, ErrorStatus4: true, color4: '#2ecc71' });
-                        } else {
-                            this.setState({ Mdp, ErrorStatus4: false, color4: '#7f8c8d' });
-                        }
-                    }}
+                    <TextInput style={{ flex: 1, width: '75%' }} secureTextEntry={this.state.password}
+                        placeholder='Mot de passe'
+                        autoCapitalize='none'
+                        onChangeText={(Mdp) => {
+                            if (Mdp.trim() != 0 && Mdp.match(pass)) {
+                                this.setState({ Mdp, ErrorStatus4: true, color4: '#2ecc71' });
+                            } else {
+                                this.setState({ Mdp, ErrorStatus4: false, color4: '#e74c3c' });
+                            }
+                        }}
                     />
-                    <FontAwesome color={'black'} size={18} style={{ margin: 5,width:'10%' }} name={this.state.icon} onPress={() => this._changeIcon()} />
+                    <FontAwesome color={'black'} size={18} style={{ margin: 5, width: '10%', alignSelf: 'center' }} name={this.state.icon} onPress={() => this._changeIcon()} />
                 </View>
-                
+
                 {this.state.ErrorStatus4 == false ? (
-                    <Text style={[styles.errorMessage,{ color: this.state.ercolor }]}>
-                        Veuillez renseigner un mot de passe valide. Ce mot doit contenir au moins un chiffre et une lettre majuscule et minuscule, et au moins 8 caractères ou plus.
+                    <Text style={[styles.errorMessage, { color: this.state.ercolor }]}>
+                        Veuillez renseigner un mot de passe. Pour plus de sécurité ce mot de passe doit contenir au moins 8 caractères dont au moins 1 chiffre, 1 lettre majuscule, 1 lettre minuscule et 1 caracère spécial.
                     </Text>
                 ) : null}
-               {/* <Text style={styles.text}>Confirmer mot de passe</Text>
+                {/* <Text style={styles.text}>Confirmer mot de passe</Text>
                 <View style={[styles.text_input_mail, { borderColor: this.state.color5 }]} >
                     <TextInput style={{ flex: 1, width: '75%' }}  secureTextEntry={this.state.password2} 
                     placeholder='Mot de passe'
@@ -292,20 +363,28 @@ export default class InscriptionProf extends React.Component {
                     isChecked={this.state.isChecked}
                     rightText={"J'accepte les conditions d'utilisation de la plateforme"}
                 />*/}
-                <View style={{flexDirection:'row',marginTop:5,marginBottom:10,marginLeft: 10,}}>
-        <CheckBox
-          value={this.state.chkbox}
-          onValueChange={chkbox => this.setState({ chkbox })}
-          style={{alignSelf: "center"}}
-        />
-        <Text style={{flex:1,textDecorationLine: 'underline'}}>J'accepte les conditions d'utilisation de la plateforme</Text>
-      </View>
-
-                <Button onPress={this.function} title="Validation" buttonStyle={styles.btn} titleStyle={{ textAlign: 'center' }} />
-
+                <View style={{ flexDirection: 'row', marginTop: 5, marginLeft: 10, }}>
+                    <CheckBox
+                        value={this.state.chkbox}
+                        onValueChange={chkbox => this.setState({ chkbox })}
+                        style={{ alignSelf: "center", marginTop: '3%', marginLeft: '2%', }}
+                    />
+                    <Text style={{ flex: 1, marginTop: '3%' }}>
+                        <Text style={{ flex: 1, marginRight: '3%' }}>J'accepte les </Text>
+                        <Text style={{ flex: 1, textDecorationLine: 'underline', marginLeft: '10%', color: '#3498db' }}>conditions d'utilisation de la plateforme</Text>
+                    </Text>
+                </View>
+                {this.state.ErrorStatus5 == false ? (
+                    <Text style={[styles.errorMessage, { color: this.state.ercolor }]}>
+                        Veuillez lire et accepter les conditions générales d'utilisation de la plateforme.
+                    </Text>
+                ) : null}
+                <TouchableOpacity style={styles.btn} /*onPress={this.function}*/ onPress={() => this.setState({ modalOpen: true })} >
+                    <Text style={{ alignSelf: 'center', fontSize: 17, color: 'white', marginTop: 5 }}>S' inscrire</Text>
+                </TouchableOpacity>
             </ScrollView>
-            
-            
+
+
 
 
 
@@ -322,20 +401,21 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     text: {
-        marginTop: 5,
-        marginLeft:'5%',
+        marginTop: '5%',
+        marginLeft: '5%',
+        marginBottom: '2%',
         fontWeight: 'bold',
         fontSize: 15
     },
     text_input: {
-        marginLeft:'5%',
+        marginLeft: '5%',
         //marginRight: 5,
-        height: 30,
+        height: 40,
         width: '90%',
         borderWidth: 1,
         borderRadius: 5,
         paddingLeft: 10,
-        margin: 12,
+        //margin: 12,
         backgroundColor: "white",
         //alignItems: 'center',
         shadowColor: "grey",
@@ -349,14 +429,14 @@ const styles = StyleSheet.create({
     },
     text_input_mail: {
         flexDirection: 'row',
-        marginLeft:'5%',
+        marginLeft: '5%',
         //marginRight: 5,
-        height: 30,
+        height: 40,
         width: '90%',
         borderWidth: 1,
         borderRadius: 5,
         paddingLeft: 10,
-        margin: 12,
+        //margin: 12,
         backgroundColor: "white",
         //alignItems: 'center',
         shadowColor: "grey",
@@ -391,11 +471,16 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
     btn: {
+        flex: 1,
         width: '60%',
-        height: 40,
+        height: 35,
+        backgroundColor: '#1E79C5',
         alignSelf: 'center',
-        marginTop: 5,
-        marginBottom: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '5%',
+        marginBottom: '3%',
+        borderRadius: 5,
         shadowColor: "grey",
         shadowOpacity: 0.8,
         shadowRadius: 2,
@@ -406,9 +491,23 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
     errorMessage: {
-        marginLeft: 15,
-        //color: '#7f8c8d',
-        fontWeight: 'bold'
-    }
+        flex: 1,
+        marginLeft: "6%",
+        marginRight: "1%",
+        //color: '#e74c3c',
+        fontWeight: 'bold',
+        fontSize: 13,
+        marginBottom: '2%',
+        marginTop: '1%',
+    },
+    modal: {
+        marginTop: 3,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        width: '97%',
+        height: '80%',
+        borderRadius: 8,
+        //borderWidth:1
+    },
 });
 

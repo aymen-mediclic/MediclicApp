@@ -32,7 +32,8 @@ class MedItem extends React.Component {
             service_name: "",
             service_salle: "",
             adresse_rdv: "",
-            assistant:""
+            assistant:"",
+            assistant_id:""
         }
     }
 
@@ -175,7 +176,10 @@ class MedItem extends React.Component {
                             service_name={this.state.service_name}
                             service_salle={this.state.service_salle}
                             adresse_rdv={this.state.adresse_rdv}
-                            assistant={this.state.assistant} />
+                            assistant={this.state.assistant}
+                            assistant_id={this.state.assistant_id} 
+                            lng={this.props.lng}
+                            lat={this.props.lat}/>
                     </Modal>
 
                     <Text style={{ textAlign: 'center', marginBottom: 5, fontSize: 16 }}> Prochaines disponibilités:</Text>
@@ -194,7 +198,7 @@ class MedItem extends React.Component {
                                                 return (i < 3) ?
 
                                                     <TouchableOpacity style={[styles.txt_slt, { marginHorizontal: 2, backgroundColor: day.color }]} onPress={() => {
-                                                        this.props.dataFilter.type_rdv == 'V' && day.assistant!=false ?
+                                                        day.assistant!=false && this.props.dataFilter.type_rdv == 'V'  ?
                                                          NavigationService.navigate('Choix Assistant',{
                                                             name: Med.obj.name,
                                                             adresse: this.props.dataFilter.location,
@@ -212,6 +216,9 @@ class MedItem extends React.Component {
                                                             service_salle: day.service_salle,
                                                             adresse_rdv: day.adresse_rdv,
                                                             assistant:day.assistant,
+                                                            assistant_id:day.assistant_id,
+                                                            lng:this.props.lng,
+                                                            lat:this.props.lat
                                                         })
                                                             : NavigationService.navigate('Validez votre rendez-vous',
                                                                 {

@@ -19,21 +19,26 @@ export default class InfirmierL extends React.Component {
            isLoading: true,
         }
     }
-   /* componentDidMount() {
+    componentDidMount() {
         fetch(url1)
-        return fetch(url2+'/rdv/auto')
+        return fetch(url2+'/rdv/auto'+'?lng='+this.props.route.params.lng+'&lat='+this.props.route.params.lat
+        +'&assistant_speciality_id='+this.props.route.params.assistant_id)
             .then((response) => response.json())
             .then((res) => {
-                console.log("69420")
-                console.log(res.infirmiers)
-                this.setState({id:res.infirmiers[0].id,name:res.infirmiers[0].name
+                console.log("6942000000000000000000000000000000")
+                console.log(this.props.route.params.lat)
+                console.log(this.props.route.params.lng)
+                console.log(this.props.route.params.assistant_id)
+                console.log(res)
+                console.log("694200000000000000000000000000000000000")
+              /* this.setState({id:res.infirmiers[0].id,name:res.infirmiers[0].name
                     ,data:res.infirmiers,
                     isLoading: false,
-                })
+                })*/
                 
             })
             .done();
-      }*/
+      }
       Redirection = () => {
         NavigationService.navigate('Validez votre rendez-vous',
             {
@@ -74,10 +79,10 @@ export default class InfirmierL extends React.Component {
         console.log("nnn",this.state.id)
         return (
             <View style={styles.ctr}>
-                 <Text style={{color:'white',fontSize:16,backgroundColor:'#1E79C5',textAlign:'center',height:60,paddingTop:8}}>{this.props.assistant} à domicile</Text>
+                 <Text style={{color:'white',fontSize:16,backgroundColor:'#1E79C5',textAlign:'center',height:60,paddingTop:8}}>{this.props.route.params.assistant} à domicile</Text>
                 
-                 <Text style={{fontSize:15,textAlign:'center',margin:7}}>Ce professionnel exige un(e) {this.props.assistant} à domicile pour l'assister lors de ce rendez-vous en vidéo.
-                 Veuillez choisir un(e) {this.props.assistant} parmi cette liste :</Text>
+                 <Text style={{fontSize:15,textAlign:'center',margin:7}}>Ce professionnel exige un(e) {this.props.route.params.assistant} à domicile pour l'assister lors de ce rendez-vous en vidéo.
+                 Veuillez choisir un(e) {this.props.route.params.assistant} parmi cette liste :</Text>
                  {/*this.displayLoading()*/}
                 {
                                         (this.state.data) ?
@@ -95,6 +100,7 @@ export default class InfirmierL extends React.Component {
                                             :
                                             <></>
                                     }
+                                    
                 <MapContainer/>
             </View>
         )

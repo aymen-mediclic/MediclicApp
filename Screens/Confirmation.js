@@ -23,7 +23,6 @@ export default class Conf extends React.Component {
         <Image style={styles.img} source={require('../assets/C.png')} />
         <TouchableOpacity style={{flexDirection:'row',justifyContent:'center',alignItems:'center', height:35,width:200,borderRadius:5,backgroundColor:'#1E79C5'}} onPress={() => NavigationService.navigate('Mediclic')} >
           <Text style={{color:'white',alignSelf:'center',fontSize:16,margin:7}}>Retour à l'accueil</Text>
-          <EntypoI color={'white'} size={20} name={'back'} />
         </TouchableOpacity>
           
       </View>

@@ -20,6 +20,7 @@ export default class ShortCut extends React.Component {
     functionOne(itemValue, key) {
         this.props.dataFilter(itemValue, key)
         this.setState({ selectedValue: itemValue })
+        this.props.modalClose()
 
     }
 

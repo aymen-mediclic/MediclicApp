@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity, Modal, Alert, ActivityIndicator } from 'react-native'
+import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity, Alert, ActivityIndicator, StatusBar } from 'react-native'
 import { ActionSheet } from "native-base";
 import Dialog from "react-native-dialog";
 import { url1, url2 } from '../../Navigation/GlobalUrl';
-
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import M from 'react-native-vector-icons/MaterialCommunityIcons';
+import Modal from 'react-native-modal';
 //import * as NavigationService from '../Navigation/NavigationService';
 var BUTTONS = [ { text: "Documents", icon: "document",iconColor:"#16a085" },{ text: "Annuler", icon: "trash",iconColor:"#e74c3c" },{ text: "Fermer", icon: "close",iconColor:"black" }];
 var DESTRUCTIVE_INDEX = 2;
@@ -11,6 +13,7 @@ var CANCEL_INDEX = 1;
 export default function MrdvScreen({ navigation }) {
     const [Data, setData] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible1, setModalVisible1] = useState(false);
     const [Dial, setDial] = useState('');
     const [loading, setLoading] = useState('');
     const[profess,setProfess]=useState('');
@@ -59,14 +62,17 @@ export default function MrdvScreen({ navigation }) {
       .done();
     }
 
-    function Item({ item }) {
+    function Item({ item }) {           
         return (
             <View style={styles.item}>
                 
                 <View style={{ flexDirection: "row", justifyContent: 'space-between'}}>
-                    <Text style={{...styles.title,flex:3}}>RDV avec</Text>
+                    <Text style={{flex:1,height:40,padding:10,marginBottom:'2%',fontWeight:'bold',textAlign:'center',color:'white',backgroundColor:'#1E79C5'}}>RDV avec  {item.profess}</Text>
+                </View>
+                <View style={{ flexDirection: "row", justifyContent: 'space-between',marginVertical:'1%'}}>
+                    <Text style={{...styles.title,flex:3}}>Spécialité</Text>
                     <Text style={{...styles.title,flex:1}}>:</Text>
-                    <Text style={{...styles.title1,flex:3}}>{item.profess}</Text>
+                    <Text style={{...styles.title1,flex:3}}>{item.speciality}</Text>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
                     <Text style={{...styles.title,flex:3}}>Date du RDV</Text>
@@ -76,16 +82,20 @@ export default function MrdvScreen({ navigation }) {
                 <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
                     <Text style={{...styles.title,flex:3}}>Statut</Text>
                     <Text style={{...styles.title,flex:1}}>:</Text>
-                    <Text style={{...styles.title1,flex:3}}>{item.statut}</Text>
+                    {item.statut==='annule'&&
+                    <Text style={{...styles.title1,flex:3}}>Annulé</Text>}
+                    {item.statut==='passé'&&
+                    <Text style={{...styles.title1,flex:3}}>Passé</Text>
+                    }
                 </View>
-                <View style={{ flexDirection: "row", justifyContent: 'space-between',marginBottom:7 }}>
+                <View style={{ flexDirection: "row", justifyContent: 'space-between',marginVertical:'2%' }}>
                     <Text style={{...styles.title,flex:3}}>Adressé par</Text>
                     <Text style={{...styles.title,flex:1}}>:</Text>
-                    <Text style={{...styles.title1,flex:3}}>{item.name}</Text>
+                    <Text style={{...styles.title1,flex:3}}>{item.adresser_par}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <TouchableHighlight
-                        style={{ backgroundColor: '#3498db', width: 90, borderRadius: 5,justifyContent:'center' }}
+                        style={{ backgroundColor: '#FFC617', width: 90, borderRadius: 5,padding:5,marginHorizontal:15 }}
                         onPress={() => {
                             setModalVisible(true);
                             setProfess(item.profess);
@@ -100,7 +110,7 @@ export default function MrdvScreen({ navigation }) {
                         <Text style={styles.textStyle}>Détails</Text>
                     </TouchableHighlight>
                    
-                    <TouchableOpacity style={{ backgroundColor: '#3498db', width: 90, borderRadius: 5 }} onPress={() => ActionSheet.show(
+                    <TouchableOpacity style={{ backgroundColor: '#FFC617', width: 90,padding:5, borderRadius: 5,marginHorizontal:15 }} onPress={() =>  setModalVisible1(true)/*ActionSheet.show(
                         {
                             options: BUTTONS,
                             cancelButtonIndex: CANCEL_INDEX,
@@ -126,7 +136,7 @@ export default function MrdvScreen({ navigation }) {
                             }
                         }
 
-                    )}>
+                    )*/}>
                         <Text style={styles.textStyle}> Actions</Text>
                     </TouchableOpacity>
                 </View>
@@ -150,13 +160,25 @@ export default function MrdvScreen({ navigation }) {
         
         
         <View style={{ flex: 1, justifyContent:'center' }} >
+             <Modal visible={modalVisible1} animationType='slide' transparent={true} >
+             <TouchableOpacity style={{ alignSelf:'flex-end', height:35, width:35,borderRadius:35/2,backgroundColor:'#1E79C5',marginRight:'12%',padding:10}} onPress={() => setModalVisible1(false)}>
+                  <Fontisto color='white' size={15} name={'close-a'} style={{ alignSelf: 'center',alignItems:'center',justifyContent:'center'}} />
+                </TouchableOpacity>
+           <View style={styles.modal} >
+           <Text style={{height:40,marginBottom:'2%',fontWeight:'bold',padding:5,justifyContent:'center',textAlign:'center',color:'white',backgroundColor:'#1E79C5',fontSize:19}}>Actions</Text>
+                  <TouchableOpacity style={{ flexDirection:'row',alignItems:'center',marginHorizontal:'3%',marginVertical:'2%'}} onPress={() => {this.setState({ modalOpen: false });NavigationService.navigate("Formulaire d'inscription")} }>
+                  <M color='#1abc9c' size={22} name={'file-document'} />
+                    <Text style={{ fontSize: 18,marginLeft:10 }}>Documents</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{ flexDirection:'row',alignItems:'center',marginHorizontal:'3%',marginVertical:'2%'}} onPress={() => {this.setState({ modalOpen: false });NavigationService.navigate("Inscription Professionel")} }>
+                  <M color='red' size={22} name={'cancel'}/>
+                    <Text style={{ fontSize: 18,marginLeft:10 }}>Annuler</Text>
+                  </TouchableOpacity>
+              </View>
+          </Modal>
             <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert("Modal has been closed.");
-                    }}
+                    
+                    isVisible={modalVisible}
                 >
                     <View style={styles.centeredView}>
                         <TouchableHighlight
@@ -222,24 +244,44 @@ const styles = StyleSheet.create({
         flex: 1,
 
     },
+    modal: {
+        marginTop:3,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        width: '80%',
+        height: '50%',
+        borderRadius: 5,
+        //borderWidth:1
+      },
     item: {
         backgroundColor: 'white',
-        padding: 15,
+        paddingBottom: 15,
         marginVertical: 8,
         marginHorizontal: 16,
+        borderRadius: 4,
+        shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+                        height: 1,
+            width: 0,
+        },
+        elevation: 5,
     },
     title: {
         fontSize: 15,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginHorizontal:15
     },
     title1: {
         fontSize: 15,
-
+        marginHorizontal:15
     },
     textStyle: {
-        color: 'white',
+        color: 'black',
         alignSelf: 'center',
         fontSize: 14,
+        fontWeight:"bold"
     },
     centeredView: {
         flex: 1,

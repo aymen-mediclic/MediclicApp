@@ -46,6 +46,7 @@ import Adresse2 from './Components/Adresse2';
 import HeaderMc from './Components/HeaderMC';
 import HeaderPat from './Screens/PatProfil/HeaderPat';
 import InfirmierL from './Components/InfirmierListe';
+import Motdpss from './Screens/Motdpss';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -186,14 +187,16 @@ export default class App extends React.Component {
               fontSize:18
             }
           }} />
-          <Stack.Screen name="Inscription Professionel" component={InscriptionProf} options={{
+          <Stack.Screen name="Mot de passe oublié ?" component={Motdpss} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',
               height: 80,
             },
+            headerTitleAlign: 'center',
             headerTitleStyle: {
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize:18
             }
           }} />
           <Stack.Screen name="Formulaire d'inscription" component={Inscription} options={{

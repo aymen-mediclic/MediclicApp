@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, AsyncStorage, TouchableOpacity, KeyboardAvoidingView, Modal } from 'react-native'
+import { View, Text,ScrollView, StyleSheet,ActivityIndicator ,TextInput, AsyncStorage, TouchableOpacity, KeyboardAvoidingView, Modal,Alert } from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
 import { Input } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import Mat from 'react-native-vector-icons/MaterialIcons';
 import { Button, ActionSheet } from "native-base";
 import { RadioButton } from 'react-native-paper';
 import { url1, url2 } from '../Navigation/GlobalUrl';
@@ -12,15 +13,19 @@ var DESTRUCTIVE_INDEX = 3;
 var CANCEL_INDEX = 4;
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // {this.Autho}
+//<Mat color='#721c24' size={12} name="cancel" style={{marginRight:3}}/>
 class ConnectionScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       login: '',
       password: '',
+      isLoading: false,
       icon: "eye-slash",
       pass: true,
       modalOpen: false,
+      Error:true,
+      Errormsg:''
     }
   }
   _changeIcon() {
@@ -29,21 +34,37 @@ class ConnectionScreen extends React.Component {
       pass: !prevState.pass
     }));
   }
+  function = () => {
+    if (this.state.login==''){
+        this.setState({Error:false,Errormsg:'Veuillez renseigner une adresse\n e-mail valide.\nExemple : info@gmail.com.'})
+    }else if (this.state.password=='')
+    {
+      this.setState({Error:false,Errormsg:'Veuillez renseigner votre mot de passe.'})
+    }
+    else
+    {
+      this.setState({Error:true,isLoading:true})
+      this.Autho();
+    }
+  }
 
   render() {
     return (
-      <View
-        style={styles.container}
+      <ScrollView
+        contentContainerStyle={styles.container}
       >
         <KeyboardAvoidingView style={styles.med_ctr} behavior="padding">
           <Text style={{ margin: 15, fontSize: 15, fontWeight: 'bold', color: 'black' }}>J'ai déja un compte Mediclic</Text>
-          <Input inputStyle={styles.txt_input_u} placeholder='Adresse email' placeholderTextColor="#95a5a6"
+          {this.state.Error == false ? (
+                    <Text style={styles.error}>{this.state.Errormsg}</Text>
+                ) : null}
+          <Input inputStyle={styles.txt_input_u} placeholder='Adresse e-mail' placeholderTextColor="#95a5a6"
             onChangeText={(login) => this.setState({ login })}
             value={this.state.username}
             autoCapitalize='none'
             keyboardType='email-address'
-            leftIcon={<Icon
-              name='user'
+            leftIcon={<Fontisto
+              name='email'
               size={16}
               color='#95a5a6'
             />}
@@ -57,17 +78,21 @@ class ConnectionScreen extends React.Component {
             rightIcon={
               <FontAwesome color='#95a5a6' size={16} name={this.state.icon} onPress={() => this._changeIcon()} />}
           />
-          <TouchableOpacity style={styles.btn} onPress={this.Autho} >
+          <TouchableOpacity style={styles.btn} onPress={this.function} >
+            { this.state.isLoading==false?(
             <Text style={{ color: 'black', alignSelf: 'center', fontSize: 15, fontWeight: 'bold', marginTop: 5 }}>CONNEXION</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{ borderBottomWidth: 1, borderBottomColor: 'black' }}>
+            ):
+            <ActivityIndicator color="black"  style={{alignSelf:'center'}} />
+            }
+            </TouchableOpacity>
+          <TouchableOpacity style={{ borderBottomWidth: 1, borderBottomColor: 'black',marginBottom:'15%' }} onPress={() =>NavigationService.navigate("Mot de passe oublié ?")} >
             <Text style={{ color: 'black', fontWeight: 'bold', margin: 5, fontSize: 12 }}>MOT DE PASSE OUBLIÉ ? </Text>
           </TouchableOpacity>
 
 
         </KeyboardAvoidingView>
         <View style={styles.med_ctr1} >
-          <Text style={{ margin: 15, fontSize: 15, fontWeight: 'bold', color: 'black' }}>Nouveau sur Mediclic ?</Text>
+          <Text style={{marginTop:10 ,marginBottom: 25, fontSize: 16, fontWeight: 'bold', color: 'black' }}>Nouveau sur Mediclic ?</Text>
           {/* <TouchableOpacity style={styles.btn1} onPress={() => ActionSheet.show(
             {
               options: BUTTONS,
@@ -83,8 +108,11 @@ class ConnectionScreen extends React.Component {
               }
             }
           )}>*/}
-          <TouchableOpacity style={styles.btn1} onPress={() => this.setState({ modalOpen: true })}>
-            <Text style={{ color: '#FFC617', textAlign: 'center', fontSize: 15, fontWeight: 'bold' }}> Je veux créer un compte</Text>
+          <TouchableOpacity style={styles.btn1} onPress={() => NavigationService.navigate("Formulaire d'inscription")}>
+            <Text style={{ color: 'black',fontSize: 15, fontWeight: 'bold',alignSelf:'center'}}> Je veux créer un compte</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.btn2} onPress={() => this.setState({ modalOpen: true })}>
+            <Text style={{ color: 'white', textAlign: 'center', fontSize: 15, fontWeight: 'bold' }}>Je suis un professionnel</Text>
           </TouchableOpacity>
           
           <Modal visible={this.state.modalOpen} animationType='slide' transparent={true}  >
@@ -128,7 +156,7 @@ class ConnectionScreen extends React.Component {
           </Modal>
         </View>
 
-      </View>
+      </ScrollView>
 
 
 
@@ -162,8 +190,7 @@ class ConnectionScreen extends React.Component {
 
         }
         else {
-          alert("Mauvais nom d'utilisateur ou mot de passe");
-          console.log(res);
+          this.setState({Error:false,Errormsg:'Adresse e-mail ou mot de passe incorrecte.Veuillez réessayer',isLoading:false})
         }
       })
       .done();
@@ -189,15 +216,14 @@ class ConnectionScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
     //backgroundColor: '#1E79C5',
     alignItems: 'center',
     //justifyContent: 'center'
-
   },
   med_ctr: {
     padding: 5,
-    height: '60%',
+    //height: '55%',
     width: '80%',
     alignItems: 'center',
     //justifyContent: 'center',
@@ -214,13 +240,15 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   med_ctr1: {
+    //flex:1,
     padding: 5,
-    height: '20%',
+    //height: '40%',
     width: '80%',
     alignItems: 'center',
     //justifyContent: 'center',
     backgroundColor: 'white',
     marginTop: 30,
+    marginBottom:'10%',
     borderRadius: 4,
     shadowColor: "grey",
     shadowOpacity: 0.8,
@@ -265,12 +293,27 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: '90%',
     height: 35,
-    marginBottom: 30,
+    marginBottom:'7%',
     borderRadius: 4,
+    padding:2
   },
   btn1: {
+    
     width: '90%',
     height: 35,
+    backgroundColor:'#FFC617',
+    borderRadius:3,
+    justifyContent:'center',
+  },
+  btn2: {
+    marginTop:10,
+    marginBottom:'10%',
+    width: '90%',
+    height:35,
+    backgroundColor:'#1E79C5',
+    borderRadius:3,
+    paddingTop:'3%'
+    //justifyContent:'center',
   },
   pat: {
     backgroundColor: '#FFC617',
@@ -307,6 +350,15 @@ const styles = StyleSheet.create({
       width: 0,
     },
     elevation: 5,
+  },
+  error:{
+    width:'90%',
+    backgroundColor:'#f8d7da',
+    color:'#721c24',
+    margin:'3%',
+    borderRadius:3,
+    padding:15,
+    justifyContent:'center'
   }
 });
 export default ConnectionScreen

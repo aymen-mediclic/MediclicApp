@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, View, Text, TextInput, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity, Modal,ActivityIndicator } from 'react-native'
+import { ScrollView, View, Text, TextInput, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity,ActivityIndicator } from 'react-native'
 //import { navigate } from '../../Navigation/NavigationService';
 import * as NavigationService from '../../Navigation/NavigationService';
 import { url1,url2 } from '../../Navigation/GlobalUrl';
-
+import Modal from 'react-native-modal';
 
 export default function MprochesScreen({ navigation }) {
     const [Data, setData] = useState([]);
@@ -25,7 +25,7 @@ export default function MprochesScreen({ navigation }) {
 
     useEffect(() => {
         fetch(url1)
-        return fetch(url2+'/api/profil?uid=26&get_proche')
+        return fetch(url2+'/api/profil?uid=126&get_proche')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")
@@ -52,8 +52,8 @@ export default function MprochesScreen({ navigation }) {
 
         console.log(bodyData, "-------------------")
 
-        fetch('http://51.91.249.185:8069/web/login?db=new_installation')
-        fetch('http://51.91.249.185:8069/api/ajout_proche', {
+        fetch(url1)
+        fetch(url2+'/api/ajout_proche', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/javascript, */*; q=0.01',
@@ -84,7 +84,7 @@ export default function MprochesScreen({ navigation }) {
         }else if(mail == ''){
             setError2(false), setColor2('red'),setError1(true),setColor1('#2ecc71')
         }
-        else if( tel == ''){
+        else if(tel == ''){
             setError3(false), setColor3('red'),setError2(true),setColor2('#2ecc71')
         }
         /*else if(adresse== ''){
@@ -115,14 +115,17 @@ export default function MprochesScreen({ navigation }) {
                     <Text style={styles.title1}> {item.email}</Text>
 
                 </View>
-                <TouchableOpacity onPress={() => NavigationService.navigate('Proche Profil:')} style={{ backgroundColor: '#3498db', width: 80, borderRadius: 5, alignItems: 'center', marginVertical: 5, alignSelf: 'flex-end' }} >
-                    <Text style={{ color: 'white' }}> voir plus</Text>
+                <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.title1}> {item.tel}</Text>
+
+                </View>
+                <TouchableOpacity onPress={() => NavigationService.navigate('Proche Profil:')} style={{ backgroundColor: '#1E79C5',justifyContent:"center",height:25, width: 80, borderRadius: 5, alignItems: 'center', marginVertical: 5, alignSelf: 'flex-end' }} >
+                    <Text style={{ color: 'white',fontWeight:'bold' }}> Voir plus</Text>
                 </TouchableOpacity>
                 
             </View>
         );
     }
-    console.log(Data, "<><><><><><><><")
     let displayLoading=() => {
         if (loading) {
           //Loading View while data is loading
@@ -138,25 +141,25 @@ export default function MprochesScreen({ navigation }) {
         <View style={styles.container}>
             <Modal
                 animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                }}>
+                isVisible={modalVisible}
+                >
                 <View style={styles.modalView}>
 
 
                     
-                    <ScrollView>
-                    <Text style={styles.text}>Nom (naissance) :</Text>
+                    <View>
+                    <View style={{ flexDirection: "row", justifyContent: 'space-between'}}>
+                                    <Text style={{flex:1,height:40,padding:5,marginBottom:'2%',fontWeight:'bold',textAlign:'center',color:'white',backgroundColor:'#1E79C5',fontSize:17,borderTopRightRadius:5,borderTopLeftRadius:5}}>Ajouter un proche</Text>
+                                </View>
+                    <Text style={styles.text}>Nom (de naissance) :</Text>
                         <TextInput
                             style={{...styles.text_input,borderColor:color}}
-                            placeholder="Nom"
+                            placeholder="Nom (de naissance)"
                             onChangeText={(nom) => { setNom(nom) }}
                         />
                         {Error == false ? (
-                            <Text style={{color:'red',marginLeft:20}} >
-                                 Veuillez renseigner votre Nom.
+                            <Text style={{fontSize:14,color:'red',marginLeft:20}} >
+                                 Veuillez renseigner votre nom (de naissance).
                             </Text>
                              ) : null}
                         <Text style={styles.text}>Prénom :</Text>
@@ -166,26 +169,26 @@ export default function MprochesScreen({ navigation }) {
                             onChangeText={(prenom) => { setPreNom(prenom) }}
                         />
                         {Error1 == false ? (
-                            <Text style={{color:'red',marginLeft:20}} >
-                                 Veuillez renseigner votre Prénom .
+                            <Text style={{fontSize:14,color:'red',marginHorizontal:10}} >
+                                 Veuillez renseigner votre prénom .
                             </Text>
                              ) : null}
                         <Text style={styles.text}>Adresse e-mail :</Text>
                         <TextInput
                             style={{...styles.text_input,borderColor:color2}}
-                            placeholder="nom"
+                            placeholder="Adresse e-mail"
                             value='asmaa@a.com'
                             onChangeText={(mail) => { setMail(mail) }}
                         />
                         {Error2 == false ? (
                             <Text style={{color:'red',marginLeft:20}} >
-                                 Veuillez renseigner votre adresse mail .
+                                 Veuillez renseigner votre adresse e-mail .
                             </Text>
                              ) : null}
-                        <Text style={styles.text}>N° Téléphone portable :</Text>
+                        <Text style={styles.text}>N° Téléphone  :</Text>
                         <TextInput
                             style={{...styles.text_input,borderColor:color3}}
-                            placeholder="nom"
+                            placeholder="N° Téléphone "
                             value='0785858582'
                             onChangeText={(tel) => { setTel(tel) }}
                         />
@@ -194,9 +197,9 @@ export default function MprochesScreen({ navigation }) {
                                  Veuillez renseigner votre téléphone .
                             </Text>
                              ) : null}
-                        <View style={{flexDirection:'row',justifyContent:"flex-end",justifyContent:"space-between"}}>
+                        <View style={{flexDirection:'row',justifyContent:"flex-end",marginVertical:10,marginHorizontal:10}}>
                         <TouchableOpacity
-                        style={{ ...styles.openButton, backgroundColor: "#1E79C5" }}
+                        style={{ ...styles.openButton, backgroundColor: "#FFC617",margin:10 }}
                         onPress={() => {
                             setModalVisible(!modalVisible);
                         }}
@@ -204,20 +207,20 @@ export default function MprochesScreen({ navigation }) {
                         <Text style={styles.textStyle}>Fermer</Text>
                     </TouchableOpacity>
                         <TouchableOpacity
-                            style={{ ...styles.openButton, backgroundColor: "#1E79C5" }}
+                            style={{ ...styles.openButton, backgroundColor: "#1E79C5",margin:10 }}
                             onPress={() => checkError()}
                         >
                             <Text style={styles.textStyle}>Ajouter</Text>
                         </TouchableOpacity>
                         </View>
-                    </ScrollView>
+                    </View>
                     
                 </View>
 
             </Modal>
             
                     <View style={{flexDirection:'row',alignSelf:'flex-end',alignItems:'center',justifyContent:'center',margin:5,marginRight:15}}>
-                    <Text style={{ color: 'orange', fontSize: 17,fontWeight:'bold',marginRight:5 }}>Ajouter un proche</Text>
+                    <Text style={{ color: 'orange', fontSize:17,fontWeight:'bold',marginRight:5 }}>Ajouter un proche</Text>
             <TouchableOpacity style={styles.btn1}
                 onPress={() => {
                     setModalVisible(true);
@@ -255,11 +258,19 @@ const styles = StyleSheet.create({
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
-        
+        borderRadius: 4,
+        shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+                        height: 1,
+            width: 0,
+        },
+        elevation: 5,
     },
     title1: {
         fontSize: 14,
-
+        marginVertical:5
     },
     title: {
         fontSize: 16,
@@ -296,10 +307,11 @@ const styles = StyleSheet.create({
     },
 
     modalView: {
-        marginTop: 95,
+        marginVertical:'10%',
         backgroundColor: "white",
         borderRadius: 20,
-        padding: 10,
+        paddingBottom: 15,
+        marginHorizontal: 8,
         //alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -315,8 +327,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         elevation: 2,
-        width: 150,
-        alignSelf: 'flex-end'
+        width: 100,
+        //alignSelf: 'flex-end'
     },
     textStyle: {
         color: "white",
@@ -336,14 +348,14 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         paddingLeft: 10,
         backgroundColor: 'white',
-        marginBottom: 15,
-        marginTop: 10,
+        marginVertical:5
     },
     text: {
-        margin: 10,
+        marginHorizontal: 20,
+        marginTop:5,
         fontWeight: 'bold',
-        fontSize: 16,
-        color: '#2c3e50'
+        fontSize: 15,
+        color: '#2c3e50',
     },
     btn1: {
         borderRadius: 30/2,

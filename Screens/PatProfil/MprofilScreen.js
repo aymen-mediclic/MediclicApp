@@ -127,7 +127,7 @@ export default function Mprofil(navigation, route, props) {
         if (loading) {
             //Loading View while data is loading
             return (
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ flex: 1,height:'100%', alignItems: 'center', justifyContent: 'center',alignSelf:'center' }}>
                     <ActivityIndicator size="large" color="#1E79C5" />
 
                 </View>
@@ -135,18 +135,15 @@ export default function Mprofil(navigation, route, props) {
         }
     }
     const checkError = () => {
-        if(tel == ''&&preNom == ''&&nom == ''){
-            setError2(false), setColor2('red')
-            setError1(false), setColor1('red')
-            setError(false), setColor('red')
-        }else if (preNom == '') {
-            setError1(false), setColor1('red'), setError(true), setColor('#2ecc71')
-        }else if(tel == ''){
-            setError2(false), setColor2('red'),setError1(true),setColor1('#2ecc71')
-        }else  if (nom == '') {
+        if (nom == '') {
             setError(false), setColor('red')
         
         }
+         if (preNom == '') {
+            setError1(false), setColor1('red')
+        }if(tel == ''){
+            setError2(false), setColor2('red')
+        } 
         else {
             update()
 
@@ -155,6 +152,7 @@ export default function Mprofil(navigation, route, props) {
 
     }
     return (
+        
         <ScrollView contentContainerStyle={{ backgroundColor: 'white' }} >
             {displayLoading()}
             <Modal
@@ -194,7 +192,14 @@ export default function Mprofil(navigation, route, props) {
                             style={{ ...styles.text_input, borderColor: color }}
                             placeholder="Nom (de naissance)"
                             value={nom} //osama somy
-                            onChangeText={(nom) => setNom(nom)} />
+                            onChangeText={(nom) =>  {
+                                if (nom.trim() != 0) {
+                                    setNom(nom),setError(true), setColor('#2ecc71')
+                                } else {
+                                    setNom(nom) ,setError(false), setColor('red')
+                                    
+                                }
+                            }} />
 
 
 
@@ -333,7 +338,7 @@ export default function Mprofil(navigation, route, props) {
                     </ScrollView>
                     <View style={{ flexDirection: 'row', justifyContent: "flex-end", justifyContent: "space-between", backgroundColor: '#ecf0f1' }}>
                         <TouchableOpacity
-                            style={{ ...styles.openButton, backgroundColor: "#1E79C5", width: 150, height: 30, margin: 5, justifyContent: 'center' }}
+                            style={{ ...styles.openButton, backgroundColor: "orange", width: 150, height: 30, margin: 5, justifyContent: 'center' }}
                             onPress={() => {
                                 setModalVisible(!modalVisible);
                             }}

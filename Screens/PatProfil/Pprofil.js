@@ -34,7 +34,7 @@ export default function Pprofil({ navigation }) {
     const [color5, setColor5] = useState('#dfe4ea')
     useEffect(() => {
         fetch(url1)
-        return fetch(url2 + '/api/profil_proche?uid=26&get_profil&proche=74')
+        return fetch(url2 + '/api/profil_proche?uid=126&get_profil&proche=72')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")

@@ -172,10 +172,10 @@ export default class ImagePickerExample extends React.Component {
                     onChangeText={(maili) => { this.setState({mail:maili}) }}
 
                   />
-                  <Text style={styles.text}>N° Téléphone portable :</Text>
+                  <Text style={styles.text}>N° Téléphone :</Text>
                   <TextInput
                     style={styles.text_input}
-                    placeholder="Téléphone:"
+                    placeholder="N° Téléphone"
                     defaultValue='0673259781'
                     onChangeText={(tele) => { this.setState({tel:tele}) }}
 

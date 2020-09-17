@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text,ScrollView, StyleSheet,ActivityIndicator ,TextInput, AsyncStorage, TouchableOpacity, KeyboardAvoidingView, Modal,Alert } from 'react-native'
+import { View, Text,ScrollView, StyleSheet,ActivityIndicator ,TextInput,Linking ,AsyncStorage, TouchableOpacity, KeyboardAvoidingView, Modal,Alert } from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
 import { Input } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -115,45 +115,6 @@ class ConnectionScreen extends React.Component {
             <Text style={{ color: 'white', textAlign: 'center', fontSize: 15, fontWeight: 'bold' }}>Je suis un professionnel</Text>
           </TouchableOpacity>
           
-          <Modal visible={this.state.modalOpen} animationType='slide' transparent={true}  >
-          <TouchableOpacity style={{ alignSelf:'flex-end', height:35, width:35,borderRadius:35/2,backgroundColor:'#1E79C5',marginTop: "18%",marginRight:'12%',padding:10}} onPress={() => this.setState({ modalOpen: false })}>
-                  <Fontisto color='white' size={15} name={'close-a'} style={{ alignSelf: 'center',alignItems:'center',justifyContent:'center'}} />
-                </TouchableOpacity>
-
-            <View style={styles.modal}>
-              <View style={{ backgroundColor: '#1E79C5', flexDirection: 'row', padding: 10 }} >
-
-                <Text style={{ fontSize: 18, color: 'white' }}>Je veux créer un compte :</Text>
-
-                
-
-              </View>
-              <View style={{ flex: 3 }} >
-                <RadioButton.Group
-                  onValueChange={value => this.setState({ value })}
-                  value={this.state.value}
-                >
-                  <TouchableOpacity style={{ flexDirection:'row',alignItems:'center'}} onPress={() => {this.setState({ modalOpen: false });NavigationService.navigate("Formulaire d'inscription")} }>
-                  <RadioButton color='#1E79C5'  value="first" />
-                    <Text style={{ fontSize: 17,marginLeft:5 }}>Patient</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={{ flexDirection:'row',alignItems:'center'}} onPress={() => {this.setState({ modalOpen: false });NavigationService.navigate("Inscription Professionel")} }>
-                  <RadioButton  color='#1E79C5' value="second" />
-                    <Text style={{ fontSize: 17,marginLeft:5 }}>Professionnel</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={{ flexDirection:'row',alignItems:'center'}} onPress={() => this.setState({ modalOpen: false })}>
-                  <RadioButton  color='#1E79C5' value="second" />
-                    <Text style={{ fontSize: 17,marginLeft:5 }}>Centre</Text>
-                  </TouchableOpacity>
-                  
-
-                </RadioButton.Group>
-
-              </View>
-
-            </View>
-
-          </Modal>
         </View>
 
       </ScrollView>

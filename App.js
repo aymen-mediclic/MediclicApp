@@ -288,6 +288,7 @@ export default class App extends React.Component {
               backgroundColor: '#1E79C5',
               height: 80,
             },
+            headerShown: false,
             headerTitleStyle: {
               fontWeight: 'bold'
             },

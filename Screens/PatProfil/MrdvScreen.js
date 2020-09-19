@@ -10,6 +10,7 @@ import Modal from 'react-native-modal';
 import { TextInput } from 'react-native-paper';
 import { ImagePicker } from 'expo';
 import * as DocumentPicker from 'expo-document-picker';
+import FilterRdv from './FilterRdv';
 //import * as NavigationService from '../Navigation/NavigationService';
 var BUTTONS = [ { text: "Documents", icon: "document",iconColor:"#16a085" },{ text: "Annuler", icon: "trash",iconColor:"#e74c3c" },{ text: "Fermer", icon: "close",iconColor:"black" }];
 var DESTRUCTIVE_INDEX = 2;
@@ -20,6 +21,7 @@ export default function MrdvScreen({ navigation }) {
     const [modalVisible1, setModalVisible1] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
     const [modalVisible3, setModalVisible3] = useState(false);
+    const [modalVisible4, setModalVisible4] = useState(false);
     const [Dial, setDial] = useState('');
     const [loading, setLoading] = useState(true);
     const[profess,setProfess]=useState('');
@@ -303,6 +305,19 @@ export default function MrdvScreen({ navigation }) {
                         </View>
                         
                 </Modal>
+                <Modal
+                    isVisible={modalVisible4}
+                    animationIn  = "slideInLeft"
+          animationOut = "slideOutLeft"
+          style        = {{margin: 0}}
+                >
+                    <FilterRdv/>
+                </Modal>
+                <TouchableOpacity style={{backgroundColor:'orange'}}  onPress={() => {
+                                setModalVisible4(true);
+                            }}>
+                    <Text>Filter</Text>
+                </TouchableOpacity>
             {
                 (Data.rdvs)
                     ?

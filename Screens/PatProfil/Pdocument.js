@@ -9,7 +9,7 @@ export default function FprocheScreen({ navigation }) {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         fetch(url1)
-        return fetch(url2+'/api/profil_proche?uid=126&get_file&proche=74')
+        return fetch(url2+'/api/profil_proche?uid=126&get_file&proche=72')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")

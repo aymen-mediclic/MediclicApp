@@ -5,7 +5,7 @@ import DatePicker from 'react-native-datepicker';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Ant from 'react-native-vector-icons/AntDesign';
 // ...
-export default class FilterRdv extends Component {
+export default class FilterRdv1 extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -14,7 +14,7 @@ export default class FilterRdv extends Component {
         }
     }
     render() {
-        const { profess, address, specilict,dateRdv } = this.props.filterFields
+        const { profess, piecej, specilict,dateAjt,dateRdv } = this.props.filterFields
         return (
             <View style={styles.ctr}>
                 <View style={styles.filtrer} >
@@ -27,9 +27,8 @@ export default class FilterRdv extends Component {
 
                 </View>
                 <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={profess} onChangeText={(text) => this.props.filterTextHandler(text, "profess")} placeholder='Professionel' />
-                <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={address} onChangeText={(text) => this.props.filterTextHandler(text, "address")} placeholder='Addressé par' />
+                <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={piecej} onChangeText={(text) => this.props.filterTextHandler(text, "piecej")} placeholder='Piéce jointe' />
                 <TextInput  placeholderTextColor='#95a5a6' style={styles.text_input} value={specilict} onChangeText={(text) => this.props.filterTextHandler(text, "specilict")} placeholder='Spécialité' />
-                {/* <TextInput style={styles.text_input} onChangeText={(text)=> this.props.filterHandler(text, "") } placeholder='Médecin,Centre...' /> */}
                 <View style={styles.date_p}>
                     <DatePicker
                         //style={{width: '100%' }}
@@ -37,6 +36,45 @@ export default class FilterRdv extends Component {
                         mode="date" //The enum of date, datetime and time
                         locale='fr'
                         placeholder={dateRdv==0?'Date du RDV':dateRdv}
+                        placeholderTextColor="orange"
+                        format="DD-MM-YYYY"
+                        minDate="01-01-1940"
+                        // maxDate="01-01-2019"
+                        confirmBtnText="Confirmer"
+                        cancelBtnText="Annuler"
+                        showIcon={false}
+                        customStyles={{
+                             dateInput: {
+                                 height: 30,
+                                 borderColor: 'white',
+                                 
+                             },
+                             placeholderText: {
+                                fontSize: 14,
+                                alignSelf: "flex-start",
+                                marginLeft: 5,
+                                color: '#95a5a6'
+                            },
+                            dateText: {
+                                fontSize: 14,
+                                alignSelf: "flex-start",
+                                marginLeft: 5,
+                                color: '#95a5a6'
+                            }
+                        }}
+                        onDateChange={(dateRdv) => { this.props.filterTextHandler(dateRdv, "dateRdv") }}
+                    />
+                     <TouchableOpacity style={{width:20,marginLeft:50}} onPress ={this.props.resetFilter}>
+                     <Ant color='#95a5a6' size={16} name={'reload1'} style={{}} />
+                     </TouchableOpacity>
+                </View>
+                <View style={styles.date_p}>
+                    <DatePicker
+                        //style={{width: '100%' }}
+                        //date={niassance} //initial date from state
+                        mode="date" //The enum of date, datetime and time
+                        locale='fr'
+                         placeholder={dateAjt==0?"Date d'ajout":dateAjt}
                         format="DD-MM-YYYY"
                         minDate="01-01-1940"
                         // maxDate="01-01-2019"
@@ -73,7 +111,7 @@ export default class FilterRdv extends Component {
                                 marginLeft: 36
                             }
                         }}*/
-                        onDateChange={(dateRdv) => { this.props.filterTextHandler(dateRdv, "dateRdv") }}
+                        onDateChange={(dateAjt) => { this.props.filterTextHandler(dateAjt, "dateAjt") }}
                     />
                      <TouchableOpacity style={{width:20,marginLeft:50}} onPress ={this.props.resetFilter}>
                      <Ant color='#95a5a6' size={16} name={'reload1'} style={{}} />

@@ -43,7 +43,7 @@ export default function Mprofil(navigation, route, props) {
     useEffect(() => {
 
         fetch(url1)
-        return fetch(url2 + '/api/profil?uid=26&get_profil')
+        return fetch(url2 + '/api/profil?uid=126&get_profil')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")
@@ -74,12 +74,12 @@ export default function Mprofil(navigation, route, props) {
 
         
         let bodyData = JSON.stringify({
-            uid: "26",
+            uid: "126",
             adresse: adresse,
             Num_CIN: cin,
             nom: nom,
             prenom: preNom,
-            date_naissance: niassance,
+            date_nais: niassance,
             civilite: civility,
             Num_mut: mutuelle,
             Nom_mutuelle:nmutuelle,
@@ -151,6 +151,7 @@ export default function Mprofil(navigation, route, props) {
 
 
     }
+    let t=/^((06)|(07))[0-9]{8}$/;
     return (
         
         <ScrollView contentContainerStyle={{ backgroundColor: 'white' }} >
@@ -214,10 +215,15 @@ export default function Mprofil(navigation, route, props) {
                             style={{ ...styles.text_input, borderColor: color1 }}
                             placeholder="Prénom"
                             value={preNom} //osama somy
-                            onChangeText={(preNom) =>
-                                setPreNom(preNom)
+                            onChangeText={(preNom) =>{
+                                if (preNom.trim() != 0) {
+                                    setPreNom(preNom),setError1(true), setColor1('#2ecc71')
+                                } else {
+                                    setPreNom(preNom) ,setError1(false), setColor1('red')
+                                    
+                                }
 
-                            }
+                            }}
                         />
 
                         {Error1 == false ? (
@@ -398,65 +404,65 @@ export default function Mprofil(navigation, route, props) {
                             <View style={styles.ctr} >
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Nom (de naissance)</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}>{Data.nom}</Text>
+                                    <Text style={{ ...styles.textA,  width:10}}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.nom}</Text>
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Prénom</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}>{Data.prenom}</Text>
+                                    <Text style={{ ...styles.textA,  width:10}}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.prenom}</Text>
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Date de naissance</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}>{Data.date_naissance}</Text>
+                                    <Text style={{ ...styles.textA,  width:10 }}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.date_naissance}</Text>
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Civilité</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}>{Data.civilite}</Text>
+                                    <Text style={{ ...styles.textA,  width:10}}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.civilite}</Text>
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>N° Téléphone</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}> {Data.tel}</Text>
+                                    <Text style={{ ...styles.textA,  width:10 }}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}> {Data.tel}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>E-mail</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}> {Data.email}</Text>
+                                    <Text style={{ ...styles.textA, width:10 }}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}> {Data.email}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Adresse</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}> {Data.adress}</Text>
+                                    <Text style={{ ...styles.textA,  width:10}}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}> {Data.adress}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Ville</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}> {Data.ville}</Text>
+                                    <Text style={{ ...styles.textA,  width:10 }}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}> {Data.ville}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Mutuelle</Text>
-                                    <Text style={{ ...styles.textA, flex: 1}}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3}}> {Data.nom_mutuelle}</Text>
+                                    <Text style={{ ...styles.textA,  width:10}}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4}}> {Data.nom_mutuelle}</Text>
 
                                 </View>
 
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>N° Mutuelle</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}> {Data.mutuelle}</Text>
+                                    <Text style={{ ...styles.textA,  width:10}}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}> {Data.mutuelle}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>N° CIN</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}>{Data.cin}</Text>
+                                    <Text style={{ ...styles.textA,  width:10 }}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.cin}</Text>
                                 </View>
                             </View>
                 </View>

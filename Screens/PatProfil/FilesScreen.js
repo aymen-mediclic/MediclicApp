@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableOpacity,ActivityIndicator } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'; 
 import { url1, url2 } from '../../Navigation/GlobalUrl';
-
-
+import { Segment } from 'native-base';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import Modal from 'react-native-modal';
+import FilterRdv1 from './FiltrerRdv1';
 export default function FScreen({ navigation }) {
     const [Data, setData] = useState([])
     const [loading, setLoading] = useState(true);
+    const [modalVisible4, setModalVisible4] = useState(false);
+    const [filterDataHandler, setFilterDataHandler]   = useState([])
     useEffect(() => {
         fetch(url1)
         return fetch(url2+'/api/profil?uid=26&get_file')
@@ -16,6 +20,11 @@ export default function FScreen({ navigation }) {
                 console.log(res)
                 setData(res);
                 setLoading(false)
+                setFilterDataHandler({
+                    filterData:res.files,
+                    filterFields:{ profess: '',piecej: '', specilict: '', dateRdv: '',dateAjt:''}
+                    
+                })
             })
             .done();
     }, []);
@@ -28,31 +37,31 @@ export default function FScreen({ navigation }) {
                                 </View>
                 <View style={{ flexDirection: "row",justifyContent:"space-between",marginVertical:'2%' }}>
                     <Text style={{...styles.title,flex:3}}>Ajouté Par</Text>
-                    <Text style={{...styles.title,flex:1}}>:</Text>
-                    <Text style={{...styles.title1,flex:3}}>{item.ajouter_par}</Text>
+                    <Text style={{...styles.title,width:15}}>:</Text>
+                    <Text style={{...styles.title1,flex:4}}>{item.ajouter_par}</Text>
                 </View>
-                <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
-                    <Text style={{...styles.title,flex:3}}>Créer le</Text>
-                    <Text style={{...styles.title,flex:1}}>:</Text>
-                    <Text style={{...styles.title1,flex:3}}>{item.create_date}</Text>
+                <View style={{ flexDirection: "row",/*justifyContent:"space-between"*/ }}>
+                    <Text style={{...styles.title,flex:3}}>Date d'ajout</Text>
+                    <Text style={{...styles.title,width:15}}>:</Text>
+                    <Text style={{...styles.title1,flex:4}}>{item.create_date}</Text>
                 </View>
                 <View style={{ flexDirection: "row",justifyContent:"space-between"}}>
                     <Text style={{...styles.title,flex:3}}>Date du RDV</Text>
-                    <Text style={{...styles.title,flex:1}}>:</Text>
-                    <Text style={{...styles.title1,flex:3}}>{item.dtae_rdv}</Text>
+                    <Text style={{...styles.title,width:15}}>:</Text>
+                    <Text style={{...styles.title1,flex:4}}>{item.dtae_rdv}</Text>
                 </View>
                 <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
                     <Text style={{...styles.title,flex:3}}>RDV avec</Text>
-                    <Text style={{...styles.title,flex:1}}>:</Text>
-                    <Text style={{...styles.title1,flex:3}}>{item.rdv_avec}</Text>
+                    <Text style={{...styles.title,width:15}}>:</Text>
+                    <Text style={{...styles.title1,flex:4}}>{item.rdv_avec}</Text>
                 </View>
                 <View style={{ flexDirection: "row",justifyContent:"space-between",marginVertical:'2%' }}>
                     <Text style={{...styles.title,flex:3}}>Spécialité</Text>
-                    <Text style={{...styles.title,flex:1}}>:</Text>
-                    <Text style={{...styles.title1,flex:3}}>{item.speciality}</Text>
+                    <Text style={{...styles.title,width:15}}>:</Text>
+                    <Text style={{...styles.title1,flex:4}}>{item.speciality}</Text>
                 </View>
                 <TouchableOpacity style={{flexDirection:'row',alignSelf:'flex-end',margin:15}}>
-                    <Text style={{marginRight:10,fontWeight:'bold',color:'#1E79C5'}}>
+                    <Text style={{marginRight:10,fontWeight:'bold',color:'#1E79C5',textDecorationLine:'underline'}}>
                     {item.nom_file}
                     </Text>
                 <FontAwesome name="download" size={24} color="#1E79C5" />
@@ -68,10 +77,6 @@ export default function FScreen({ navigation }) {
     
     //END
 
-
-
-
-    console.log(Data, "<><><><><><><><")
     let displayLoading=() => {
         if (loading) {
           //Loading View while data is loading
@@ -83,18 +88,112 @@ export default function FScreen({ navigation }) {
           );
         }
       }
+      const filterTextHandler = async (text,type)=>{
+
+        let updatedText = {}
+        
+        if(type == "specilict"){
+
+            updatedText = {
+                ...filterDataHandler.filterFields,
+                "specilict": text
+            }
+        }else if(type == "profess"){
+            updatedText ={
+                ...filterDataHandler.filterFields,
+                "profess": text
+            }
+        }else if(type == "piecej"){
+            updatedText ={
+                ...filterDataHandler.filterFields,
+                "piecej": text
+            }
+        }else if (type == "dateRdv"){
+            updatedText ={
+                ...filterDataHandler.filterFields,
+                "dateRdv": text
+         } }else if (type == "dateAjt"){
+                updatedText ={
+                    ...filterDataHandler.filterFields,
+                    "dateAjt": text
+                }
+        }else{
+            console.log("else")
+            updatedText = {...filterDataHandler.filterFields}
+        }
+
+        filterHandler(updatedText)
+    }
+
+    const filterHandler = async (filterText)=>{
+        
+        const {profess, piecej, specilict, dateRdv,dateAjt} = filterText
+        const result  = await Data.files.filter(i =>{
+            i = i[0]
+            const _profess      = (i.rdv_avec)?i.rdv_avec: '';
+            const _nom_file = (i.nom_file)?i.nom_file: '';
+            const _speciality   = (i.speciality)?i.speciality: '';
+            const _date_rdv     = (i.dtae_rdv)?(i.dtae_rdv.split(" ")[0]): '';
+            const _date_ajt    = (i.create_date)?(i.create_date.split(" ")[0]): '';
+            if(dateRdv !== ""){
+                return (_date_rdv == dateRdv)
+            }
+            if(dateAjt !== ""){
+                return (_date_ajt == dateAjt)
+            }
+            else{
+                return  (
+                    _profess.toLowerCase().includes(profess.toLowerCase()) &&
+                    _nom_file.toLowerCase().includes(piecej.toLowerCase()) &&
+                    _speciality.toLowerCase().includes(specilict.toLowerCase())
+                )
+            }
+        })
+        setFilterDataHandler({
+            filterFields: filterText,
+            filterData: result,
+        })
+        
+    }
+
+    const resetFilter = ()=>{
+        setFilterDataHandler({
+            filterData: [...Data.files],
+            filterFields:{ profess: '',piecej: '', specilict: '', dateRdv: '',dateAjt: ''}
+        })
+    }
+    const closeModal = ()=>{
+        setModalVisible4(false)
+    }
 
     return (
 
 
         <View style={{ flex: 1, justifyContent:'center' }} >
-
-
-            {
-                (Data.files)
+        <Segment style={{ justifyContent:'center',backgroundColor: '#1E79C5', height: 50 }}>
+          <TouchableOpacity style={{alignSelf:'center',backgroundColor:'#1E79C5',height:30, padding: 5 ,alignItems: 'center',flexDirection:'row',borderWidth:1,borderColor:'white'}}  onPress={() => setModalVisible4(true)} >
+            <Fontisto color='white' size={16} name={'equalizer'}  />
+            <Text style={{color:'white',width:70,textAlign:'center'}}>Filtrer</Text>
+          </TouchableOpacity>
+        </Segment>
+        <Modal  isVisible={modalVisible4}
+                    animationIn  = "slideInLeft"
+                    animationOut = "slideOutLeft"
+                    style        = {{margin: 0}}>
+                
+                    <FilterRdv1 
+                        filterTextHandler = {filterTextHandler}
+                        resetFilter       = {resetFilter}
+                        filterFields      = {filterDataHandler.filterFields}
+                        closeModal={closeModal}
+                    />
+                
+                </Modal>
+                {
+                (filterDataHandler && filterDataHandler.filterData)
                     ?
                     <FlatList
-                        data={Data.files}
+                        data={filterDataHandler.filterData}
                         renderItem={({ item }) => <Item item={item[0]} />}
                         keyExtractor={item => item[0].id.toString()}
                     />
@@ -130,10 +229,10 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 14,
         fontWeight: 'bold',
-        marginHorizontal:15
+        marginLeft:15
     },
     title1: {
         fontSize: 15,
-        marginHorizontal:15
+       // marginHorizontal:15
     },
 });

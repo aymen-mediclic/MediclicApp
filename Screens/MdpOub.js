@@ -15,7 +15,7 @@ export default class MdpOub extends React.Component {
       onChangeText={text => onChangeText(text)}
       placeholder='Adresse e-mail de votre compte Mediclic'
       />
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity style={{width:100,backgroundColor:'orange'}}>
         <Text style={styles.btn_txt}>Confirmer</Text>
       </TouchableOpacity>
         </View>
@@ -27,8 +27,24 @@ export default class MdpOub extends React.Component {
 const styles = StyleSheet.create({
  
   ctr: {
-    flex:1,
-    justifyContent:'center'
+   // flex:1,
+    justifyContent:'center',
+    padding: 5,
+    //height: '55%',
+    width: '80%',
+    alignItems: 'center',
+    //justifyContent: 'center',
+    backgroundColor: 'white',
+    marginTop: 25,
+    borderRadius: 4,
+    shadowColor: "grey",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0,
+    },
+    elevation: 5,
   },
   textinput: {
     borderWidth:1,

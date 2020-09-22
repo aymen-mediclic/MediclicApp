@@ -61,16 +61,16 @@ export default function Pprofil({ navigation }) {
 
 
         let bodyData = JSON.stringify({
-            uid: "26",
-            uid_p: "74",
+            uid: "126",
+            uid_p: "72",
             adresse: adresse,
             Num_CIN: cin,
             nom: nom,
             prenom: preNom,
-            date_naissance: niassance,
+            date_nais: niassance,
             civilite: civility,
             Num_mut: mutuelle,
-            Nom_mutuelle: nmutuelle,
+            Nom_mut: nmutuelle,
             ville: ville,
             tel: tel
         })
@@ -263,7 +263,7 @@ export default function Pprofil({ navigation }) {
                                     marginLeft: 36
                                 }
                             }}*/
-                            onDateChange={(niassance) => { setNiassance(niassance) }}
+                            onDateChange={(niassance) => { setNiassance(niassance);console.log(niassance,"sdfdkjfnjkgdkg!!!!!") }}
                         />
                         <Text style={styles.text}>N° Téléphone :</Text>
                         <TextInput

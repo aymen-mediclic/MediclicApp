@@ -45,7 +45,7 @@ class MedItem extends React.Component {
                             } */
     componentDidMount() {
         const input = this.props.Med.days;
-
+        console.log(this.props.lat,'Hadi latttttt')
         const group = input.reduce((acc, item) => {
             let date = moment(item.date_start).format('MM/DD/YYYY');
 
@@ -69,7 +69,9 @@ class MedItem extends React.Component {
     CloseModal = () => {
         this.setState({ modalOpen1: false })
     }
-
+     Capitalize=(str)=>{
+        return str.charAt(0).toUpperCase() + str.slice(1);
+        }
 
     render() {
         const Med = this.props.Med
@@ -101,7 +103,7 @@ class MedItem extends React.Component {
                             }}>
                                 <Image style={styles.img} source={require('../assets/1.jpg')} />
                                 {/*<Image style={styles.img} source={{ uri:getImageFromApi( Med.obj.image ) }} />*/}
-                                <View style={{ flexDirection: 'column', flex: 1 }}>
+                                <View style={{ flexDirection: 'column', flex: 1}}>
                                     <Text style={styles.txt}>{Med.obj.name} </Text>
 
 
@@ -111,19 +113,20 @@ class MedItem extends React.Component {
                                             :
                                             <></>
                                     }
-
-                                    {
-                                        (Med.obj.adress_obj) ?
-                                            <Text style={{ color: '#FFC617' }}>{Med.obj.adress_obj} </Text>
-                                            :
-                                            <></>
-                                    }
-                                    {
+                                     {
                                         (Med.obj.service_display) ?
                                             <Text style={{ color: '#FFC617' }}>{Med.service_display}</Text>
                                             :
                                             <></>
                                     }
+
+                                    {
+                                        (Med.obj.adress_obj) ?
+                                            <Text style={{ color: 'black' }}>{Med.obj.adress_obj} </Text>
+                                            :
+                                            <></>
+                                    }
+                                   
 
                                     {
                                         (Med.lieux_color_ref) ?
@@ -136,9 +139,10 @@ class MedItem extends React.Component {
                                             :
                                             <></>
                                     }
-                                    <View style={{ alignSelf: 'flex-end', margin: 3, marginRight: 10 }}>
+                                    <View style={{ alignSelf: 'flex-end',flexDirection:'column-reverse',flex:1, margin: 3, marginRight: 10 }}>
+                                    <Text style={{ color: '#1E79C5', fontWeight: "bold", alignSelf: 'center' }}>{Med.distance}</Text>
                                         <MC name="map-marker-outline" color="#1E79C5" size={20} style={{ alignSelf: 'center' }} />
-                                        <Text style={{ color: '#1E79C5', fontWeight: "bold", alignSelf: 'center' }}>{Med.distance}</Text>
+                                        
                                     </View>
 
                                 </View>
@@ -189,7 +193,7 @@ class MedItem extends React.Component {
                             //Show only two dates 
                             return (i < 2) ?
                                 <View style={{ flexDirection: 'row', marginHorizontal: 5, marginVertical: 4, justifyContent: 'space-between' }}>
-                                    <Text style={{ flex: 1 / 2, color: 'grey' }}>{moment(item[0]).format("ddd DD/MM")}</Text>
+                                    <Text style={{ flex: 1 / 2, color: 'grey' }}>{this.Capitalize(moment(item[0]).format("dddd DD/MM"))}</Text>
                                     <View style={{ flex: 1, flexDirection: 'row' }}>
                                         {
                                             item[1].map((day, i) => {
@@ -271,7 +275,7 @@ class MedItem extends React.Component {
                             marginTop: 10, backgroundColor: '#FFC617', height: 25, width: 100, borderRadius: 5, filtrer: {
                                 flexDirection: 'row', margin: 15, alignItems: 'center'
                             }
-                        }} onPress={() => NavigationService.navigate('Date de rendez-vous', { "Med": this.state.data, location: this.props.dataFilter.location, type_rdv: this.props.dataFilter.type_rdv, Name: Med.obj.name })}>
+                        }} onPress={() => NavigationService.navigate('Disponibilités', { "Med": this.state.data, location: this.props.dataFilter.location, type_rdv: this.props.dataFilter.type_rdv, Name: Med.obj.name })}>
                             <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'white' }}> Voir plus</Text>
                         </TouchableOpacity>
                     </View>

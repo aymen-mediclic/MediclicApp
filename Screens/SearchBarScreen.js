@@ -11,18 +11,18 @@ export default class Search extends React.Component {
 
   constructor(props) {
     super(props)
-   // this.searchedText = "",// Initialisation de notre donnée searchedText en dehors du state
+    this.searchedText = "",// Initialisation de notre donnée searchedText en dehors du state
     this.state = {
       loading: false,
       data: [],
-      searchedText : "",
+      
     }
   }
 
   loadFilms() {
-    if (this.state.searchedText.trim() != 0) { // Seulement si le texte recherché n'est pas vide
+    if (this.searchedText.trim() != 0) { // Seulement si le texte recherché n'est pas vide
       this.setState({ loading: true })
-      getFilmsFromApiWithSearchedText(this.state.searchedText)
+      getFilmsFromApiWithSearchedText(this.searchedText)
 
         .then(response => {
           console.log('*************************')
@@ -40,7 +40,8 @@ export default class Search extends React.Component {
   }
 
   _searchTextInputChanged(text) {
-    this.setState({searchedText: text}) 
+    //this.setState({searchedText: text}) 
+    this.searchedText= text;
     this.loadFilms();
   }
   renderSeparator = () => {
@@ -67,8 +68,7 @@ export default class Search extends React.Component {
   }
   
   render() {
-    const c = this.props.route.params.choix;
-    console.log(c)
+    
     
     function getImageFromApi (name) {
       return url2 + name
@@ -76,9 +76,9 @@ export default class Search extends React.Component {
     return (
       <View style={styles.main_container}>
         <SearchBar
-          placeholder='Professionels,Spécialités,Services,Centres'
+          placeholder='Spécialité,Professionels,Centre,Service...'
           onChangeText={(text) => this._searchTextInputChanged(text)}
-          value={this.state.searchedText}
+          value={this.searchedText}
           //lightTheme='true'
           inputContainerStyle={{ backgroundColor:'white' }}
           inputStyle={{ fontSize: 15 }}
@@ -86,17 +86,17 @@ export default class Search extends React.Component {
           placeholderTextColor='#bdc3c7'
         />
         {this.displayLoading()}
-        {this.state.searchedText.trim() != 0 && (
+        {this.searchedText.trim() != 0 && (
           <FlatList
             data={this.state.data.sort((a, b) => a.type === 'spécialité' ? -1 : 1)}
             keyExtractor={item => { return item.id }}
             renderItem={({ item }) => 
-              <TouchableOpacity onPress={() =>NavigationService.navigate('Où ?',{lien: item.lien, choix: c}) }> 
+              <TouchableOpacity onPress={() => NavigationService.navigate('Type de rendez-vous', { lien: item.lien})}> 
               {item.type == 'spécialité' && (
                 
                 <Highlighter
-                  highlightStyle={{ backgroundColor: '#FFC617' }}
-                  searchWords={[this.state.searchedText]}
+                  highlightStyle={{ backgroundColor: '#FFC617',flex:1 }}
+                  searchWords={[this.searchedText]}
                   textToHighlight={item.name}
                   style={{paddingLeft:10,color: '#2c3e50',height:42,backgroundColor: 'white'}}
                 />
@@ -105,7 +105,7 @@ export default class Search extends React.Component {
               {item.type == 'Tag' && (
                 <Highlighter
                 highlightStyle={{ backgroundColor: '#FFC617' }}
-                searchWords={[this.state.searchedText]}
+                searchWords={[this.searchedText]}
                 textToHighlight={item.name}
                 style={{paddingLeft:10,color: '#2c3e50',height:42,backgroundColor: 'white'}}
               />

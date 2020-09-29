@@ -14,14 +14,14 @@ export default class Adresse2 extends React.Component {
         
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.adr_view}>
-                <Text style={{margin:15,fontWeight:'bold'}}>Adresse 2</Text>
+                <Text style={{alignSelf:'center',width:320,justifyContent:'center',textAlign:"center",fontSize:17,color:'white',height:35,backgroundColor:'#1E79C5'}}> Adresse 2</Text>
               <TextInput
                     style={styles.input_view}
                     autoCapitalize='none'
                     placeholder="Appartement, suite, l'unité, batiment, étage, etc"
                     onChangeText={(adress) => this.setState({adress}) }
                   />
-                  <Button buttonStyle={{width:250,height:30,margin:20}} color='#FFC617' title='Valider'onPress={()=> this.props.adress2(this.state.adress)}   />
+                  <Button buttonStyle={{width:250,height:30,margin:20,alignSelf:'center'}} color='#FFC617' title='Valider'onPress={()=> this.props.adress2(this.state.adress)}   />
               </KeyboardAvoidingView>
         )
     }
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         backgroundColor:'white'
       },
       input_view: {
+        margin:10,
         borderBottomWidth:1,
         borderColor:'grey',
         borderRadius:5,

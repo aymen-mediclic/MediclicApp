@@ -6,11 +6,6 @@ import moment from 'moment';
 import Infirmier from '../Components/InfirmierModal';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Modal from 'react-native-modal';
-const dataArray = [
-    { title: "lun 27/07" },
-    { title: "mar 28/07" }
-];
-
 
 
 export default class DateC extends React.Component {
@@ -81,7 +76,7 @@ export default class DateC extends React.Component {
             backgroundColor: "lightgray",
             margin:2
         }}>
-            <Text>{moment(item[0]).format("ddd DD/MM")}</Text>
+            <Text>{this.Capitalize(moment(item[0]).format("dddd DD/MM"))}</Text>
             {expanded
           ? <Icon style={{ fontSize: 15 }} name="remove" />
           : <Icon style={{ fontSize: 15 }} name="add" />}
@@ -91,6 +86,9 @@ export default class DateC extends React.Component {
     CloseModal = () => {
         this.setState({ modalOpen1: false })
       }
+      Capitalize=(str)=>{
+        return str.charAt(0).toUpperCase() + str.slice(1);
+        }
 
     render() {
         const Name= this.props.route.params.Name

@@ -82,7 +82,7 @@ export default function Mprofil(navigation, route, props) {
             date_nais: niassance,
             civilite: civility,
             Num_mut: mutuelle,
-            Nom_mutuelle:nmutuelle,
+            Nom_mut:nmutuelle,
             ville: ville,
             tel: tel
         })
@@ -152,6 +152,9 @@ export default function Mprofil(navigation, route, props) {
 
     }
     let t=/^((06)|(07))[0-9]{8}$/;
+   let Capitalize=(str)=>{
+        return str.charAt(0).toUpperCase() + str.slice(1);
+        }
     return (
         
         <ScrollView contentContainerStyle={{ backgroundColor: 'white' }} >
@@ -333,7 +336,7 @@ export default function Mprofil(navigation, route, props) {
                         />
                         <Text style={styles.text}>N° CIN :</Text>
                         <TextInput
-                            style={{ ...styles.text_input, borderColor: color2 }}
+                            style={{ ...styles.text_input, borderColor: color2,marginBottom:10 }}
                             placeholder="N° CIN"
                             value={cin} //osama somy
                             onChangeText={(cin) => setCin(cin)}
@@ -349,7 +352,7 @@ export default function Mprofil(navigation, route, props) {
                                 setModalVisible(!modalVisible);
                             }}
                         >
-                            <Text style={styles.textStyle}>Fermer</Text>
+                            <Text style={styles.textStyle}>Annuler</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={{ ...styles.openButton, backgroundColor: "#1E79C5", width: 150, height: 30, margin: 5, justifyContent: 'center' }}
@@ -363,16 +366,17 @@ export default function Mprofil(navigation, route, props) {
             </Modal>
             {Data.length != 0 && (
                 <View>
-                    <View style={{ flexDirection: 'row', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', margin: 5, marginRight: 15, marginTop: 15 }}>
-                        <Text style={{ color: 'orange', fontSize: 17, fontWeight: 'bold', marginRight: 5 }}>Modifier mon profil </Text>
-                        <TouchableOpacity style={styles.btn}
+                    
+                        <TouchableOpacity style={{flexDirection: 'row', alignSelf: 'flex-end', alignItems: 'center', margin: 5, marginRight: 15, marginTop: 15 }}
                             onPress={() => {
                                 setModalVisible(true);
                             }}>
-
-                            <Text style={{ color: 'white', fontSize: 25, alignSelf: 'center' }}>+</Text>
+                                <Text style={{ color: 'orange', fontSize: 17, fontWeight: 'bold', marginRight: 5 }}>Modifier mon profil </Text>
+                                <View style={{backgroundColor:'orange',padding:5,width:30,height:30,borderRadius:30/2,alignItems:'center',justifyContent:'center'}}>
+                            <Text style={{ color: 'white', fontSize: 25 }}>+</Text>
+                            </View>
                         </TouchableOpacity>
-                    </View>
+                
 
 
                     <View style={styles.ctr} >
@@ -405,17 +409,17 @@ export default function Mprofil(navigation, route, props) {
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Nom (de naissance)</Text>
                                     <Text style={{ ...styles.textA,  width:10}}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.nom}</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.nom.toUpperCase()}</Text>
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Prénom</Text>
                                     <Text style={{ ...styles.textA,  width:10}}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.prenom}</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Capitalize(Data.prenom)}</Text>
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Date de naissance</Text>
                                     <Text style={{ ...styles.textA,  width:10 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.date_naissance}</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.date_naissance?Data.date_naissance:"Non renseigné"}</Text>
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Civilité</Text>
@@ -425,44 +429,44 @@ export default function Mprofil(navigation, route, props) {
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>N° Téléphone</Text>
                                     <Text style={{ ...styles.textA,  width:10 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 4 }}> {Data.tel}</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.tel?Data.tel:"Non renseigné"}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>E-mail</Text>
                                     <Text style={{ ...styles.textA, width:10 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 4 }}> {Data.email}</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.email?Data.email:"Non renseigné"}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Adresse</Text>
                                     <Text style={{ ...styles.textA,  width:10}}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 4 }}> {Data.adress}</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.adress?Data.adress:"Non renseigné"}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Ville</Text>
                                     <Text style={{ ...styles.textA,  width:10 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 4 }}> {Data.ville}</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.ville?Data.ville:"Non renseigné"}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Mutuelle</Text>
                                     <Text style={{ ...styles.textA,  width:10}}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 4}}> {Data.nom_mutuelle}</Text>
+                                    <Text style={{ ...styles.textB, flex: 4}}>{Data.nom_mutuelle?Data.nom_mutuelle:"Non renseigné"}</Text>
 
                                 </View>
 
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>N° Mutuelle</Text>
                                     <Text style={{ ...styles.textA,  width:10}}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 4 }}> {Data.mutuelle}</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.mutuelle?Data.mutuelle:"Non renseigné"}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>N° CIN</Text>
                                     <Text style={{ ...styles.textA,  width:10 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.cin}</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.cin?Data.cin:"Non renseigné"}</Text>
                                 </View>
                             </View>
                 </View>
@@ -474,7 +478,7 @@ const styles = StyleSheet.create({
     main_container: {
         flexDirection: 'row',
         //marginBottom: 30,
-        margin: 10,
+        margin: 1,
         justifyContent: "center",
         padding: 10,
         
@@ -533,7 +537,7 @@ justifyContent: "center",
         height: 30,
         //alignSelf: 'flex-end',
         //marginRight: 10,
-        //marginBottom: 10,
+        //marginBottom: 10,flexDirection: 'row', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', margin: 5, marginRight: 15, marginTop: 15 
         //marginTop: 10,
         justifyContent: 'center',
         alignItems: 'center',

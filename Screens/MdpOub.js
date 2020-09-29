@@ -8,17 +8,7 @@ export default class MdpOub extends React.Component {
     
     render() {
       return (
-        <View  style={styles.ctr}>
-          <Text style={{fontWeight:'bold',marginLeft:20}}>Votre courriel</Text>
-          <TextInput
-      style={styles.textinput}
-      onChangeText={text => onChangeText(text)}
-      placeholder='Adresse e-mail de votre compte Mediclic'
-      />
-      <TouchableOpacity style={{width:100,backgroundColor:'orange'}}>
-        <Text style={styles.btn_txt}>Confirmer</Text>
-      </TouchableOpacity>
-        </View>
+        <Text>nnnnnnnnnnnnnnnnnnnnnff</Text>
         
 
       )

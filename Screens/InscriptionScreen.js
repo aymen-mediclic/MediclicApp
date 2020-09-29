@@ -189,8 +189,8 @@ export default class InscriptionProf extends React.Component {
                         </View>
                         <View style={{ flex: 2, alignItems: 'center' }} >
                             <Text style={{ fontSize: 25, fontWeight: 'bold', margin: 15, color: '#747d8c' }}>Félicitations !</Text>
-                            <Text style={{ marginTop: 30, fontSize: 16, textAlign: "center" }}>Un e-mail a été envoyé à votre adresse <Text style={{ textDecorationLine: 'underline', color: '#3498db' }}>{this.state.mail}</Text>.</Text>
-                            <Text style={{ marginHorizontal:5, fontSize: 16, textAlign: "center" }}>Suivez les instructions pour confirmer votre inscription .</Text>
+                            <Text style={{ marginTop: 30, fontSize: 16 }}>{"Un e-mail a été envoyé à votre adresse\ne-mail"}<Text style={{ textDecorationLine: 'underline', color: '#3498db' }}>{this.state.mail}</Text>.</Text>
+                            <Text style={{ fontSize: 16,marginHorizontal:20}}>{"Suivez les instructions pour confirmer votre inscription."}</Text>
                             <TouchableOpacity style={{ flexDirection: 'row',justifyContent: 'center', alignItems: 'center', height: 35, width: 200, borderRadius: 5, backgroundColor: '#1E79C5',marginBottom:'5%',marginTop:'20%' }} onPress={() => NavigationService.navigate('Mediclic')} >
                                 <Text style={{ color: 'white', alignSelf: 'center', fontSize: 16, margin: 7 }}>Retour à l'accueil</Text>
                             </TouchableOpacity>
@@ -290,7 +290,7 @@ export default class InscriptionProf extends React.Component {
                     <Text style={[styles.errorMessage, { color: this.state.ercolor,marginBottom:0 }]}>
                         Veuillez renseigner une adresse e-mail valide.  
                     </Text>
-                    <Text style={[styles.errorMessage, { color: this.state.ercolor,marginTop:0 }]}>Exemple : info@gmail.com.</Text> 
+                    <Text style={[styles.errorMessage, { color: this.state.ercolor,marginTop:0 }]}>Exemple : info@gmail.com</Text> 
                     </View>
                 ) : null}
                 {/*
@@ -357,7 +357,7 @@ export default class InscriptionProf extends React.Component {
                         Veuillez lire et accepter les conditions générales d'utilisation de la plateforme.
                     </Text>
                 ) : null}
-                <TouchableOpacity style={styles.btn} onPress={this.function} /*onPress={() => this.setState({ modalOpen: true })}*/ >
+                <TouchableOpacity style={styles.btn} /*onPress={this.function}*/ onPress={() => this.setState({ modalOpen: true })} >
                     <Text style={{ textAlign:'center',fontWeight:'bold' ,fontSize: 17, color: 'white' }}>S' inscrire</Text>
                 </TouchableOpacity>
                 

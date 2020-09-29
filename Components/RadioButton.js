@@ -1,16 +1,16 @@
 // tel patient generer+ update
 import * as React from 'react';
-import { View, Picker, TextInput, Modal, StyleSheet, TouchableOpacity, ScrollView,AsyncStorage } from 'react-native';
+import { View, Picker, TextInput, StyleSheet, TouchableOpacity, ScrollView,AsyncStorage } from 'react-native';
 import { RadioButton, Text } from 'react-native-paper';
 import { url2, url1 } from '../Navigation/GlobalUrl';
 import { Button,Input } from 'react-native-elements';
-
+import Modal from 'react-native-modal';
 
 export default class ImagePickerExample extends React.Component {
   constructor(props) {
     super(props)
   this.state = {
-    value: 'first',
+    value: '',
     selectedValue: '',
     data: [],
     modalVisible: false,
@@ -39,7 +39,7 @@ export default class ImagePickerExample extends React.Component {
           da.push(res.proches[i][0]);
         }
         
-        this.props.AbleNext(false)
+       // this.props.AbleNext(false)
         this.setState({
           data: da
         })
@@ -97,7 +97,7 @@ export default class ImagePickerExample extends React.Component {
   }
     return (
       <RadioButton.Group
-        onValueChange={value => this.setState({ value })}
+        onValueChange={value => {this.setState({ value });this.props.AbleNext(false)}}
         value={this.state.value}
       >
         <View style={{ marginTop: 20, backgroundColor: 'white', paddingBottom: 200 }}>
@@ -138,7 +138,7 @@ export default class ImagePickerExample extends React.Component {
               <Modal
               animationType="slide"
               transparent={true}
-              visible={this.state.modalVisible}
+              isVisible={this.state.modalVisible}
               onRequestClose={() => {
                 Alert.alert("Modal has been closed.");
               }}>
@@ -146,13 +146,13 @@ export default class ImagePickerExample extends React.Component {
 
 
                 
-                  <Text style={{alignSelf:'center',fontSize:20,color:'#1E79C5',height:30,marginBottom:20}}>Ajouter un proche</Text>
+                  <Text style={{alignSelf:'center',width:"100%",textAlign:"center",fontSize:20,color:'white',height:35,borderTopLeftRadius:5,borderTopRightRadius:5,backgroundColor:'#1E79C5'}}>Ajouter un proche</Text>
                 
-                <ScrollView>
+                <ScrollView contentContainerStyle={{margin:10}}>
                   <Text style={styles.text}>Nom (de naissance) :</Text>
                   <TextInput
                     style={styles.text_input}
-                    placeholder="nom"
+                    placeholder="Nom (de naissance)"
                     value={this.state.nom}
                     onChangeText={(name) => this.setState({nom:name}) }
                   />
@@ -164,11 +164,11 @@ export default class ImagePickerExample extends React.Component {
                     onChangeText={(prename) => { this.setState({prenom:prename}) }}
 
                   />
-                  <Text style={styles.text}>Adresse e-mail :</Text>
+                  <Text style={styles.text}>E-mail :</Text>
                   <TextInput
                     style={styles.text_input}
-                    placeholder="e-mail:"
-                    defaultValue='asmaa@odoo.com'
+                    placeholder="E-mail"
+                    //defaultValue='asmaa@odoo.com'
                     onChangeText={(maili) => { this.setState({mail:maili}) }}
 
                   />
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     marginTop: 60,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 10,
+    //padding: 10,
     //alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -318,8 +318,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   text: {
-    margin: 10,
-    marginVertical:20,
+    marginLeft: 17,
+    marginVertical:4,
     fontWeight: 'bold',
     fontSize: 16,
     color: '#2c3e50'

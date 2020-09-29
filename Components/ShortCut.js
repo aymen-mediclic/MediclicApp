@@ -3,6 +3,7 @@ import { TouchableOpacity, Text, View, StyleSheet, Button, TextInput, Picker, Ke
 import * as NavigationService from '../Navigation/NavigationService';
 import SearchVille from './SearchVille';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import Ant from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -29,7 +30,7 @@ export default class ShortCut extends React.Component {
         //console.log('voila',this.state.selectedValue2)
         if (itemValue == 'D') {
             this.props.modalClose();
-            NavigationService.navigate('Choisisser votre position')
+            NavigationService.navigate('Adresse du rendez-vous')
         }
         else {
             this.functionOne(itemValue, key);
@@ -126,7 +127,7 @@ export default class ShortCut extends React.Component {
                     
                 </View>
                 <View style={styles.Picker_View} >
-                <Fontisto color='#1E79C5' size={20} name={'doctor'} />
+                <Ant color='#1E79C5' size={20} name={'arrowsalt'} />
                 <Picker
                     mode='dropdown'
                     selectedValue={this.state.selectedValue}
@@ -147,9 +148,9 @@ export default class ShortCut extends React.Component {
                     style={styles.Picker}
                     onValueChange={(itemValue, itemIndex) => { this.functionTwo(itemValue, "type_rdv"); }}
                 >
-                    <Picker.Item label="Au cabinet/centre" value='C' />
-                    <Picker.Item label="A domicile" value='D' />
-                    <Picker.Item label="Video conférence" value='V' />
+                    <Picker.Item label="Au Cabinet/Centre" value='C' />
+                    <Picker.Item label="A Domicile" value='D' />
+                    <Picker.Item label="En Visio" value='V' />
                 </Picker>
                 </View>
                 <View style={styles.Picker_View} >
@@ -178,7 +179,31 @@ export default class ShortCut extends React.Component {
                     )}
                 </Picker>
                 </View>
-                <View style={styles.Picker_View} >
+                
+                <TouchableOpacity style={styles.Search} onPress={() => this.functionfour()}>
+                <Ant color='#1E79C5' size={20} name={'contacts'} />
+                    {this.props.data.medecin_name
+                    ? <Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}>
+                        {this.props.data.medecin_name}
+                        </Text>
+                    :<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}>Professionnel</Text>
+                    }
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.Search} onPress={() => this.functionfive()}>
+                    <FontAwesome5 color='#1E79C5' size={20} name={'building'} />
+                    {this.props.data.centre_name
+                    ?<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}> {this.props.data.centre_name}</Text>
+                    :<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}>Centre</Text>
+                    }
+                    </TouchableOpacity>
+                <TouchableOpacity style={styles.Search} onPress={() => this.functionThree()}>
+                    <Entypo color='#1E79C5' size={20} name={'location'} />
+                    {this.props.data.location
+                    ?<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}> {this.props.data.location} </Text>
+                    :<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}> Location </Text>
+                    }
+                    </TouchableOpacity>
+                    <View style={styles.Picker_View} >
                 <Entypo color='#1E79C5' size={20} name={'add-user'} />
                 <Picker
                     mode='dropdown'
@@ -192,29 +217,6 @@ export default class ShortCut extends React.Component {
 
                 </Picker>
                 </View>
-                <TouchableOpacity style={styles.Search} onPress={() => this.functionfour()}>
-                    <Fontisto color='#1E79C5' size={20} name={'doctor'} />
-                    {this.props.data.medecin_name
-                    ? <Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}>
-                        {this.props.data.medecin_name}
-                        </Text>
-                    :<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}>Professionnel</Text>
-                    }
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.Search} onPress={() => this.functionfive()}>
-                    <FontAwesome5 color='#1E79C5' size={20} name={'hospital'} />
-                    {this.props.data.centre_name
-                    ?<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}> {this.props.data.centre_name}</Text>
-                    :<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}>Centre</Text>
-                    }
-                    </TouchableOpacity>
-                <TouchableOpacity style={styles.Search} onPress={() => this.functionThree()}>
-                    <Entypo color='#1E79C5' size={20} name={'location'} />
-                    {this.props.data.location
-                    ?<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}> {this.props.data.location} </Text>
-                    :<Text style={{ paddingLeft: 10, color: '#1E79C5', fontSize: 16 }}> Location </Text>
-                    }
-                    </TouchableOpacity>
                     {this.state.selectedValue2=='D'?
             <TouchableOpacity style={styles.btn1} onPress={() => {this.props.modalClose();NavigationService.navigate('Choisisser votre position')}} >
             
@@ -297,6 +299,7 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     btn1: {
+        borderRadius:5,
         marginHorizontal: 5,
         flexDirection: 'row',
         alignSelf: 'center',

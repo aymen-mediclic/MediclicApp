@@ -35,32 +35,32 @@ export default function FScreen({ navigation }) {
                 <View style={{ flexDirection: "row", justifyContent: 'space-between'}}>
                                     <Text style={{flex:1,height:40,padding:10,marginBottom:'2%',fontWeight:'bold',textAlign:'center',color:'white',backgroundColor:'#1E79C5'}}>{item.categorie}</Text>
                                 </View>
-                <View style={{ flexDirection: "row",justifyContent:"space-between",marginVertical:'2%' }}>
-                    <Text style={{...styles.title,flex:3}}>Ajouté Par</Text>
+                <View style={{ flexDirection: "row",justifyContent:"space-between",marginVertical:'1%',marginTop:'3%' }}>
+                    <Text style={{...styles.title,flex:2}}>Ajouté Par</Text>
                     <Text style={{...styles.title,width:15}}>:</Text>
                     <Text style={{...styles.title1,flex:4}}>{item.ajouter_par}</Text>
                 </View>
-                <View style={{ flexDirection: "row",/*justifyContent:"space-between"*/ }}>
-                    <Text style={{...styles.title,flex:3}}>Date d'ajout</Text>
+                <View style={{ flexDirection: "row",/*justifyContent:"space-between"*/marginVertical:'1%'  }}>
+                    <Text style={{...styles.title,flex:2}}>Date d'ajout</Text>
                     <Text style={{...styles.title,width:15}}>:</Text>
                     <Text style={{...styles.title1,flex:4}}>{item.create_date}</Text>
                 </View>
-                <View style={{ flexDirection: "row",justifyContent:"space-between"}}>
-                    <Text style={{...styles.title,flex:3}}>Date du RDV</Text>
+                <View style={{ flexDirection: "row",justifyContent:"space-between",marginVertical:'1%' }}>
+                    <Text style={{...styles.title,flex:2}}>Date du RDV</Text>
                     <Text style={{...styles.title,width:15}}>:</Text>
                     <Text style={{...styles.title1,flex:4}}>{item.dtae_rdv}</Text>
                 </View>
-                <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
-                    <Text style={{...styles.title,flex:3}}>RDV avec</Text>
+                <View style={{ flexDirection: "row",justifyContent:"space-between",marginVertical:'1%'  }}>
+                    <Text style={{...styles.title,flex:2}}>RDV avec</Text>
                     <Text style={{...styles.title,width:15}}>:</Text>
                     <Text style={{...styles.title1,flex:4}}>{item.rdv_avec}</Text>
                 </View>
-                <View style={{ flexDirection: "row",justifyContent:"space-between",marginVertical:'2%' }}>
-                    <Text style={{...styles.title,flex:3}}>Spécialité</Text>
+                <View style={{ flexDirection: "row",justifyContent:"space-between",marginVertical:'1%' }}>
+                    <Text style={{...styles.title,flex:2}}>Spécialité</Text>
                     <Text style={{...styles.title,width:15}}>:</Text>
                     <Text style={{...styles.title1,flex:4}}>{item.speciality}</Text>
                 </View>
-                <TouchableOpacity style={{flexDirection:'row',alignSelf:'flex-end',margin:15}}>
+                <TouchableOpacity style={{flexDirection:'row',alignSelf:'flex-end',margin:15,marginTop:8,marginBottom:3}}>
                     <Text style={{marginRight:10,fontWeight:'bold',color:'#1E79C5',textDecorationLine:'underline'}}>
                     {item.nom_file}
                     </Text>

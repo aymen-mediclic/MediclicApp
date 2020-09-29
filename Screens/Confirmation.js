@@ -8,13 +8,13 @@ import * as NavigationService from '../Navigation/NavigationService';
 export default class Conf extends React.Component {
     componentDidMount(){
         // Start counting when the page is loaded
-        this.timeoutHandle = setTimeout(()=>{
+       /* this.timeoutHandle = setTimeout(()=>{
             NavigationService.navigate('Mediclic')
-        }, 25000);
+        }, 25000);*/
    }
-   componentWillUnmount(){
+  /* componentWillUnmount(){
     clearTimeout(this.timeoutHandle); // This is just necessary in the case that the screen is closed before the timeout fires, otherwise it would cause a memory leak that would trigger the transition regardless, breaking the user experience.
-}
+}*/
 
     render(){
       return (

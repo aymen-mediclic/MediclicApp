@@ -24,7 +24,7 @@ export default class VilleC extends React.Component {
         autoFocus={true}
         currentLocation={true}
         currentLocationLabel="Autour de moi"
-        /*renderRow={(row) =>
+       /* renderRow={(row) =>
           row.isCurrentLocation ? (
             <View style={{ flexDirection: 'row', marginLeft: 10 }}>
               <EntypoI color={'grey'} size={20} name={'direction'} />

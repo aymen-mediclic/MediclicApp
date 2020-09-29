@@ -56,6 +56,7 @@ export default class SearchVille extends React.Component {
             backgroundColor: 'rgba(0,0,0,0)',
             borderTopWidth: 0,
             borderBottomWidth: 0,
+            
           },
           textInput: {
             marginLeft: 0,

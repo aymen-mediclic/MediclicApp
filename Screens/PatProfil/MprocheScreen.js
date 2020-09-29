@@ -4,7 +4,7 @@ import { ScrollView, View, Text, TextInput, StyleSheet, FlatList, Image, Touchab
 import * as NavigationService from '../../Navigation/NavigationService';
 import { url1,url2 } from '../../Navigation/GlobalUrl';
 import Modal from 'react-native-modal';
-
+import Fontisto from 'react-native-vector-icons/Fontisto';
 export default function MprochesScreen({ navigation }) {
     const [Data, setData] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
@@ -41,7 +41,7 @@ export default function MprochesScreen({ navigation }) {
 
 
         let bodyData = JSON.stringify({
-            uid: "26",
+            uid: "126",
             nom:nom,
             prenom:prenom,
             
@@ -101,6 +101,9 @@ export default function MprochesScreen({ navigation }) {
         
 
     }
+    let Capitalize=(str)=>{
+        return str.charAt(0).toUpperCase() + str.slice(1);
+        }
     function Item({ item }) {
         return (
             
@@ -108,15 +111,20 @@ export default function MprochesScreen({ navigation }) {
 
 
                 <View style={{ flexDirection: "row" }}>
-                    <Text style={styles.title}>{item.nom}</Text>
-                    <Text style={styles.title}>{item.prenom}</Text>
+                    <Text style={{ ...styles.title, flex: 3 }}>Nom</Text>
+                    <Text style={{ ...styles.title,  width:10}}>:</Text>
+                    <Text style={{...styles.title1, flex: 3}}>{item.nom.toUpperCase()}  {Capitalize(item.prenom)}</Text>
                 </View>
                 <View style={{ flexDirection: "row" }}>
-                    <Text style={styles.title1}> {item.email}</Text>
+                <Text style={{ ...styles.title, flex: 3 }}>Adresse e-mail</Text>
+                    <Text style={{ ...styles.title,  width:10}}>:</Text>
+                    <Text style={{...styles.title1, flex: 3}}>{item.email?item.email:"Non renseigné"}</Text>
 
                 </View>
-                <View style={{ flexDirection: "row" }}>
-                    <Text style={styles.title1}> {item.tel}</Text>
+                <View style={{ flexDirection: "row" ,marginBottom:5}}>
+                <Text style={{ ...styles.title, flex: 3 }}>N°Téléphone</Text>
+                    <Text style={{ ...styles.title,  width:10}}>:</Text>
+                    <Text style={{...styles.title1, flex: 3}}>{item.tel?item.tel:"Non renseigné"}</Text>
 
                 </View>
                 <TouchableOpacity onPress={() => NavigationService.navigate('Proche Profil:')} style={{ backgroundColor: '#1E79C5',justifyContent:"center",height:25, width: 80, borderRadius: 5, alignItems: 'center', marginVertical: 5, alignSelf: 'flex-end' }} >
@@ -146,11 +154,16 @@ export default function MprochesScreen({ navigation }) {
                 <View style={styles.modalView}>
 
 
-                    
+                <View style={{ flexDirection: "row", alignItems:'center',justifyContent: 'space-between',padding:10,height:50,backgroundColor:'#1E79C5',borderTopLeftRadius:5,borderTopRightRadius:5,marginBottom:10}}>
+                                        <Text style={{fontSize:17,fontWeight:'bold',textAlign:'center',color:'white'}}>Ajouter un proche</Text>
+                                        <TouchableOpacity style={{ flex: 1, alignItems: "flex-end", height: 30, justifyContent: 'center' }} onPress={() => {
+                                setModalVisible(!modalVisible);
+                            }}>
+                        <Fontisto color='white' size={16} name={'close-a'} style={{ justifyContent: 'center' }} />
+                    </TouchableOpacity>
+                      </View> 
                     <View>
-                    <View style={{ flexDirection: "row", justifyContent: 'space-between'}}>
-                                    <Text style={{flex:1,height:40,padding:5,marginBottom:'2%',fontWeight:'bold',textAlign:'center',color:'white',backgroundColor:'#1E79C5',fontSize:17,borderTopRightRadius:5,borderTopLeftRadius:5}}>Ajouter un proche</Text>
-                                </View>
+                  
                     <Text style={styles.text}>Nom (de naissance) :</Text>
                         <TextInput
                             style={{...styles.text_input,borderColor:color}}
@@ -177,7 +190,7 @@ export default function MprochesScreen({ navigation }) {
                         <TextInput
                             style={{...styles.text_input,borderColor:color2}}
                             placeholder="Adresse e-mail"
-                            value='asmaa@a.com'
+                            //value='asmaa@a.com'
                             onChangeText={(mail) => { setMail(mail) }}
                         />
                         {Error2 == false ? (
@@ -197,38 +210,29 @@ export default function MprochesScreen({ navigation }) {
                                  Veuillez renseigner votre téléphone .
                             </Text>
                              ) : null}
-                        <View style={{flexDirection:'row',justifyContent:"flex-end",marginVertical:10,marginHorizontal:10}}>
-                        <TouchableOpacity
-                        style={{ ...styles.openButton, backgroundColor: "#FFC617",margin:10 }}
-                        onPress={() => {
-                            setModalVisible(!modalVisible);
-                        }}
-                    >
-                        <Text style={styles.textStyle}>Fermer</Text>
-                    </TouchableOpacity>
+                       
                         <TouchableOpacity
                             style={{ ...styles.openButton, backgroundColor: "#1E79C5",margin:10 }}
                             onPress={() => checkError()}
                         >
                             <Text style={styles.textStyle}>Ajouter</Text>
                         </TouchableOpacity>
-                        </View>
+                        
                     </View>
                     
                 </View>
 
             </Modal>
-            
-                    <View style={{flexDirection:'row',alignSelf:'flex-end',alignItems:'center',justifyContent:'center',margin:5,marginRight:15}}>
-                    <Text style={{ color: 'orange', fontSize:17,fontWeight:'bold',marginRight:5 }}>Ajouter un proche</Text>
-            <TouchableOpacity style={styles.btn1}
-                onPress={() => {
-                    setModalVisible(true);
-                }}>
-                
-                <Text style={{ color: 'white', fontSize: 25,alignSelf:'center' }}>+</Text>
-            </TouchableOpacity>
-            </View>
+            <TouchableOpacity style={{flexDirection: 'row', alignSelf: 'flex-end', alignItems: 'center', margin: 5, marginRight: 15, marginTop: 15 }}
+                            onPress={() => {
+                                setModalVisible(true);
+                            }}>
+                                <Text style={{ color: 'orange', fontSize: 17, fontWeight: 'bold', marginRight: 5 }}>Ajouter un proche</Text>
+                                <View style={{backgroundColor:'orange',padding:5,width:30,height:30,borderRadius:30/2,alignItems:'center',justifyContent:'center'}}>
+                            <Text style={{ color: 'white', fontSize: 25 }}>+</Text>
+                            </View>
+                        </TouchableOpacity>
+                   
                 
 
                 {
@@ -328,7 +332,8 @@ const styles = StyleSheet.create({
         padding: 10,
         elevation: 2,
         width: 100,
-        //alignSelf: 'flex-end'
+        alignSelf: 'flex-end',
+        height:30
     },
     textStyle: {
         color: "white",

@@ -1,8 +1,8 @@
 import React from 'react';
 import MapView, { Marker, Callout } from 'react-native-maps';
 
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import { Image } from 'native-base';
+import { StyleSheet, Text, View, Dimensions,Image } from 'react-native';
+//import { Image } from 'native-base';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -24,46 +24,46 @@ export default class App extends React.Component {
         this.setState({ region });
     }
     render() {
+        const {dataSource} = this.props
+        console.log("******* PLAN SCREEN *********");
+        (dataSource) ?
+        dataSource.map((m, key) => {
+         return console.log(m.obj);
+        
+        }):console.log("******* rien *********")
+        //console.log(dataSource[0]);
+        console.log("******* END *********");
         return (
             <View style={styles.container}>
                 <MapView style={styles.mapStyle}
                     initialRegion={{
-                        latitude: 33.5912796,
-                        longitude: -7.6353386,
+                        latitude: dataSource[0].obj.latitude_obj,
+                        longitude: dataSource[0].obj.longitude_obj,
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
                     }}
                 >
-                    <Marker coordinate={{ latitude: 33.5912796, longitude: -7.6353386, }} image={require('../assets/map_marker.png')} title="DR D">
-                    <Callout>
-                        <View style={{flexDirection:'column'}}>
-                        <Text style={{fontWeight:'bold'}}> Dr DD Dd</Text>
-                        <Text> Cardiologue</Text>
-
-                        </View>
-                        
-                    </Callout>
-                    </Marker>
-                    <Marker coordinate={{ latitude: 33.5812796, longitude: -7.6353386, }} image={require('../assets/map_marker.png')} title="test map1" >
-                    <Callout>
-                        <View style={{flexDirection:'column'}}>
-                        <Text style={{fontWeight:'bold'}}> SOS Médecins</Text>
-                        <Text> adresse centre map</Text>
-
-                        </View>
-                        
-                    </Callout>
-                    </Marker>
-                    <Marker coordinate={{ latitude: 33.5812796, longitude: -7.6153386, }} image={require('../assets/map_marker.png')} title="Polyclinique casablanca" >
-                    <Callout>
-                        <View style={{flexDirection:'column'}}>
-                        <Text style={{fontWeight:'bold'}}> Clinique Casablanca</Text>
-                        
-
-                        </View>
-                        
-                    </Callout>
-                    </Marker>
+                          {
+                            (dataSource) ?
+                            dataSource.map((m, key) => {
+                                    return <Marker pinColor={"orange"} key={key} coordinate={{ latitude: m.obj.latitude_obj, longitude: m.obj.longitude_obj}} /*image={require('../assets/marker.png')}*/ >
+                                    <Callout>
+                                        <View style={{flexDirection:'row'}}>
+                                        <Image style={{width:80,height:80,borderRadius:80/2,alignSelf:'center'}} source={require('../assets/1.jpg')} />
+                                        <View S>
+                                        <Text style={{fontWeight:'bold',alignSelf:'center'}}>{m.obj.name} </Text>
+                                        <Text>{m.obj.specialite}</Text>
+                                        </View>
+                                        </View>
+                                        
+                                    </Callout>
+                                    </Marker>
+                                })
+                                :
+                                <></>
+                        }
+                   
+                  
                 </MapView>
             </View>
         );

@@ -22,6 +22,10 @@ function CustomDrawerContent(props) {
         <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} labelStyle={{ color: 'black' }} />
             <DrawerItem
+                icon={({ focused, color, size }) => <Feather color={color} size={20} name={'lock'} />}
+                labelStyle={{ color: 'black' }}
+                label="Modifier mon mot de passe" onPress={async () => alert('ok') }/>
+            <DrawerItem
                 icon={({ focused, color, size }) => <Feather color={color} size={20} name={'log-out'} />}
                 labelStyle={{ color: 'black' }}
                 label="Se déconnecter" onPress={async () => {

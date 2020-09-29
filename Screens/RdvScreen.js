@@ -111,7 +111,7 @@ class RDV extends React.Component {
         'mode_rdv' : 'patient',
         'adresse_2_infirmier':'kouka',
         'adresse_1_infirmier':'yo',
-        'etat_infirmier':'non',
+        'assistant_etat':'non',
       })
     })
 
@@ -133,7 +133,7 @@ class RDV extends React.Component {
   render() {
     let text = this.props.route.params.text;
     let name = this.props.route.params.name;
-
+    let assistant=this.props.route.params.assistant;
     let service_salle = this.props.route.params.service_salle;
     //console.log(text)
     //console.log(name)
@@ -144,16 +144,16 @@ class RDV extends React.Component {
     return (
       <View style={styles.container}>
 
-        <ProgressSteps activeStep= {this.state.nbr} completedProgressBarColor='#1E79C5' completedLabelColor='#1E79C5' completedStepIconColor='#1E79C5' activeStepIconBorderColor='#f0ad4e' activeLabelColor='#f0ad4e' activeStepNumColor='#f0ad4e' >
-          <ProgressStep label="Identification " nextBtnText="Suivant" nextBtnDisabled={this.state.nxt} previousBtnText="Précédent" previousBtnDisabled={false} >
+        <ProgressSteps activeStep= {this.state.nbr} completedProgressBarColor='#1E79C5' completedLabelColor='#1E79C5' completedStepIconColor='#1E79C5' activeStepIconBorderColor='#FFC617' activeLabelColor='#FFC617' activeStepNumColor='#FFC617' >
+          <ProgressStep label="Identification " nextBtnText="Suivant" nextBtnDisabled={this.state.nxt} previousBtnText="Précédent" previousBtnDisabled={false} nextBtnTextStyle={{color:'white'}}  nextBtnStyle={{backgroundColor:this.state.nxt==true?'white':'#1E79C5',borderRadius:5,textAlign:'center'}} >
             <Identification AbleNext={this.AbleNext} userInfo={this.state.userInfo} getUser={this.getUser} type_rdv={this.props.route.params.type_rdv} getAdress2={this.getAdress2} />
             
 
 
           </ProgressStep>
 
-          <ProgressStep label="Récapitulatif" nextBtnText="Confirmer" previousBtnText="Précédent" onNext={this.Confirmation} >
-            <Recap Name={name} text={text} userInfo={this.state.userInfo} adresse={this.props.route.params.adresse} type_rdv={this.props.route.params.type_rdv} service_name={this.props.route.params.service_name} service_salle={this.props.route.params.service_salle} adress2={this.props.route.params.adresse2} onFocusFunction={this.onFocusFunction} />
+          <ProgressStep label="Récapitulatif" nextBtnText="Confirmer"  nextBtnTextStyle={{color:'white'}}  nextBtnStyle={{backgroundColor:'#1E79C5',borderRadius:5,textAlign:'center'}} previousBtnText="Précédent" onNext={this.Confirmation} previousBtnTextStyle={{color:'white'}} previousBtnStyle={{backgroundColor:'#FFC617',borderRadius:5,textAlign:'center'}} >
+            <Recap Name={name} text={text} Assist={assistant} userInfo={this.state.userInfo} adresse={this.props.route.params.adresse} type_rdv={this.props.route.params.type_rdv} service_name={this.props.route.params.service_name} service_salle={this.props.route.params.service_salle} adress2={this.props.route.params.adresse2} onFocusFunction={this.onFocusFunction} />
           </ProgressStep>
           <ProgressStep label="Confirmation" previousBtnText="Précédent" finishBtnText='Confirmer' /*onSubmit={this.Confirmation}*/ nextBtnDisabled={true} previousBtnDisabled={true}  >
             <Conf/>

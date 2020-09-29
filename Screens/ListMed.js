@@ -12,13 +12,13 @@ const tab = createMaterialTopTabNavigator();
 class PlanScreen extends React.Component {
     render(){
       const {dataSource} = this.props
-      console.log("******* PLAN SCREEN *********");
+     /* console.log("******* PLAN SCREEN *********");
       console.log(dataSource[0].obj);
       //console.log(">>>><<",this.props.route.params.myId)
-      console.log("******* END *********");
+      console.log("******* END *********");*/
       return (
         <View style={styles.container}>
-           <MapR/>
+           <MapR dataSource={dataSource} />
              {/*<TouchableOpacity >
                     <Image style={styles.img} source={require('../assets/map.jpg')} />
             </TouchableOpacity> */}
@@ -381,7 +381,7 @@ class ListMed extends React.Component {
   
   
   render(){  
-    
+    const {lien,choice,lng,lat,loc} = this.props.route.params.params
     return(
       <View style ={{flex: 1}}>
         <View style ={styles.tabsContainer}>
@@ -420,7 +420,8 @@ class ListMed extends React.Component {
             dataFilter1   = {this.dataFilter1}
             dataFilter2   = {this.dataFilter2}
             dataFilter3   = {this.dataFilter3}
-
+            lat={lat}
+            lng={lng}
           />
         }
       </View>

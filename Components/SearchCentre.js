@@ -86,13 +86,13 @@ export default class SearchCtr extends React.Component {
     return (
       <View style={styles.main_container}>
         <SearchBar
-          placeholder='Centre...'
+          placeholder='Choisir un centre'
           onChangeText={(text) => this._searchTextInputChanged(text)}
           value={this.searchedText}
           lightTheme='true'
           inputContainerStyle={{ backgroundColor: 'white' }}
           inputStyle={{ fontSize: 14 }}
-          containerStyle={{ padding: 1 }}
+          containerStyle={styles.textinput}
           placeholderTextColor='#bdc3c7'
         />
         {this.displayLoading()}
@@ -119,6 +119,15 @@ const styles = StyleSheet.create({
     //marginTop: 20
   },
   textinput: {
-    backgroundColor: 'orange'
+    padding:1,marginTop:5,backgroundColor:'white',borderBottomColor:'white',borderTopColor:'white',marginLeft: 3,
+    marginRight: 3,
+    shadowColor: "grey",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0,
+        },
+        elevation: 3,
   }
 })

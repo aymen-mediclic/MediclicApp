@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableHighlight, TouchableOpacity, Picker } from 'react-native';
+import { StyleSheet, Text, View,ScrollView ,TextInput, TouchableHighlight, TouchableOpacity, Picker } from 'react-native';
 import { WebView } from 'react-native-webview';
 import DatePicker from 'react-native-datepicker';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -16,7 +16,7 @@ export default class FilterRdv1 extends Component {
     render() {
         const { profess, piecej, specilict,dateAjt,dateRdv } = this.props.filterFields
         return (
-            <View style={styles.ctr}>
+            <ScrollView contentContainerStyle={styles.ctr}>
                 <View style={styles.filtrer} >
                     <View style={{ flex: 3 }}>
                         <Text style={{ fontSize: 22, color: 'white' }}> Filtrer</Text>
@@ -26,16 +26,52 @@ export default class FilterRdv1 extends Component {
                     </TouchableOpacity>
 
                 </View>
-                <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={profess} onChangeText={(text) => this.props.filterTextHandler(text, "profess")} placeholder='Professionel' />
-                <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={piecej} onChangeText={(text) => this.props.filterTextHandler(text, "piecej")} placeholder='Piéce jointe' />
-                <TextInput  placeholderTextColor='#95a5a6' style={styles.text_input} value={specilict} onChangeText={(text) => this.props.filterTextHandler(text, "specilict")} placeholder='Spécialité' />
                 <View style={styles.date_p}>
                     <DatePicker
                         //style={{width: '100%' }}
                         //date={niassance} //initial date from state
                         mode="date" //The enum of date, datetime and time
                         locale='fr'
-                        placeholder={dateRdv==0?'Date du RDV':dateRdv}
+                        placeholder={dateRdv==0?'Date au':dateRdv}
+                        placeholderTextColor="orange"
+                        format="DD-MM-YYYY"
+                        minDate="01-01-1940"
+                        // maxDate="01-01-2019"
+                        confirmBtnText="Confirmer"
+                        cancelBtnText="Annuler"
+                        showIcon={false}
+                        customStyles={{
+                             dateInput: {
+                                 height: 30,
+                                 borderColor: 'white',
+                                 
+                             },
+                             placeholderText: {
+                                fontSize: 14,
+                                alignSelf: "flex-start",
+                                marginLeft: 5,
+                                color: '#95a5a6'
+                            },
+                            dateText: {
+                                fontSize: 14,
+                                alignSelf: "flex-start",
+                                marginLeft: 5,
+                                color: '#95a5a6'
+                            }
+                        }}
+                        onDateChange={(dateRdv) => { this.props.filterTextHandler(dateRdv, "dateRdv") }}
+                    />
+                     <TouchableOpacity style={{width:20,marginLeft:50}} onPress ={this.props.resetFilter}>
+                     <Ant color='#95a5a6' size={16} name={'reload1'} style={{}} />
+                     </TouchableOpacity>
+                </View>
+                <View style={styles.date_p}>
+                    <DatePicker
+                        //style={{width: '100%' }}
+                        //date={niassance} //initial date from state
+                        mode="date" //The enum of date, datetime and time
+                        locale='fr'
+                        placeholder={dateRdv==0?'Date du':dateRdv}
                         placeholderTextColor="orange"
                         format="DD-MM-YYYY"
                         minDate="01-01-1940"
@@ -117,6 +153,10 @@ export default class FilterRdv1 extends Component {
                      <Ant color='#95a5a6' size={16} name={'reload1'} style={{}} />
                      </TouchableOpacity>
                 </View>
+                <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={profess} onChangeText={(text) => this.props.filterTextHandler(text, "profess")} placeholder='Rendez-vous avec' />
+               
+                <TextInput  placeholderTextColor='#95a5a6' style={styles.text_input} value={specilict} onChangeText={(text) => this.props.filterTextHandler(text, "specilict")} placeholder='Spécialité' />
+                
                 <View style={styles.Picker_View}>
                     <Picker
                         mode='dropdown'
@@ -124,31 +164,28 @@ export default class FilterRdv1 extends Component {
                         onValueChange={(itemValue, itemIndex) => { }}
                         style={{color:'#95a5a6'}}
                     >
-                        <Picker.Item label="Sélectionner un statut " value="0" />
-                        <Picker.Item label="Passe" value="1" />
-                        <Picker.Item label="Nouveau" value="2" />
-                        <Picker.Item label="Confirme" value="3" />
-                        <Picker.Item label="a venir" value="4" />
-                        <Picker.Item label="Terminer" value="5" />
-                        <Picker.Item label="en salle d attente" value="6" />
-                        <Picker.Item label="en cours" value="7" />
-                        <Picker.Item label="Abscent excuse" value="8" />
-                        <Picker.Item label="Abscent  non excuse" value="9" />
-                        <Picker.Item label="Annuler" value="10" />
+                        <Picker.Item label="Sélectionner une catégorie " value="0" />
+                        <Picker.Item label="Compte rendu" value="1" />
+                        <Picker.Item label="Ordonannce d'analyse(s)" value="2" />
+                        <Picker.Item label="Résultat d'analyse(s)" value="3" />
+                        <Picker.Item label="Ordonannce d'examen(s)" value="4" />
+                        <Picker.Item label="Résultat d'examen(s)" value="5" />
+                        <Picker.Item label="Consigne" value="6" />
+                        <Picker.Item label="Autre" value="7" />
                     </Picker>
                 </View>
-
+                <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={piecej} onChangeText={(text) => this.props.filterTextHandler(text, "piecej")} placeholder='Piéce jointe' />
                 <TouchableOpacity style={styles.btn} onPress={() => this.props.closeModal()} /*onPress ={this.props.resetFilter}*/><Text style={{ color: "white", fontSize: 16, fontWeight: 'bold', alignSelf: 'center', textAlign: 'center' }}>Rechercher</Text></TouchableOpacity>
 
 
 
-            </View>
+            </ScrollView>
         );
     }
 }
 const styles = StyleSheet.create({
     ctr: {
-        flex: 1,
+        //flex: 1,
         width: "70%",
         backgroundColor: 'white',
         padding: 10,

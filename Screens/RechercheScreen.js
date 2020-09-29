@@ -43,7 +43,7 @@ class RechercheScreen extends React.Component {
 
   render() {
     // let A = this.props.route.params.choice;
-    const {handleRefresh, dataSource,datafiltre, refreshing,loadMoreData, dataFilter,dataFilter1,dataFilter2,dataFilter3,finres} = this.props
+    const {lat,lng,handleRefresh, dataSource,datafiltre, refreshing,loadMoreData, dataFilter,dataFilter1,dataFilter2,dataFilter3,finres} = this.props
     return (
       <View style={styles.main_container}>
         <Modal 
@@ -55,7 +55,7 @@ class RechercheScreen extends React.Component {
           <ShortCut data={datafiltre} dataFilter={dataFilter} dataFilter1={dataFilter1} dataFilter2={dataFilter2} dataFilter3={dataFilter3} modalClose={this.CloseModal} />
         </Modal>
 
-        <Segment style={{ justifyContent:'space-between',backgroundColor: '#1E79C5', height: 40 }}>
+        <Segment style={{ justifyContent:'space-between',backgroundColor: '#1E79C5', height: 45 ,justifyContent:'center'}}>
           <TouchableOpacity style={styles.filter_btn} onPress={() => this.setState({ modalOpen: true })} >
             <Fontisto color='white' size={16} name={'equalizer'} />
             <Text style={styles.fabIcon}>FILTRER</Text>
@@ -71,7 +71,7 @@ class RechercheScreen extends React.Component {
         <FlatList
           data={dataSource}
           keyExtractor={item => { return item.id }}
-          renderItem={({ item }) => <MedItem Med={item} dataFilter={datafiltre} finres={finres} />}
+          renderItem={({ item }) => <MedItem Med={item} dataFilter={datafiltre} finres={finres} lng={lng} lat={lat} />}
           refreshing={refreshing}
           onRefresh={handleRefresh}
           onEndReachedThreshold={1}

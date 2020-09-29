@@ -211,14 +211,16 @@ export default class App extends React.Component {
               fontSize:18
             }
           }} />
-          <Stack.Screen name="Date de rendez-vous" component={DateC} options={{
+          <Stack.Screen name="Disponibilités" component={DateC} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',
               height: 80,
             },
+            headerTitleAlign: 'center',
             headerTitleStyle: {
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize:18
             }
           }} />
           <Stack.Screen name="Type de rendez-vous" component={TypeC} options={{
@@ -256,7 +258,7 @@ export default class App extends React.Component {
               fontWeight: 'bold'
             }
           }} />
-          <Stack.Screen name="Choisisser votre position" component={ChangeP} options={{
+          <Stack.Screen name="Adresse du rendez-vous" component={ChangeP} options={{
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#1E79C5',
@@ -264,7 +266,8 @@ export default class App extends React.Component {
             },
             headerTitleAlign: 'center',
             headerTitleStyle: {
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize:18
             }
           }} />
          

@@ -2,18 +2,25 @@ import React, { Component } from 'react';
 import {  View, StyleSheet,TouchableOpacity } from 'react-native';
 import { Container, Header, Content, ListItem, Text, Radio, Right, Left } from 'native-base';
 import * as NavigationService from '../Navigation/NavigationService';
+import Feather from 'react-native-vector-icons/Feather';
+import Simp from 'react-native-vector-icons/SimpleLineIcons'
+import M from 'react-native-vector-icons/MaterialCommunityIcons'
+import FO from 'react-native-vector-icons/FontAwesome'
 export default class CustomRadioButtonExample extends Component {
   state = {
     selectedValue: 'C'
   };
   render() {
+    const l = this.props.route.params.lien;
+    console.log(l)
     return (
       <Container>
         
         <Content>
           <ListItem   >
             <Left>
-              <Text>Au cabinet/centre</Text>
+            <FO color='#2980b9' size={22} name={'building-o'} style={{margin:5,marginRight:15}} />
+              <Text>Au Cabinet/Centre</Text>
             </Left>
             <Right>
               <Radio
@@ -26,7 +33,8 @@ export default class CustomRadioButtonExample extends Component {
           </ListItem>
           <ListItem>
             <Left>
-              <Text>A domicile</Text>
+            <Simp color='#2980b9' size={21} name={'home'} style={{margin:5,marginRight:15}} />
+              <Text>A Domicile</Text>
             </Left>
             <Right>
               <Radio
@@ -39,7 +47,9 @@ export default class CustomRadioButtonExample extends Component {
           </ListItem>
           <ListItem >
             <Left>
-              <Text>Video conférence</Text>
+            <Feather color='#2980b9' size={22} name={'video'} style={{margin:5,marginRight:15}} />
+              <Text>En Visio</Text>
+              
             </Left>
             <Right>
               <Radio
@@ -50,7 +60,7 @@ export default class CustomRadioButtonExample extends Component {
               />
             </Right>
           </ListItem>
-          <TouchableOpacity style={{backgroundColor:'#1E79C5',height:30,width:120,margin:7,borderRadius:5,alignItems:'center',justifyContent:'center',alignSelf:'flex-end'}} onPress={() => NavigationService.navigate('Rechercher', { choix: this.state.selectedValue })} >
+          <TouchableOpacity style={{backgroundColor:'#1E79C5',height:30,width:120,margin:7,marginTop:20,borderRadius:5,alignItems:'center',justifyContent:'center',alignSelf:'flex-end'}} onPress={() => NavigationService.navigate('Où ?',{lien:l, choix: this.state.selectedValue})} >
             <Text style={{color:'white'}}>SUIVANT</Text>
             </TouchableOpacity>
         </Content>
@@ -58,58 +68,3 @@ export default class CustomRadioButtonExample extends Component {
     );
   }
 }
-/*
-import * as React from 'react';
-import { Button, Text, View, StyleSheet, Picker,TouchableOpacity } from 'react-native';
-import * as NavigationService from '../Navigation/NavigationService';
-
-//import { Button } from "native-base";
-export default class TypeC extends React.Component {
-  state = {
-    selectedValue: 'C'
-  };
-  render() {
-
-    return (
-      <View style={styles.container}>
-        <Text style={styles.txt}> Sélectionner un type de RDV :</Text>
-        <View style={{flexDirection:'row'}}>
-        <Picker
-          mode="dropdown"
-          selectedValue={this.state.selectedValue}
-          style={{ height: 50, width: '70%', marginBottom: 20 }}
-          onValueChange={(itemValue, itemIndex) => this.setState({ selectedValue: itemValue })}
-        >
-          <Picker.Item label="Au cabinet/centre" value="C" />
-          <Picker.Item label="A domicile" value="D" />
-          <Picker.Item label="Video conférence" value="V" />
-        </Picker>
-        {this.state.selectedValue == 'C' && (
-          <TouchableOpacity style={{backgroundColor:'#3498db',height:30,width:80,marginTop:7,borderRadius:5,alignItems:'center',justifyContent:'center'}} onPress={() => NavigationService.navigate('Rechercher', { choix: this.state.selectedValue })} >
-            <Text style={{color:'white', fontWeight:'bold'}}>Suivant</Text>
-            </TouchableOpacity>
-        )}
-        {this.state.selectedValue == 'D' && (
-          <Button title='SUIVANT' onPress={() => NavigationService.navigate('Choisisser la ville:')} />
-        )}
-        </View>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    
-    
-  },
-  txt: {
-    fontSize: 20,
-    marginBottom: 5,
-    //marginTop:80,
-   
-    
-  }
-});
-*/

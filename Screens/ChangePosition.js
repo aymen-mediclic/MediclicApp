@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View,Text } from 'react-native';
 import MapInput from '../Components/MapInput';
 import MyMapView from '../Components/Map';
 import { getLocation, geocodeLocationByName } from '../Navigation/LocalisationService';
@@ -48,8 +48,8 @@ class MapContainer extends React.Component {
         console.log(this.state.region,"fgg")
        // console.log(data.description);
         return (
-            <View style={{ flex: 1 }}>
-                
+            <View style={{ backgroundColor:'white',height:300,width:500}}>
+               {/*} <Text style={{fontSize:16,alignSelf:'center',margin:10}}>Veuillez renseigner l'adresse du rendez-vous :</Text>*/}
                     <MapInput notifyChange={(loc) => this.getCoordsFromName(loc)}
                     />
                 

@@ -36,7 +36,7 @@ class ConnectionScreen extends React.Component {
   }
   function = () => {
     if (this.state.login==''){
-        this.setState({Error:false,Errormsg:'Veuillez renseigner une adresse\ne-mail valide.\nExemple : info@gmail.com.'})
+        this.setState({Error:false,Errormsg:'Veuillez renseigner une adresse\ne-mail valide.\nExemple : info@gmail.com'})
     }else if (this.state.password=='')
     {
       this.setState({Error:false,Errormsg:'Veuillez renseigner votre mot de passe.'})

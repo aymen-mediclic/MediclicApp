@@ -8,6 +8,7 @@ import * as NavigationService from '../Navigation/NavigationService';
 import { url2 } from '../Navigation/GlobalUrl';
 //NavigationService.navigate('Choisisser la ville',{lien:item.lien})
 export default class Search extends React.Component {
+  //where from you called?function getfilms?
 
   constructor(props) {
     super(props)

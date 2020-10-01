@@ -37,7 +37,7 @@ class Identification extends React.Component {
     return (
       <KeyboardAvoidingView behavior='padding'>
         <View >
-        {( !this.props.userInfo && this.state.val=='a')?
+        {( !this.props.userInfo /*&& this.state.val=='a'*/)?
                   <>
               <View style={styles.med_ctr}>
               

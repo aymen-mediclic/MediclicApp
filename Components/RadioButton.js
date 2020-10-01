@@ -143,13 +143,10 @@ export default class ImagePickerExample extends React.Component {
                 Alert.alert("Modal has been closed.");
               }}>
               <View style={styles.modalView}>
-
-
                 
-                  <Text style={{alignSelf:'center',width:"100%",textAlign:"center",fontSize:20,color:'white',height:35,borderTopLeftRadius:5,borderTopRightRadius:5,backgroundColor:'#1E79C5'}}>Ajouter un proche</Text>
-                
-                <ScrollView contentContainerStyle={{margin:10}}>
-                  <Text style={styles.text}>Nom (de naissance) :</Text>
+                <ScrollView contentContainerStyle={{marginBottom:10}}>
+                <Text style={{alignSelf:'center',width:"100%",textAlign:"center",fontSize:20,color:'white',height:40,borderTopLeftRadius:5,borderTopRightRadius:5,backgroundColor:'#1E79C5',padding:5}}>Ajouter un proche</Text>
+                  <Text style={{...styles.text,marginTop:10}}>Nom (de naissance) :</Text>
                   <TextInput
                     style={styles.text_input}
                     placeholder="Nom (de naissance)"
@@ -262,6 +259,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   btn: {
+    justifyContent:'center',
+    alignItems:'center',
     borderRadius: 5,
     backgroundColor:'#1E79C5',
     color: 'white',
@@ -276,7 +275,7 @@ const styles = StyleSheet.create({
   modalView: {
     marginTop: 60,
     backgroundColor: "white",
-    borderRadius: 20,
+    borderRadius: 5,
     //padding: 10,
     //alignItems: "center",
     shadowColor: "#000",
@@ -290,17 +289,20 @@ const styles = StyleSheet.create({
   },
   openButton: {
     backgroundColor: "#F194FF",
-    borderRadius: 10,
-    padding: 10,
+    borderRadius:3,
+    //padding: 10,
     elevation: 2,
-    width: 150,
-    alignSelf: 'flex-end',
-    marginTop:10
+    width: 120,
+    height:30,
+    //alignSelf: 'flex-end',
+    margin:15,
+    justifyContent:'center',
+    alignItems:'center'
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   modalText: {
     marginBottom: 15,

@@ -1,5 +1,5 @@
 import React from 'react'
-import {View,TextInput,TouchableOpacity,StyleSheet,Text,KeyboardAvoidingView} from 'react-native'
+import {View,TextInput,TouchableOpacity,StyleSheet,Text,KeyboardAvoidingView,AsyncStorage} from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
 import{MaterialIcons} from '@expo/vector-icons'
 import EntypoI from 'react-native-vector-icons/AntDesign'
@@ -21,7 +21,18 @@ class Search extends React.Component{
                 <Text style={styles.text}>Trouvez votre Medecin!</Text>
                 <TextInput style={styles.text_input} onChangeText={(text)=> this.searchTextInputChanged(text)} placeholder='Médecin,Centre...' />
                 <View style={styles.btn_ctr}>
-                    <TouchableOpacity style={styles.btn} onPress={()=>NavigationService.navigate('Rechercher')}  >
+                    <TouchableOpacity style={styles.btn} onPress={()=>NavigationService.navigate('Rechercher')} 
+                    /* onPress={async () => {
+                        try {
+                            await AsyncStorage.removeItem("user")
+                            await AsyncStorage.removeItem("userInfo")
+                            console.log("LOgout Pres")
+                        } catch (error) { console.log(error, "---------ON LOGOUT------------") }
+    
+    
+    
+                        
+                    }}*/ >
                     <Text style={styles.btn_txt}>Rechercher</Text>
                     <MaterialIcons name='search'size={20} />
                     </TouchableOpacity>

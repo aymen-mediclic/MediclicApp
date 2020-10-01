@@ -1,10 +1,10 @@
 import React from 'react';
 import MapView, {Marker} from 'react-native-maps';
 
-const MyMapView = (props) => {
+const MyMapView1 = (props) => {
     return (
         <MapView
-            style={{ flex: 1 }}
+            style={{ width:'95%',height:'100%',alignSelf:'center' }}
             region={props.region}
             showsUserLocation={true}
             onPress={ (event) =>{ 
@@ -19,6 +19,6 @@ const MyMapView = (props) => {
         </MapView>
     )
 }
-export default MyMapView;
+export default MyMapView1;
 
 

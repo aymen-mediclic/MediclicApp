@@ -124,11 +124,11 @@ class ConnectionScreen extends React.Component {
     );
   }
 
-  Autho = () => {
+  /*Autho = () => {
     console.log(this.state)
-    fetch(url1)
-    fetch(url2 + '/api/auth/token?login=' + this.state.login + '&password=' + this.state.password + '&db=test')
-
+    //fetch(url1)
+    //fetch(url2 + '/api/auth/token?login=' + this.state.login + '&password=' + this.state.password + '&db=test_3')
+    fetch(url2 + '/api/auth/token?login=contact@mediclic.info&password=a&db=test_3') take this instead
       .then((response) => response.json())
       .then(async (res) => {
         console.log("repooooonse")
@@ -155,6 +155,43 @@ class ConnectionScreen extends React.Component {
         }
       })
       .done();
+  }*/
+  Autho = () => {
+    console.log(this.state)
+    try {
+      // in my laptop its login but then its show other errors  basically the problem is with the first url
+      // fetch(url1)
+      fetch(url2+'/api/auth/token?login=' + this.state.login + '&password=' + this.state.password + '&db=test_3')
+        .then((response) => response.json())
+        .then(async (res) => {
+          console.log("repooooonse")
+          console.log(res)
+          console.log("*********success***********")
+          console.log(res.uid)
+          console.log("*********laloli**********")
+          //changes here
+          if (res.user_context) {
+            if (res.etat[0] == 'patient') {
+              console.log("user login now -------------------")
+              await AsyncStorage.setItem('user', JSON.stringify(res));
+              await AsyncStorage.setItem('uid', JSON.stringify(res.uid));
+              this.props.navigation.replace('Mon Profil:', { id: res.uid });
+            }
+            else {
+              alert("ss")
+              this.props.navigation.replace('WebViewScreen', { id: res.uid });
+            }
+  
+          }
+          else {
+            this.setState({Error:false,Errormsg:'Adresse e-mail ou mot de passe incorrecte.Veuillez réessayer',isLoading:false})
+          }
+        }).catch((error)=>{
+          console.log(error)
+        })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 

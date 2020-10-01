@@ -181,7 +181,6 @@ export default class App extends React.Component {
               height: 80,
             },
             headerTitleAlign: 'center',
-            headerLeft: null,
             headerTitleStyle: {
               fontWeight: 'bold',
               fontSize:18

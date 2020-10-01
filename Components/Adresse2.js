@@ -14,11 +14,16 @@ export default class Adresse2 extends React.Component {
         
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.adr_view}>
-                <Text style={{alignSelf:'center',width:320,justifyContent:'center',textAlign:"center",fontSize:17,color:'white',height:35,backgroundColor:'#1E79C5'}}> Adresse 2</Text>
+              
+         
+                  
+                <Text style={{width:350,justifyContent:'center',textAlign:"center",fontSize:17,color:'white',height:35,backgroundColor:'#1E79C5',padding:5}}>Complément d'adresse</Text>
+                <Text style={styles.error}>Veuillez donner plus de précisions sur l'adresse du rendez-vous. Exemple : 123 Bvd Zerktouni, 4e étage, appartement 5, Casablanca.</Text>
+                
               <TextInput
                     style={styles.input_view}
                     autoCapitalize='none'
-                    placeholder="Appartement, suite, l'unité, batiment, étage, etc"
+                    placeholder="N° Villa, N° Immeuble, N° Etage, N° Appartement.."
                     onChangeText={(adress) => this.setState({adress}) }
                   />
                   <Button buttonStyle={{width:250,height:30,margin:20,alignSelf:'center'}} color='#FFC617' title='Valider'onPress={()=> this.props.adress2(this.state.adress)}   />
@@ -29,7 +34,7 @@ export default class Adresse2 extends React.Component {
 const styles = StyleSheet.create({
     adr_view: {
         alignSelf:'center',
-        //marginTop:40,
+        margin:5,
         backgroundColor:'white'
       },
       input_view: {
@@ -39,5 +44,14 @@ const styles = StyleSheet.create({
         borderRadius:5,
         padding:3,
         width:'100%'
+      },
+      error:{
+        width:320,
+        backgroundColor:'#d9edf7',
+        color:'#31708f',
+        margin:'3%',
+        borderRadius:3,
+        padding:15,
+        //justifyContent:'center'
       },
 })

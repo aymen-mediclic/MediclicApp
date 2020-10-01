@@ -58,16 +58,29 @@ class Recap extends React.Component {
             <Text style={{ ...styles.txt, width: 10 }}>:</Text>
             <Text style={{ ...styles.txt1, flex: 4 }}>{this.props.type_rdv == 'V' ? 'En Visio' : this.props.type_rdv == 'D' ? 'A Domicile' : 'Au Cabinet/Centre'}</Text>
           </View>
-
+          <View style={{ flexDirection: 'row', marginVertical: 3, justifyContent: 'space-between' }}>
+            <Text style={{ ...styles.txt, flex: 3 }}>Date</Text>
+            <Text style={{ ...styles.txt, width: 10 }}>:</Text>
+            <Text style={{ ...styles.txt1, flex: 4 }}>{moment(text).format("DD-MM-YYYY")}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', marginVertical: 3, justifyContent: 'space-between' }}>
+            <Text style={{ ...styles.txt, flex: 3 }}>Heure</Text>
+            <Text style={{ ...styles.txt, width: 10 }}>:</Text>
+            <Text style={{ ...styles.txt1, flex: 4 }}>{moment(text).format("h:mm ")}</Text>
+          </View>
+          {this.props.type_rdv!='V' ?
           <View style={{ flexDirection: 'row', marginVertical: 3, justifyContent: 'space-between' }}>
             <Text style={{ ...styles.txt, flex: 3 }}>Adresse</Text>
             <Text style={{ ...styles.txt, width: 10 }}>:</Text>
             <Text style={{ ...styles.txt1, flex: 4 }}>{this.props.type_rdv=='V'?'En Visio':this.props.adresse}</Text>
           </View>
+           :
+           <></>
+         }
           {(this.props.type_rdv == 'D') ?
             <>
               <View style={{ flexDirection: 'row', marginVertical: 3, justifyContent: 'space-between' }}>
-                <Text style={{ ...styles.txt, flex: 3 }}>Adresse 2</Text>
+                <Text style={{ ...styles.txt, flex: 3 }}>Complément d'adresse</Text>
                 <Text style={{ ...styles.txt, width: 20 }}>:</Text>
                 <Text style={{ ...styles.txt1, flex: 4 }}>{this.state.adress2}</Text>
 
@@ -92,16 +105,7 @@ class Recap extends React.Component {
             :
             <></>
           }
-          <View style={{ flexDirection: 'row', marginVertical: 3, justifyContent: 'space-between' }}>
-            <Text style={{ ...styles.txt, flex: 3 }}>Date</Text>
-            <Text style={{ ...styles.txt, width: 10 }}>:</Text>
-            <Text style={{ ...styles.txt1, flex: 4 }}>{moment(text).format("DD-MM-YYYY")}</Text>
-          </View>
-          <View style={{ flexDirection: 'row', marginVertical: 3, justifyContent: 'space-between' }}>
-            <Text style={{ ...styles.txt, flex: 3 }}>Heure</Text>
-            <Text style={{ ...styles.txt, width: 10 }}>:</Text>
-            <Text style={{ ...styles.txt1, flex: 4 }}>{moment(text).format("h:mm ")}</Text>
-          </View>
+          
 
 
         </View>
@@ -152,13 +156,13 @@ class Recap extends React.Component {
                 <Text style={{ ...styles.txt1, flex: 4 }}>{this.props.adresse}</Text>
               </View>
               <View style={{ flexDirection: 'row', marginVertical: 3, justifyContent: 'space-between' }}>
-                <Text style={{ ...styles.txt, flex: 3 }}>Adresse 2</Text>
-                <Text style={{ ...styles.txt, width: 20 }}>:</Text>
+                <Text style={{ ...styles.txt, flex: 3 }}>Complément d'adresse</Text>
+                <Text style={{ ...styles.txt, width: 10 }}>:</Text>
                 <Text style={{ ...styles.txt1, flex: 4 }}>{this.state.adress2}</Text>
 
 
               </View>
-              <TouchableOpacity style={styles.btn} onPress={() => this.setState({ modalOpen1: true })} >
+              <TouchableOpacity style={styles.btn1} onPress={() => this.setState({ modalOpen1: true })} >
                 <Text style={{ color: 'white', alignSelf: 'center', fontSize: 15, fontWeight: 'bold', marginTop: 5 }}>Compléter mon adresse</Text>
               </TouchableOpacity>
 
@@ -237,6 +241,8 @@ const styles = StyleSheet.create({
 
   },
   btn: {
+    marginBottom:5,
+    width:200,
     alignSelf: 'flex-start',
     marginRight: 20,
     marginRight: 5,
@@ -245,7 +251,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 35,
     borderRadius: 4,
-    width: 100,
+   // width: 100,
     shadowColor: "grey",
     shadowOpacity: 0.8,
     shadowRadius: 2,
@@ -255,6 +261,26 @@ const styles = StyleSheet.create({
     },
     elevation: 5,
   },
+btn1: {
+  alignSelf: 'flex-start',
+  marginRight: 20,
+  marginRight: 5,
+  marginBottom:10,
+  borderColor: '#1E79C5',
+  backgroundColor: '#1E79C5',
+  borderWidth: 1,
+  height: 35,
+  borderRadius: 4,
+  width: 200,
+  shadowColor: "grey",
+  shadowOpacity: 0.8,
+  shadowRadius: 2,
+  shadowOffset: {
+    height: 1,
+    width: 0,
+  },
+  elevation: 5,
+},
 
 });
 export default Recap

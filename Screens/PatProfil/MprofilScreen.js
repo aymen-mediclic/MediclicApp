@@ -43,7 +43,7 @@ export default function Mprofil(navigation, route, props) {
     useEffect(() => {
 
         fetch(url1)
-        return fetch(url2 + '/api/profil?uid=126&get_profil')
+        return fetch(url2 + '/api/profil?uid=26&get_profil')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")
@@ -74,7 +74,7 @@ export default function Mprofil(navigation, route, props) {
 
         
         let bodyData = JSON.stringify({
-            uid: "126",
+            uid: "26",
             adresse: adresse,
             Num_CIN: cin,
             nom: nom,

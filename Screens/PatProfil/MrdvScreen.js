@@ -48,7 +48,7 @@ export default function MrdvScreen({ navigation }) {
     const[image,setImage]=useState(null);
     useEffect(() => {
         fetch(url1)
-        return fetch(url2+'/api/profil?uid=126&get_rdv')
+        return fetch(url2+'/api/profil?uid=26&get_rdv')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")
@@ -72,7 +72,7 @@ export default function MrdvScreen({ navigation }) {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
       },
       body: JSON.stringify({
-        uid:"126",
+        uid:"26",
         'mode':'supprimer_rdv',
         'rdv': '149',
 
@@ -370,7 +370,7 @@ export default function MrdvScreen({ navigation }) {
                         <View style={{ flexDirection: "row", justifyContent: 'space-between',marginVertical:5}}>
                                         <Text style={[styles.title,{flex:3}]}>Complément d'adresse</Text>
                                         <Text style={[styles.title,{width:10}]}>:</Text>
-                                        <Text style={[styles.title1,{flex:4}]}>{adress_rdv2?adress2_rdv:"Non renseigné"}</Text>
+                                        <Text style={[styles.title1,{flex:4}]}>{adress_rdv2?adress_rdv2:"Non renseigné"}</Text>
                         </View> 
                         <View style={{ flexDirection: "row", justifyContent: 'space-between',marginVertical:5}}>
                                         <Text style={[styles.title,{flex:3}]}>Source</Text>

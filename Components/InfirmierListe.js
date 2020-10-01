@@ -7,7 +7,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { MaterialIcons } from '@expo/vector-icons'
 import { url1, url2 } from '../Navigation/GlobalUrl';
-import MapContainer from '../Screens/ChangePosition';
+import MapContainer1 from '../Screens/ChangePosition1';
 
 export default class InfirmierL extends React.Component {
     constructor(props) {
@@ -17,6 +17,7 @@ export default class InfirmierL extends React.Component {
             id: '',
             data: [],
             isLoading: true,
+            assistant:''
         }
     }
     componentDidMount() {
@@ -26,9 +27,9 @@ export default class InfirmierL extends React.Component {
             .then((response) => response.json())
             .then((res) => {
                 console.log("6942000000000000000000000000000000")
-                console.log(this.props.route.params.lat)
+                /*console.log(this.props.route.params.lat)
                 console.log(this.props.route.params.lng)
-                console.log(this.props.route.params.assistant_id)
+                console.log(this.props.route.params.assistant_id)*/
                 console.log(res)
                 console.log("694200000000000000000000000000000000000")
                 this.setState({
@@ -74,7 +75,7 @@ export default class InfirmierL extends React.Component {
                 service_salle: this.props.route.params.service_salle,
                 adresse_rdv: this.props.route.params.adresse_rdv,
                 infirmier_id: this.state.id,
-                assistant:this.state.nam
+                assistant:this.state.assistant
             })
     }
     displayLoading() {
@@ -97,9 +98,10 @@ export default class InfirmierL extends React.Component {
         return (
             <ScrollView style={styles.ctr}>
                 <Text style={{ color: 'white', fontSize: 16, backgroundColor: '#1E79C5', textAlign: 'center', height: 60, paddingTop: 18, padding: 7 }}>{this.props.route.params.assistant} à domicile</Text>
-                <Text style={{ fontSize: 15, margin: 7 }}>Ce professionnel exige un(e) {this.props.route.params.assistant} à domicile pour l'assister lors de ce rendez-vous en visio.</Text>
+                <Text style={{ fontSize: 15, margin: 10 }}>Ce professionnel exige un(e) {this.props.route.params.assistant} à domicile pour l'assister lors de ce rendez-vous en visio.</Text>
+                <Text style={{ fontSize: 15, margin: 10 }}>Veuillez renseigner l'adresse du rendez-vous :</Text>
                 <View style={{ marginBottom:80, marginTop: 5 }}>
-                    <MapContainer />
+                    <MapContainer1 />
                 </View>
 
                 
@@ -112,14 +114,14 @@ export default class InfirmierL extends React.Component {
                         this.state.data.map((lng, key) => {
                             return <ScrollView contentContainerStyle={{ flexDirection: 'row'/* margin: 10 marginTop: 80*/}}>
                                
-                                <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'center',margin:5}} onPress={() => { this.Redirection() }}>
+                                <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'center',margin:5}} onPress={() => { this.Redirection();this.setState({assistant:lng.name}) }}>
                                     <Image style={{ width: 80, height: 80, borderRadius: 80 / 2,marginRight:5}} source={require('../assets/1.jpg')} />
                                     {/*<Image style={styles.img} source={{ uri:getImageFromApi( this.state.id ) }} />*/}
                                     <Text style={{ fontSize: 15, alignSelf: 'center' }}>{lng.name}</Text>
                                 </TouchableOpacity>
                                 
                                 <View style={{margin:5,flex:1 ,alignItems:'flex-end',justifyContent:'center'}}>
-                                <TouchableOpacity style={styles.prf} onPress={() => { NavigationService.navigate('Mon Profil', { id: this.state.id, nam: this.state.name }), this.props.route.params.modalClose(); }}>
+                                <TouchableOpacity style={styles.prf} onPress={() => { NavigationService.navigate('Mon Profil', { id: this.state.id, name: lng.name }), this.props.route.params.modalClose(); }}>
                                     <Text style={{ color: 'white', alignSelf: 'center' }}>Voir profil</Text>
                                 </TouchableOpacity>
                                 </View>

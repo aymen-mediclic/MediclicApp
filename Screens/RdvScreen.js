@@ -84,7 +84,7 @@ class RDV extends React.Component {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
       },
       body: JSON.stringify({
-        'uid': "126",
+        'uid': "26",
         'name': name1,
         'date_start': text,
         'date_end': text1,

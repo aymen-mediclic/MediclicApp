@@ -97,22 +97,22 @@ export default class InfirmierL extends React.Component {
         console.log("nnn", this.state.id)
         return (
             <ScrollView style={styles.ctr}>
-                <Text style={{ color: 'white', fontSize: 16, backgroundColor: '#1E79C5', textAlign: 'center', height: 60, paddingTop: 18, padding: 7 }}>{this.props.route.params.assistant} à domicile</Text>
-                <Text style={{ fontSize: 15, margin: 10 }}>Ce professionnel exige un(e) {this.props.route.params.assistant} à domicile pour l'assister lors de ce rendez-vous en visio.</Text>
-                <Text style={{ fontSize: 15, margin: 10 }}>Veuillez renseigner l'adresse du rendez-vous :</Text>
-                <View style={{ marginBottom:80, marginTop: 5 }}>
+                {/*<Text style={{ color: 'white', fontSize: 16, backgroundColor: '#1E79C5', textAlign: 'center', height: 60, paddingTop: 18, padding: 7 }}>{this.props.route.params.assistant} à domicile</Text>*/}
+                <Text style={{ fontSize: 15, margin: 5 }}>Ce professionnel exige un(e) {this.props.route.params.assistant} à domicile pour l'assister lors de ce rendez-vous en visio.</Text>
+                <Text style={{ fontSize: 15, margin: 5 }}>Veuillez renseigner l'adresse du rendez-vous :</Text>
+                <View style={{ marginBottom:10, marginTop: 5 }}>
                     <MapContainer1 />
                 </View>
 
                 
-                <Text> Veuillez choisir un(e) {this.props.route.params.assistant} parmi cette liste :</Text>
+                <Text style={{margin:5}} > Veuillez choisir un(e) {this.props.route.params.assistant} parmi cette liste :</Text>
                 {/*this.displayLoading()*/}
 
                 
                 {
                     (this.state.data) ?
                         this.state.data.map((lng, key) => {
-                            return <ScrollView contentContainerStyle={{ flexDirection: 'row'/* margin: 10 marginTop: 80*/}}>
+                            return <ScrollView contentContainerStyle={{ flexDirection: 'row', marginTop:10}}>
                                
                                 <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'center',margin:5}} onPress={() => { this.Redirection();this.setState({assistant:lng.name}) }}>
                                     <Image style={{ width: 80, height: 80, borderRadius: 80 / 2,marginRight:5}} source={require('../assets/1.jpg')} />
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
         //padding:5
     },
     prf: {
-        /*alignSelf:'center',*/ height: 30, width:80, backgroundColor: 'orange',
+        /*alignSelf:'center',*/ height: 30, width:80, backgroundColor: '#1E79C5',
         justifyContent: 'center',
         //alignItems: 'flex-end',
         //flex:1,

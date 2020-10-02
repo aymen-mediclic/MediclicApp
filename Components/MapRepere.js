@@ -1,7 +1,8 @@
 import React from 'react';
 import MapView, { Marker, Callout } from 'react-native-maps';
 
-import { StyleSheet, Text, View, Dimensions,Image } from 'react-native';
+import { StyleSheet, Text, View, Dimensions,Image,TouchableOpacity  } from 'react-native';
+
 //import { Image } from 'native-base';
 
 export default class App extends React.Component {
@@ -46,15 +47,16 @@ export default class App extends React.Component {
                           {
                             (dataSource) ?
                             dataSource.map((m, key) => {
-                                    return <Marker pinColor={"orange"} key={key} coordinate={{ latitude: m.obj.latitude_obj, longitude: m.obj.longitude_obj}} /*image={require('../assets/marker.png')}*/ >
-                                    <Callout>
-                                        <View style={{flexDirection:'row'}}>
-                                        <Image style={{width:80,height:80,borderRadius:80/2,alignSelf:'center'}} source={require('../assets/1.jpg')} />
-                                        <View S>
+                                    return <Marker  pinColor={"orange"} key={key} coordinate={{ latitude: m.obj.latitude_obj, longitude: m.obj.longitude_obj}} /*image={require('../assets/marker.png')}*/ >
+                                    <Callout style={{borderRadius:10}}>
+                                        <TouchableOpacity style={{flexDirection:'row',borderRadius:5}}>
+                                        <Image style={{width:80,height:80,borderRadius:80/2,alignSelf:'center',marginRight:10}} source={require('../assets/1.jpg')} />
+                                        <View style={{borderRadius:5}}>
                                         <Text style={{fontWeight:'bold',alignSelf:'center'}}>{m.obj.name} </Text>
                                         <Text>{m.obj.specialite}</Text>
+                                        
                                         </View>
-                                        </View>
+                                        </TouchableOpacity>
                                         
                                     </Callout>
                                     </Marker>

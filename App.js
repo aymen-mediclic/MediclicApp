@@ -1,3 +1,4 @@
+//fichier App.js  contient le stack navigateur de touts les screens que l'on navige au.il est niché dans un drawer navigateur
 import React from 'react';
 import { Image, AsyncStorage } from 'react-native';
 import { createStackNavigator, HeaderTitle } from '@react-navigation/stack'
@@ -15,8 +16,6 @@ import { navigationRef } from './Navigation/NavigationService';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity, Text, Modal, View } from 'react-native';
 import Calendar from './Components/Calendar';
-const Drawer = createDrawerNavigator();
-const Stack = createStackNavigator();
 import * as NavigationService from './Navigation/NavigationService';
 import SearchScreen from './Screens/SearchBarScreen';
 import RDV from './Screens/RdvScreen';
@@ -47,6 +46,9 @@ import HeaderMc from './Components/HeaderMC';
 import HeaderPat from './Screens/PatProfil/HeaderPat';
 import InfirmierL from './Components/InfirmierListe';
 import Motdpss from './Screens/Motdpss';
+import InfirmierHeader from './Components/InfirmierHeader';
+const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -58,6 +60,7 @@ export default class App extends React.Component {
   componentDidMount() {
     // this._loadInitialState().done();
   }
+   // fonction qui check si il y a un utilisateur de sauvegarder dans le stockage asynchrone pour decider où naviger au clic sur l'icone haut à droite
   _loadInitialState = async () => {
     const value = await AsyncStorage.getItem('user');
     if (value !== null) {
@@ -75,7 +78,7 @@ export default class App extends React.Component {
     return (
       <Root>
       <NavigationContainer ref={navigationRef}>
-        
+     { /*syntaxe commence ici du stack navigateur voir:https://reactnavigation.org/docs/stack-navigator/  */}
 
         <Stack.Navigator >
           <Stack.Screen name="Mediclic" component={AppDraw}
@@ -91,12 +94,13 @@ export default class App extends React.Component {
               },
               headerTitleAlign: 'center',
               headerTitle: ()=> <HeaderRes/>,
+    //icone de droite qui ouvre le profil ou page se connecter.appel la fonction loadInitialState
               headerRight: () =>
                 <TouchableOpacity style={{ padding: 10 }} onPress={this._loadInitialState} 
                 >
                   <En name='user' size={22} color={'white'} />
-                  {/*<FontAwesomeIcon icon='user' />*/}
                 </TouchableOpacity>,
+    // ouvre le drawer navigator  
               headerLeft: () =>
                 <TouchableOpacity style={{ marginLeft: 5 }} onPress={() => navigation.dispatch(DrawerActions.toggleDrawer()) }>
                   <MaterialIcons name='menu' size={28} color={'white'} />
@@ -390,8 +394,9 @@ export default class App extends React.Component {
               fontSize:18
             },
           }} />
-          <Stack.Screen name="Choix Assistant" component={InfirmierL} options={{
+          <Stack.Screen name="Choix Assistant" component={InfirmierL}  options={({ route }) =>({
             headerTintColor: '#fff',
+            headerTitle: ()=> <InfirmierHeader assi={route.params.assistant}/>,
             headerStyle: {
               backgroundColor: '#1E79C5',
               height: 80,
@@ -400,8 +405,8 @@ export default class App extends React.Component {
             headerTitleStyle: {
               fontWeight: 'bold',
               fontSize:18
-            },
-          }} />
+            }})
+          }/>
           
         </Stack.Navigator>
       </NavigationContainer>

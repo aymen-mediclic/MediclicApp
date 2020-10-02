@@ -140,7 +140,7 @@ class Recap extends React.Component {
 
           }
         </View>
-        {this.props.type_rdv=='V' ?
+        {this.props.type_rdv=='V'&& this.props.Assist!=null ?
         <View style={styles.ctr2} >
           <Text style={styles.title}> Informations sur RDV à domicile :</Text>
           
@@ -158,7 +158,7 @@ class Recap extends React.Component {
               <View style={{ flexDirection: 'row', marginVertical: 3, justifyContent: 'space-between' }}>
                 <Text style={{ ...styles.txt, flex: 3 }}>Complément d'adresse</Text>
                 <Text style={{ ...styles.txt, width: 10 }}>:</Text>
-                <Text style={{ ...styles.txt1, flex: 4 }}>{this.state.adress2}</Text>
+                <Text style={{ ...styles.txt1, flex: 4,marginRight:3 }}>{this.state.adress2!=""?this.props.adresse+","+this.state.adress2:""}</Text>
 
 
               </View>

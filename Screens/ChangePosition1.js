@@ -45,8 +45,10 @@ class MapContainer1 extends React.Component {
     }
 
     render() {
-        console.log(this.state.region,"fgg")
-       // console.log(data.description);
+        console.log(this.state.region.latitude,"!!!!!!!!!!!!!!")
+       /* if (this.state.region.latitude &&this.state.region.longitude){
+        this.props.coord(this.state.region.longitude,this.state.region.latitude)
+            }*/
         return (
             <View style={{height:350,width:'98%',alignSelf:'center'}}>
                {/*} <Text style={{fontSize:16,alignSelf:'center',margin:10}}>Veuillez renseigner l'adresse du rendez-vous :</Text>*/}
@@ -60,7 +62,7 @@ class MapContainer1 extends React.Component {
                    <View style={{flex:1,marginTop:10 }}>
                        <MyMapView1
                            region={this.state.region}
-                           onRegionChange={(reg) => this.onMapRegionChange(reg)} />
+                           onRegionChange={(reg) => {this.onMapRegionChange(reg);console.log(this.state.region.latitude,"!!!!!!!!!!!!!!11");this.props.coord(this.state.region.longitude,this.state.region.latitude)}} />
                    </View> : null}
        </View>
    );

@@ -10,11 +10,13 @@ import { Button, Input } from 'react-native-elements';
 import EntypoI from 'react-native-vector-icons/AntDesign'
 import * as NavigationService from '../Navigation/NavigationService';
 import Conf from './Confirmation';
+import ConnectionScreen1 from './ConnectionScreen';
 class RDV extends React.Component {
 
   state = {
     userInfo: false,
     nxt: true,
+    co:'a',
     adress2: '',
     nbr:0,
     infirmier_id:this.props.route.params.infirmier_id
@@ -41,7 +43,9 @@ class RDV extends React.Component {
   AbleNext = (val) => {
     this.setState({ nxt: val })
   }
-
+  cochange = (val) => {
+    this.setState({ co: val })
+  }
 
   getUser = async () => {
     fetch(url1)
@@ -51,7 +55,7 @@ class RDV extends React.Component {
         console.log("12")
         console.log(res)
 
-        await AsyncStorage.setItem("userInfo", JSON.stringify(res))
+        //await AsyncStorage.setItem("userInfo", JSON.stringify(res))
 
       })
       .done();
@@ -59,6 +63,7 @@ class RDV extends React.Component {
     if (userInfo) {
       userInfo = JSON.parse(userInfo);
       this.setState({ userInfo });
+      this.setState({ co:'b' });
       console.log(userInfo, "------------- Aymane TEST ------------------")
       //console.log(this.state.infirmier_id, "------------- TEST ------------------")
     }
@@ -143,7 +148,7 @@ class RDV extends React.Component {
   };
     return (
       <View style={styles.container}>
-
+        {(this.state.userInfo && this.state.co== 'b')?
         <ProgressSteps activeStep= {this.state.nbr} completedProgressBarColor='#1E79C5' completedLabelColor='#1E79C5' completedStepIconColor='#1E79C5' activeStepIconBorderColor='#FFC617' activeLabelColor='#FFC617' activeStepNumColor='#FFC617' >
           <ProgressStep label="Identification " nextBtnText="Suivant" nextBtnDisabled={this.state.nxt} previousBtnText="Précédent" previousBtnDisabled={false} nextBtnTextStyle={{color:'white'}}  nextBtnStyle={{backgroundColor:this.state.nxt==true?'white':'#1E79C5',borderRadius:5,textAlign:'center'}} >
             <Identification AbleNext={this.AbleNext} userInfo={this.state.userInfo} getUser={this.getUser} type_rdv={this.props.route.params.type_rdv} getAdress2={this.getAdress2} />
@@ -153,12 +158,21 @@ class RDV extends React.Component {
           </ProgressStep>
 
           <ProgressStep label="Récapitulatif" nextBtnText="Confirmer"  nextBtnTextStyle={{color:'white'}}  nextBtnStyle={{backgroundColor:'#1E79C5',borderRadius:5,textAlign:'center'}} previousBtnText="Précédent" onNext={this.Confirmation} previousBtnTextStyle={{color:'white'}} previousBtnStyle={{backgroundColor:'#FFC617',borderRadius:5,textAlign:'center'}} >
-            <Recap Name={name} text={text} Assist={assistant} userInfo={this.state.userInfo} adresse={this.props.route.params.adresse} type_rdv={this.props.route.params.type_rdv} service_name={this.props.route.params.service_name} service_salle={this.props.route.params.service_salle} adress2={this.props.route.params.adresse2} onFocusFunction={this.onFocusFunction} />
+            <Recap Name={name} text={text} Assist={assistant} userInfo={this.state.userInfo} adresse={this.props.route.params.adresse} adresseC={this.props.route.params.adresseC} type_rdv={this.props.route.params.type_rdv} service_name={this.props.route.params.service_name} service_salle={this.props.route.params.service_salle} adress2={this.props.route.params.adresse2} onFocusFunction={this.onFocusFunction} />
           </ProgressStep>
           <ProgressStep label="Confirmation" previousBtnText="Précédent" finishBtnText='Confirmer' /*onSubmit={this.Confirmation}*/ nextBtnDisabled={true} previousBtnDisabled={true}  >
             <Conf/>
           </ProgressStep>
         </ProgressSteps>
+        :
+        <></>
+       
+        }
+        {( this.state.co== 'a')?
+           <ConnectionScreen1 cochange={this.cochange} />
+           :
+           <></>
+        }
       </View>
 
     );

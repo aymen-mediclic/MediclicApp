@@ -13,7 +13,8 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import EntypoI from 'react-native-vector-icons/Entypo'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import Mat from 'react-native-vector-icons/MaterialCommunityIcons'
 import * as NavigationService from '../Navigation/NavigationService';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import Swiper from 'react-native-swiper'
@@ -105,8 +106,8 @@ class HomeScreen extends React.Component {
                       <Text style={styles.nmbr}>{ney + 1}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', alignSelf: 'center' }} >
-                      <Text style={{ fontSize: 15, fontWeight: 'bold', alignSelf: 'center', marginTop: 25, marginBottom: 25 }}>Type de consultation:</Text>
-                      <Text style={{ fontSize: 15, alignSelf: 'center', marginTop: 25, marginBottom: 25 }}> {item.type}</Text>
+                <Text style={{ fontSize: 15, fontWeight: 'bold', alignSelf: 'center', marginTop: 25, marginBottom: 25 }}>{item.type=='cabinet'?"Cabinet :":"Centre :"}</Text>
+                      <Text style={{ fontSize: 15, alignSelf: 'center', marginTop: 25, marginBottom: 25 }}> {item.cabinet}</Text>
                     </View>
 
                     <MapView style={styles.mapStyle}
@@ -119,41 +120,81 @@ class HomeScreen extends React.Component {
                       }}
                     ><Marker coordinate={{ latitude: item.lat, longitude: item.lng }} image={require('../assets/map_marker.png')} title="DR D" />
                     </MapView>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 15,paddingVertical:15 }} >
-
-                      <View>
-                        <Fontisto name="map-marker-alt" color="#1E79C5" size={22} style={{ alignSelf: 'center' }} />
-                        <Text style={{ fontWeight: 'bold' }}>Adresse</Text>
-
+                    <View style={{ flexDirection: 'row' ,margin:10,marginHorizontal:30 }} >
+                      
+                        <View style={{flexDirection:'row'}}>
+                        <Feather name="headphones" color="#1E79C5" size={17} style={{ alignSelf: 'flex-start' }} />
+                        <View style={{marginHorizontal:5}} >
+                        <Text style={{ fontWeight: 'bold'}}>N°Téléphone</Text>
+                        
+                        <Text style={{  }}>{item.tel1}</Text>
+                        <Text style={{  }}>{item.tel2}</Text>
+                        </View>
                       </View>
-
-                      <View>
+                      {/*<View style={{ marginRight: 25 }}>
                         <Feather name="headphones" color="#1E79C5" size={22} style={{ alignSelf: 'center' }} />
-                        <Text style={{ fontWeight: 'bold' }}>Téléphone (1)</Text>
-                        <Text style={{ alignSelf: 'center' }}>{item.tel1}</Text>
-                      </View>
-
-                      <View>
-                        <Fontisto name="email" color="#1E79C5" size={22} style={{ alignSelf: 'center' }} />
-                        <Text style={{ fontWeight: 'bold' }}>Site Web</Text>
-                        <Text style={{ alignSelf: 'center' }}>{item.site_web}</Text>
-                      </View>
-
-
-                    </View>
-
-                    <View style={{ flexDirection: 'row',alignSelf:'center' }} >
-                      <View style={{ marginRight: 25 }}>
-                        <Feather name="headphones" color="#1E79C5" size={22} style={{ alignSelf: 'center' }} />
-                        <Text style={{ fontWeight: 'bold' }}>Téléphone (2)</Text>
+                        <Text style={{ fontWeight: 'bold' }}>N°Téléphone (2)</Text>
                         <Text style={{ alignSelf: 'center' }}>{item.tel2}</Text>
+                      </View>*/}
+                      
+                      <View style={{flexDirection:'row',marginLeft:70}}>
+                      <FontAwesome name="fax" color="#1E79C5" size={17} style={{ alignSelf: 'flex-start' }} />
+                      <View style={{marginHorizontal:5}}>
+                        
+                        
+                        <Text style={{ fontWeight: 'bold' }}>N°Fax</Text>
+                      
+                        <Text style={{}}>{item.fax?item.fax:'Non Renseigné'}</Text>
                       </View>
-                      <View>
-                        <AntDesign name="car" color="#1E79C5" size={22} style={{ alignSelf: 'center' }} />
-                        <Text style={{ fontWeight: 'bold' }}>Moyen de transport</Text>
-                        <Text style={{ alignSelf: 'center' }}>{item.moyen_transport}</Text>
                       </View>
+
+
                     </View>
+
+                    <View style={{ flexDirection: 'row',margin:10,marginHorizontal:30}} >
+                    
+                    <View style={{flexDirection:'row'}}>
+                        <Fontisto name="email" color="#1E79C5" size={17} style={{ alignSelf:'flex-start' }} />
+                        <View style={{marginHorizontal:5}} >
+                        <Text style={{ fontWeight: 'bold'}}>Adresse e-mail</Text>
+                    
+                        <Text style={{ }}>{item.email?item.email:'Non Renseigné'}</Text>
+                        </View>
+                      </View>
+                    
+                    <View style={{flexDirection:'row',marginLeft:50}}>
+                        <Mat name="web" color="#1E79C5" size={17} style={{ alignSelf:'flex-start' }} />
+                        <View style={{marginHorizontal:5}} >
+                        <Text style={{ fontWeight: 'bold'}}>Site Web</Text>
+                       
+                        <Text style={{ }}>{item.site_web?item.site_web:'Non Renseigné'}</Text>
+                        </View>
+                      </View>
+                   
+                    </View>
+                    
+                    
+                    
+                   
+                    <View style={{flexDirection:'row',margin:10,marginHorizontal:30}}>
+                        <Fontisto name="map-marker-alt" color="#1E79C5" size={17} style={{ alignSelf:'flex-start'}} />
+                        <View style={{marginHorizontal:5}} >
+                        <Text style={{ fontWeight: 'bold' }}>Adresse</Text>
+                      
+                      <Text style={{  }}>{item.adresse?item.adresse:'Non Renseigné'}</Text>
+                      </View>
+                      </View>
+                      
+                      <View style={{flexDirection:'row',margin:10,marginHorizontal:30}}>
+                        <AntDesign name="car" color="#1E79C5" size={17} style={{ alignSelf:'flex-start' }} />
+                        <View style={{marginHorizontal:5}} >
+                        <Text style={{ fontWeight: 'bold' }}>Moyen(s) de transport</Text>
+                      
+                        <Text style={{  }}>{item.moyen_transport?item.moyen_transport:'Non Renseigné'}</Text>
+                        </View>
+                      </View> 
+                      
+                      
                     <View>
                       <Text style={styles.txt_name}>Horaires d'ouverture</Text>
 
@@ -358,7 +399,7 @@ export default class GProfMed extends React.Component {
       .then((response) => response.json())
       .then((res) => {
         console.log("repooooonse")
-        console.log(res)
+        //console.log(res)
         this.setState({
           isLoading: false,
           data: res

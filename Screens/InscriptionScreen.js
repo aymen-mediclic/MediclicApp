@@ -1,6 +1,6 @@
 ////////////lM39oul/////////////////////////
 import React from 'react'
-import { View, TextInput, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon,Linking, Picker, KeyboardAvoidingView, Alert, CheckBox, Image } from 'react-native'
+import { View, TextInput, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Picker, KeyboardAvoidingView, Alert, CheckBox, Image } from 'react-native'
 import { Formik } from 'formik';
 import { RadioButton } from 'react-native-paper';
 //import CheckBox from 'react-native-check-box'
@@ -11,7 +11,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal'
 import Ant from 'react-native-vector-icons/AntDesign';
 import * as NavigationService from '../Navigation/NavigationService';
+import * as Linking from "expo-linking";
+import DOMParser from 'react-native-html-parser';
 
+var DomParser = require('react-native-html-parser').DOMParser
 export default class InscriptionProf extends React.Component {
     constructor(props) {
         super(props);
@@ -37,16 +40,30 @@ export default class InscriptionProf extends React.Component {
             modalOpen: false
         };
     }
-
+    componentDidMount=()=>{
+        //Linking.makeUrl()
+         fetch('http://51.91.249.185:8002/web/signup')
+    .then((resp) => { return resp.text() })
+    .then((text) => {
+      console.log("nnnnnnnnnnnnn",text)
+      let e=typeof(text)
+      //let doc = new DomParser().parseFromString(text,'text/html')
+       console.log("><<>>>>>!!!!!!!!<<<")
+       console.log(typeof text)
+       //console.log(doc.getElementsByAttribute('class', 'form-group field-name'))
+      console.log("><<>>>>><<<")
+      
+      /* let l=parse(text);
+      console.log("nnnnnnnnnnnnn",l)
+      console.log("><<>>>>><<<")*/
+      //console.log(doc.getElementById('form_su').getElementsByTagName('INPUT')[0].value)
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    }
     function = () => {
-        /*if (this.state.Nom == '' && this.state.Prénom == '' && this.state.tel == '' && this.state.mail == '' && this.state.chkbox == '') {
-            this.setState({ ErrorStatus: false, color: '#e74c3c', ercolor: '#e74c3c' })
-            this.setState({ ErrorStatus1: false, color1: '#e74c3c', ercolor: '#e74c3c' })
-            this.setState({ ErrorStatus2: false, color2: '#e74c3c', ercolor: '#e74c3c' })
-            this.setState({ ErrorStatus3: false, color3: '#e74c3c', ercolor: '#e74c3c' })
-            this.setState({ ErrorStatus4: false, color4: '#e74c3c', ercolor: '#e74c3c' })
-            this.setState({ ErrorStatus5: false, color5: '#e74c3c', ercolor: '#e74c3c' })
-        } */ if (this.state.Nom == '') {
+       if (this.state.Nom == '') {
 
             this.setState({ ErrorStatus: false, color: '#e74c3c', ercolor: '#e74c3c' })
         }  if (this.state.Prénom == '') {
@@ -61,11 +78,7 @@ export default class InscriptionProf extends React.Component {
          if (this.state.mail == '' || this.state.ErrorStatus3 == false) {
             this.setState({ ErrorStatus3: false, color3: '#e74c3c', ercolor: '#e74c3c' })
             
-        }/*
-        else if (this.state.Mdp == '' || this.state.ErrorStatus4 == false) {
-            this.setState({ ErrorStatus4: false, color4: '#e74c3c', ercolor: '#e74c3c' })
-
-        }*/  if (this.state.chkbox == '') {
+        }  if (this.state.chkbox == '') {
             this.setState({ ErrorStatus5: false, color5: '#e74c3c', ercolor: '#e74c3c' })
         }
         /* else if(this.state.Mdp_c == ''|| this.state.Mdp_c!=this.state.Mdp ){
@@ -80,23 +93,70 @@ export default class InscriptionProf extends React.Component {
     }
 
     pot = () => {
+        var formdata = new FormData()
+        formdata.append('nom',"testooo");
+        formdata.append('prenom',"testooo"),
+        formdata.append('tel',"0762758620"),
+        formdata.append('login',"belefdil.abdelhakim@gmail.com"),
+        formdata.append('optionsCheckboxes','on'),
+        formdata.append('name','TESTOOO Testooo'),
+        formdata.append('redirect',''),
+        formdata.append('token',''),
+        formdata.append('appMed',true)
+        formdata.append('csrf_token','1cae8c6a7ed6155bca035d2111110ade1e48bfc3o1602156765')
+        console.log('pressed!!!!!!!!!!!',formdata)
         fetch(url1)
-        fetch(url2 + '/create_patient', {
+        fetch(url2 +'/web/signup', {
             method: 'POST',
             headers: {
-                'Accept': 'application/json, text/javascript, */*; q=0.01',
+                'Accept':'application/json',
+                'Content-Type':'multipart/form-data'
+            },
+            body: formdata
+        })
+
+            .then((response) => response.json())
+            .then((res) => {
+                console.log("repooooonse")
+                console.log(res)
+                console.log("*********success***********")
+                this.setState({
+                    d1: res
+                })
+            }).catch(function(error) {
+
+                console.log('There has been a problem with your fetch operation: ' + error.message);
+                
+                throw error;
+                
+                });
+            
+    }
+   /* pot = () => {
+        fetch(url1)
+        fetch(url2 +'/web/signup', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/javascript, **; q=0.01',
                 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
             },
             body: JSON.stringify({
-                'tel': this.state.tel,
+                /*'tel': this.state.tel,
                 'nom': this.state.Nom,
                 'prenom': this.state.Prénom,
                 'login': this.state.mail,
                 //'password': this.state.Mdp,
                 //'civilite': this.state.value,
                 //'confirm_password': this.state.Mdp_c,
-
-
+                'nom':"testooo",
+                'prenom':"testooo",
+                'tel':"0762758620",
+                'login': "belefdil.abdelhakim@gmail.com",
+                'optionsCheckboxes':'on',
+                'name':'TESTOOO Testooo',
+                'redirect':'',
+                'token':'',
+               // 'appMed':true
             })
         })
 
@@ -108,7 +168,7 @@ export default class InscriptionProf extends React.Component {
                 this.setState({
                     d1: res
                 })
-                if (this.state.d1.error) {
+               /* if (this.state.d1.error) {
                     Alert.alert(
                         "Désolé!",
                         this.state.d1.error,
@@ -129,11 +189,11 @@ export default class InscriptionProf extends React.Component {
                         ],
                         { cancelable: false }
                     );
-                }
+                }*
 
             })
             .done();
-    }
+    }*/
     _changeIcon() {
         this.setState(prevState => ({
             icon: prevState.icon === 'eye' ? 'eye-slash' : 'eye',
@@ -357,7 +417,7 @@ export default class InscriptionProf extends React.Component {
                         Veuillez lire et accepter les conditions générales d'utilisation de la plateforme.
                     </Text>
                 ) : null}
-                <TouchableOpacity style={styles.btn} /*onPress={this.function}*/ onPress={() => this.setState({ modalOpen: true })} >
+                <TouchableOpacity style={styles.btn} /*onPress={this.function}*/ onPress={this.pot} >
                     <Text style={{ textAlign:'center',fontWeight:'bold' ,fontSize: 17, color: 'white' }}>S' inscrire</Text>
                 </TouchableOpacity>
                 

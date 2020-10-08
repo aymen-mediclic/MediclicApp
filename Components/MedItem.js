@@ -240,7 +240,8 @@ class MedItem extends React.Component {
                                                                     service_id: day.service_id,
                                                                     service_name: day.service_name,
                                                                     service_salle: day.service_salle,
-                                                                    adresse_rdv: day.adresse_rdv
+                                                                    adresse_rdv: day.adresse_rdv,
+                                                                    adresseC:Med.obj.adress_obj
                                                                 })
                                                     }}>
                                                         <Text style={styles.txt_t}>{moment(day.date_start).format("h:mm ")}</Text>

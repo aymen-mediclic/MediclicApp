@@ -1,3 +1,4 @@
+// file qui contient le tab navigateur des deux screen de la page de resultats.
 import React from 'react'
 import {View,Text,Button,StyleSheet,TouchableOpacity,Image} from 'react-native'
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
@@ -8,27 +9,28 @@ import RechercheScreen from './RechercheScreen'
 import MapR from '../Components/MapRepere';
 
 const tab = createMaterialTopTabNavigator();
-
+//classe plan du screen Plan qui affiche les repères des Médecin de la page de resultats sur la map
 class PlanScreen extends React.Component {
     render(){
+      // dataSource le Array depuis le fichier json Fetcher qui contient le objets de chaque médecin(nom,prénom...)
       const {dataSource} = this.props
+     
      /* console.log("******* PLAN SCREEN *********");
       console.log(dataSource[0].obj);
       //console.log(">>>><<",this.props.route.params.myId)
       console.log("******* END *********");*/
+
+
       return (
         <View style={styles.container}>
-           <MapR dataSource={dataSource} />
-             {/*<TouchableOpacity >
-                    <Image style={styles.img} source={require('../assets/map.jpg')} />
-            </TouchableOpacity> */}
-          
+           <MapR dataSource={dataSource} />          
         </View>
       );
     }
   
   }
 
+  // classe principale du Tab navigator
 class ListMed extends React.Component {
 
   state = {
@@ -45,21 +47,22 @@ class ListMed extends React.Component {
     finres: false
   }
 
-
+  // quand la page est montée on fait appele à la fonction Request
   componentDidMount() {
     this._Request();
   }
 
+    // Request utilise l'Api fetch pour appeler le données depuis le serveur  
   _Request = () => {
     //this.setState({ isLoading: true })
-
+    // Ceci sont les valeurs choisi au Screen précedents est nécessaire pour concatener dans la route utilisé dans fetch
     const {lien,choice,lng,lat,loc} = this.props.route.params.params
     fetchLien(lien,choice,lng,lat,loc).then((res) => {
-
-
       //console.log(res[1].obj.name);
       //let date=moment(res[1].days[0].date_start).format('YYYY-MM-DD');
       //console.log(date)
+      
+      //voir le format du fichier json recu 
       this.setState({
         isLoading: false,
         dataSource: res.medecin,
@@ -68,30 +71,36 @@ class ListMed extends React.Component {
       })
       console.log("****************");
       //console.log(res.medecin[0].obj);
-      console.log(">>>><<", this.state.dataSource[0].obj)
+      console.log("!!!!!!!!!!!!!!!", this.state.dataSource)
       console.log("****************");
+      console.log("<<<<<>>>>>>>>>>>>>>>>>>>>>>");
+      //console.log(res.medecin[0].obj);
+      //console.log( this.state.dataFilter)
+      console.log(">>>>>>>>>>>>>>>>>>>");
       //this.props.navigation.setParams({myId: this.state.dataSource[0].obj.name })
     })
   }
 
-
+  // fonction appeler lors de la pagination, quand on aboutit à la fin de la flat liste
   loadMoreData = () => {
     /*this.setState({
       isLoading:true
     })*/
+    
     let selectedValue = this.state.datafiltre.type_calendrier;
     let selectedValue2 = this.state.datafiltre.type_rdv;
     let selectedValue3 = this.state.datafiltre.speciality_param;
     let selectedValue4 = this.state.datafiltre.service_param;
     let selectedValue5 = 0;
+    //
     if (this.state.pag == false) {
       this.state.cmp1 = this.state.datafiltre.cmp_from_medecin_calendar
       this.state.cmp2 = this.state.datafiltre.cmp_from_centre_calendar
       this.state.cmp3 = this.state.datafiltre.cmp_from_smart_service
     }
-    console.log("test", this.state.cmp1)
-    console.log("teste", this.state.cmp2)
-    console.log("test", this.state.cmp3)
+    //console.log("test", this.state.cmp1)
+    //console.log("teste", this.state.cmp2)
+    //console.log("test", this.state.cmp3)
 
     fetch(url1)
     return fetch(url2 + '/api/search' +
@@ -133,8 +142,9 @@ class ListMed extends React.Component {
           })
           console.log(res.medecin, "222222")
         } else {
-          console.log(res.medecin, "haha")
+          console.log(res.medecin, "hahahahahaha")
           this.setState({ finres: true })
+          console.log(res.medecin, "hahahahahaha!!!!!!!!!!!!!!!")
         }
 
         /*
@@ -145,6 +155,8 @@ class ListMed extends React.Component {
       }).done()
   }
 
+  // fonction pour actualiser la flat list
+
   handleRefresh = () => {
     this.setState = {
       refreshing: true
@@ -152,7 +164,9 @@ class ListMed extends React.Component {
       this._Request();
     }
   }
+  /////////////////
 
+  /// fonction des éléments Picker du filtre, au choix d'une nouvelle valeur du Picker cette fonction prend ces valeurs est fait l'appel au serveur avec.
   dataFilter = (value, key) => {
 
     this.setState({
@@ -186,13 +200,17 @@ class ListMed extends React.Component {
     fetch(url1)
     return fetch(url2 + '/api/search' +
       '?filtres= 1' +
+      /////
       '&dispo_date=' + selectedValue5 +
+      ///////
       '&medecin_name=' + this.state.datafiltre.medecin_name +
       '&centre_name=' + this.state.datafiltre.centre_name +
+      /////////
       '&type_calendrier=' + selectedValue +
       '&type_rdv=' + selectedValue2 +
       '&speciality=' + selectedValue3 +
       '&service=' + selectedValue4 +
+      //////////
       '&medecin_searche_id=' + this.state.datafiltre.medecin_searche_id +
       '&centre_searche_id=' + this.state.datafiltre.centre_searche_id +
       '&location=' + this.state.datafiltre.location +
@@ -208,10 +226,10 @@ class ListMed extends React.Component {
 
       .then((response) => response.json())
       .then((res) => {
-        console.log(">>>><<<<<<<<<<<<<")
+        console.log("000000000000000")
 
-        console.log(res)
-        console.log("><>>>>>>>")
+        console.log(res.medecin)
+       console.log("0000202000000000")
 
         this.setState({
           isLoading: false,
@@ -223,6 +241,8 @@ class ListMed extends React.Component {
 
 
   }
+
+  //fonction de l'element changer de position, dans le filtre qui prends le lat lng et location de la nouvelle positon
   dataFilter1 = (loc, lat, lng) => {
 
 
@@ -275,6 +295,7 @@ class ListMed extends React.Component {
 
 
   }
+  // fonction du nouveau nom de professionel choisi
   dataFilter2 = (name, id) => {
 
 
@@ -290,12 +311,14 @@ class ListMed extends React.Component {
     return fetch(url2 + '/api/search' +
       '?filtres= 1' +
       '&dispo_date=' + selectedValue5 +
+      //nouveau nom du Professionel
       '&medecin_name=' + name +
       '&centre_name=' + this.state.datafiltre.centre_name +
       '&type_calendrier=' + selectedValue +
       '&type_rdv=' + selectedValue2 +
       '&speciality=' + selectedValue3 +
       '&service=' + selectedValue4 +
+      //nouveau id du Profession
       '&medecin_searche_id=' + id +
       '&centre_searche_id=' + this.state.datafiltre.centre_searche_id +
       '&location=' + this.state.datafiltre.location +
@@ -326,6 +349,7 @@ class ListMed extends React.Component {
 
 
   }
+  // fonction du nouveau nom de Centre choisi recoit le nom et id du centre
   dataFilter3 = (name, id) => {
 
 
@@ -342,12 +366,14 @@ class ListMed extends React.Component {
       '?filtres= 1' +
       '&dispo_date=' + selectedValue5 +
       '&medecin_name=' + this.state.datafiltre.centre_name +
+      //nouveau nom du centre
       '&centre_name=' + name +
       '&type_calendrier=' + selectedValue +
       '&type_rdv=' + selectedValue2 +
       '&speciality=' + selectedValue3 +
       '&service=' + selectedValue4 +
       '&medecin_searche_id=' + this.state.datafiltre.medecin_searche_id +
+      //nouveau id du centre
       '&centre_searche_id=' + id +
       '&location=' + this.state.datafiltre.location +
       '&lng=' + this.state.datafiltre.lng +
@@ -362,9 +388,9 @@ class ListMed extends React.Component {
 
       .then((response) => response.json())
       .then((res) => {
-        console.log("repooooonse")
+       // console.log("repooooonse")
 
-        console.log(res)
+        //console.log(res)
 
 
         this.setState({
@@ -385,7 +411,7 @@ class ListMed extends React.Component {
     return(
       <View style ={{flex: 1}}>
         <View style ={styles.tabsContainer}>
-          
+          {/* ceci est un custom tab navigator que j'ai créer au lieu du tab navigateur propre a React, pour des raison techniques */}
           <TouchableOpacity 
             style={(this.state.activeTab == "Résultats")?styles.activeTab:styles.inActiveTab} 
             onPress={()=>this.setState({activeTab: 'Résultats'})}>
@@ -402,12 +428,12 @@ class ListMed extends React.Component {
           </TouchableOpacity>
 
         </View>
-        {
+        {// on passe toutes les fonctions déclarer au par avant au composant screen RechercheScreen
           (this.state.activeTab == "Plan")?
           <PlanScreen
             dataSource    = {this.state.dataSource}
           />
-          :
+          : 
           <RechercheScreen
             isLoading     = {this.state.isLoading}
             dataSource    = {this.state.dataSource}

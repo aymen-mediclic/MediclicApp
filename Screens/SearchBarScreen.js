@@ -95,7 +95,8 @@ export default class Search extends React.Component {
         {this.displayLoading()}
         {this.state.searchedText.trim() != 0 && (
           <FlatList
-            data={this.state.data.sort((a, b) => a.type === 'spécialité' ? -1 : 1)}
+            //data={this.state.data.sort((a, b) => a.type === 'spécialité' ? -1 : 1)}
+            data={this.state.data}
             keyExtractor={item => { return item.id }}
             renderItem={({ item }) => 
               <TouchableOpacity onPress={() => NavigationService.navigate('Type de rendez-vous', { lien: item.lien})}> 

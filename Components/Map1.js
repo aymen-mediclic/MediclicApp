@@ -9,7 +9,7 @@ const MyMapView1 = (props) => {
             showsUserLocation={true}
             onPress={ (event) =>{ 
               
-              console.log(event.nativeEvent.coordinate)
+              //console.log(event.nativeEvent.coordinate)
                 props.onRegionChange(event.nativeEvent.coordinate)
             }}
             >

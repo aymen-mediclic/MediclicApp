@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  ScrollView,StyleSheet, Text, View, TextInput, TouchableHighlight, TouchableOpacity, Picker } from 'react-native';
+import {  ScrollView,StyleSheet, Text, View, TextInput, TouchableHighlight, TouchableOpacity, Picker, FlatList } from 'react-native';
 import { WebView } from 'react-native-webview';
 import DatePicker from 'react-native-datepicker';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -15,7 +15,11 @@ export default class FilterRdv extends Component {
         }
     }
     render() {
-        const { profess, address, specilict,dateRdv, status } = this.props.filterFields
+        const {filterFields, specilictHint, addressHint, professHint} = this.props
+        const { profess, address, specilict,dateRdv, status } = filterFields
+        console.log("=================================")
+        console.log(specilictHint)
+        console.log("=================================")
         return (
             <ScrollView contentContainerStyle={styles.ctr}>
                 <View style={styles.filtrer} >
@@ -125,8 +129,36 @@ export default class FilterRdv extends Component {
                         <Ant color='#95a5a6' size={16} name={'reload1'} style={{}} />
                     </TouchableOpacity>
                 </View>
-                <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={profess} onChangeText={(text) => this.props.filterTextHandler(text, "profess")} placeholder='Rendez-vous avec' />
-                <TextInput  placeholderTextColor='#95a5a6' style={styles.text_input} value={specilict} onChangeText={(text) => this.props.filterTextHandler(text, "specilict")} placeholder='Spécialité' />
+                <View>
+                    <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={profess} onChangeText={(text) => this.props.filterTextHandler(text, "profess")} placeholder='Rendez-vous avec' />
+                    <FlatList
+                        data = {professHint}
+                        keyExtractor = {i=>i[0].id}
+                        renderItem   = {({item})=>{
+                            const i = item[0];
+                            if(i.profess){
+                                return (<TouchableOpacity style={styles.itemContainer} onPress ={()=>this.props.filterTextHandler(i.profess, "profess")}>
+                                    <Text style ={styles.item}>{i.profess}</Text>
+                                </TouchableOpacity>)
+                            }
+                        }}
+                    />
+                </View>
+                <View>
+                    <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={specilict} onChangeText={(text) => this.props.filterTextHandler(text, "specilict")} placeholder='Spécialité' />
+                    <FlatList
+                        data = {specilictHint}
+                        keyExtractor = {i=>i[0].id}
+                        renderItem   = {({item})=>{
+                            const i = item[0];
+                            if(i.speciality){
+                                return (<TouchableOpacity style={styles.itemContainer} onPress ={()=>this.props.filterTextHandler(i.speciality, "specilict")}>
+                                    <Text style ={styles.item}>{i.speciality}</Text>
+                                </TouchableOpacity>)
+                            }
+                        }}
+                    />
+                </View>
                 <View style={styles.Picker_View}>
                     <Picker
                         mode='dropdown'
@@ -144,7 +176,21 @@ export default class FilterRdv extends Component {
                         <Picker.Item label="Annulé" value="annule" />
                     </Picker>
                 </View>
-                <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={address} onChangeText={(text) => this.props.filterTextHandler(text, "address")} placeholder='Addressé par' />
+                <View>
+                    <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={address} onChangeText={(text) => this.props.filterTextHandler(text, "address")} placeholder='Addressé par' />
+                    <FlatList
+                        data = {addressHint}
+                        keyExtractor = {i=>i[0].id}
+                        renderItem   = {({item})=>{
+                            const i = item[0];
+                            if(i.adresser_par){
+                                return (<TouchableOpacity style={styles.itemContainer} onPress ={()=>this.props.filterTextHandler(i.adresser_par, "address")}>
+                                    <Text style ={styles.item}>{i.adresser_par}</Text>
+                                </TouchableOpacity>)
+                            }
+                        }}
+                    />
+                </View>
                 
                 {/* <TextInput style={styles.text_input} onChangeText={(text)=> this.props.filterHandler(text, "") } placeholder='Médecin,Centre...' /> */}
                
@@ -240,16 +286,26 @@ const styles = StyleSheet.create({
         },
         elevation: 5,
     },
+    itemContainer:{
+        //position:'absolute',
+        //marginTop:0,
+        borderBottomColor: "black",
+        borderBottomWidth: 1,
+        backgroundColor:"white"
+    },
+    item: {
+        color: 'black',
+        paddingBottom: 3
+    }
 })
-
-
 /*import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableHighlight, TouchableOpacity, Picker } from 'react-native';
+import {  ScrollView,StyleSheet, Text, View, TextInput, TouchableHighlight, TouchableOpacity, Picker } from 'react-native';
 import { WebView } from 'react-native-webview';
 import DatePicker from 'react-native-datepicker';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Ant from 'react-native-vector-icons/AntDesign';
-
+//import { ScrollView } from 'react-native-gesture-handler';
+// ...
 export default class FilterRdv extends Component {
     constructor(props) {
         super(props)
@@ -259,9 +315,9 @@ export default class FilterRdv extends Component {
         }
     }
     render() {
-        const { profess, address, specilict,dateRdv } = this.props.filterFields
+        const { profess, address, specilict,dateRdv, status } = this.props.filterFields
         return (
-            <View style={styles.ctr}>
+            <ScrollView contentContainerStyle={styles.ctr}>
                 <View style={styles.filtrer} >
                     <View style={{ flex: 3 }}>
                         <Text style={{ fontSize: 22, color: 'white' }}> Filtrer</Text>
@@ -316,12 +372,11 @@ export default class FilterRdv extends Component {
                         }}*
                         onDateChange={(dateRdv) => { this.props.filterTextHandler(dateRdv, "dateRdv") }}
                     />
-                    
-                     <TouchableOpacity style={{width:20,marginLeft:50}} onPress ={this.props.resetFilter}>
-                     <Ant color='#95a5a6' size={16} name={'reload1'} style={{}} />
-                     </TouchableOpacity>
+                    <TouchableOpacity style={{width:20,marginLeft:50}} onPress ={this.props.resetFilter}>
+                        <Ant color='#95a5a6' size={16} name={'reload1'} style={{}} />
+                    </TouchableOpacity>
                 </View>
-                 <View style={styles.date_p}>
+                <View style={styles.date_p}>
                     <DatePicker
                         //style={{width: '100%' }}
                         //date={niassance} //initial date from state
@@ -366,49 +421,50 @@ export default class FilterRdv extends Component {
                         }}*
                         onDateChange={(dateRdv) => { this.props.filterTextHandler(dateRdv, "dateRdv") }}
                     />
-                    
-                     <TouchableOpacity style={{width:20,marginLeft:50}} onPress ={this.props.resetFilter}>
-                     <Ant color='#95a5a6' size={16} name={'reload1'} style={{}} />
-                     </TouchableOpacity>
+                    <TouchableOpacity style={{width:20,marginLeft:50}} onPress ={this.props.resetFilter}>
+                        <Ant color='#95a5a6' size={16} name={'reload1'} style={{}} />
+                    </TouchableOpacity>
                 </View>
                 <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={profess} onChangeText={(text) => this.props.filterTextHandler(text, "profess")} placeholder='Rendez-vous avec' />
                 <TextInput  placeholderTextColor='#95a5a6' style={styles.text_input} value={specilict} onChangeText={(text) => this.props.filterTextHandler(text, "specilict")} placeholder='Spécialité' />
-                
-                
-                {/* <TextInput style={styles.text_input} onChangeText={(text)=> this.props.filterHandler(text, "") } placeholder='Médecin,Centre...' /> *}
-                
                 <View style={styles.Picker_View}>
                     <Picker
                         mode='dropdown'
-                        selectedValue={this.state.value}
-                        onValueChange={(itemValue, itemIndex) => { }}
+                        selectedValue={status}
+                        onValueChange={(itemValue, itemIndex) => { this.props.filterTextHandler(itemValue, "status") }}
                         style={{color:'#95a5a6'}}
                     >
                         <Picker.Item label="Sélectionner un statut " value="0" />
-                        <Picker.Item label="Passe" value="1" />
-                        <Picker.Item label="Nouveau" value="2" />
-                        <Picker.Item label="Confirme" value="3" />
-                        <Picker.Item label="a venir" value="4" />
-                        <Picker.Item label="Terminer" value="5" />
-                        <Picker.Item label="en salle d attente" value="6" />
-                        <Picker.Item label="en cours" value="7" />
-                        <Picker.Item label="Abscent excuse" value="8" />
-                        <Picker.Item label="Abscent  non excuse" value="9" />
-                        <Picker.Item label="Annuler" value="10" />
+                        <Picker.Item label="A venir" value="4" />
+                        <Picker.Item label="Terminé" value="passé" />
+                        <Picker.Item label="En salle d'Attente" value="6" />
+                        <Picker.Item label="En cours" value="7" />
+                        <Picker.Item label="Absent excusé" value="8" />
+                        <Picker.Item label="Absent  non excusé" value="9" />
+                        <Picker.Item label="Annulé" value="annule" />
                     </Picker>
                 </View>
                 <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={address} onChangeText={(text) => this.props.filterTextHandler(text, "address")} placeholder='Addressé par' />
-                <TouchableOpacity style={styles.btn} onPress={() => this.props.closeModal()} /*onPress ={this.props.resetFilter}*><Text style={{ color: "white", fontSize: 16, fontWeight: 'bold', alignSelf: 'center', textAlign: 'center' }}>Rechercher</Text></TouchableOpacity>
+                
+                {/* <TextInput style={styles.text_input} onChangeText={(text)=> this.props.filterHandler(text, "") } placeholder='Médecin,Centre...' /> *}
+               
+               
+
+                <TouchableOpacity style={styles.btn} onPress={() => {
+                    this.props.closeModal();
+                    this.props.filterHandlerAction()
+                }} /*onPress ={this.props.resetFilter}*><Text style={{ color: "white", fontSize: 16, fontWeight: 'bold', alignSelf: 'center', textAlign: 'center' }}>Rechercher</Text></TouchableOpacity>
 
 
 
-            </View>
+            </ScrollView>
         );
     }
 }
 const styles = StyleSheet.create({
     ctr: {
-        flex: 1,
+        //flex: 1,
+        marginTop:"5%",
         width: "70%",
         backgroundColor: 'white',
         padding: 10,
@@ -439,7 +495,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#16a085',
         borderRadius: 5,
-        height: 30,
+        height: 35,
         marginVertical: 10,
         shadowColor: "grey",
         shadowOpacity: 0.8,

@@ -72,7 +72,7 @@ class Recap extends React.Component {
           <View style={{ flexDirection: 'row', marginVertical: 3, justifyContent: 'space-between' }}>
             <Text style={{ ...styles.txt, flex: 3 }}>Adresse</Text>
             <Text style={{ ...styles.txt, width: 10 }}>:</Text>
-            <Text style={{ ...styles.txt1, flex: 4 }}>{this.props.type_rdv=='V'?'En Visio':this.props.adresse}</Text>
+            <Text style={{ ...styles.txt1, flex: 4 }}>{this.props.type_rdv=='C'?this.props.adresseC:this.props.adresse}</Text>
           </View>
            :
            <></>

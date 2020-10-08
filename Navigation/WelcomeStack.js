@@ -1,10 +1,9 @@
 import { url1 } from "./GlobalUrl"
 import { url2 } from "./GlobalUrl"
-//put here static data and check is this working
 export function getFilmsFromApiWithSearchedText(text) {
   console.log("SEARCH FILTER CALLED ==============")
   try {
-     fetch(url1) // comment out this line i just comment this line brother nothing else
+     fetch(url1) 
     return fetch(url2+'/searchmob?input=' + text)
       .then((response) => response.json())
       .catch((error) => console.error(error, "INSIDE"))

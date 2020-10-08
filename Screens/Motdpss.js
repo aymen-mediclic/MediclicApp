@@ -8,7 +8,8 @@ export default class Motdpss extends React.Component {
     state = {
         mail: '',
         Error:true,
-        Errormsg:''
+        Errormsg:'',
+        password: ''
       }
       function = () => {
         if (this.state.mail.trim() !=0 ) {
@@ -23,19 +24,38 @@ export default class Motdpss extends React.Component {
           //this.Autho();
         }
       }
+      onChange = password => this.setState({ password })
     render(){
+      const { password } = this.state;
         return(
             <View style={styles.container}>
             <View style={styles.med_ctr}>
             {this.state.Error == false ? (
                     <Text style={styles.error}>{this.state.Errormsg}</Text>
                 ) : null}
-            <Text style={styles.text}>Adresse e-mail</Text>
+            <Text style={styles.text}>Mot de passe</Text>
                 <TextInput style={[styles.text_input]}
-                    placeholder='Adresse e-mail'
+                    placeholder='Mot de passe'
                     autoCapitalize='none'
                     keyboardType='email-address'
-                    onChangeText={(mail) => this.setState({ mail })}
+                   // onChangeText={(mail,password) =>{this.setState({ mail });this.setState({ password });}}
+                   onChangeText={this.onChange}
+                />
+                <View  style={{alignSelf:"center",margin:10}}>
+                <BarPasswordStrengthDisplay
+              password={password}
+              width={280}
+              minLength={1}
+            />
+            
+            </View>
+            <Text style={styles.text}>Confirmer mon mot de passe</Text>
+            <TextInput style={[styles.text_input]}
+                    placeholder='Mot de passe'
+                    autoCapitalize='none'
+                    keyboardType='email-address'
+                   // onChangeText={(mail,password) =>{this.setState({ mail });this.setState({ password });}}
+                   onChangeText={this.onChange}
                 />
                 <TouchableOpacity style={styles.btn} onPress={this.function} >
                     <Text style={{ textAlign: 'center', fontSize: 17, color: 'white'}}>Confirmer</Text>
@@ -44,7 +64,7 @@ export default class Motdpss extends React.Component {
             </View>
         )
     }
-    /* state = {
+    /*state = {
         password: '',
       }
     

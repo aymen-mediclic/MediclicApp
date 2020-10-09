@@ -127,12 +127,13 @@ class ListMed extends React.Component {
 
       .then((response) => response.json())
       .then((res) => {
-
+        //condition pour charger encore les data.cas=null plus de chargement
         if (res.medecin.length) {
           let d = this.state.dataSource;
           let da = this.state.datafiltre;
           this.setState({
             dataSource: d.concat(res.medecin),
+            //nouvelles valeurs de cmp pour lors de pagination ne pas avoir les memes resultats lors des prochains load
             cmp1: res.cmp_from_medecin_calendar,
             cmp2: res.cmp_from_centre_calendar,
             cmp3: res.cmp_from_smart_service,

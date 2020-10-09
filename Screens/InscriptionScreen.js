@@ -37,26 +37,40 @@ export default class InscriptionProf extends React.Component {
             ercolor: '#e74c3c',
             icon: "eye-slash", icon2: "eye-slash",
             password: true, password2: true,
-            modalOpen: false
+            modalOpen: false,
+            token:null
         };
     }
     componentDidMount=()=>{
         //Linking.makeUrl()
-         fetch('http://51.91.249.185:8002/web/signup')
+         fetch('http://51.91.249.185:8002/web/signup?app=1')
     .then((resp) => { return resp.text() })
     .then((text) => {
-      console.log("nnnnnnnnnnnnn",text)
-      let e=typeof(text)
+      //console.log("nnnnnnnnnnnnn",text)
+      const s = text;
+        const result = (s.match(/<\s*input[^>]*name="csrf_token"[^>]*>/g) || []);
+        var e=JSON.stringify(result)
+        //var e=result.toString();
+        //let e= typeof(result)
+        var result1 = (result[0].match(/(\S+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/g) || []);
+        
+        console.log(result1[2],'000');
+        let n=result1[2].replace("value=","")
+        /*let f=n.replace('','')*/
+        console.log(n,'!!!');
+        this.setState({token:n})
+        console.log(this.state.token,'2222!!!222222222222');
+      //let l=parse(text);
+      //let e=typeof(text)
       //let doc = new DomParser().parseFromString(text,'text/html')
+      //const parser = new DOMParser.DOMParser();
+      //const parsed = parser.parseFromString(text, 'text/html');
+      //let doc=parsed.getElementsByAttribute('class', 'nav-item');
        console.log("><<>>>>>!!!!!!!!<<<")
-       console.log(typeof text)
+       //console.log(te)
        //console.log(doc.getElementsByAttribute('class', 'form-group field-name'))
       console.log("><<>>>>><<<")
-      
-      /* let l=parse(text);
-      console.log("nnnnnnnnnnnnn",l)
-      console.log("><<>>>>><<<")*/
-      //console.log(doc.getElementById('form_su').getElementsByTagName('INPUT')[0].value)
+
     })
     .catch((error) => {
       console.error(error);
@@ -103,7 +117,7 @@ export default class InscriptionProf extends React.Component {
         formdata.append('redirect',''),
         formdata.append('token',''),
         formdata.append('appMed',true)
-        formdata.append('csrf_token','1cae8c6a7ed6155bca035d2111110ade1e48bfc3o1602156765')
+        formdata.append('csrf_token',this.state.token)
         console.log('pressed!!!!!!!!!!!',formdata)
         fetch(url1)
         fetch(url2 +'/web/signup', {

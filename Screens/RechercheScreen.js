@@ -1,4 +1,4 @@
-////////////lM39oul/////////////////////////
+///////////////////////////////////// fichier de la page Résultats
 import React from 'react'
 import { View, Text, StyleSheet, FlatList, RefreshControl, TouchableOpacity, TouchableHighlight, ActivityIndicator, KeyboardAvoidingView } from 'react-native'
 import MedItem from '../Components/MedItem'
@@ -33,7 +33,7 @@ class RechercheScreen extends React.Component {
   }
 
   
-
+// fermer le modal des filtres
   CloseModal = () => {
     this.setState({ modalOpen: false })
   }
@@ -48,6 +48,7 @@ class RechercheScreen extends React.Component {
     console.log(" voila AAAAAAAAAAAAAAAAAA",A);
     return (
       <View style={styles.main_container}>
+        {/*modal des filtres, le contenu est dans le custom component Shortcut.on lui fait passer l'ensemnle des array des donnees fetcher dans ListMed.js  */}
         <Modal 
           isVisible    = {this.state.modalOpen}
           animationIn  = "slideInLeft"

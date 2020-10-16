@@ -16,10 +16,10 @@ export default class FilterRdv extends Component {
     }
     render() {
         const {filterFields, specilictHint, addressHint, professHint} = this.props
-        const { profess, address, specilict,dateRdv, status } = filterFields
-        console.log("=================================")
-        console.log(specilictHint)
-        console.log("=================================")
+        const { profess, address, specilict,dateRdv_du, dateRdv_au ,status } = filterFields
+        // console.log("=================================")
+        // console.log(specilictHint)
+        // console.log("=================================")
         return (
             <ScrollView contentContainerStyle={styles.ctr}>
                 <View style={styles.filtrer} >
@@ -37,8 +37,8 @@ export default class FilterRdv extends Component {
                         //date={niassance} //initial date from state
                         mode="date" //The enum of date, datetime and time
                         locale='fr'
-                        placeholder={dateRdv==0?'Date du':dateRdv}
-                        format="DD-MM-YYYY"
+                        placeholder={dateRdv_du==0?'Date du':dateRdv_du}
+                        // format="DD-MM-YYYY"
                         minDate="01-01-1940"
                         // maxDate="01-01-2019"
                         confirmBtnText="Confirmer"
@@ -74,7 +74,7 @@ export default class FilterRdv extends Component {
                                 marginLeft: 36
                             }
                         }}*/
-                        onDateChange={(dateRdv) => { this.props.filterTextHandler(dateRdv, "dateRdv") }}
+                        onDateChange={(dateRdv) => { this.props.filterTextHandler(dateRdv, "dateRdv_du") }}
                     />
                     <TouchableOpacity style={{width:20,marginLeft:50}} onPress ={this.props.resetFilter}>
                         <Ant color='#95a5a6' size={16} name={'reload1'} style={{}} />
@@ -86,8 +86,8 @@ export default class FilterRdv extends Component {
                         //date={niassance} //initial date from state
                         mode="date" //The enum of date, datetime and time
                         locale='fr'
-                        placeholder={dateRdv==0?'Date au':dateRdv}
-                        format="DD-MM-YYYY"
+                        placeholder={dateRdv_au==0?'Date au':dateRdv_au}
+                        // format="DD-MM-YYYY"
                         minDate="01-01-1940"
                         // maxDate="01-01-2019"
                         confirmBtnText="Confirmer"
@@ -112,18 +112,7 @@ export default class FilterRdv extends Component {
                                 color: '#95a5a6'
                             }
                         }}
-                        /*customStyles={{
-                            dateIcon: {
-                                position: 'absolute',
-                                left: 0,
-                                top: 4,
-                                marginLeft: 0
-                            },
-                            dateInput: {
-                                marginLeft: 36
-                            }
-                        }}*/
-                        onDateChange={(dateRdv) => { this.props.filterTextHandler(dateRdv, "dateRdv") }}
+                        onDateChange={(dateRdv) => { this.props.filterTextHandler(dateRdv, "dateRdv_au") }}
                     />
                     <TouchableOpacity style={{width:20,marginLeft:50}} onPress ={this.props.resetFilter}>
                         <Ant color='#95a5a6' size={16} name={'reload1'} style={{}} />
@@ -298,8 +287,10 @@ const styles = StyleSheet.create({
         paddingBottom: 3
     }
 })
+
+
 /*import React, { Component } from 'react';
-import {  ScrollView,StyleSheet, Text, View, TextInput, TouchableHighlight, TouchableOpacity, Picker } from 'react-native';
+import {  ScrollView,StyleSheet, Text, View, TextInput, TouchableHighlight, TouchableOpacity, Picker, FlatList } from 'react-native';
 import { WebView } from 'react-native-webview';
 import DatePicker from 'react-native-datepicker';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -315,7 +306,11 @@ export default class FilterRdv extends Component {
         }
     }
     render() {
-        const { profess, address, specilict,dateRdv, status } = this.props.filterFields
+        const {filterFields, specilictHint, addressHint, professHint} = this.props
+        const { profess, address, specilict,dateRdv, status } = filterFields
+        console.log("=================================")
+        console.log(specilictHint)
+        console.log("=================================")
         return (
             <ScrollView contentContainerStyle={styles.ctr}>
                 <View style={styles.filtrer} >
@@ -425,8 +420,36 @@ export default class FilterRdv extends Component {
                         <Ant color='#95a5a6' size={16} name={'reload1'} style={{}} />
                     </TouchableOpacity>
                 </View>
-                <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={profess} onChangeText={(text) => this.props.filterTextHandler(text, "profess")} placeholder='Rendez-vous avec' />
-                <TextInput  placeholderTextColor='#95a5a6' style={styles.text_input} value={specilict} onChangeText={(text) => this.props.filterTextHandler(text, "specilict")} placeholder='Spécialité' />
+                <View>
+                    <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={profess} onChangeText={(text) => this.props.filterTextHandler(text, "profess")} placeholder='Rendez-vous avec' />
+                    <FlatList
+                        data = {professHint}
+                        keyExtractor = {i=>i[0].id}
+                        renderItem   = {({item})=>{
+                            const i = item[0];
+                            if(i.profess){
+                                return (<TouchableOpacity style={styles.itemContainer} onPress ={()=>this.props.filterTextHandler(i.profess, "profess")}>
+                                    <Text style ={styles.item}>{i.profess}</Text>
+                                </TouchableOpacity>)
+                            }
+                        }}
+                    />
+                </View>
+                <View>
+                    <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={specilict} onChangeText={(text) => this.props.filterTextHandler(text, "specilict")} placeholder='Spécialité' />
+                    <FlatList
+                        data = {specilictHint}
+                        keyExtractor = {i=>i[0].id}
+                        renderItem   = {({item})=>{
+                            const i = item[0];
+                            if(i.speciality){
+                                return (<TouchableOpacity style={styles.itemContainer} onPress ={()=>this.props.filterTextHandler(i.speciality, "specilict")}>
+                                    <Text style ={styles.item}>{i.speciality}</Text>
+                                </TouchableOpacity>)
+                            }
+                        }}
+                    />
+                </View>
                 <View style={styles.Picker_View}>
                     <Picker
                         mode='dropdown'
@@ -444,7 +467,21 @@ export default class FilterRdv extends Component {
                         <Picker.Item label="Annulé" value="annule" />
                     </Picker>
                 </View>
-                <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={address} onChangeText={(text) => this.props.filterTextHandler(text, "address")} placeholder='Addressé par' />
+                <View>
+                    <TextInput placeholderTextColor='#95a5a6' style={styles.text_input} value={address} onChangeText={(text) => this.props.filterTextHandler(text, "address")} placeholder='Addressé par' />
+                    <FlatList
+                        data = {addressHint}
+                        keyExtractor = {i=>i[0].id}
+                        renderItem   = {({item})=>{
+                            const i = item[0];
+                            if(i.adresser_par){
+                                return (<TouchableOpacity style={styles.itemContainer} onPress ={()=>this.props.filterTextHandler(i.adresser_par, "address")}>
+                                    <Text style ={styles.item}>{i.adresser_par}</Text>
+                                </TouchableOpacity>)
+                            }
+                        }}
+                    />
+                </View>
                 
                 {/* <TextInput style={styles.text_input} onChangeText={(text)=> this.props.filterHandler(text, "") } placeholder='Médecin,Centre...' /> *}
                
@@ -540,5 +577,15 @@ const styles = StyleSheet.create({
         },
         elevation: 5,
     },
+    itemContainer:{
+        //position:'absolute',
+        //marginTop:0,
+        borderBottomColor: "black",
+        borderBottomWidth: 1,
+        backgroundColor:"white"
+    },
+    item: {
+        color: 'black',
+        paddingBottom: 3
+    }
 })*/
-

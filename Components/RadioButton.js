@@ -18,13 +18,28 @@ export default class ImagePickerExample extends React.Component {
     prenom:"",
     mail:"",
     tel:"",
-    Adress2:""
+    Adress2:"",
+    id:''
   };}
   componentDidMount() {
-    //let uid =  AsyncStorage.getItem(uid);
-    //console.log('111',uid)
+   this._retrieveData();
+  }
+   _retrieveData = async () => {
+    try {
+      
+      let id = await AsyncStorage.getItem("id");
+     
+
+      if (id !== null) {
+        // We have data!!
+        console.log(id,"1!!");
+        this.setState({id})
+      }
+    } catch (error) {
+        console.log(error);
+    }
     fetch(url1)
-    return fetch(url2+'/api/profil?uid=26&get_proche')
+    return fetch(url2+'/api/profil?uid='+this.state.id+'&get_proche')
       .then((response) => response.json())
       .then((res) => {
         //console.log("!!!test proches",res)
@@ -64,7 +79,7 @@ export default class ImagePickerExample extends React.Component {
 
 
       let bodyData = JSON.stringify({
-          uid: "85",
+          uid:this.state.id,
           'nom':this.state.nom,
           'prenom':this.state.prenom,
           

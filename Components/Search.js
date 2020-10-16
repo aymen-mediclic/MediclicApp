@@ -26,6 +26,7 @@ class Search extends React.Component{
                         try {
                             await AsyncStorage.removeItem("user")
                             await AsyncStorage.removeItem("userInfo")
+                            await AsyncStorage.removeItem("tkn")
                             console.log("LOgout Pres")
                         } catch (error) { console.log(error, "---------ON LOGOUT------------") }
     

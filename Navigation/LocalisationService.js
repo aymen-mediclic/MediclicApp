@@ -1,3 +1,4 @@
+//file des fonction geolocation, necessaire pour map avec la barre autocomplete
 import Geocoder from 'react-native-geocoding';
 
 export const getLocation = () => {

@@ -1,6 +1,6 @@
 ////////////lM39oul/////////////////////////
 import React from 'react'
-import { View, TextInput, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Picker, KeyboardAvoidingView, Alert, CheckBox, Image } from 'react-native'
+import { View, TextInput, StyleSheet, Text, TouchableOpacity, ScrollView,ActivityIndicator, CheckBox, Image } from 'react-native'
 import { Formik } from 'formik';
 import { RadioButton } from 'react-native-paper';
 //import CheckBox from 'react-native-check-box'
@@ -29,7 +29,11 @@ export default class InscriptionProf extends React.Component {
             Mdp_c: '',
             selectedValue: '',
             data: [],
-            d1: [],
+            d1:"",
+            ErrorServ:true,
+            ServBCol:null,
+            ServCol:null,
+            isLoading:false,
             ErrorStatus: true, ErrorStatus1: true, ErrorStatus2: true,
             ErrorStatus3: true, ErrorStatus4: true, ErrorStatus5: true,
             color: 'grey', color1: 'grey', color2: 'grey',
@@ -55,20 +59,16 @@ export default class InscriptionProf extends React.Component {
         var result1 = (result[0].match(/(\S+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/g) || []);
         
         console.log(result1[2],'000');
-        let n=result1[2].replace("value=","")
-        /*let f=n.replace('','')*/
-        console.log(n,'!!!');
-        this.setState({token:n})
+        var n=result1[2].replace("value=","")
+        /*var tkn=""
+        for(var i=1;i<n.length-1;i++){
+            tkn=tkn+n[i]
+        }*/
+        var tkn=n.slice(1,-1)
+        console.log(tkn,'00000ff');
+        this.setState({token:tkn})
         console.log(this.state.token,'2222!!!222222222222');
-      //let l=parse(text);
-      //let e=typeof(text)
-      //let doc = new DomParser().parseFromString(text,'text/html')
-      //const parser = new DOMParser.DOMParser();
-      //const parsed = parser.parseFromString(text, 'text/html');
-      //let doc=parsed.getElementsByAttribute('class', 'nav-item');
        console.log("><<>>>>>!!!!!!!!<<<")
-       //console.log(te)
-       //console.log(doc.getElementsByAttribute('class', 'form-group field-name'))
       console.log("><<>>>>><<<")
 
     })
@@ -99,6 +99,7 @@ export default class InscriptionProf extends React.Component {
              this.setState({ErrorStatus5:false, color5:'#e74c3c',ercolor:'#e74c3c'})
          }*/
         else {
+            this.setState({isLoading:true})
             this.pot()
 
         }
@@ -111,12 +112,12 @@ export default class InscriptionProf extends React.Component {
         formdata.append('nom',"testooo");
         formdata.append('prenom',"testooo"),
         formdata.append('tel',"0762758620"),
-        formdata.append('login',"belefdil.abdelhakim@gmail.com"),
+        formdata.append('login',"aymenl.22@gmail.com"),
         formdata.append('optionsCheckboxes','on'),
         formdata.append('name','TESTOOO Testooo'),
         formdata.append('redirect',''),
         formdata.append('token',''),
-        formdata.append('appMed',true)
+        formdata.append('app',true)
         formdata.append('csrf_token',this.state.token)
         console.log('pressed!!!!!!!!!!!',formdata)
         fetch(url1)
@@ -133,17 +134,27 @@ export default class InscriptionProf extends React.Component {
             .then((res) => {
                 console.log("repooooonse")
                 console.log(res)
+                console.log(res.succes)
                 console.log("*********success***********")
                 this.setState({
-                    d1: res
+                    d1: res.response
                 })
-            }).catch(function(error) {
-
-                console.log('There has been a problem with your fetch operation: ' + error.message);
-                
-                throw error;
-                
-                });
+                this.setState({
+                   ErrorServ:false,isLoading:false
+                })
+                if(res.succes=="true"){
+                    this.setState({
+                        ServBCol:"#b8e994",
+                        ServCol:"#009432"
+                     })
+                }else{
+                    this.setState({
+                        ServBCol:"#f8d7da",
+                        ServCol:"#721c24"
+                     })
+                }
+            
+            }).done();
             
     }
    /* pot = () => {
@@ -431,8 +442,16 @@ export default class InscriptionProf extends React.Component {
                         Veuillez lire et accepter les conditions générales d'utilisation de la plateforme.
                     </Text>
                 ) : null}
-                <TouchableOpacity style={styles.btn} /*onPress={this.function}*/ onPress={this.pot} >
-                    <Text style={{ textAlign:'center',fontWeight:'bold' ,fontSize: 17, color: 'white' }}>S' inscrire</Text>
+                {this.state.ErrorServ == false ? (
+                    <Text style={{...styles.error,backgroundColor:this.state.ServBCol,color:this.state.ServCol}}>{this.state.d1}</Text>
+                ) : null}
+                <TouchableOpacity style={styles.btn} onPress={this.function} /*onPress={this.pot}*/>
+                { this.state.isLoading==false?(
+             <Text style={{ textAlign:'center',fontWeight:'bold' ,fontSize: 17, color: 'white' }}>S' inscrire</Text>
+            ):
+            <ActivityIndicator color="white"  style={{alignSelf:'center'}} />
+            }
+                   
                 </TouchableOpacity>
                 
             </ScrollView>
@@ -572,5 +591,15 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         //borderWidth:1
     },
+    error:{
+        width:'90%',
+        //backgroundColor:'#f8d7da',
+        //color:'#721c24',
+        margin:5,
+        alignSelf:'center',
+        borderRadius:3,
+        padding:15,
+        justifyContent:'center'
+      }
 });
 

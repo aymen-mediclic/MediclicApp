@@ -43,9 +43,9 @@ class RechercheScreen extends React.Component {
 
   render() {
     // let A = this.props.route.params.choice;
-    const {lat,lng,handleRefresh,dataSource,datafiltre, refreshing,loadMoreData, dataFilter,dataFilter1,dataFilter2,dataFilter3,finres} = this.props;
+    const {lat,lng,handleRefresh,dataSource,datafiltre, refreshing,loadMoreData, dataFilter,dataFilter1,dataFilter2,dataFilter3,dataFilter4,finres} = this.props;
     let A= dataSource
-    console.log(" voila AAAAAAAAAAAAAAAAAA",A);
+    //console.log(" voila AAAAAAAAAAAAAAAAAA",A);
     return (
       <View style={styles.main_container}>
         {/*modal des filtres, le contenu est dans le custom component Shortcut.on lui fait passer l'ensemnle des array des donnees fetcher dans ListMed.js  */}
@@ -55,7 +55,7 @@ class RechercheScreen extends React.Component {
           animationOut = "slideOutLeft"
           style        = {{margin: 0}}
         >
-          <ShortCut data={datafiltre} dataFilter={dataFilter} dataFilter1={dataFilter1} dataFilter2={dataFilter2} dataFilter3={dataFilter3} modalClose={this.CloseModal} />
+          <ShortCut data={datafiltre} dataFilter={dataFilter} dataFilter1={dataFilter1} dataFilter2={dataFilter2} dataFilter3={dataFilter3} dataFilter4={dataFilter4} modalClose={this.CloseModal} />
         </Modal>
 
         <Segment style={{ justifyContent:'space-between',backgroundColor: '#1E79C5', height: 45 ,justifyContent:'center'}}>

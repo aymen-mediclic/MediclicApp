@@ -13,7 +13,7 @@ class MapInput extends React.Component {
             <View style = {{flex: (this.state.text.length >= minLength)?1: 1/8}}>
 
                 <GooglePlacesAutocomplete
-                    placeholder='Casablanca, Maroc'
+                    placeholder= {this.props.address?this.props.address:'Casablanca, Maroc'}
                     minLength={minLength} // minimum length of text to search
                     //autoFocus={true}
                     //returnKeyType={'search'} // Can be left out for default return key 

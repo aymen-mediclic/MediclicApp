@@ -69,11 +69,11 @@ class ListMed extends React.Component {
         datafiltre: res,
         refreshing: false,
       })
+      console.log("****ici reponse test");
+      console.log(res.medecin[0].days[0].date_start);
+      //console.log("!!!!!!!!!!!!!!!", this.state.dataSource)
       console.log("****************");
-      //console.log(res.medecin[0].obj);
-      console.log("!!!!!!!!!!!!!!!", this.state.dataSource)
-      console.log("****************");
-      console.log("<<<<<>>>>>>>>>>>>>>>>>>>>>>");
+      console.log("<<<<<>>>>>>>>ici reponse test >>>>>>>>>>>>>>");
       //console.log(res.medecin[0].obj);
       //console.log( this.state.dataFilter)
       console.log(">>>>>>>>>>>>>>>>>>>");
@@ -246,7 +246,9 @@ class ListMed extends React.Component {
   //fonction de l'element changer de position, dans le filtre qui prends le lat lng et location de la nouvelle positon
   dataFilter1 = (loc, lat, lng) => {
 
-
+    this.setState({
+      isLoading: true,
+    })
 
     let selectedValue = this.state.datafiltre.type_calendrier;
     let selectedValue2 = this.state.datafiltre.type_rdv;
@@ -289,7 +291,8 @@ class ListMed extends React.Component {
 
         this.setState({
           dataSource: res.medecin,
-          datafiltre: res
+          datafiltre: res,
+          isLoading: false,
         })
       }).done()
 
@@ -404,7 +407,62 @@ class ListMed extends React.Component {
 
 
   }
-  
+   //fonction changer d'adress cas passage de cab/centre à domicile
+  dataFilter4 = (loc, lat, lng) => {
+
+    this.setState({
+      isLoading: true,
+    })
+
+    let selectedValue = this.state.datafiltre.type_calendrier;
+    let selectedValue2 = 'D';
+    let selectedValue3 = this.state.datafiltre.speciality_param;
+    let selectedValue4 = this.state.datafiltre.service_param;
+    let selectedValue5 = 0;
+    let location = loc;
+    let lngde = lng;
+    let latde = lat;
+
+    fetch(url1)
+    return fetch(url2 + '/api/search' +
+      '?filtres= 1' +
+      '&dispo_date=' + selectedValue5 +
+      '&medecin_name=' + this.state.datafiltre.medecin_name +
+      '&centre_name=' + this.state.datafiltre.centre_name +
+      '&type_calendrier=' + selectedValue +
+      '&type_rdv=' + selectedValue2 +
+      '&speciality=' + selectedValue3 +
+      '&service=' + selectedValue4 +
+      '&medecin_searche_id=' + this.state.datafiltre.medecin_searche_id +
+      '&centre_searche_id=' + this.state.datafiltre.centre_searche_id +
+      '&location=' + location +
+      '&lng=' + lngde +
+      '&lat=' + latde +
+      '&tag=' + this.state.datafiltre.tag_id +
+      '&cmp_from_medecin_calendar=' + this.state.datafiltre.cmp_from_medecin_calendar +
+      '&cmp_from_centre_calendar=' + this.state.datafiltre.cmp_from_centre_calendar +
+      '&cmp_from_smart_service=' + this.state.datafiltre.cmp_from_smart_service +
+      '&is_pagination=0' +
+      '&position_changed=0'
+    )
+
+      .then((response) => response.json())
+      .then((res) => {
+        console.log("repooooonse")
+
+        console.log(res)
+
+
+        this.setState({
+          dataSource: res.medecin,
+          datafiltre: res,
+          isLoading: false,
+        })
+      }).done()
+
+
+
+  }
   
   
   render(){  
@@ -447,6 +505,7 @@ class ListMed extends React.Component {
             dataFilter1   = {this.dataFilter1}
             dataFilter2   = {this.dataFilter2}
             dataFilter3   = {this.dataFilter3}
+            dataFilter4   = {this.dataFilter4}
             lat={lat}
             lng={lng}
           />

@@ -1,3 +1,4 @@
+// component seconde adresse qui s'affiche dans recapitulatif lors d'un rdv à domicile
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, AsyncStorage, KeyboardAvoidingView,TouchableOpacity } from 'react-native'
 import { Button,Input } from 'react-native-elements';

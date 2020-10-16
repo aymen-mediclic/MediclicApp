@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, View, Text, TextInput, StyleSheet, FlatList, Image, TouchableHighlight, TouchableOpacity,ActivityIndicator } from 'react-native'
+import { ScrollView, View, Text, TextInput, StyleSheet, FlatList, Image, AsyncStorage, TouchableOpacity,ActivityIndicator } from 'react-native'
 //import { navigate } from '../../Navigation/NavigationService';
 import * as NavigationService from '../../Navigation/NavigationService';
 import { url1,url2 } from '../../Navigation/GlobalUrl';
@@ -22,10 +22,26 @@ export default function MprochesScreen({ navigation }) {
     const [color2,setColor2] = useState('#dfe4ea')
     const [Error3,setError3] = useState(true)
     const [color3,setColor3] = useState('#dfe4ea')
-
+    const [Id, setId] = useState('')
     useEffect(() => {
+        _retrieveData();
+    }, []);
+    const _retrieveData = async () => {
+        try {
+          
+          let id = await AsyncStorage.getItem("id");
+         
+    
+          if (id !== null) {
+            // We have data!!
+            console.log(id,"1!!");
+            setId(id)
+          }
+        } catch (error) {
+            console.log(error);
+        }
         fetch(url1)
-        return fetch(url2+'/api/profil?uid=126&get_proche')
+        return fetch(url2+'/api/profil?uid=26&get_proche')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")
@@ -34,32 +50,28 @@ export default function MprochesScreen({ navigation }) {
                 setLoading(false)
             })
             .done();
-    }, []);
-
+        }
     const update = () => {
-
-
-
-        let bodyData = JSON.stringify({
-            uid: "126",
-            nom:nom,
-            prenom:prenom,
+        var formdata = new FormData()
             
-            email: mail,
-            tel:tel,
-        })
+        formdata.append('uid',Id),
+        formdata.append('nom',nom)
+        formdata.append('prenom',prenom)
+        formdata.append('email', mail)
+        formdata.append('tel',tel)
+        
 
 
-        console.log(bodyData, "-------------------")
+        console.log(formdata, "-------------------")
 
         fetch(url1)
         fetch(url2+'/api/ajout_proche', {
             method: 'POST',
             headers: {
-                'Accept': 'application/json, text/javascript, */*; q=0.01',
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data'
             },
-            body: bodyData
+            body: formdata
         })
 
             .then((response) => response.json())
@@ -95,7 +107,7 @@ export default function MprochesScreen({ navigation }) {
         }*/
         else{
             setModalVisible(!modalVisible);
-            /*update()*/
+            update()
             
         }
         
@@ -127,7 +139,7 @@ export default function MprochesScreen({ navigation }) {
                     <Text style={{...styles.title1, flex: 3}}>{item.tel?item.tel:"Non renseigné"}</Text>
 
                 </View>
-                <TouchableOpacity onPress={() => NavigationService.navigate('Proche Profil:')} style={{ backgroundColor: '#1E79C5',justifyContent:"center",height:25, width: 80, borderRadius: 5, alignItems: 'center', marginVertical: 5, alignSelf: 'flex-end' }} >
+                <TouchableOpacity onPress={() => NavigationService.navigate('Proche Profil:',{id_p:item.id})} style={{ backgroundColor: '#1E79C5',justifyContent:"center",height:25, width: 80, borderRadius: 5, alignItems: 'center', marginVertical: 5, alignSelf: 'flex-end' }} >
                     <Text style={{ color: 'white',fontWeight:'bold' }}> Voir plus</Text>
                 </TouchableOpacity>
                 
@@ -313,7 +325,7 @@ const styles = StyleSheet.create({
     modalView: {
         marginVertical:'10%',
         backgroundColor: "white",
-        borderRadius: 20,
+        borderRadius:5,
         paddingBottom: 15,
         marginHorizontal: 8,
         //alignItems: "center",
@@ -328,8 +340,8 @@ const styles = StyleSheet.create({
     },
     openButton: {
         backgroundColor: "#F194FF",
-        borderRadius: 10,
-        padding: 10,
+        borderRadius: 3,
+        padding: 5,
         elevation: 2,
         width: 100,
         alignSelf: 'flex-end',

@@ -1,6 +1,6 @@
 // ceci est le fichier de la page de la bar de recherche 
 import React from 'react'
-import { StyleSheet, View, TextInput,SectionList, Text, FlatList, Image, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TextInput,SectionList, Text, FlatList, Image, ActivityIndicator,AsyncStorage, TouchableOpacity } from 'react-native'
 import { getFilmsFromApiWithSearchedText } from '../Navigation/WelcomeStack'
 import Sugg from '../Components/Sugg';
 import { SearchBar } from 'react-native-elements';
@@ -17,9 +17,55 @@ export default class Search extends React.Component {
     this.state = {
       loading: false,
       data: [],
-      searchedText : ""
+      searchedText : "",
+      token:''
     }
   }
+ /* _retrieveData = async () => {
+    try {
+      
+      let id = await AsyncStorage.getItem("id");
+      let tkn = await AsyncStorage.getItem("tkn");
+
+      if (id !== null) {
+        // We have data!!
+        console.log(id,"1!!");
+        
+      }
+      if (tkn !== null){
+        console.log(tkn,"2!!");
+        this.setState({token:tkn})
+      }
+    } catch (error) {
+        console.log(error);
+    }
+  };
+  componentDidMount=async()=>{
+      try {
+        
+        let id = await AsyncStorage.getItem("id");
+        let tkn = await AsyncStorage.getItem("tkn");
+  
+        if (id !== null) {
+          // We have data!!
+          console.log(id,"1!!");
+          
+        }
+        if (tkn !== null){
+          console.log(tkn,"2!!");
+          this.setState({token:tkn})
+        }
+      } catch (error) {
+          console.log(error);
+      }
+   
+    console.log("================!!!!!!!!!!!!");
+    console.log(this.state.token,"!!!!!!!!!!!!");
+    console.log("================!!!!!!!!!!!!");
+    
+    
+  }*/
+ 
 //fonction qui load les suggestions, y a une fonction getFilms imbriqué qui simplement execute le fetch vers la route des données
   loadSugg() {
     if (this.state.searchedText.length != 0) { // Seulement si le texte recherché n'est pas vide

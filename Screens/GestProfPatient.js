@@ -32,6 +32,7 @@ function CustomDrawerContent(props) {
                     try {
                         await AsyncStorage.removeItem("user")
                         await AsyncStorage.removeItem("userInfo")
+                        await AsyncStorage.removeItem("uid")
                         console.log("LOgout Pres")
                     } catch (error) { console.log(error, "---------ON LOGOUT------------") }
 

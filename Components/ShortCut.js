@@ -1,3 +1,4 @@
+// modal des filtres
 import React from 'react'
 import { TouchableOpacity, Text, View, StyleSheet, Button, TextInput, Picker, KeyboardAvoidingView } from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
@@ -18,37 +19,39 @@ export default class ShortCut extends React.Component {
         selectedValue4: this.props.data.service_param,
         selectedValue5: "0"
     };
+    // fonction qui fait passé la valeur de l'item choisi depuis le picker, valable pour tout les picker sauf celui du type de rdv
     functionOne(itemValue, key) {
         this.props.dataFilter(itemValue, key)
+        //ici c'est pour faire apparaite l'objet choisi en premier dans le picker
         this.setState({ selectedValue: itemValue })
         this.props.modalClose()
 
     }
-
+    // fonction pour changer le type de rdv
     functionTwo(itemValue, key) {
         this.setState({ selectedValue2: itemValue })
         //console.log('voila',this.state.selectedValue2)
         if (itemValue == 'D') {
             this.props.modalClose();
-            NavigationService.navigate('Adresse du rendez-vous')
+            NavigationService.navigate('Adresse du rendez-vous', {
+                // ce traitement fait en sorte de passer la fonction datafilter1 au screen changement de ville.
+                dataFilter4: (loc, lat, lng) => this.props.dataFilter4(loc, lat, lng)
+            })
         }
         else {
             this.functionOne(itemValue, key);
         }
     }
-    /*functionTwo(itemValue,key) {
-        this.setState({ selectedValue2: itemValue })
-        console.log('voila',itemValue)
-        this.props.modalClose()
-        NavigationService.navigate('Choisisser votre position')
-    }*/
+    //fonction pour changer la ville
     functionThree() {
         this.props.modalClose()
         NavigationService.navigate('Choisir une ville', {
+            // ce traitement fait en sorte de passer la fonction datafilter1 au screen changement de ville.
             dataFilter1: (loc, lat, lng) => this.props.dataFilter1(loc, lat, lng)
         })
 
     }
+    //fonction pour changer le Professionel meme principe
     functionfour() {
         this.props.modalClose()
         NavigationService.navigate('Choisir un professionnel',{spe:this.state.selectedValue3,serv:this.state.selectedValue4,tag:this.props.data.tag_id,
@@ -57,6 +60,7 @@ export default class ShortCut extends React.Component {
         })
 
     }
+    //fonction pour changer le centre meme principe
     functionfive() {
         this.props.modalClose()
         NavigationService.navigate('Choisir un centre',{spe:this.state.selectedValue3,serv:this.state.selectedValue4,tag:this.props.data.tag_id,
@@ -64,39 +68,6 @@ export default class ShortCut extends React.Component {
             dataFilter3: (name,id) => this.props.dataFilter3(name,id)
         })
 
-    }
-    _Request = () => {
-        //this.setState({ isLoading: true })
-        fetch(url1)
-        return fetch(url2+'/api/search' +
-            '?filtres= 1' +
-            '&dispo_date=' + this.state.selectedValue5 +
-            '&medecin_name=' + this.props.data.medecin_name +
-            '&centre_name=' + this.props.data.centre_name +
-            '&type_calendrier=' + this.state.selectedValue +
-            '&type_rdv=' + this.state.selectedValue2 +
-            '&speciality=' + this.state.selectedValue3 +
-            '&service=' + this.state.selectedValue4 +
-            '&medecin_searche_id=' + this.props.data.medecin_searche_id +
-            '&centre_searche_id=' + this.props.data.centre_searche_id +
-            '&location=' + this.props.data.location +
-            '&lng=' + this.props.data.lng +
-            '&lat=' + this.props.data.lat +
-            '&tag=' + this.props.data.tag_id +
-            '&cmp_from_medecin_calendar=' + this.props.data.cmp_from_medecin_calendar +
-            '&cmp_from_centre_calendar=' + this.props.data.cmp_from_centre_calendar +
-            '&cmp_from_smart_service=' + this.props.data.cmp_from_smart_service +
-            '&is_pagination=0' +
-            '&position_changed=0'
-
-        )
-
-            .then((response) => response.json())
-            .then((res) => {
-               // console.log("repooooonse")
-                //console.log(res)
-            })
-            .done();
     }
     render() {
         //console.log("gggg")
@@ -218,7 +189,10 @@ export default class ShortCut extends React.Component {
                 </Picker>
                 </View>
                     {this.state.selectedValue2=='D'?
-            <TouchableOpacity style={styles.btn1} onPress={() => {this.props.modalClose();NavigationService.navigate('Choisisser votre position')}} >
+            <TouchableOpacity style={styles.btn1} onPress={() => {this.props.modalClose();NavigationService.navigate('Adresse du rendez-vous', {
+                // ce traitement fait en sorte de passer la fonction datafilter1 au screen changement de ville.
+                dataFilter4: (loc, lat, lng) => this.props.dataFilter4(loc, lat, lng)
+            })}} >
             
             <Text style={styles.fabIcon}>Modifier l'adresse du rdv</Text>
           </TouchableOpacity>

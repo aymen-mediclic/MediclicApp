@@ -45,7 +45,7 @@ class MedItem extends React.Component {
                             } */
     componentDidMount() {
         const input = this.props.Med.days;
-        console.log(this.props.lat,'Hadi latttttt')
+       // console.log(this.props.lat,'Hadi latttttt')
         const group = input.reduce((acc, item) => {
             let date = moment(item.date_start).format('MM/DD/YYYY');
 

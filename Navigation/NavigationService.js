@@ -1,4 +1,4 @@
-
+//fonction pour naviguer entre les stack screen
 import * as React from 'react';
 
 

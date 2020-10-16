@@ -17,11 +17,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const Drawer = createDrawerNavigator();
 
-export default function GProcheProfil() {
+export default function GProcheProfil({route,props}) {
+    const {id_p}=route.params;
+    console.log(id_p,'voila') 
     return (
 
-        <Drawer.Navigator initialRouteName="Home">
-            <Drawer.Screen name="Mon profil" component={Pprofil} options={{ drawerLabel: 'Mon profil', drawerIcon: ({ focused, color, size }) => (<Feather color={color} size={20} name={'user'} />) }} />
+        <Drawer.Navigator initialRouteName="Home" {...props}>
+            <Drawer.Screen  {...props} name="Mon profil" component={()=><Pprofil id_p={"1"}/>} options={{ drawerLabel: 'Mon profil', drawerIcon: ({ focused, color, size }) => (<Feather color={color} size={20} name={'user'} />) }} />
             <Drawer.Screen name="Mes RDV" component={Prdv} options={{ drawerIcon: ({ focused, color, size }) => (<Feather color={color} size={20} name={'calendar'} />) }} />
             <Drawer.Screen name="Mes documents" component={FprocheScreen} options={{ drawerIcon: ({ focused, color, size }) => (<EntypoI color={color} size={20} name={'text-document'} />) }} />
             

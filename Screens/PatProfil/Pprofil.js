@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import { View, TextInput, ActivityIndicator, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Modal, _ScrollView } from 'react-native'
+import { View, TextInput, Button, StyleSheet, Text, Alert, TouchableOpacity, ScrollView, AsyncStorage, checkedIcon, Modal, ActivityIndicator } from 'react-native'
 import DatePicker from 'react-native-datepicker';
 import { RadioButton } from 'react-native-paper';
+import moment from 'moment';
+import 'moment/locale/fr'
+import * as NavigationService from '../../Navigation/NavigationService';
 import { url1, url2 } from '../../Navigation/GlobalUrl';
 import * as Progress from 'react-native-progress';
 import { Tooltip } from 'react-native-elements';
-export default function Pprofil({ navigation }) {
+moment.locale('fr')
+export default function Mprofil(navigation, route, props) {
     const [modalVisible, setModalVisible] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [Data, setData] = useState([]);
-
     const [civility, setCivility] = useState("")
     const [niassance, setNiassance] = useState("")
-    const [nom, setNom] = useState(Data.nom)
-    const [cin, setCin] = useState(Data.cin)
-    const [preNom, setPreNom] = useState(Data.prenom)
-    const [mutuelle, setMutuelle] = useState(Data.mutuelle)
+    const [nom, setNom] = useState(Data.nom)                 //osama somy
+    const [cin, setCin] = useState(Data.cin) //osama somy
+    const [preNom, setPreNom] = useState(Data.prenom) //osama somy
+    const [mutuelle, setMutuelle] = useState(Data.mutuelle) //osama somy
     const [nmutuelle, setNmutuelle] = useState(Data.nom_mutuelle)
-    const [adresse, setAdresse] = useState(Data.adress)
-    const [ville, setVille] = useState(Data.ville)
-    const [tel, setTel] = useState(Data.tel)
-    const [loading, setLoading] = useState(true);
+    const [adresse, setAdresse] = useState(Data.adress) //osama somy
+    const [ville, setVille] = useState(Data.ville) //osama somy
+    const [tel, setTel] = useState(Data.tel) //osama somy
     const [Error, setError] = useState(true)
     const [color, setColor] = useState('#dfe4ea')
     const [Error1, setError1] = useState(true)
@@ -32,60 +35,83 @@ export default function Pprofil({ navigation }) {
     const [color4, setColor4] = useState('#dfe4ea')
     const [Error5, setError5] = useState(true)
     const [color5, setColor5] = useState('#dfe4ea')
+    const [Id, setId] = useState('')
+    //const {id_p}=props
     useEffect(() => {
+        _retrieveData();
+        
+    }, []);
+
+    const _retrieveData = async () => {
+        
+        //console.log(id_p,'voila') 
+        try {
+          
+          let id = await AsyncStorage.getItem("id");
+         
+    
+          if (id !== null) {
+            // We have data!!
+            console.log(id,"1!!");
+            setId(id)
+          }
+        } catch (error) {
+            console.log(error);
+        }
         fetch(url1)
-        return fetch(url2 + '/api/profil_proche?uid=126&get_profil&proche=72')
+        return fetch(url2 + '/api/profil_proche?uid=26&get_profil&proche=7')
             .then((response) => response.json())
             .then((res) => {
                 console.log("repooooonse")
-                console.log(res)
-                setData(res)
-                setLoading(false)
-                setNom(res.nom) // OSAMA SOMY
-                setCin(res.cin) // OSAMA SOMY
-                setPreNom(res.prenom) // OSAMA SOMY
-                setMutuelle(res.mutuelle) // OSAMA SOMY
-                setNmutuelle(res.nom_mutuelle)
-                setAdresse(res.adress) // OSAMA SOMY
-                setVille(res.ville) // OSAMA SOMY
-                setNiassance(res.date_naissance)
-                setTel(res.tel) // OSAMA SOMY
-                setCivility(res.civilite) //
+                // console.log(res.nom)
 
+                //AsyncStorage.setItem("userInfo", JSON.stringify(res))
+
+                setData(res)              //
+                console.log(res, "--------------------")
+                
+                setNom(res.nom) // 
+                setCin(res.cin) // 
+                setPreNom(res.prenom) //
+                setMutuelle(res.mutuelle) // 
+                setNmutuelle(res.nom_mutuelle) 
+                setAdresse(res.adress) // 
+                setVille(res.ville) // 
+                setNiassance(res.date_naissance)
+                setTel(res.tel) // 
+                setCivility(res.civilite) // 
+                setLoading(false) // 
+                
             })
             .done();
-    }, []);
-
+      }
     const update = () => {
 
-
-
-        let bodyData = JSON.stringify({
-            uid: "126",
-            uid_p: "72",
-            adresse: adresse,
-            Num_CIN: cin,
-            nom: nom,
-            prenom: preNom,
-            date_nais: niassance,
-            civilite: civility,
-            Num_mut: mutuelle,
-            Nom_mut: nmutuelle,
-            ville: ville,
-            tel: tel
-        })
-
-
-        console.log(bodyData, "-------------------")
+        var formdata = new FormData()
+        
+        formdata.append('uid','7' ),
+        formdata.append('uid_p', '7'),
+        formdata.append('adresse', adresse)
+        formdata.append(    'Num_CIN', cin)
+            formdata.append( '  nom', nom)
+                formdata.append(    'prenom',preNom)
+                    formdata.append(  'date_nais', niassance)
+                        formdata.append(  'civilite', civility)
+                            formdata.append(  'Num_mut', mutuelle)
+                                formdata.append(  'Nom_mut',nmutuelle)
+                                    formdata.append( 'ville', ville)
+                                        formdata.append( 'tel',tel)
+       
+        console.log(formdata, "-------------------")
 
         fetch(url1)
         fetch(url2 + '/api/update_proche', {
             method: 'POST',
             headers: {
-                'Accept': 'application/json, text/javascript, */*; q=0.01',
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data'
             },
-            body: bodyData
+            body: formdata
         })
 
             .then((response) => response.json())
@@ -93,19 +119,19 @@ export default function Pprofil({ navigation }) {
                 console.log("repooooonse")
                 console.log("==========AMA=========")
                 console.log(res)
-                let _data = { ...Data }
-
-                _data.adresse = adresse,
-                    _data.Num_CIN = cin,
-                    _data.nom = nom,
-                    _data.prenom = preNom,
-                    _data.date_naissance = niassance,
-                    _data.civilite = civility,
-                    _data.Num_mut = mutuelle,
-                    _data.mut = nmutuelle,
-                    _data.ville = ville,
-                    _data.tel = tel
-
+                let _data = {...Data}
+                
+                _data.adresse   = adresse,
+                _data.Num_CIN   = cin,
+                _data.nom       = nom,
+                _data.prenom    = preNom,
+                _data.date_naissance = niassance,
+                _data.civilite  = civility,
+                _data.Num_mut   = mutuelle,
+                _data.mut   = nmutuelle,
+                _data.ville     = ville,
+                _data.tel       = tel
+                
                 setData(_data)
 
                 console.log("*********success***********")
@@ -117,7 +143,7 @@ export default function Pprofil({ navigation }) {
         if (loading) {
             //Loading View while data is loading
             return (
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ flex: 1,height:'100%', alignItems: 'center', justifyContent: 'center',alignSelf:'center' }}>
                     <ActivityIndicator size="large" color="#1E79C5" />
 
                 </View>
@@ -125,18 +151,15 @@ export default function Pprofil({ navigation }) {
         }
     }
     const checkError = () => {
-        if(tel == ''&&preNom == ''&&nom == ''){
-            setError2(false), setColor2('red')
-            setError1(false), setColor1('red')
-            setError(false), setColor('red')
-        }else if (preNom == '') {
-            setError1(false), setColor1('red'), setError(true), setColor('#2ecc71')
-        }else if(tel == ''){
-            setError2(false), setColor2('red'),setError1(true),setColor1('#2ecc71')
-        }else  if (nom == '') {
+        if (nom == '') {
             setError(false), setColor('red')
         
         }
+         if (preNom == '') {
+            setError1(false), setColor1('red')
+        }if(tel == ''){
+            setError2(false), setColor2('red')
+        } 
         else {
             update()
 
@@ -144,7 +167,12 @@ export default function Pprofil({ navigation }) {
 
 
     }
+    let t=/^((06)|(07))[0-9]{8}$/;
+   let Capitalize=(str)=>{
+        return str.charAt(0).toUpperCase() + str.slice(1);
+        }
     return (
+        
         <ScrollView contentContainerStyle={{ backgroundColor: 'white' }} >
             {displayLoading()}
             <Modal
@@ -184,7 +212,14 @@ export default function Pprofil({ navigation }) {
                             style={{ ...styles.text_input, borderColor: color }}
                             placeholder="Nom (de naissance)"
                             value={nom} //osama somy
-                            onChangeText={(nom) => setNom(nom)} />
+                            onChangeText={(nom) =>  {
+                                if (nom.trim() != 0) {
+                                    setNom(nom),setError(true), setColor('#2ecc71')
+                                } else {
+                                    setNom(nom) ,setError(false), setColor('red')
+                                    
+                                }
+                            }} />
 
 
 
@@ -199,10 +234,15 @@ export default function Pprofil({ navigation }) {
                             style={{ ...styles.text_input, borderColor: color1 }}
                             placeholder="Prénom"
                             value={preNom} //osama somy
-                            onChangeText={(preNom) =>
-                                setPreNom(preNom)
+                            onChangeText={(preNom) =>{
+                                if (preNom.trim() != 0) {
+                                    setPreNom(preNom),setError1(true), setColor1('#2ecc71')
+                                } else {
+                                    setPreNom(preNom) ,setError1(false), setColor1('red')
+                                    
+                                }
 
-                            }
+                            }}
                         />
 
                         {Error1 == false ? (
@@ -263,7 +303,7 @@ export default function Pprofil({ navigation }) {
                                     marginLeft: 36
                                 }
                             }}*/
-                            onDateChange={(niassance) => { setNiassance(niassance);console.log(niassance,"sdfdkjfnjkgdkg!!!!!") }}
+                            onDateChange={(niassance) => { setNiassance(niassance);console.log('datata',niassance) }}
                         />
                         <Text style={styles.text}>N° Téléphone :</Text>
                         <TextInput
@@ -312,7 +352,7 @@ export default function Pprofil({ navigation }) {
                         />
                         <Text style={styles.text}>N° CIN :</Text>
                         <TextInput
-                            style={{ ...styles.text_input, borderColor: color2 }}
+                            style={{ ...styles.text_input, borderColor: color2,marginBottom:10 }}
                             placeholder="N° CIN"
                             value={cin} //osama somy
                             onChangeText={(cin) => setCin(cin)}
@@ -323,12 +363,12 @@ export default function Pprofil({ navigation }) {
                     </ScrollView>
                     <View style={{ flexDirection: 'row', justifyContent: "flex-end", justifyContent: "space-between", backgroundColor: '#ecf0f1' }}>
                         <TouchableOpacity
-                            style={{ ...styles.openButton, backgroundColor: "#1E79C5", width: 150, height: 30, margin: 5, justifyContent: 'center' }}
+                            style={{ ...styles.openButton, backgroundColor: "orange", width: 150, height: 30, margin: 5, justifyContent: 'center' }}
                             onPress={() => {
                                 setModalVisible(!modalVisible);
                             }}
                         >
-                            <Text style={styles.textStyle}>Fermer</Text>
+                            <Text style={styles.textStyle}>Annuler</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={{ ...styles.openButton, backgroundColor: "#1E79C5", width: 150, height: 30, margin: 5, justifyContent: 'center' }}
@@ -342,16 +382,17 @@ export default function Pprofil({ navigation }) {
             </Modal>
             {Data.length != 0 && (
                 <View>
-                    <View style={{ flexDirection: 'row', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', margin: 5, marginRight: 15, marginTop: 15 }}>
-                        <Text style={{ color: 'orange', fontSize: 17, fontWeight: 'bold', marginRight: 5 }}>Modifier mon profil </Text>
-                        <TouchableOpacity style={styles.btn}
+                    
+                        <TouchableOpacity style={{flexDirection: 'row', alignSelf: 'flex-end', alignItems: 'center', margin: 5, marginRight: 15, marginTop: 15 }}
                             onPress={() => {
                                 setModalVisible(true);
                             }}>
-
-                            <Text style={{ color: 'white', fontSize: 25, alignSelf: 'center' }}>+</Text>
+                                <Text style={{ color: 'orange', fontSize: 17, fontWeight: 'bold', marginRight: 5 }}>Modifier mon profil </Text>
+                                <View style={{backgroundColor:'orange',padding:5,width:30,height:30,borderRadius:30/2,alignItems:'center',justifyContent:'center'}}>
+                            <Text style={{ color: 'white', fontSize: 25 }}>+</Text>
+                            </View>
                         </TouchableOpacity>
-                    </View>
+                
 
 
                     <View style={styles.ctr} >
@@ -383,65 +424,65 @@ export default function Pprofil({ navigation }) {
                             <View style={styles.ctr} >
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Nom (de naissance)</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}>{Data.nom}</Text>
+                                    <Text style={{ ...styles.textA,  width:10}}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.nom.toUpperCase()}</Text>
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Prénom</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}>{Data.prenom}</Text>
+                                    <Text style={{ ...styles.textA,  width:10}}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Capitalize(Data.prenom)}</Text>
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Date de naissance</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}>{Data.date_naissance}</Text>
+                                    <Text style={{ ...styles.textA,  width:10 }}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.date_naissance?Data.date_naissance:"Non renseigné"}</Text>
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Civilité</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}>{Data.civilite}</Text>
+                                    <Text style={{ ...styles.textA,  width:10}}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.civilite?Data.civilite:"Non renseigné"}</Text>
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>N° Téléphone</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}> {Data.tel}</Text>
+                                    <Text style={{ ...styles.textA,  width:10 }}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.tel?Data.tel:"Non renseigné"}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>E-mail</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}> {Data.email}</Text>
+                                    <Text style={{ ...styles.textA, width:10 }}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.email?Data.email:"Non renseigné"}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Adresse</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}> {Data.adress}</Text>
+                                    <Text style={{ ...styles.textA,  width:10}}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.adress?Data.adress:"Non renseigné"}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Ville</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}> {Data.ville}</Text>
+                                    <Text style={{ ...styles.textA,  width:10 }}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.ville?Data.ville:"Non renseigné"}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>Mutuelle</Text>
-                                    <Text style={{ ...styles.textA, flex: 1}}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3}}> {Data.nom_mutuelle}</Text>
+                                    <Text style={{ ...styles.textA,  width:10}}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4}}>{Data.nom_mutuelle?Data.nom_mutuelle:"Non renseigné"}</Text>
 
                                 </View>
 
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>N° Mutuelle</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}> {Data.mutuelle}</Text>
+                                    <Text style={{ ...styles.textA,  width:10}}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.mutuelle?Data.mutuelle:"Non renseigné"}</Text>
 
                                 </View>
                                 <View style={styles.main_container}>
                                     <Text style={{ ...styles.textA, flex: 3 }}>N° CIN</Text>
-                                    <Text style={{ ...styles.textA, flex: 1 }}>:</Text>
-                                    <Text style={{ ...styles.textB, flex: 3 }}>{Data.cin}</Text>
+                                    <Text style={{ ...styles.textA,  width:10 }}>:</Text>
+                                    <Text style={{ ...styles.textB, flex: 4 }}>{Data.cin?Data.cin:"Non renseigné"}</Text>
                                 </View>
                             </View>
                 </View>
@@ -452,8 +493,8 @@ export default function Pprofil({ navigation }) {
 const styles = StyleSheet.create({
     main_container: {
         flexDirection: 'row',
-        marginBottom: 30,
-        marginTop: 10,
+        //marginBottom: 30,
+        margin: 1,
         justifyContent: "center",
         padding: 10,
         
@@ -481,15 +522,15 @@ const styles = StyleSheet.create({
     text: {
                         margin: 5,
         marginLeft: 20,
-        marginBottom:'2%',
-        marginTop:'5%',
+        //marginBottom:'2%',
+        //marginTop:'5%',
         fontWeight: 'bold',
         fontSize: 16,
         color: '#2c3e50',
         justifyContent: "center",
     },
     textA: {
-        margin: 5,
+        //margin: 5,
 
 fontWeight: 'bold',
 fontSize: 16,
@@ -512,7 +553,7 @@ justifyContent: "center",
         height: 30,
         //alignSelf: 'flex-end',
         //marginRight: 10,
-        //marginBottom: 10,
+        //marginBottom: 10,flexDirection: 'row', alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', margin: 5, marginRight: 15, marginTop: 15 
         //marginTop: 10,
         justifyContent: 'center',
         alignItems: 'center',

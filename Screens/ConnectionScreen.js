@@ -1,3 +1,4 @@
+// fichier d'authentification
 import React from 'react';
 import { View, Text,ScrollView, StyleSheet,ActivityIndicator ,TextInput,Linking ,AsyncStorage, TouchableOpacity, KeyboardAvoidingView, Modal,Alert } from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
@@ -160,7 +161,7 @@ class ConnectionScreen extends React.Component {
     console.log(this.state)
     try {
       // in my laptop its login but then its show other errors  basically the problem is with the first url
-      // fetch(url1)
+      //fetch(url1)
       fetch(url2+'/api/auth/token?login=' + this.state.login + '&password=' + this.state.password + '&db=test_3')
         .then((response) => response.json())
         .then(async (res) => {
@@ -169,13 +170,14 @@ class ConnectionScreen extends React.Component {
           console.log("*********success***********")
           console.log(res.uid)
           console.log("*********laloli**********")
-          //changes here
+          
           if (res.user_context) {
             if (res.etat[0] == 'patient') {
               console.log("user login now -------------------")
               await AsyncStorage.setItem('user', JSON.stringify(res));
-              await AsyncStorage.setItem('uid', JSON.stringify(res.uid));
-              this.props.navigation.replace('Mon Profil:', { id: res.uid });
+              await AsyncStorage.setItem('id', JSON.stringify(res.uid));
+              await AsyncStorage.setItem('tkn', JSON.stringify(res.access_token));
+              this.props.navigation.replace('Mon Profil:'/*, { id: res.uid,tkn:res.access_token }*/);
             }
             else {
               alert("ss")
@@ -192,21 +194,6 @@ class ConnectionScreen extends React.Component {
     } catch (error) {
       console.log(error)
     }
-  }
-
-
-  kaka = () => {
-
-    fetch(url1)
-    return fetch(url2 + '/api/get_speciality')
-      .then((response) => response.json())
-      .then((res) => {
-        console.log("repooooonse")
-        console.log(res)
-        console.log("*********success***********")
-
-      })
-      .done();
   }
 }
 

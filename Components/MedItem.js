@@ -69,6 +69,7 @@ class MedItem extends React.Component {
     CloseModal = () => {
         this.setState({ modalOpen1: false })
     }
+    // Majiscule de la premiere lettre du jour des times slots
      Capitalize=(str)=>{
         return str.charAt(0).toUpperCase() + str.slice(1);
         }

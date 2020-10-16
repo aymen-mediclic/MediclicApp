@@ -1,7 +1,7 @@
+//chnagement Profess ddepuis filtre
 import React from 'react'
 import { StyleSheet, View, TextInput, Button, Text, FlatList, Image, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { getFilmsFromApiWithSearchedText } from '../Navigation/WelcomeStack'
-import Sugg from '../Components/Sugg';
 import { SearchBar } from 'react-native-elements';
 import Highlighter from 'react-native-highlight-words';
 import * as NavigationService from '../Navigation/NavigationService';

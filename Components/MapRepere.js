@@ -1,8 +1,9 @@
+// Marker des medecins sur la map, voir documentation map Expo
 import React from 'react';
 import MapView, { Marker, Callout } from 'react-native-maps';
 
 import { StyleSheet, Text, View, Dimensions,Image,TouchableOpacity  } from 'react-native';
-
+import * as NavigationService from '../Navigation/NavigationService';
 //import { Image } from 'native-base';
 
 export default class App extends React.Component {
@@ -49,7 +50,7 @@ export default class App extends React.Component {
                             dataSource.map((m, key) => {
                                     return <Marker  pinColor={"orange"} key={key} coordinate={{ latitude: m.obj.latitude_obj, longitude: m.obj.longitude_obj}} /*image={require('../assets/marker.png')}*/ >
                                     <Callout style={{borderRadius:10}}>
-                                        <TouchableOpacity style={{flexDirection:'row',borderRadius:5}}>
+                                        <TouchableOpacity style={{flexDirection:'row',borderRadius:5}} onPress={()=>NavigationService.navigate('Disponibilités', { "Med": this.state.data, location: this.props.dataFilter.location, type_rdv: this.props.dataFilter.type_rdv, Name: m.obj.name })} >
                                         <Image style={{width:80,height:80,borderRadius:80/2,alignSelf:'center',marginRight:10}} source={require('../assets/1.jpg')} />
                                         <View style={{borderRadius:5}}>
                                         <Text style={{fontWeight:'bold',alignSelf:'center'}}>{m.obj.name} </Text>

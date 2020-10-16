@@ -13,7 +13,7 @@ const tab = createMaterialTopTabNavigator();
 class PlanScreen extends React.Component {
     render(){
       // dataSource le Array depuis le fichier json Fetcher qui contient le objets de chaque médecin(nom,prénom...)
-      const {dataSource} = this.props
+      const {dataSource,datafiltre} = this.props
      
      /* console.log("******* PLAN SCREEN *********");
       console.log(dataSource[0].obj);
@@ -23,7 +23,7 @@ class PlanScreen extends React.Component {
 
       return (
         <View style={styles.container}>
-           <MapR dataSource={dataSource} />          
+           <MapR dataSource={dataSource} dataFilter={datafiltre} />          
         </View>
       );
     }
@@ -491,6 +491,7 @@ class ListMed extends React.Component {
           (this.state.activeTab == "Plan")?
           <PlanScreen
             dataSource    = {this.state.dataSource}
+            datafiltre    = {this.state.datafiltre}
           />
           : 
           <RechercheScreen

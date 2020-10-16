@@ -2,7 +2,6 @@
 import React from 'react'
 import { StyleSheet, View, TextInput,SectionList, Text, FlatList, Image, ActivityIndicator,AsyncStorage, TouchableOpacity } from 'react-native'
 import { getFilmsFromApiWithSearchedText } from '../Navigation/WelcomeStack'
-import Sugg from '../Components/Sugg';
 import { SearchBar } from 'react-native-elements';
 import Highlighter from 'react-native-highlight-words';
 import * as NavigationService from '../Navigation/NavigationService';
@@ -67,11 +66,11 @@ export default class Search extends React.Component {
   }*/
  
 //fonction qui load les suggestions, y a une fonction getFilms imbriqué qui simplement execute le fetch vers la route des données
-  loadSugg() {
-    if (this.state.searchedText.length != 0) { // Seulement si le texte recherché n'est pas vide
+  loadSugg(text) {
+    if (text.length != 0) { // Seulement si le texte recherché n'est pas vide
       this.setState({ loading: true })
       //click droit et aller a definition pour mieux la voir
-      getFilmsFromApiWithSearchedText(this.state.searchedText)
+      getFilmsFromApiWithSearchedText(text)
 
         .then(response => {
           console.log('*************************')
@@ -92,7 +91,7 @@ export default class Search extends React.Component {
   _searchTextInputChanged(text) {
     this.setState({searchedText: text}) 
    // this.searchedText= text;
-    this.loadSugg();
+    this.loadSugg(text);
   }
   // fontion separation entre chaque bloque de la flatlist
   renderSeparator = () => {

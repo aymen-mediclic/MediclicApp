@@ -1,3 +1,4 @@
+//composant liste des assistant+ map pour les  adresses.
 import React from 'react'
 import { TouchableOpacity, Text, View, StyleSheet, ActivityIndicator, ScrollView, Image } from 'react-native'
 import * as NavigationService from '../Navigation/NavigationService';
@@ -22,6 +23,7 @@ export default class InfirmierL extends React.Component {
             lati:'33.57737410000001'
         }
     }
+    //
     componentDidMount() {
         fetch(url1)
        /* return fetch(url2 + '/rdv/auto' + '?lng=' + this.props.route.params.lng + '&lat=' + this.props.route.params.lat
@@ -60,6 +62,7 @@ export default class InfirmierL extends React.Component {
             })
             .done();
     }
+    // fct apres séléction d'un infirmier depuis la liste,
     Redirection = () => {
         NavigationService.navigate('Validez votre rendez-vous',
             {
@@ -82,6 +85,7 @@ export default class InfirmierL extends React.Component {
                 assistant:this.state.assistant
             })
     }
+    // cette fonction prend le lat et lng depuis le repere pour afficher la liste des infirmiers dans celui ci
     infirmier_coord= (cor1,cor2) => {
         this.setState({lngi:cor1,lati:cor2})
         this.setState({
@@ -127,7 +131,7 @@ export default class InfirmierL extends React.Component {
             );
         }
     }
-
+//Affichage
     render() {
         function getImageFromApi(name) {
             return url2 + '/web/image?model=oeh.medical.physician&id=' + name + '&field=image'

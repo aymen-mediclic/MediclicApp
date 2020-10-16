@@ -4,7 +4,6 @@ import { View, Text, StyleSheet, FlatList, RefreshControl, TouchableOpacity, Tou
 import MedItem from '../Components/MedItem'
 import { fetchLien } from '../Navigation/WelcomeStack'
 import { MaterialIcons } from '@expo/vector-icons'
-import Filter from '../Components/Filter'
 import { Header, Button, Segment, Content } from 'native-base';
 import ShortCut from '../Components/ShortCut'
 import Fontisto from 'react-native-vector-icons/Fontisto';

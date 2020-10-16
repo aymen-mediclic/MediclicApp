@@ -1,3 +1,4 @@
+// page choix du type de consultation
 import React, { Component } from 'react';
 import {  View, StyleSheet,TouchableOpacity } from 'react-native';
 import { Container, Header, Content, ListItem, Text, Radio, Right, Left } from 'native-base';

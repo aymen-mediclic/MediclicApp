@@ -1,4 +1,4 @@
-// tel patient generer+ update
+// composant dans 1ere etape confirmation rdv, choix pour vour ou ou pour un proche
 import * as React from 'react';
 import { View, Picker, TextInput, StyleSheet, TouchableOpacity, ScrollView,AsyncStorage } from 'react-native';
 import { RadioButton, Text } from 'react-native-paper';
@@ -63,6 +63,7 @@ export default class ImagePickerExample extends React.Component {
       })
       .done();
   }
+  //fction qui prend les infos du proche depuis Async storage pour les mettre dans recapitulatif au cas du récap
   getProcheInfo = async (itemValue,itemIndex) => {
     this.setState({ selectedValue: itemValue });
     //await AsyncStorage.removeItem("userInfo");
@@ -74,30 +75,30 @@ export default class ImagePickerExample extends React.Component {
     let { value } = this.state;
     //console.log("nooum",this.state.selectedValue)
     //console.log(this.state.data);
+    
+    
+    //ajout d'un proche
     const update = () => {
-
-
-
-      let bodyData = JSON.stringify({
-          uid:this.state.id,
-          'nom':this.state.nom,
-          'prenom':this.state.prenom,
+      var formdata = new FormData()
           
-          'email': this.state.mail,
-          'tel':this.state.tel,
-      })
+      formdata.append('uid',this.state.id),
+      formdata.append('nom',this.state.nom)
+      formdata.append('prenom',this.state.prenom)
+      formdata.append('email', this.state.mail)
+      formdata.append('tel',this.state.tel)
+      
 
 
-     // console.log(bodyData, "-------------------")
+      console.log(formdata, "-------------------")
 
       fetch(url1)
       fetch(url2+'/api/ajout_proche', {
           method: 'POST',
           headers: {
-              'Accept': 'application/json, text/javascript, */*; q=0.01',
-              'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+              'Accept': 'application/json',
+              'Content-Type': 'multipart/form-data'
           },
-          body: bodyData
+          body: formdata
       })
 
           .then((response) => response.json())
@@ -105,11 +106,13 @@ export default class ImagePickerExample extends React.Component {
               console.log("repooooonse")
               console.log(res)
               console.log("*********success***********")
+              
+             
               this.setState({ modalVisible: false })
-              alert("Votre proche a été ajouté avec succes!")
           })
           .done();
   }
+   
     return (
       <RadioButton.Group
         onValueChange={value => {this.setState({ value });this.props.AbleNext(false)}}
@@ -188,7 +191,7 @@ export default class ImagePickerExample extends React.Component {
                   <TextInput
                     style={styles.text_input}
                     placeholder="N° Téléphone"
-                    defaultValue='0673259781'
+                   // defaultValue=''
                     onChangeText={(tele) => { this.setState({tel:tele}) }}
 
                   />

@@ -1,3 +1,4 @@
+// Header du component qui sort lors du choix d'un assistant parmi la liste
 import React, { useEffect, useState } from 'react'
 import { View, Text,  StyleSheet,Image} from 'react-native'
 

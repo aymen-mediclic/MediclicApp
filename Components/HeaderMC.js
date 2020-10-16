@@ -1,3 +1,4 @@
+// Header du profil medecin/centre contient nom+specialite passé depuis meditem.js
 import React, { useEffect, useState } from 'react'
 import { View, Text,  StyleSheet,Image} from 'react-native'
 

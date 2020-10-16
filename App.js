@@ -15,7 +15,6 @@ import { NavigationContainer,useNavigation,DrawerActions } from '@react-navigati
 import { navigationRef } from './Navigation/NavigationService';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity, Text, Modal, View } from 'react-native';
-import Calendar from './Components/Calendar';
 import * as NavigationService from './Navigation/NavigationService';
 import SearchScreen from './Screens/SearchBarScreen';
 import RDV from './Screens/RdvScreen';
@@ -25,7 +24,6 @@ import En from 'react-native-vector-icons/Entypo';
 import DateC from './Screens/DateConsultation';
 import TypeC from './Components/TypeC';
 import VilleC from './Screens/VilleConsultation';
-import VilleC1 from './Screens/VilleC1';
 import ShortCut from './Components/ShortCut'
 import ChangeP from './Screens/ChangePosition';
 import Web from './Screens/Web';
@@ -156,16 +154,6 @@ export default class App extends React.Component {
               fontWeight: 'bold'
             }
           }} />
-          <Stack.Screen name="Calendar" component={Calendar} options={{
-            headerTintColor: '#fff',
-            headerStyle: {
-              backgroundColor: '#1E79C5',
-              height: 80,
-            },
-            headerTitleStyle: {
-              fontWeight: 'bold'
-            }
-          }} />
           <Stack.Screen name="Rechercher" component={SearchScreen} options={{
             headerTintColor: '#fff',
             headerStyle: {
@@ -248,17 +236,6 @@ export default class App extends React.Component {
             headerTitleStyle: {
               fontWeight: 'bold',
               fontSize:18
-            }
-          }} />
-          <Stack.Screen name="Choisisser la ville:" component={VilleC1} options={{
-            headerTintColor: '#fff',
-            headerStyle: {
-              backgroundColor: '#1E79C5',
-              height: 80,
-            },
-            headerTitleAlign: 'center',
-            headerTitleStyle: {
-              fontWeight: 'bold'
             }
           }} />
           <Stack.Screen name="Adresse du rendez-vous" component={ChangeP} options={{

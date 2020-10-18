@@ -1,3 +1,4 @@
+//Header du profil patient
 import React, { useEffect, useState } from 'react'
 import { View, Text,  StyleSheet,Image,AsyncStorage} from 'react-native'
 
@@ -27,7 +28,7 @@ export default class HeaderPat extends React.Component {
             
             
             <View style={{ marginLeft:20,margin:8}}>
-            <Text style={{color:'white',fontSize:17,alignSelf:'center'}}>ASMAA kh</Text>
+            <Text style={{color:'white',fontSize:17,alignSelf:'center'}}>ASMAA kh</Text> {/* userInfo.name */}
             
             </View>
             

@@ -1,3 +1,4 @@
+///Profil proche patient
 import React, { useEffect, useState } from 'react'
 import { View, TextInput, Button, StyleSheet, Text, Alert, TouchableOpacity, ScrollView, AsyncStorage, checkedIcon, Modal, ActivityIndicator } from 'react-native'
 import DatePicker from 'react-native-datepicker';

@@ -1,3 +1,4 @@
+// documents proche patient meme code que patient
 import React, { useEffect, useState } from 'react'
 import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableOpacity,ActivityIndicator } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'; 

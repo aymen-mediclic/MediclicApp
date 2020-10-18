@@ -1,3 +1,4 @@
+// documents patient
 import React, { useEffect, useState } from 'react'
 import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image, TouchableOpacity,ActivityIndicator } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'; 
@@ -28,7 +29,7 @@ export default function FScreen({ navigation }) {
             })
             .done();
     }, []);
-
+    // fonction utilise dans le renderitem de la flatlist
     function Item({ item }) {
         return (
             <View style={styles.item}>
@@ -88,6 +89,7 @@ export default function FScreen({ navigation }) {
           );
         }
       }
+      // fonction filtrer la data selon le type du champ
       const filterTextHandler = async (text,type)=>{
 
         let updatedText = {}
@@ -124,7 +126,7 @@ export default function FScreen({ navigation }) {
 
         filterHandler(updatedText)
     }
-
+// traitement des filtres
     const filterHandler = async (filterText)=>{
         
         const {profess, piecej, specilict, dateRdv,dateAjt} = filterText
@@ -155,7 +157,7 @@ export default function FScreen({ navigation }) {
         })
         
     }
-
+// remetre a zero la Data affiches
     const resetFilter = ()=>{
         setFilterDataHandler({
             filterData: [...Data.files],

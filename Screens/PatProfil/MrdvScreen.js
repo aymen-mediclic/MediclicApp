@@ -1,3 +1,4 @@
+//Rdv Patient
 import React, { useEffect, useState } from 'react'
 import { ScrollView, View, Text, Button, StyleSheet, FlatList,AsyncStorage,Picker, TouchableHighlight, TouchableOpacity, Alert, ActivityIndicator, StatusBar, ViewPropTypes } from 'react-native'
 import { url1, url2 } from '../../Navigation/GlobalUrl';
@@ -83,6 +84,7 @@ export default function MrdvScreen({ navigation }) {
             .done();
         }
     
+        // changer statut un RDV
     function rot(){
         var formdata = new FormData()
         
@@ -112,6 +114,7 @@ export default function MrdvScreen({ navigation }) {
       })
       .done();
     }
+    //Importer un document depuis memoire telephone
    const _pickDocument = async () => {
 	    let result = await DocumentPicker.getDocumentAsync({});
 		  alert(result.uri);
@@ -143,6 +146,7 @@ export default function MrdvScreen({ navigation }) {
         }
     }
 
+    // filtrer selon le champ
     const filterTextHandler = async (text,type)=>{
 
         let updatedText = {}
@@ -228,6 +232,7 @@ export default function MrdvScreen({ navigation }) {
         })
     }
 
+    // Traitment des filtres
     const filterHandler = async ()=>{
 
         const {filterFields} = filterDataHandler 
@@ -267,7 +272,7 @@ export default function MrdvScreen({ navigation }) {
             filterData: result,
         })
     }
-
+//Mettre A etat initial la data
     const resetFilter = ()=>{
         setFilterDataHandler({
             filterData: [...Data.rdvs],

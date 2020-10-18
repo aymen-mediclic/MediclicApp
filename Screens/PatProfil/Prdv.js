@@ -1,3 +1,4 @@
+//Rdv proche Patient meme code que patient
 import React, { useEffect, useState } from 'react'
 import { ScrollView, View, Text, Button, StyleSheet, FlatList, Image,Picker, TouchableHighlight, TouchableOpacity, Alert, ActivityIndicator, StatusBar, ViewPropTypes } from 'react-native'
 import { ActionSheet } from "native-base";

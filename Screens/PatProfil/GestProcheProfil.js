@@ -1,3 +1,4 @@
+// file principal du drawer navigator de tout les screens du profil proche patient
 import React, { useEffect, useState } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, ScrollView, checkedIcon, Modal } from 'react-native'

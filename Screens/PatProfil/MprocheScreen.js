@@ -1,3 +1,4 @@
+//proches du patient
 import React, { useEffect, useState } from 'react'
 import { ScrollView, View, Text, TextInput, StyleSheet, FlatList, Image, AsyncStorage, TouchableOpacity,ActivityIndicator } from 'react-native'
 //import { navigate } from '../../Navigation/NavigationService';
@@ -26,9 +27,11 @@ export default function MprochesScreen({ navigation }) {
     useEffect(() => {
         _retrieveData();
     }, []);
+
+    // fetch des data depuis le serveur
     const _retrieveData = async () => {
         try {
-          
+          //prendre l id du patient depuis stockage asynchrone
           let id = await AsyncStorage.getItem("id");
          
     
@@ -51,6 +54,8 @@ export default function MprochesScreen({ navigation }) {
             })
             .done();
         }
+
+     //Ajouter un proche   
     const update = () => {
         var formdata = new FormData()
             
@@ -85,6 +90,7 @@ export default function MprochesScreen({ navigation }) {
             })
             .done();
     }
+    //Pattern du formulaire ajout proche
     const checkError=()=> {
         if(nom == ''){
            setError(false), setColor('red')
@@ -113,6 +119,7 @@ export default function MprochesScreen({ navigation }) {
         
 
     }
+    //Majiscule premiere lettre prenom
     let Capitalize=(str)=>{
         return str.charAt(0).toUpperCase() + str.slice(1);
         }

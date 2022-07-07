@@ -35,7 +35,7 @@
     "expo-linking": "^1.0.4",
     "expo-notifications": "^0.7.2",
     "formik": "^2.1.4",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "native-base": "^2.13.8",
     "prop-types": "^15.7.2",
     "react": "~16.9.0",
